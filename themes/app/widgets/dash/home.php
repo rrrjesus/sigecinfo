@@ -169,33 +169,33 @@
                     data: [
                         {
                             name: 'Em estoque',
-                            y: <?=$chartPrinters->estoque / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->estoque / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Retirados',
                             sliced: true,
                             selected: true,
-                            y: <?=$chartPrinters->retirado / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->retirado / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Reservados',
-                            y: <?=$chartPrinters->reservado / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->reservado / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Devolvidos',
-                            y: <?=$chartPrinters->devolvido / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->devolvido / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Assistencia',
-                            y: <?=$chartPrinters->assistencia / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->assistencia / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Boletim',
-                            y: <?=$chartPrinters->boletim / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->boletim / $chartPrinters->totals) * 100 : 0?>
                         },
                         {
                             name: 'Baixa',
-                            y: <?=$chartPrinters->baixa / $chartPrinters->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartPrinters->baixa / $chartPrinters->totals) * 100 : 0?>
                         }
                     ]
                 }]
@@ -286,33 +286,33 @@
                     data: [
                         {
                             name: 'Em estoque',
-                            y: <?=$chartTablets->estoque / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->estoque / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Retirados',
                             sliced: true,
                             selected: true,
-                            y: <?=$chartTablets->retirado / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->retirado / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Reservados',
-                            y: <?=$chartTablets->reservado / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->reservado / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Devolvidos',
-                            y: <?=$chartTablets->devolvido / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->devolvido / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Assistencia',
-                            y: <?=$chartTablets->assistencia / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->assistencia / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Boletim',
-                            y: <?=$chartTablets->boletim / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->boletim / $chartTablets->totals) * 100 : 0?>
                         },
                         {
                             name: 'Baixa',
-                            y: <?=$chartTablets->baixa / $chartTablets->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets->baixa / $chartTablets->totals) * 100 : 0?>
                         }
                     ]
                 }]
@@ -404,33 +404,33 @@
                     data: [
                         {
                             name: 'Em estoque',
-                            y: <?=$chartChips->estoque / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->estoque / $chartChips->totals * 100) : 0?>
                         },
                         {
                             name: 'Retirados',
                             sliced: true,
                             selected: true,
-                            y: <?=$chartChips->retirado / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->retirado / $chartChips->totals * 100) : 0?>
                         },
                         {
                             name: 'Reservados',
-                            y: <?=$chartChips->reservado / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->reservado / $chartChips->totals) * 100 : 0?>
                         },
                         {
                             name: 'Devolvidos',
-                            y: <?=$chartChips->devolvido / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->devolvido / $chartChips->totals) * 100 : 0?>
                         },
                         {
                             name: 'Assistencia',
-                            y: <?=$chartChips->assistencia / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->assistencia / $chartChips->totals) * 100 : 0?>
                         },
                         {
                             name: 'Boletim',
-                            y: <?=$chartChips->boletim / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->boletim / $chartChips->totals * 100) : 0?>
                         },
                         {
                             name: 'Baixa',
-                            y: <?=$chartChips->baixa / $chartChips->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartChips->baixa / $chartChips->totals * 100) : 0?>
                         }
                     ]
                 }]
@@ -520,33 +520,33 @@
                     data: [
                         {
                             name: 'Em estoque',
-                            y: <?=$chartTablets2021->estoque / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->estoque / $chartTablets2021->totals) * 100 : 0?>
                         },
                         {
                             name: 'Retirados',
-                            y: <?=$chartTablets2021->retirado / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->retirado / $chartTablets2021->totals) * 100 : 0?>
                         },
                         {
                             name: 'Reservados',
-                            y: <?=$chartTablets2021->reservado / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->reservado / $chartTablets2021->totals) * 100 : 0?>
                         },
                         {
                             name: 'Devolvidos',
-                            y: <?=$chartTablets2021->devolvido / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->devolvido / $chartTablets2021->totals * 100) : 0?>
                         },
                         {
                             name: 'Assistencia',
-                            y: <?=$chartTablets2021->assistencia / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->assistencia / $chartTablets2021->totals) * 100 : 0?>
                         },
                         {
                             name: 'Boletim',
-                            y: <?=$chartTablets2021->boletim / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->boletim / $chartTablets2021->totals) * 100 : 0?>
                         },
                         {
                             name: 'Baixa',
                             sliced: true,
                             selected: true,
-                            y: <?=$chartTablets2021->baixa / $chartTablets2021->totals * 100?>
+                            y: <?=$chartPrinters->totals > 0 ? ($chartTablets2021->baixa / $chartTablets2021->totals) * 100 : 0?>
                         }
                     ]
                 }]

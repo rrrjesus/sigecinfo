@@ -3,15 +3,15 @@
 /**
  * DATABASE
  */
- define("CONF_DB_HOST", "192.168.15.54");
- define("CONF_DB_USER", "sigecinfost11");
- define("CONF_DB_PASS", "VYtf_y]4Ftn9E[nQ");
- define("CONF_DB_NAME", "sigecinfost11");
+ define("CONF_DB_HOST", "10.23.237.242");
+ define("CONF_DB_USER", "smsubcoti"); /** sigecinfost11 */
+ define("CONF_DB_PASS", "U4cKZ_NI0*2UeSHs"); /** VYtf_y]4Ftn9E[nQ */
+ define("CONF_DB_NAME", "sigecinfodb");
    
  /**
   * PROJECT URLs
   */
- define("CONF_URL_BASE", "http://192.168.15.54/sigecinfo");
+ define("CONF_URL_BASE", "http://10.23.237.242/sigecinfo");
  define("CONF_URL_TESTE", "http://127.0.0.1/sigecinfo");
  define("CONF_URL_ADMIN", "/dashboard");
 
