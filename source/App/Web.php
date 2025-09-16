@@ -64,7 +64,34 @@ class Web extends Controller
     }
 
     /**
-     * SITE BLOG
+     * SITE REUNIÕES
+     * @param array|null $data
+     * @return void
+     */
+    public function meetings(?array $data): void
+    {
+        $head = $this->seo->render(
+            "Reuniões - " . CONF_SITE_NAME ,
+            "Reuniões do SIGECINFO",
+            url("/reunioes"),
+            theme("/assets/images/share.jpg")
+        );
+
+        $meeting = (new Meeting())->find("status = :s", "s=actived")->fetch(true);
+
+        echo $this->view->render("meetings",
+            [
+                "head" => $head,
+                "meetings" => $meeting,
+                "urls" => "reunioes",
+                "icon" => "telephone",
+                "iconpage" => "list",
+                "page" => "Lista de Reuniões"
+            ]);
+    }
+
+    /**
+     * SITE CONTATOS
      * @param array|null $data
      * @return void
      */

@@ -6,7 +6,7 @@
  define("CONF_DB_HOST", "10.23.237.242");
  define("CONF_DB_USER", "smsubcoti"); /** sigecinfost11 */
  define("CONF_DB_PASS", "U4cKZ_NI0*2UeSHs"); /** VYtf_y]4Ftn9E[nQ */
- define("CONF_DB_NAME", "sigecinfodb");
+ define("CONF_DB_NAME", "sigecinfo");
    
  /**
   * PROJECT URLs

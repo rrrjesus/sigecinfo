@@ -38,14 +38,16 @@
                     <li class="nav-item nav col-6 col-lg-auto">
                         <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
                     </li>
+
+                    <li class="nav-item col-6 col-lg-auto">
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/reunioes")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Reuniões" href="<?=url("/reunioes")?>">Reuniões</a>
+                    </li>
+
                     <li class="nav-item col-6 col-lg-auto">
                         <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/contatos")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Contatos" href="<?=url("/contatos")?>">Contatos</a>
                     </li>
                     <li class="nav-item col-6 col-lg-auto">
                         <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/email")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="E-mail" href="<?=url("/email")?>">E-mail</a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/sobre")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Sobre" href="<?=url("/sobre")?>">Sobre</a>
                     </li>
 
                     <!--<li class="nav-item col-6 col-lg-auto">

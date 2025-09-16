@@ -50,7 +50,7 @@
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient fs-2 mb-3">
                     <i class="bi bi-wrench-adjustable-circle mb-3"></i>
                 </div>
-                <h3 class="fs-2 text-body-emphasis">Abertura de Chamado - TI Setor 11 </h3>
+                <h3 class="fs-2 text-body-emphasis">Abertura de Chamado - TI</h3>
                 <p>Para solicitação de suporte técnico é necessário a abertura de chamado no.
                     Basta enviar e-mail para <strong>informatica.setor11@gmail.com</strong>. Ao enviar o e-mail o sistema abre automaticamente um chamado. É possivel acompanhar as tratativas nas respostas de e-mail.</p>
                 <!-- <a href="<?=url("/blog/servicedesk")?>" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-placement="bottom" 
@@ -60,7 +60,7 @@
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-2 mb-3">
                     <i class="bi bi-envelope-at mb-3 text-light"></i>
                 </div>
-                <h3 class="fs-2 text-body-emphasis">E-mail Informática do Setor 11</h3>
+                <h3 class="fs-2 text-body-emphasis">E-mail TI do Setor 11</h3>
                 <p>Existe um e-mail de contato para <strong>Informática do Setor 11</strong> caso necessário : <a class="text-decoration-none fw-bold" href="mailto:<?=CONF_SITE_EMAIL?>"><?=CONF_SITE_EMAIL?></a>,
                     os chamados de suporte técnico também devem ser realizados através do envio de e-mail para que sejam devidamente tratados e solucionados.</p>
                     <!-- <a href="<?=url("/#")?>" class="btn btn-primary">Saiba Mais</a> -->

@@ -24,6 +24,10 @@ $route->get("/sobre", "Web:about");
 //assinatura de email
 $route->get("/email", "Web:creatorCard");
 
+//reuniões
+$route->group("/reunioes");
+$route->get("/", "Web:meetings");
+
 //agenda
 $route->group("/contatos");
 $route->get("/", "Web:contact");
