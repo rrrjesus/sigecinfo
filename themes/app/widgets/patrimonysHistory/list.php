@@ -43,7 +43,7 @@
                                 <th class="text-center">CEL</th>
                                 <th class="text-center">RF</th>
                                 <th class="text-center">EMAIL</th>
-                                <th class="text-center">UNIDADE</th>
+                                <th class="text-center">IGREJA</th>
                                 <th class="text-center">OBSERVACOES</th>
                                 <th class="text-center">TERMO</th>
                                 <th class="text-center">ANEXO</th>

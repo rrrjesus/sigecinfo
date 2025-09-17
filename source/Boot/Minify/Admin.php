@@ -42,7 +42,7 @@ if (strpos(url(), "localhost")) {
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/jszip.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.buttons.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.bootstrap5.js");
-    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/vfs_fonts.js");
+    // $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/vfs_fonts.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.html5.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.print.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.colVis.min.js");

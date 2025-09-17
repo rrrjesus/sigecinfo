@@ -46,9 +46,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="fw-semibold text-uppercase mb-1 fs-5">Igrejas</div>
-                                            <div class="h6 mb-1 font-weight-bold text-gray-800">Igrejas :  <?=$churches->churches?></div>
-                                            <div class="h6 mb-1 font-weight-bold text-gray-800">Desativadas :  <?=$churches->disableds?></div>
-                                            <div class="h6 mb-0 font-weight-bold text-gray-800">Total Geral:  <?=$churches->totais?></div>
+                                            <div class="h6 mb-1 font-weight-bold text-gray-800">Igrejas :  <?=$churchs->churchs?></div>
+                                            <div class="h6 mb-1 font-weight-bold text-gray-800">Desativadas :  <?=$churchs->disableds?></div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800">Total Geral:  <?=$churchs->totais?></div>
                                         </div>
                                         <div class="col-auto text-gray-300">
                                             <i class="bi bi-person-arms-up bi-2x"></i>

@@ -159,7 +159,7 @@ span.twitter-typeahead .tt-suggestion:focus, .dropdown-item:hover, span.twitter-
 
                 let sector = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: <?=(new \Source\Models\Contact())->completeUnit()?>
+                    local: <?=(new \Source\Models\Contact())->completeChurch()?>
                 });
                 sector.initialize();
                 $('.sector').typeahead({hint: true, highlight: true, minLength: 1}, {source: sector});
@@ -185,7 +185,7 @@ span.twitter-typeahead .tt-suggestion:focus, .dropdown-item:hover, span.twitter-
 
                 let secsubinp = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: <?=(new \Source\Models\Company\Unit())->completeName("unit_name")?>
+                    local: <?=(new \Source\Models\Company\Church())->completeName("unit_name")?>
                 });
                 secsubinp.initialize();
                 $('.secsubinp').typeahead({hint: true, highlight: true, minLength: 1}, {source: secsubinp});

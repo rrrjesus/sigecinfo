@@ -20,7 +20,7 @@ class UsersPositions extends Admin
     }
 
     /**
-     * unidade LISTA
+     * igreja LISTA
      */
     public function userspositions(): void
     {
@@ -218,7 +218,7 @@ class UsersPositions extends Admin
 
             $userpositionDelete->destroy();
 
-            $this->message->success("A unidade {$userpositionDelete->position_name} foi excluída com sucesso...")->icon("gift")->flash();
+            $this->message->success("A igreja {$userpositionDelete->position_name} foi excluída com sucesso...")->icon("gift")->flash();
             redirect("/painel/cargos");
             return;
         }

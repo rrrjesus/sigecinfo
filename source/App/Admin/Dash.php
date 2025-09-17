@@ -7,9 +7,8 @@ use Source\Models\Patrimony\Brand;
 use Source\Models\Patrimony\Patrimony;
 use Source\Models\Patrimony\Product;
 use Source\Models\Report\Online;
-use Source\Models\Company\Unit;
+use Source\Models\Company\Church;
 use Source\Models\Company\User;
-use Source\Models\Company\UserCategory;
 use Source\Models\Company\UserPosition;
 use Source\Models\Patrimony\Company;
 use Source\Models\Patrimony\Contract;
@@ -76,15 +75,10 @@ class Dash extends Admin
         echo $this->view->render("widgets/dash/home", [
             "app" => "dash",
             "head" => $head,
-            "units" => (object) [
-                "units" => (new Unit())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Unit())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Unit())->find()->count()
-            ],
-            "userscategories" => (object)[
-                "userscategories" => (new UserCategory())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new UserCategory())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new UserCategory())->find()->count()
+            "churchs" => (object) [
+                "churchs" => (new Church())->find("status = :s", "s=actived")->count(),
+                "disableds" => (new Church())->find("status = :s", "s=disabled")->count(),
+                "totals" => (new Church())->find()->count()
             ],
             "userspositions" => (object)[
                 "userspositions" => (new UserPosition())->find("status = :s", "s=actived")->count(),

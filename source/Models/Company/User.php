@@ -150,12 +150,12 @@ class User extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-    public function userUnit(): ?Unit
+    public function userChurch(): ?Church
     {
-        if($this->unit_id) {
-            return(new Unit())->findById($this->unit_id);
+        if($this->church_id) {
+            return(new Church())->findById($this->church_id);
         }
         return null;
     }
@@ -167,17 +167,6 @@ class User extends Model
     {
         if($this->position_id) {
             return(new UserPosition())->findById($this->position_id);
-        }
-        return null;
-    }
-
-    /**
-     * @return null|UserCategory
-     */
-    public function userCategory(): ?UserCategory
-    {
-        if($this->category_id) {
-            return(new UserCategory())->findById($this->category_id);
         }
         return null;
     }
@@ -240,15 +229,15 @@ class User extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-    public function unitSelect(): ?Unit
+    public function churchselect(): ?Church
     {
-        $stm = (new Unit())->find("status=:s","s=actived")->fetch(true);
+        $stm = (new Church())->find("status=:s","s=actived")->fetch(true);
 
         if(!empty($stm)):
             foreach ($stm as $row):
-                echo '<option value="'.$row->id.'">'.$row->unit_name.'</option>'; //Return the JSON Array
+                echo '<option value="'.$row->id.'">'.$row->church_name.'</option>'; //Return the JSON Array
             endforeach;
         endif;
         return null;

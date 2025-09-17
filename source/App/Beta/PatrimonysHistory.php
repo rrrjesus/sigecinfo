@@ -90,7 +90,7 @@ public function patrimonyHistory(?array $data): void
         }
 
         if($data["unit_id_history_edit"] == ""){
-            $json['message'] = $this->message->warning("Informe uma unidade para lançar nova movimentação do patrimônio !!!")->icon()->render();
+            $json['message'] = $this->message->warning("Informe uma igreja para lançar nova movimentação do patrimônio !!!")->icon()->render();
             echo json_encode($json);
             return;
         }

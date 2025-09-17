@@ -18,16 +18,16 @@
                     <div class="fw-semibold text-uppercase mb-3 fs-5 text-center"><i class="bi bi-bar-chart-line-fill"></i> SECRETARIA</div>
                         <div class="row">
 
-                            <!-- Unidades -->
+                            <!-- Igrejas -->
                             <div class="col-xl-3 col-6 mb-4">
                                 <div class="card border-left-<?=CONF_ADMIN_COLOR?> shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="fw-semibold text-uppercase mb-1 fs-5"><p><a href="../unidades" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Unidades</a></p></div>
-                                                <div class="h6 mb-1 font-weight-bold text-gray-800">Unidades :  <?=$units->units?></div>
-                                                <div class="h6 mb-1 font-weight-bold text-gray-800">Desativadas :  <?=$units->disableds?></div>
-                                                <div class="h6 mb-0 font-weight-bold text-gray-800">Total Geral:  <?=$units->totals?></div>
+                                                <div class="fw-semibold text-uppercase mb-1 fs-5"><p><a href="../igrejas" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Igrejas</a></p></div>
+                                                <div class="h6 mb-1 font-weight-bold text-gray-800">Igrejas :  <?=$churchs->churchs?></div>
+                                                <div class="h6 mb-1 font-weight-bold text-gray-800">Desativadas :  <?=$churchs->disableds?></div>
+                                                <div class="h6 mb-0 font-weight-bold text-gray-800">Total Geral:  <?=$churchs->totals?></div>
                                             </div>
                                             <div class="col-auto text-gray-300">
                                                 <i class="bi bi-building bi-2x"></i>

@@ -24,12 +24,12 @@ include_once '../../../source/Boot/Config.php';
 $table = <<<EOT
  ( 
 SELECT patrimonys.id, patrimonys.created_at, products.type_part_number, patrimonys.part_number, brands.brand_name, 
-products.product_name, users.user_name, users.login, users.rf, users.email, units.unit_name, units.it_professional, 
-units.fixed_phone, patrimonys.observations, patrimonys.file_terms
+products.product_name, users.user_name, users.login, users.rf, users.email, churchs.unit_name, churchs.it_professional, 
+churchs.fixed_phone, patrimonys.observations, patrimonys.file_terms
 FROM patrimonys
 LEFT JOIN products ON patrimonys.product_id = products.id
 LEFT JOIN brands ON products.brand_id = brands.id
-LEFT JOIN units ON patrimonys.unit_id = units.id
+LEFT JOIN churchs ON patrimonys.unit_id = churchs.id
 LEFT JOIN users ON patrimonys.user_id = users.id
 WHERE (((patrimonys.status) Like "actived")))temp
 EOT;

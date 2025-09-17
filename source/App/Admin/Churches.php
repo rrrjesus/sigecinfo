@@ -2,17 +2,17 @@
 
 namespace Source\App\Admin;
 
-use Source\Models\Company\Unit;
+use Source\Models\Company\Church;
 use Source\Models\Company\User;
 
 /**
- * Class Units
+ * Class Churchs
  * @package Source\App\Beta
  */
-class Units extends Admin
+class Churchs extends Admin
 {
     /**
-     * Units constructor.
+     * Churchs constructor.
      */
     public function __construct()
     {
@@ -20,26 +20,26 @@ class Units extends Admin
     }
 
     /**
-     * unidade LISTA
+     * igreja LISTA
      */
-    public function units(): void
+    public function churchs(): void
     {
         $head = $this->seo->render(
-            "Unidades - " . CONF_SITE_NAME,
+            "Igrejas - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
             url(),
             theme("/assets/images/favicon.ico"),
             false
         );
 
-        $units = (new Unit())->find("status = :s", "s=actived")->fetch(true);
-        $unit = new Unit();
+        $churches = (new Church())->find("status = :s", "s=actived")->fetch(true);
+        $unit = new Church();
 
-        echo $this->view->render("widgets/company/units/list", [
+        echo $this->view->render("widgets/company/churchs/list", [
             "head" => $head,
-            "units" => $units,
-            "urls" => "unidades",
-            "namepage" => "Unidades",
+            "churchs" => $churches,
+            "urls" => "igrejas",
+            "namepage" => "Igrejas",
             "name" => "Lista",
             "registers" => (object)[
                 "disabled" => $unit->find("status = :s", "s=disabled")->count()
@@ -52,25 +52,25 @@ class Units extends Admin
      * @throws \Exception
      */
     /** @return void */
-    public function disabledUnits(): void
+    public function disabledChurches(): void
     {
         $head = $this->seo->render(
-            "Unidades Desativadas - " . CONF_SITE_NAME ,
-            "Lista de Unidades Desativadas",
-            url("/painel/unidades/desativadas"),
+            "Igrejas Desativadas - " . CONF_SITE_NAME ,
+            "Lista de Igrejas Desativadas",
+            url("/painel/igrejas/desativadas"),
             theme("/assets/images/favicon.ico")
         );
 
-        $unit = (new Unit());
-        $units = $unit->find("status = :s", "s=disabled")->fetch(true);
+        $unit = (new Church());
+        $churches = $unit->find("status = :s", "s=disabled")->fetch(true);
 
-        echo $this->view->render("widgets/company/units/disabledList",
+        echo $this->view->render("widgets/company/churchs/disabledList",
             [
-                "admin" => "unidades",
+                "admin" => "igrejas",
                 "head" => $head,
-                "units" => $units,
-                "urls" => "unidades",
-                "namepage" => "Unidades",
+                "churchs" => $churches,
+                "urls" => "igrejas",
+                "namepage" => "Igrejas",
                 "name" => "Lista"
             ]);
 
@@ -80,7 +80,7 @@ class Units extends Admin
      * @param array|null $data
      * @throws \Exception
      */
-    public function unit(?array $data): void
+    public function church(?array $data): void
     {
         $user = (new User())->findById($this->user->id);
 
@@ -88,7 +88,7 @@ class Units extends Admin
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
 
-            $unitCreate = new Unit();
+            $unitCreate = new Church();
             $unitCreate->unit_name = $data["unit_name"];
             $unitCreate->description = $data["description"];
             $unitCreate->fixed_phone = $data["fixed_phone"];
@@ -102,7 +102,7 @@ class Units extends Admin
             $unitCreate->created_at = date_fmt('', "Y-m-d h:m:s");
 
             if($data["unit_name"] == "" || $data["description"] == "" || $data["adress"] == "" || $data["zip"] == "" || $data["it_professional"] == ""){
-                $json['message'] = $this->message->info("Informe a unidade, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
+                $json['message'] = $this->message->info("Informe a igreja, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -113,8 +113,8 @@ class Units extends Admin
                 return;
             }
 
-            $this->message->success("Unidade {$unitCreate->unit_name} cadastrada com sucesso...")->icon("emoji-grin me-1")->flash();
-            $json["redirect"] = url("/painel/unidades/cadastrar");
+            $this->message->success("Igreja {$unitCreate->unit_name} cadastrada com sucesso...")->icon("emoji-grin me-1")->flash();
+            $json["redirect"] = url("/painel/igrejas/cadastrar");
 
             echo json_encode($json);
             return;
@@ -123,15 +123,15 @@ class Units extends Admin
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $unitUpdate = (new Unit())->findById($data["unit_id"]);
+            $unitUpdate = (new Church())->findById($data["unit_id"]);
 
             if (!$unitUpdate) {
-                $this->message->error("Você tentou gerenciar uma unidade que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/unidades")]);
+                $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
+                echo json_encode(["redirect" => url("/painel/igrejas")]);
                 return;
             }
 
-            $unitUpdate = (new Unit())->findById($data["unit_id"]);
+            $unitUpdate = (new Church())->findById($data["unit_id"]);
             $unitUpdate->unit_name = $data["unit_name"];
             $unitUpdate->description = $data["description"];
             $unitUpdate->fixed_phone = $data["fixed_phone"];
@@ -145,7 +145,7 @@ class Units extends Admin
             $unitUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
 
             if($data["unit_name"] == "" || $data["description"] == "" || $data["adress"] == "" || $data["zip"] == "" || $data["it_professional"] == ""){
-                $json['message'] = $this->message->info("Informe a unidade, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
+                $json['message'] = $this->message->info("Informe a igreja, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -156,7 +156,7 @@ class Units extends Admin
                 return;
             }
 
-            $json["message"] = $this->message->success("Unidade {$unitUpdate->unit_name} atualizada com sucesso !!!")->icon("emoji-grin me-1")->render();
+            $json["message"] = $this->message->success("Igreja {$unitUpdate->unit_name} atualizada com sucesso !!!")->icon("emoji-grin me-1")->render();
             echo json_encode($json);
             return;
         }
@@ -164,11 +164,11 @@ class Units extends Admin
           //actived
          if (!empty($data["action"]) && $data["action"] == "actived") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $unitActived = (new Unit())->findById($data["unit_id"]);
+            $unitActived = (new Church())->findById($data["unit_id"]);
 
             if (!$unitActived) {
-                $this->message->error("Você tentou gerenciar uma unidade que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/unidades")]);
+                $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
+                echo json_encode(["redirect" => url("/painel/igrejas")]);
                 return;
             }
 
@@ -181,8 +181,8 @@ class Units extends Admin
                 return;
             }
 
-            $this->message->success("Unidade {$unitActived->unit_name} reativada com sucesso !!!")->icon("gift")->flash();
-            redirect("/painel/unidades/desativadas");
+            $this->message->success("Igreja {$unitActived->unit_name} reativada com sucesso !!!")->icon("gift")->flash();
+            redirect("/painel/igrejas/desativadas");
             return;
         }
 
@@ -190,11 +190,11 @@ class Units extends Admin
          //disabled
          if (!empty($data["action"]) && $data["action"] == "disabled") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $unitDisabled = (new Unit())->findById($data["unit_id"]);
+            $unitDisabled = (new Church())->findById($data["unit_id"]);
 
             if (!$unitDisabled) {
-                $this->message->error("Você tentou gerenciar uma unidade que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/unidades")]);
+                $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
+                echo json_encode(["redirect" => url("/painel/igrejas")]);
                 return;
             }
 
@@ -207,48 +207,48 @@ class Units extends Admin
                 return;
             }
 
-            $this->message->success("Unidade {$unitDisabled->unit_name} desativada com sucesso !!!")->icon("gift")->flash();
-            redirect("/painel/unidades");
+            $this->message->success("Igreja {$unitDisabled->unit_name} desativada com sucesso !!!")->icon("gift")->flash();
+            redirect("/painel/igrejas");
             return;
         }
 
         //delete
         if (!empty($data["action"]) && $data["action"] == "delete") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $unitDelete = (new Unit())->findById($data["unit_id"]);
+            $unitDelete = (new Church())->findById($data["unit_id"]);
 
             if (!$unitDelete) {
-                $this->message->error("Você tentou deletar uma unidade que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/unidades")]);
+                $this->message->error("Você tentou deletar uma igreja que não existe")->icon("gift")->flash();
+                echo json_encode(["redirect" => url("/painel/igrejas")]);
                 return;
             }
 
             $unitDelete->destroy();
 
-            $this->message->success("A unidade {$unitDelete->unit_name} foi excluída com sucesso...")->icon("gift")->flash();
-            redirect("/painel/unidades");
+            $this->message->success("A igreja {$unitDelete->unit_name} foi excluída com sucesso...")->icon("gift")->flash();
+            redirect("/painel/igrejas");
             return;
         }
 
         $unitEdit = null;
         if (!empty($data["unit_id"])) {
             $unitId = filter_var($data["unit_id"], FILTER_VALIDATE_INT);
-            $unitEdit = (new Unit())->findById($unitId);
+            $unitEdit = (new Church())->findById($unitId);
         }
 
         $head = $this->seo->render(
-            "Unidades - " . CONF_SITE_NAME,
+            "Igrejas - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
             url(),
             theme("/assets/images/favicon.ico"),
             false
         );
 
-        echo $this->view->render("widgets/company/units/unit", [
+        echo $this->view->render("widgets/company/churchs/church", [
             "head" => $head,
-            "unit" => $unitEdit,
-            "urls" => "unidades",
-            "namepage" => "Unidades",
+            "church" => $unitEdit,
+            "urls" => "igrejas",
+            "namepage" => "Igrejas",
             "name" => ($unitEdit ? "Editar" : "Cadastrar")
         ]);
     }

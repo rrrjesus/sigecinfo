@@ -12,7 +12,7 @@
                             <th class="text-center">NOME</th>
                             <th class="text-center">TERMO</th>
                             <th class="text-center">TERMO ASS</th>
-                            <th class="text-center">UNIDADE</th>
+                            <th class="text-center">IGREJA</th>
                             <th class="text-center">OBSERVACOES</th>
                         </tr>
                     </thead>
@@ -30,7 +30,7 @@
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->user_name) ? $lista->user()->user_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->termlistUser();?></td>
                             <td class="text-center"><?=$lista->fileList()?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->unit()->unit_name) ? $lista->unit()->unit_name : "")?></td>
+                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->unit_name) ? $lista->church()->unit_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->observations?></td>
                         </tr>
                         <?php endforeach; ?>

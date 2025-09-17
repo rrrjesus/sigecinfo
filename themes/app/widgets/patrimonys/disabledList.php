@@ -39,7 +39,7 @@
                             <th class="text-center">LOGIN</th>
                             <th class="text-center">RF</th>
                             <th class="text-center">EMAIL</th>
-                            <th class="text-center">UNIDADE</th>
+                            <th class="text-center">IGREJA</th>
                             <th class="text-center">OBSERVAÇÕES</th>
                             <th class="text-center">ATIVAR</th>
                         </tr>

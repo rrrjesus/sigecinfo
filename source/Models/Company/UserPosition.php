@@ -5,7 +5,7 @@ namespace Source\Models\Company;
 use Source\Core\Model;
 
 /**
- * Rodolfo | Class Unit Active Record Pattern
+ * Rodolfo | Class Church Active Record Pattern
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
  * @package Source\Models

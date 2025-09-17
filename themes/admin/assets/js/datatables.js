@@ -542,7 +542,7 @@ $(document).ready(function() {
                 {display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return data[0] + ' ' + data[6];
+                            return data[0] + ' ' + data[3];
                 },
                 update: true
             }),
@@ -560,22 +560,22 @@ $(document).ready(function() {
         "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
         "aoColumnDefs": [
             {
-                "aTargets": [11], // o numero da coluna
+                "aTargets": [10], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
                     return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                        'data-bs-title="Clique para desativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[11]+'">' +
+                        'data-bs-title="Clique para desativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[10]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
-                        '<div class="modal fade" id="activedModal' + full[11] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+                        '<div class="modal fade" id="activedModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
                             '<div class="modal-dialog modal-sm">\n' +
                                 '<div class="modal-content">\n' +
                                     '<div class="modal-header bg-warning text-light">\n' +
-                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> Desativar ID: ' + full[11] + '</h6>\n' +
+                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> Desativar ID: ' + full[10] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
                                     '<div class="modal-body fw-semibold">Deseja desativar o usuario : ' + full[3] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="usuarios/desativar/' + full[11] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="usuarios/desativar/' + full[10] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -648,8 +648,8 @@ $(document).ready(function() {
         ]
     });
 
-    //Lista de Unidades
-    $('#units').DataTable( {
+    //Lista de Igrejas
+    $('#churchs').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
                 selector: '[data-bs-togglee="tooltip"]'
@@ -698,10 +698,10 @@ $(document).ready(function() {
                                     '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> DESATIVAR - ' + full[2] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja desativar a unidade : ' + full[3] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja desativar a igreja : ' + full[3] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="unidades/desativar/' + full[11] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="igrejas/desativar/' + full[11] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -711,8 +711,8 @@ $(document).ready(function() {
         ]
     });
 
-      //Lista de Unidades
-      $('#unitsDisabled').DataTable( {
+      //Lista de Igrejas
+      $('#churchesDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
                 selector: '[data-bs-togglee="tooltip"]'
@@ -761,7 +761,7 @@ $(document).ready(function() {
                                     '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> ATIVAÇÃO - ' + full[1] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja ativar a unidade : ' + full[1] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja ativar a igreja : ' + full[1] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
                                     '<a href="ativar/' + full[10] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +

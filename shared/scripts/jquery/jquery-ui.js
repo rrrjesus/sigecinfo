@@ -1269,9 +1269,9 @@ $.extend( $.effects, {
 	setTransition: function( element, list, factor, value ) {
 		value = value || {};
 		$.each( list, function( i, x ) {
-			var unit = element.cssUnit( x );
-			if ( unit[ 0 ] > 0 ) {
-				value[ x ] = unit[ 0 ] * factor + unit[ 1 ];
+			var church = element.cssChurch( x );
+			if ( church[ 0 ] > 0 ) {
+				value[ x ] = church[ 0 ] * factor + church[ 1 ];
 			}
 		} );
 		return value;
@@ -1502,13 +1502,13 @@ $.fn.extend( {
 		};
 	} )( $.fn.toggle ),
 
-	cssUnit: function( key ) {
+	cssChurch: function( key ) {
 		var style = this.css( key ),
 			val = [];
 
-		$.each( [ "em", "px", "%", "pt" ], function( i, unit ) {
-			if ( style.indexOf( unit ) > 0 ) {
-				val = [ parseFloat( style ), unit ];
+		$.each( [ "em", "px", "%", "pt" ], function( i, church ) {
+			if ( style.indexOf( church ) > 0 ) {
+				val = [ parseFloat( style ), church ];
 			}
 		} );
 		return val;

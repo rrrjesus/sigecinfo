@@ -55,10 +55,10 @@
                                 </div>
 
                                 <div class="col-7 mb-1">
-                                    <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unidade</strong></label>
+                                    <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                     <input type="text" data-bs-togglee="tooltip" tabindex="8" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                        data-bs-title="Digite a unidade - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm unit_id"
-                                        name="unit_id_edit" id="unit_id_edit" placeholder="UNIDADE">
+                                        data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm unit_id"
+                                        name="unit_id_edit" id="unit_id_edit" placeholder="IGREJA">
                                 </div>
 
                             </div>

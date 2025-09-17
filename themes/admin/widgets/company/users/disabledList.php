@@ -30,7 +30,7 @@
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>RF</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NOME</th>
                     <th class="text-center"><i class="bi bi-building me-1"></i><br>CARGO</th>
-                    <th class="text-center"><i class="bi bi-building me-1"></i><br>UNIDADE</th>
+                    <th class="text-center"><i class="bi bi-building me-1"></i><br>IGREJA</th>
                     <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>EMAIL</th>
                     <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>STATUS</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NIVEL</th>
@@ -46,7 +46,7 @@
                         <td class="text-center"><?=$lista->rf;?></td>
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
                         <td class="text-center"><?=$lista->userPosition()->position_name;?></td>
-                        <td class="text-center"><?=$lista->userUnit()->unit_name;?></td>
+                        <td class="text-center"><?=$lista->userChurch()->church_name;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
                         <td class="text-center"><?=$lista->statusSpan();?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_nome;?>

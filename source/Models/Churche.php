@@ -5,26 +5,26 @@ namespace Source\Models;
 use Source\Core\Model;
 
 /**
- * SIGECINFO | Class Churche
+ * SIGECINFO | Class Church
  *
  * @author Rodolfo <rodolfo.romaioli@gmail.com>
  * @package Source\Models
  */
-class Churche extends Model
+class Church extends Model
 {
     /**
-     * Churche constructor.
+     * Church constructor.
      */
     public function __construct()
     {
-        parent::__construct("churches", ["id"], ["churche_name", "status"]);
+        parent::__construct("churchs", ["id"], ["churche_name", "status"]);
     }
 
     /**
      * @param string $columns
-     * @return null|Churche
+     * @return null|Church
      */
-    public function findByChurche(string $name_churche, string $columns = "*"): ?Churche
+    public function findByChurche(string $name_churche, string $columns = "*"): ?Church
     {
         $find = $this->find("name_churche = :name_churche", "name_churche={$name_churche}", $columns);
         return $find->fetch();
@@ -48,7 +48,7 @@ class Churche extends Model
     public function save(): bool
     {
 
-        /** Churche Update */
+        /** Church Update */
         if (!empty($this->id)) {
             $churcheId = $this->id;
 
@@ -64,7 +64,7 @@ class Churche extends Model
             }
         }
 
-        /** Churche Create */
+        /** Church Create */
         if (empty($this->id)) {
             if ($this->findByChurche($this->name_churche, "id")) {
                 $this->message->warning("A igreja informada já está cadastrada !!!");

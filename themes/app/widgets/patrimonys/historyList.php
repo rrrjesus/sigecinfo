@@ -16,7 +16,7 @@
                             <th class="text-center">EMAIL</th>
                             <th class="text-center">TERMO</th>
                             <th class="text-center">TERMO ASS</th>
-                            <th class="text-center">UNIDADE</th>
+                            <th class="text-center">IGREJA</th>
                             <th class="text-center">OBSERVACOES</th>
                             <?php if ($user->level_id > 3){?>
                                 <th class="text-center">EXCLUIR</th>
@@ -41,7 +41,7 @@
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->email) ? $lista->user()->email : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->termList();?></td>
                             <td class="text-center"><?=$lista->fileList()?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->unit()->unit_name) ? $lista->unit()->unit_name : "")?></td>
+                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->unit_name) ? $lista->church()->unit_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->observations?></td>
                             <?php if ($user->level_id > 3){?>
                             <td class="text-center"><button type="button" data-bs-togglee="modal" accesskey="b" data-bs-toggle="modal" data-bs-target="#trash-<?=$lista->id;?>" 

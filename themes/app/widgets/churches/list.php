@@ -48,9 +48,9 @@
                             class="btn btn-outline-warning rounded-circle btn-sm text-center <?php if(user()->level_id < 3){echo 'disabled';}?>"><i class="bi bi-pencil text-<?=CONF_APP_COLOR?>"></i></a></td>
                         <td class="text-center text-uppercase"><?=$lista->contact_name;?></td>
                         <td class="text-center">4934-<?=$lista->ramal;?></td>
-                        <td class="text-center"><?=$lista->unit()->unit_name;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->unit()->it_professional;?></td>
-                        <td class="text-center"><?=$lista->unit()->fixed_phone;?></td>
+                        <td class="text-center"><?=$lista->church()->unit_name;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->church()->it_professional;?></td>
+                        <td class="text-center"><?=$lista->church()->fixed_phone;?></td>
                         <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                         class="btn btn-outline-danger rounded-circle btn-sm text-center"><i class="bi bi-telephone-x"></i></b></td>
                             <!-- Modal -->
@@ -97,7 +97,7 @@
                 <?php foreach ($contacts as $lista): ?>
                     <tr>
                         <td class="text-center"><?=$lista->contact_name;?></td>
-                        <td class="text-center"><?=$lista->unit()->unit_name;?></td>
+                        <td class="text-center"><?=$lista->church()->unit_name;?></td>
                         <td class="text-center"><?=$lista->ramal;?></td>
                         <td class="text-center"><?=$lista->statusBadge();?></td>
                     </tr>

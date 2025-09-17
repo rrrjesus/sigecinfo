@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `churches`
+-- Estrutura para tabela `churchs`
 --
 
-CREATE TABLE `churches` (
+CREATE TABLE `churchs` (
   `id` int(11) UNSIGNED NOT NULL,
   `churche_name` varchar(150) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'actived',
@@ -38,10 +38,10 @@ CREATE TABLE `churches` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `churches`
+-- Despejando dados para a tabela `churchs`
 --
 
-INSERT INTO `churches` (`id`, `churche_name`, `status`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
+INSERT INTO `churchs` (`id`, `churche_name`, `status`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
 (1, 'Barrocada', 'actived', '2025-09-16 19:55:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -210,9 +210,9 @@ INSERT INTO `user_positions` (`id`, `name`, `description`, `created_at`, `update
 --
 
 --
--- Índices de tabela `churches`
+-- Índices de tabela `churchs`
 --
-ALTER TABLE `churches`
+ALTER TABLE `churchs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_churches_created_by` (`login_created`),
   ADD KEY `fk_churches_updated_by` (`login_updated`);
@@ -282,9 +282,9 @@ ALTER TABLE `user_positions`
 --
 
 --
--- AUTO_INCREMENT de tabela `churches`
+-- AUTO_INCREMENT de tabela `churchs`
 --
-ALTER TABLE `churches`
+ALTER TABLE `churchs`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -334,9 +334,9 @@ ALTER TABLE `user_positions`
 --
 
 --
--- Restrições para tabelas `churches`
+-- Restrições para tabelas `churchs`
 --
-ALTER TABLE `churches`
+ALTER TABLE `churchs`
   ADD CONSTRAINT `fk_churches_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_churches_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
@@ -360,7 +360,7 @@ ALTER TABLE `levels`
 -- Restrições para tabelas `meetings`
 --
 ALTER TABLE `meetings`
-  ADD CONSTRAINT `fk_meetings_church` FOREIGN KEY (`church_id`) REFERENCES `churches` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_meetings_church` FOREIGN KEY (`church_id`) REFERENCES `churchs` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_meetings_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_meetings_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
@@ -374,7 +374,7 @@ ALTER TABLE `report_online`
 -- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `fk_users_church` FOREIGN KEY (`church_id`) REFERENCES `churches` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_users_church` FOREIGN KEY (`church_id`) REFERENCES `churchs` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_level` FOREIGN KEY (`level_id`) REFERENCES `levels` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_users_position` FOREIGN KEY (`position_id`) REFERENCES `user_positions` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,

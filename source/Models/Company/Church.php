@@ -4,11 +4,11 @@ namespace Source\Models\Company;
 
 use Source\Core\Model;
 
-class Unit extends Model
+class Church extends Model
 {
     public function __construct()
     {
-        parent::__construct("units", ["id"], ["unit_name", "description", "photo", "email", "street", "zip_code", "logo"]);
+        parent::__construct("churchs", ["id"], ["church_name", "country_id", "code_id", "address", "city", "state", "status"]);
     }
 
     /**
@@ -16,7 +16,7 @@ class Unit extends Model
      * @param string $columns
      * @return null|User
      */
-    public function findByEmail(string $email, string $columns = "*"): ?Unit
+    public function findByEmail(string $email, string $columns = "*"): ?Church
     {
         $find = $this->find("email = :email", "email={$email}", $columns);
         return $find->fetch();
@@ -76,16 +76,16 @@ class Unit extends Model
     } 
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-    static function completeName($columns): ?Unit
+    static function completeName($columns): ?Church
     {
-        $stm = (new Unit())->find("","",$columns);
+        $stm = (new Church())->find("","",$columns);
         $array[] = array();
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->unit_name;
+                    $array[] = $row->churche_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -93,16 +93,16 @@ class Unit extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-    static function completeUnit(): ?Unit
+    static function completeChurch(): ?Church
     {
-        $stm = (new Unit())->find("status= :s","s=actived");
+        $stm = (new Church())->find("status= :s","s=actived");
         $array[] = array();
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->id.' - '.$row->unit_name;
+                    $array[] = $row->id.' - '.$row->church_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -122,14 +122,14 @@ class Unit extends Model
 
         /** User Update */
         if (!empty($this->id)) {
-            $unitId = $this->id;
+            $churchId = $this->id;
 
-            if (!empty($this->email) && $this->find("email = :e AND id != :i", "e={$this->email}&i={$unitId}", "id")->fetch()) {
+            if (!empty($this->email) && $this->find("email = :e AND id != :i", "e={$this->email}&i={$churchId}", "id")->fetch()) {
                 $this->message->warning("O e-mail informado já está cadastrado");
                 return false;
             }
 
-            $this->update($this->safe(), "id = :id", "id={$unitId}");
+            $this->update($this->safe(), "id = :id", "id={$churchId}");
             if ($this->fail()) {
                 $this->message->error("Erro ao atualizar, verifique os dados");
                 return false;
@@ -143,14 +143,14 @@ class Unit extends Model
                 return false;
             }
 
-            $unitId = $this->create($this->safe());
+            $churcheId = $this->create($this->safe());
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
                 return false;
             }
         }
 
-        $this->data = ($this->findById($unitId))->data();
+        $this->data = ($this->findById($churcheId))->data();
         return true;
     }
 }

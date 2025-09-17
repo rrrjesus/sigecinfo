@@ -189,8 +189,8 @@ ul {margin-bottom:0cm;}
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>FUNÇÃO</span></b><span
       style='font-family:"Arial",sans-serif'>: <?=$term->userPosition($term->userPatrimony()->position_id)->position_name?></span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
-      -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>UNIDADE</span></b><span
-      style='font-family:"Arial",sans-serif'>: <?=$term->userUnit($term->userPatrimony()->unit_id)->unit_name?></span></p>
+      -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>IGREJA</span></b><span
+      style='font-family:"Arial",sans-serif'>: <?=$term->userChurch($term->userPatrimony()->unit_id)->unit_name?></span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>TEL</span></b><span
       style='font-family:"Arial",sans-serif'>.<b>PESSOAL</b>: <?=$term->userPatrimony()->cell_phone?></span></p>
@@ -214,7 +214,7 @@ ul {margin-bottom:0cm;}
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>FUNÇÃO</span></b><span
       style='font-family:"Arial",sans-serif'>: _______________________________</span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
-      -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>UNIDADE</span></b><span
+      -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>IGREJA</span></b><span
       style='font-family:"Arial",sans-serif'>: ______________________________</span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>TEL</span></b><span

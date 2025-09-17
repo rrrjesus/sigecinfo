@@ -224,7 +224,7 @@ class Patrimonys extends Admin
             }
 
             if($data["unit_id"] == ""){
-                $json['message'] = $this->message->warning("Informe uma unidade para criar o patrimônio !")->icon()->render();
+                $json['message'] = $this->message->warning("Informe uma igreja para criar o patrimônio !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -316,7 +316,7 @@ class Patrimonys extends Admin
             }
 
             if($data["unit_id_edit"] == ""){
-                $json['message'] = $this->message->warning("Informe uma unidade para lançar nova movimentação do patrimônio !!!")->icon()->render();
+                $json['message'] = $this->message->warning("Informe uma igreja para lançar nova movimentação do patrimônio !!!")->icon()->render();
                 echo json_encode($json);
                 return;
             }

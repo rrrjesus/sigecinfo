@@ -5,7 +5,7 @@ namespace Source\Models\Patrimony;
 use Source\Core\Model;
 use Source\Models\Patrimony\Product;
 use Source\Models\Patrimony\Movement;
-use Source\Models\Company\Unit;
+use Source\Models\Company\Church;
 use Source\Models\Company\User;
 
 
@@ -71,12 +71,12 @@ class Patrimony extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-    public function unit(): ?Unit
+    public function church(): ?Church
     {
         if($this->unit_id) {
-            return(new Unit())->findById($this->unit_id);
+            return(new Church())->findById($this->unit_id);
         }
         return null;
     }
@@ -193,11 +193,11 @@ class Patrimony extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Church
      */
-     static function completeUnit(): ?Unit
+     static function completeChurch(): ?Church
      {
-         $stm = (new Unit())->find("status = :s","s=actived");
+         $stm = (new Church())->find("status = :s","s=actived");
          $array = array();
  
          if(!empty($stm)):

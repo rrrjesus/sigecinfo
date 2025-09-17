@@ -106,7 +106,7 @@ $(function () {
                 required: "Digite o produto !!!"
             },
             unit_id: {
-                required: "Digite a unidade !!!"
+                required: "Digite a igreja !!!"
             },
             type_part_number: {
                 required: "Digite o tipo de registro !!!"

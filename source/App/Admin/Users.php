@@ -4,8 +4,7 @@ namespace Source\App\Admin;
 
 use Source\Models\Company\User;
 use Source\Models\Company\UserPosition;
-use Source\Models\Company\UserCategory;
-use Source\Models\Company\Unit;
+use Source\Models\Company\Church;
 use Source\Support\Thumb;
 use Source\Support\Upload;
 use Source\Models\Patrimony\Patrimony;
@@ -154,7 +153,7 @@ class Users extends Admin
 
         $profileEdit = null;
         $userposition = new UserPosition();
-        $unit = new Unit();
+        $church = new Church();
 
         if (!empty($this->user->id)) {
             $profileId = filter_var($this->user->id, FILTER_VALIDATE_INT);
@@ -174,7 +173,7 @@ class Users extends Admin
             "head" => $head,
             "profile" => $profileEdit,
             "userposition" => $userposition,
-            "unit" => $unit,
+            "church" => $church,
             "urls" => "perfil",
             "namepage" => "Perfil",
             "name" => "{$profileEdit->user_name}",
@@ -390,8 +389,7 @@ class Users extends Admin
         }
 
         $userposition = new UserPosition();
-        $usercategory = new UserCategory();
-        $unit = new Unit();
+        $church = new Church();
 
         $userEdit = null;
         $userPatrimony = null;
@@ -420,7 +418,7 @@ class Users extends Admin
             "userhistory" => $userHistory,
             "userposition" => $userposition,
             "usercategory" => $usercategory,
-            "unit" => $unit,
+            "church" => $church,
             "urls" => ($userEdit ? "usuarios" : "usuarios"),
             "namepage" => "Usuários",
             "name" => ($userEdit ? "Editar" : "Cadastrar")

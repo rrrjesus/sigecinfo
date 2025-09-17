@@ -38,16 +38,16 @@
                 <div class="collapse" id="collapseInstitutions" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
-                        <!-- Sidebar de unidades -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUnits" aria-expanded="false" aria-controls="collapseUnits">
+                        <!-- Sidebar de igrejas -->
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseChurches" aria-expanded="false" aria-controls="collapseChurches">
                             <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
-                            Unidades
+                            Igrejas
                             <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseUnits" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUnit">
+                        <div class="collapse" id="collapseChurches" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionChurch">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/unidades")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/unidades/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
                             </nav>
                         </div>
                         <!-- Sidebar de cargos -->

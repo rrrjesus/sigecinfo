@@ -2537,7 +2537,7 @@
 		}
 	
 		var sum = 0;
-		var unit;
+		var church;
 		var columns = settings.aoColumns;
 		
 		for ( var i=0, ien=targets.length ; i<ien ; i++ ) {
@@ -2554,7 +2554,7 @@
 				return null; // can't determine a defined width - browser defined
 			}
 			else if ( typeof definedWidth === 'number' ) {
-				unit = 'px';
+				church = 'px';
 				sum += definedWidth;
 			}
 			else {
@@ -2562,14 +2562,14 @@
 	
 				if ( matched ) {
 					sum += matched[1] * 1;
-					unit = matched.length === 3 ?
+					church = matched.length === 3 ?
 						matched[2] :
 						'px';
 				}
 			}
 		}
 	
-		return sum + unit;
+		return sum + church;
 	}
 	
 	function _fnColumnsFromHeader( cell )
@@ -5560,9 +5560,9 @@
 	
 	
 	/**
-	 * Append a CSS unit (only if required) to a string
+	 * Append a CSS church (only if required) to a string
 	 *  @param {string} value to css-ify
-	 *  @returns {string} value with css unit
+	 *  @returns {string} value with css church
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnStringToCss( s )
@@ -5577,7 +5577,7 @@
 				s+'px';
 		}
 	
-		// Check it has a unit character already
+		// Check it has a church character already
 		return s.match(/\d$/) ?
 			s+'px' :
 			s;
@@ -10462,7 +10462,7 @@
 		/**
 		 * When rendering large numbers in the information element for the table
 		 * (i.e. "Showing 1 to 10 of 57 entries") DataTables will render large numbers
-		 * to have a comma separator for the 'thousands' units (e.g. 1 million is
+		 * to have a comma separator for the 'thousands' churchs (e.g. 1 million is
 		 * rendered as "1,000,000") to help readability for the end user. This
 		 * function will override the default method DataTables uses.
 		 */
@@ -10897,7 +10897,7 @@
 		 * certain layout, or you have a large number of columns in the table, you
 		 * can enable x-scrolling to show the table in a viewport, which can be
 		 * scrolled. This property can be `true` which will allow the table to
-		 * scroll horizontally when needed, or any CSS unit, or a number (in which
+		 * scroll horizontally when needed, or any CSS church, or a number (in which
 		 * case it will be treated as a pixel measurement). Setting as simply `true`
 		 * is recommended.
 		 */
@@ -10909,7 +10909,7 @@
 		 * might otherwise do when x-scrolling is enabled. For example if you have a
 		 * table which requires to be well spaced, this parameter is useful for
 		 * "over-sizing" the table, and thus forcing scrolling. This property can by
-		 * any CSS unit, or a number (in which case it will be treated as a pixel
+		 * any CSS church, or a number (in which case it will be treated as a pixel
 		 * measurement).
 		 */
 		"sScrollXInner": "",
@@ -10920,7 +10920,7 @@
 		 * to the given height, and enable scrolling for any data which overflows the
 		 * current viewport. This can be used as an alternative to paging to display
 		 * a lot of data in a small area (although paging and scrolling can both be
-		 * enabled at the same time). This property can be any CSS unit, or a number
+		 * enabled at the same time). This property can be any CSS church, or a number
 		 * (in which case it will be treated as a pixel measurement).
 		 */
 		"sScrollY": "",

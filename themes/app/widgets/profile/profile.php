@@ -65,7 +65,7 @@
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                             data-bs-title="Cargo" class="form-control form-control-sm"
-                            name="position" placeholder="Unit" value="<?=$user->userPosition()->position_name?>" disabled readonly>
+                            name="position" placeholder="Church" value="<?=$user->userPosition()->position_name?>" disabled readonly>
                     </div>
 
                     <div class="col-2 mb-1">
@@ -76,10 +76,10 @@
                     </div>
 
                     <div class="col-3 mb-1">
-                        <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unit</strong></label>
+                        <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
-                            data-bs-title="Unit" class="form-control form-control-sm"
-                            name="unit" placeholder="Unit" value="<?='00'.$user->userUnit()->id.' - '.$user->userUnit()->unit_name?>" disabled readonly>
+                            data-bs-title="Church" class="form-control form-control-sm"
+                            name="church" placeholder="Church" value="<?='00'.$user->userChurch()->id.' - '.$user->userChurch()->unit_name?>" disabled readonly>
                     </div>
 
                     <div class="col-3 mb-1">

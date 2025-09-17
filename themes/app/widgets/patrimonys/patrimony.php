@@ -66,10 +66,10 @@
                             </div>
 
                             <div class="col-7 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unidade</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
-                                data-bs-title="Digite a unidade - Ex : 22 - SIGECINFO/COTI" tabindex="8" class="form-control form-control-sm unit_id"
-                                    name="unit_id" id="unit_id" placeholder="UNIDADE">
+                                data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" tabindex="8" class="form-control form-control-sm unit_id"
+                                    name="unit_id" id="unit_id" placeholder="IGREJA">
                             </div>
 
                         </div>
@@ -118,8 +118,8 @@
                                 <h5 class="card-title"><?=$patrimonys->product()->brand()->brand_name.' '.$patrimonys->product()->product_name.' - '.$patrimonys->product()->type_part_number.' : '.$patrimonys->part_number?></h5>
                                 <p class="card-text"><?=$patrimonys->product()->acessories?></p>
                                 <p class="card-text"><b><?=$patrimonys->movement()->movement_name?></b> em <?=date_fmt($patrimonys->updated_at)?> - <b>Usuario : </b>
-                                    <?=(!empty($patrimonys->user()->user_name) ? $patrimonys->user()->user_name : 'Não Cadastrado')?> - <b>Unidade : </b>
-                                    <?=$patrimonys->unit()->unit_name.buttonLink("/beta/patrimonio/termo/{$patrimonys->id}", "top", "Clique para imprimir o termo", "primary ms-3", "file-earmark-word", "Termo", "9", "t", "_blank")?>
+                                    <?=(!empty($patrimonys->user()->user_name) ? $patrimonys->user()->user_name : 'Não Cadastrado')?> - <b>Igreja : </b>
+                                    <?=$patrimonys->church()->unit_name.buttonLink("/beta/patrimonio/termo/{$patrimonys->id}", "top", "Clique para imprimir o termo", "primary ms-3", "file-earmark-word", "Termo", "9", "t", "_blank")?>
                                     <?=$patrimonys->fileTerm()?>
                                 </p>
                         
@@ -169,10 +169,10 @@
                             </div>
 
                             <div class="col-5 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unidade</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input tabindex="6" type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
-                                    data-bs-title="Digite a unidade - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm unit_id"
-                                    name="unit_id_edit" id="unit_id_edit" placeholder="UNIDADE">
+                                    data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm unit_id"
+                                    name="unit_id_edit" id="unit_id_edit" placeholder="IGREJA">
                             </div>
 
                         </div>
@@ -239,7 +239,7 @@
 
             let unit_id = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                local: <?=$patrimonyscreates->completeUnit()?>
+                local: <?=$patrimonyscreates->completeChurch()?>
             });
             unit_id.initialize();
             $('.unit_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: unit_id});

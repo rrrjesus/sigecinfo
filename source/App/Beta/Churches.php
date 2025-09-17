@@ -3,16 +3,16 @@
 namespace Source\App\Beta;
 
 use Source\Models\Company\User;
-use Source\Models\Churche;
+use Source\Models\Church;
 
 /**
- * Class Churches
+ * Class Churchs
  * @package Source\App\Beta
  */
-class Churches extends Admin
+class Churchs extends Admin
 {
     /**
-     * Churches constructor.
+     * Churchs constructor.
      */
     public function __construct()
     {
@@ -22,7 +22,7 @@ class Churches extends Admin
     /**
      * IGREJAS LISTA
      */
-    public function churches(): void
+    public function churchs(): void
     {
         $head = $this->seo->render(
             "Igrejas - " . CONF_SITE_NAME,
@@ -32,17 +32,17 @@ class Churches extends Admin
             false
         );
 
-        $churches = (new Churche())->find("status = :s", "s=actived")->fetch(true);
-        $churche = new Churche();
+        $churchs = (new Church())->find("status = :s", "s=actived")->fetch(true);
+        $church = new Church();
 
-        echo $this->view->render("widgets/churches/list", [
+        echo $this->view->render("widgets/churchs/list", [
             "head" => $head,
-            "churches" => $churches,
+            "churchs" => $churchs,
             "urls" => "igrejas",
             "namepage" => "Igrejas",
             "name" => "Lista",
             "registers" => (object)[
-                "disabled" => $churche->find("status = :s", "s=disabled")->count()
+                "disabled" => $church->find("status = :s", "s=disabled")->count()
             ]
         ]);
     }
@@ -61,13 +61,13 @@ class Churches extends Admin
             theme("/assets/images/favicon.ico")
         );
 
-        $churche = (new Churche());
-        $churches = $churche->find("status = :s", "s=disabled")->fetch(true);
+        $church = (new Church());
+        $churchs = $church->find("status = :s", "s=disabled")->fetch(true);
 
-        echo $this->view->render("widgets/churches/disabledList",
+        echo $this->view->render("widgets/churchs/disabledList",
             [
                 "head" => $head,
-                "churches" => $churches,
+                "churchs" => $churchs,
                 "urls" => "igrejas",
                 "namepage" => "Igrejas",
                 "name" => "Lista"
@@ -79,7 +79,7 @@ class Churches extends Admin
      * @param array|null $data
      * @throws \Exception
      */
-    public function churche(?array $data): void
+    public function church(?array $data): void
     {
         $user = (new User())->findById($this->user->id);
 
@@ -87,7 +87,7 @@ class Churches extends Admin
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
 
-            $churcheCreate = new Churche();
+            $churcheCreate = new Church();
             $churcheCreate->churche_name = $data["churche_name"];
             $churcheCreate->login_created = $user->login;
             $churcheCreate->created_at = date_fmt('', "Y-m-d h:m:s");
@@ -114,7 +114,7 @@ class Churches extends Admin
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheUpdate = (new Churche())->findById($data["churche_id"]);
+            $churcheUpdate = (new Church())->findById($data["churche_id"]);
 
             if (!$churcheUpdate) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
@@ -122,7 +122,7 @@ class Churches extends Admin
                 return;
             }
 
-            $churcheUpdate = (new Churche())->findById($data["churche_id"]);
+            $churcheUpdate = (new Church())->findById($data["churche_id"]);
             $churcheUpdate->churche_name = $data["churche_name"];
             $churcheUpdate->login_updated = $user->login;
             $churcheUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
@@ -147,7 +147,7 @@ class Churches extends Admin
           //actived
          if (!empty($data["action"]) && $data["action"] == "actived") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheActived = (new Churche())->findById($data["churche_id"]);
+            $churcheActived = (new Church())->findById($data["churche_id"]);
 
             if (!$churcheActived) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
@@ -173,7 +173,7 @@ class Churches extends Admin
          //disabled
          if (!empty($data["action"]) && $data["action"] == "disabled") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheDisabled = (new Churche())->findById($data["churche_id"]);
+            $churcheDisabled = (new Church())->findById($data["churche_id"]);
 
             if (!$churcheDisabled) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
@@ -198,7 +198,7 @@ class Churches extends Admin
         //delete
         if (!empty($data["action"]) && $data["action"] == "delete") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheDelete = (new Churche())->findById($data["churche_id"]);
+            $churcheDelete = (new Church())->findById($data["churche_id"]);
 
             if (!$churcheDelete) {
                 $this->message->error("Você tentou deletar uma igreja que não existe")->icon("gift")->flash();
@@ -216,7 +216,7 @@ class Churches extends Admin
         $churcheEdit = null;
         if (!empty($data["churche_id"])) {
             $brandId = filter_var($data["churche_id"], FILTER_VALIDATE_INT);
-            $churcheEdit = (new Churche())->findById($brandId);
+            $churcheEdit = (new Church())->findById($brandId);
         }
 
         $head = $this->seo->render(
@@ -227,9 +227,9 @@ class Churches extends Admin
             false
         );
 
-        echo $this->view->render("widgets/churches/churche", [
+        echo $this->view->render("widgets/churchs/church", [
             "head" => $head,
-            "churches" => $churcheEdit,
+            "churchs" => $churcheEdit,
             "urls" => "igrejas",
             "namepage" => "Igrejas",
             "name" => ($churcheEdit ? "Editar" : "Cadastrar")

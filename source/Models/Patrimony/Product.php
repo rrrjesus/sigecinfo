@@ -6,7 +6,7 @@ use Source\Core\Model;
 use Source\Models\Patrimony\Brand;
 
 /**
- * Rodolfo | Class Unit Active Record Pattern
+ * Rodolfo | Class Church Active Record Pattern
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
  * @package Source\Models

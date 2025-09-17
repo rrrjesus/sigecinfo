@@ -27,7 +27,7 @@ var myLineChart = new Chart(ctx, {
     scales: {
       xAxes: [{
         time: {
-          unit: 'date'
+          church: 'date'
         },
         gridLines: {
           display: false

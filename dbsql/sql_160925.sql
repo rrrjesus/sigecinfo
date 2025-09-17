@@ -51,7 +51,7 @@ CREATE TABLE user_positions (
 -- ========================
 -- CHURCHES
 -- ========================
-CREATE TABLE churches (
+CREATE TABLE churchs (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     address VARCHAR(255),
@@ -130,7 +130,7 @@ CREATE TABLE report_online (
 ALTER TABLE users
     ADD CONSTRAINT fk_users_level FOREIGN KEY (level_id) REFERENCES levels(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_users_position FOREIGN KEY (position_id) REFERENCES user_positions(id) ON DELETE CASCADE ON UPDATE NO ACTION,
-    ADD CONSTRAINT fk_users_church FOREIGN KEY (church_id) REFERENCES churches(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    ADD CONSTRAINT fk_users_church FOREIGN KEY (church_id) REFERENCES churchs(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_users_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_users_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
@@ -144,14 +144,14 @@ ALTER TABLE user_positions
     ADD CONSTRAINT fk_positions_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_positions_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
--- Churches
-ALTER TABLE churches
+-- Churchs
+ALTER TABLE churchs
     ADD CONSTRAINT fk_churches_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_churches_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Meetings
 ALTER TABLE meetings
-    ADD CONSTRAINT fk_meetings_church FOREIGN KEY (church_id) REFERENCES churches(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    ADD CONSTRAINT fk_meetings_church FOREIGN KEY (church_id) REFERENCES churchs(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_meetings_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
     ADD CONSTRAINT fk_meetings_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 

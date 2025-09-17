@@ -36,23 +36,7 @@
 
                         <div class="row">
 
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputLogin"><strong><i class="bi bi-person me-1"></i> Login</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o login - letra + 6 dígitos" class="form-control form-control-sm mask-login"
-                                    name="login" placeholder="d123456">
-
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> RF</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o RF - 7 dígitos" class="form-control form-control-sm mask-rf"
-                                    name="rf" placeholder="1234567">
-
-                            </div>
-
-                            <div class="col-6 mb-1">
+                            <div class="col-8 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome" class="form-control form-control-sm"
@@ -60,7 +44,7 @@
 
                             </div>
 
-                            <div class="col-2 mb-1">
+                            <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="fixed_phone" 
@@ -91,18 +75,11 @@
                                     name="position_id" placeholder="Cargo">
                             </div>
 
-                            <div class="col-3 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Regime</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Regime" class="form-control form-control-sm category_id"
-                                name="category_id" placeholder="Regime">
-                            </div>
-
                             <div class="col-6 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unit</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Unit" class="form-control form-control-sm unit_id"
-                                    name="unit_id" placeholder="Unidade">
+                                    data-bs-title="Church" class="form-control form-control-sm unit_id"
+                                    name="unit_id" placeholder="Igreja">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -187,30 +164,14 @@
 
                         <div class="row">
 
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputLogin"><strong><i class="bi bi-person me-1"></i> Login</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o login - letra + 6 dígitos" class="form-control form-control-sm mask-login"
-                                    name="login" placeholder="d123456" value="<?=$user->login?>">
-
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> RF</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o RF - 7 dígitos" class="form-control form-control-sm mask-rf"
-                                    name="rf" placeholder="1234567" value="<?=$user->rf?>">
-
-                            </div>
-
-                            <div class="col-6 mb-1">
+                            <div class="col-8 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome" class="form-control form-control-sm"
                                     name="user_name" placeholder="NOME" value="<?=$user->user_name?>">
                             </div>
 
-                            <div class="col-2 mb-1">
+                            <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="fixed_phone" 
@@ -248,18 +209,11 @@
                                     name="position_id" placeholder="Cargo" value="<?=$user->userPosition()->id.' - '.$user->userPosition()->position_name?>">
                             </div>
 
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Regime</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Regime" class="form-control form-control-sm category_id" name="category_id" placeholder="Regime"
-                                value="<?=$user->userCategory()->id.' - '.$user->userCategory()->category_name?>">
-                            </div>
-
                             <div class="col-4 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Unidade</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Unit" class="form-control form-control-sm unit_id" name="unit_id" placeholder="Unidade"
-                                value="<?=$user->userUnit()->id.' - '.$user->userUnit()->unit_name?>">
+                                data-bs-title="Church" class="form-control form-control-sm unit_id" name="unit_id" placeholder="Igreja"
+                                value="<?=$user->userChurch()->id.' - '.$user->userChurch()->unit_name?>">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -352,16 +306,9 @@
                 position_id.initialize();
                 $('.position_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: position_id});
 
-                let category_id = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                local: <?=$usercategory->completeCategory()?>
-                });
-                category_id.initialize();
-                $('.category_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: category_id});
-
-                let unit_id = new Bloodhound({
+               let unit_id = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: <?=$unit->completeUnit()?>
+                    local: <?=$church->completeChurch()?>
                 });
                 unit_id.initialize();
                 $('.unit_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: unit_id});

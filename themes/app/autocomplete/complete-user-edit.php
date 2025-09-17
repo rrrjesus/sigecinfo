@@ -14,7 +14,7 @@ use Source\Core\Connect;
 
 function retorna($nome) {
 
-    $stmt = Connect::getInstance()->query("SELECT `users`.`id`, `users`.`user_name`, `units`.`id`, `units`.`unit_name` FROM users LEFT JOIN units ON users.unit_id = units.id WHERE CONCAT(`users`.`id`,' - ',`users`.`user_name`) = '{$nome}'");
+    $stmt = Connect::getInstance()->query("SELECT `users`.`id`, `users`.`user_name`, `churchs`.`id`, `churchs`.`unit_name` FROM users LEFT JOIN churchs ON users.unit_id = churchs.id WHERE CONCAT(`users`.`id`,' - ',`users`.`user_name`) = '{$nome}'");
 
     $arr = Array();
     if ($stmt->rowCount()) {

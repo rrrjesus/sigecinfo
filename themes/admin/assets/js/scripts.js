@@ -90,7 +90,7 @@ $(function () {
                 required: "Digite o regime !!!"
             },
             unit_id: {
-                required: "Digite a unidade !!!"
+                required: "Digite a igreja !!!"
             },
             email: {
                 required: "Digite um email !!!"
@@ -207,7 +207,7 @@ $(function () {
         }
     });
 
-    $("#unit").validate({
+    $("#church").validate({
         rules: {
             unit_name: {
                 required: true
@@ -227,19 +227,19 @@ $(function () {
         },
         messages: {
             unit_name: {
-                required: "Digite o nome da Unidade !!!"
+                required: "Digite o nome da Igreja !!!"
             },
             description: {
-                required: "Descreva o nome da Unidade !!!"
+                required: "Descreva o nome da Igreja !!!"
             },
             adress: {
                 required: "Digite o endereço !!!"
             },
             zip: {
-                required: "Digite o cep da Unidade!!!"
+                required: "Digite o cep da Igreja!!!"
             },
             it_professional: {
-                required: "Digite o nome do responsável da Unidade !!!"
+                required: "Digite o nome do responsável da Igreja !!!"
             }
         }
     });

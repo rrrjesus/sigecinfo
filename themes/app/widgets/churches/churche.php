@@ -5,11 +5,11 @@
 
 <div class="row justify-content-center">
     <div class="col-xl-12">
-        <?php if (!$churches): ?>
+        <?php if (!$churchs): ?>
         <div class="container-fluid">
             <div class="d-flex justify-content-center">
                 <div class="col-12">
-                    <form class="row gy-2 gx-3 align-items-center needs-validation" id="churche" novalidate action="<?= url("/beta/igrejas/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+                    <form class="row gy-2 gx-3 align-items-center needs-validation" id="church" novalidate action="<?= url("/beta/igrejas/cadastrar"); ?>" method="post" enctype="multipart/form-data">
                     
                         <input type="hidden" name="action" value="create"/>
 
@@ -45,7 +45,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-center">
                 <div class="col-12">
-                <form class="row gy-2 gx-3 align-items-center needs-validation" id="churche" novalidate action="<?= url("/beta/igrejas/editar/{$churches->id}"); ?>" method="post" enctype="multipart/form-data">
+                <form class="row gy-2 gx-3 align-items-center needs-validation" id="church" novalidate action="<?= url("/beta/igrejas/editar/{$churchs->id}"); ?>" method="post" enctype="multipart/form-data">
                         
                     <input type="hidden" name="action" value="update"/>
 
@@ -59,7 +59,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputIgreja"><strong><i class="bi bi-person me-1"></i> Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                                     data-bs-title="Digite a igreja" class="form-control form-control-sm"
-                                    name="churche_name" placeholder="IGREJA" value="<?=$churches->churche_name?>">
+                                    name="churche_name" placeholder="IGREJA" value="<?=$churchs->churche_name?>">
 
                             </div>
                         </div>
