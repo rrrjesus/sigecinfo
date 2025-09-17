@@ -23,7 +23,7 @@
         {
             "name": "Rodolfo Romaioli Ribeiro de Jesus"
         }
-    ],
+    ],  
     "minimum-stability": "stable",
     "require": {
         "php": "8.2.*",
@@ -36,6 +36,6 @@
         "coffeecode/optimizer": "2.*",
         "coffeecode/cropper": "2.*",
         "coffeecode/uploader": "2.*",
-        "twbs/bootstrap": "5.3.3"
+        "twbs/bootstrap": "5.3.*"
     }
 }

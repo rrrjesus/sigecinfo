@@ -82,19 +82,19 @@ $route->get("/home", "Dash:home");
 $route->post("/home", "Dash:home");
 
 $route->get("/perfil", "Profile:profile");
-$route->post("/perfil", "Profile:profile");
+$route->post("/perfil", "Profile:profile");     
 $route->get("/contatos", "Patrimony:contact");
 
-//Contatos
-$route->get("/contatos", "Contacts:contacts");
-$route->get("/contatos/desativados", "Contacts:disabledContacts");
-$route->get("/contatos/cadastrar", "Contacts:contact");
-$route->post("/contatos/cadastrar", "Contacts:contact");
-$route->get("/contatos/editar/{contact_id}", "Contacts:contact");
-$route->post("/contatos/editar/{contact_id}", "Contacts:contact");
-$route->get("/contatos/ativar/{contact_id}/{action}", "Contacts:contact");
-$route->get("/contatos/desativar/{contact_id}/{action}", "Contacts:contact");
-$route->get("/contatos/excluir/{contact_id}/{action}", "Contacts:contact");
+//Igrejas
+$route->get("/igrejas", "Churches:churches");
+$route->get("/igrejas/desativadas", "Churches:disabledChurches");
+$route->get("/igrejas/cadastrar", "Churches:churche");
+$route->post("/igrejas/cadastrar", "Churches:churche");
+$route->get("/igrejas/editar/{churche_id}", "Churches:churche");
+$route->post("/igrejas/editar/{churche_id}", "Churches:churche");
+$route->get("/igrejas/ativar/{churche_id}/{action}", "Churches:churche");
+$route->get("/igrejas/desativar/{churche_id}/{action}", "Churches:churche");
+$route->get("/igrejas/excluir/{churche_id}/{action}", "Churches:churche");
 
 $route->get("/logoff", "Dash:logoff");
 
