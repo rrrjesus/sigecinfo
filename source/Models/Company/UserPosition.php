@@ -7,7 +7,7 @@ use Source\Core\Model;
 /**
  * Rodolfo | Class Church Active Record Pattern
  *
- * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Models
  */
 class UserPosition extends Model

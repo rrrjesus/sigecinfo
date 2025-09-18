@@ -9,7 +9,7 @@ use CoffeeCode\Uploader\Media;
 /**
  * FSPHP | Class Upload
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Support
  */
 class Upload

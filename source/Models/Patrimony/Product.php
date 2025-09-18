@@ -8,7 +8,7 @@ use Source\Models\Patrimony\Brand;
 /**
  * Rodolfo | Class Church Active Record Pattern
  *
- * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Models
  */
 class Product extends Model

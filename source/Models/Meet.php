@@ -8,7 +8,7 @@ use Source\Models\Company\Church;
 /**
  * SIGECINFO | Class Meeting
  *
- * @author Rodolfo <rodolfo.romaioli@gmail.com>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Models
  */
 class Meeting extends Model

@@ -9,7 +9,7 @@ use Source\Support\Seo;
 /**
  * FSPHP | Class Controller
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Core
  */
 class Controller

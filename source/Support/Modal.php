@@ -7,7 +7,7 @@ use Source\Core\Session;
     /**
      * Class Modal
      *
-     * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
+     * @author SIGECINFO Team <contato@sigecinfo.com.br>
      * @package Source\Core
      * classe php para abrir modal com alerta
      */

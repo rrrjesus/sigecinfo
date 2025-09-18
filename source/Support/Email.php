@@ -9,7 +9,7 @@ use Source\Core\Connect;
 /**
  * FSPHP | Class Email
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Core
  */
 class Email

@@ -8,7 +8,7 @@ use Source\Support\Modal;
 /**
  * FSPHP | Class Model Layer Supertype Pattern
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Models
  */
 abstract class Model

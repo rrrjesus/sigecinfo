@@ -7,7 +7,7 @@ use Source\Core\Model;
 /**
  * SIGECINFO | Class Church
  *
- * @author Rodolfo <rodolfo.romaioli@gmail.com>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Models
  */
 class Church extends Model

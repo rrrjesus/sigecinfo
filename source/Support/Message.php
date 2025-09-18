@@ -7,7 +7,7 @@ use Source\Core\Session;
 /**
  * rrrrjesus | Class Message
  *
- * @author Rodolfo Romaioli Ribeiro de Jesus>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Core
  */
 class Message
