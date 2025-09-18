@@ -91,7 +91,7 @@ class Churchs extends Admin
             $unitCreate = new Church();
             $unitCreate->church_name = $data["church_name"];
             $unitCreate->description = $data["description"];
-            $unitCreate->fixed_phone = $data["fixed_phone"];
+            $unitCreate->phone_landline = $data["phone_landline"];
             $unitCreate->email = $data["email"];
             $unitCreate->adress = $data["adress"];
             $unitCreate->zip = $data["zip"];
@@ -134,7 +134,7 @@ class Churchs extends Admin
             $unitUpdate = (new Church())->findById($data["church_id"]);
             $unitUpdate->church_name = $data["church_name"];
             $unitUpdate->description = $data["description"];
-            $unitUpdate->fixed_phone = $data["fixed_phone"];
+            $unitUpdate->phone_landline = $data["phone_landline"];
             $unitUpdate->email = $data["email"];
             $unitUpdate->adress = $data["adress"];
             $unitUpdate->zip = $data["zip"];

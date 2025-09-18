@@ -25,7 +25,7 @@ $table = <<<EOT
  ( 
 SELECT patrimonys.id, patrimonys.created_at, products.type_part_number, patrimonys.part_number, brands.brand_name, 
 products.product_name, users.user_name, users.login, users.rf, users.email, churchs.church_name, churchs.it_professional, 
-churchs.fixed_phone, patrimonys.observations, patrimonys.file_terms
+churchs.phone_landline, patrimonys.observations, patrimonys.file_terms
 FROM patrimonys
 LEFT JOIN products ON patrimonys.product_id = products.id
 LEFT JOIN brands ON products.brand_id = brands.id
@@ -63,7 +63,7 @@ $columns = array(
     array( 'db' => 'email', 'dt' => 9),
     array( 'db' => 'church_name', 'dt' => 10),
     array( 'db' => 'it_professional', 'dt' => 11),
-    array( 'db' => 'fixed_phone', 'dt' => 12),
+    array( 'db' => 'phone_landline', 'dt' => 12),
     array( 'db' => 'observations', 'dt' => 13),
     array( 'db' => 'id', 'dt' => 14,
         'formatter' => function($d) {

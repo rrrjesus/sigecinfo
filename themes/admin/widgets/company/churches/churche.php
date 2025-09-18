@@ -50,7 +50,7 @@
                             <div class="col-2 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="fixed_phone" placeholder="49343000" value="1149343000">
+                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="phone_landline" placeholder="49343000" value="1149343000">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -169,7 +169,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" 
-                                name="fixed_phone" placeholder="49343000" value="<?=$church->fixed_phone?>">
+                                name="phone_landline" placeholder="49343000" value="<?=$church->phone_landline?>">
                             </div>
 
                             <div class="col-3 mb-1">

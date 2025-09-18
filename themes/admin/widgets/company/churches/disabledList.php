@@ -45,7 +45,7 @@
                         <td class="text-center"><?=$lista->photoListDisabled();?></td>
                         <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
                         <td class="text-center text-uppercase"><?=$lista->description;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->fixed_phone;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->phone_landline;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
                         <td class="text-center text-uppercase"><?=$lista->adress;?></td>
                         <td class="text-center"><?=$lista->zip;?></td>

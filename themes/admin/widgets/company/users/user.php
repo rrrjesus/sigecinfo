@@ -47,7 +47,7 @@
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="fixed_phone" 
+                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="phone_landline" 
                                 placeholder="(99)9999-9999">
                             </div>
 
@@ -174,8 +174,8 @@
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="fixed_phone" 
-                                placeholder="(99)9999-9999" value="<?=$user->fixed_phone?>">
+                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-sm mask-fixed-phone" name="phone_landline" 
+                                placeholder="(99)9999-9999" value="<?=$user->phone_landline?>">
                             </div>
 
                         </div>

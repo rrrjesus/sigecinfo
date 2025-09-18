@@ -106,14 +106,14 @@ class Users extends Admin
             $userProfile->user_name = $data["user_name"];
             $userProfile->email = $data["email"];
             $userProfile->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
-            $userProfile->fixed_phone = preg_replace("/[^0-9]/", "", $data["fixed_phone"]);
+            $userProfile->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $userProfile->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
             $userProfile->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
             $userProfile->password = (!empty($data["password"]) ? $data["password"] : $userProfile->password);
             $userProfile->level_id = $data["level_id"];
             $userProfile->status = (new User())->statusInputDecode($data["status"]);
             $userProfile->observations = $data["observations"];
-            $userProfile->login_updated = $this->user->login;
+            $userProfile->login_updated = $this->user->id;
 
             if (!empty($_FILES["photo"])) {
                 $file = $_FILES["photo"];
@@ -195,14 +195,14 @@ class Users extends Admin
             $userCreate->user_name = $data["user_name"];
             $userCreate->email = $data["email"];
             $userCreate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
-            $userCreate->fixed_phone = preg_replace("/[^0-9]/", "", $data["fixed_phone"]);
+            $userCreate->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $userCreate->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
             $userCreate->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
             $userCreate->password = $data["password"];
             $userCreate->level_id = $data["level_id"];
             $userCreate->observations = $data["observations"];
             $userCreate->created_at = date("Y-m-d h:m:s");
-            $userCreate->login_created = $user->login;
+            $userCreate->login_created = $user->id;
 
             //upload photo
             if (!empty($_FILES["photo"])) {
@@ -219,7 +219,7 @@ class Users extends Admin
                 $userCreate->photo = $image;
             }
 
-            if($data["login"] == "user_name" || $data["church_id"] == "" || $data["position_id"] == ""){
+            if($data["user_name"] == "" || $data["church_id"] == "" || $data["position_id"] == ""){
                 $json['message'] = $this->message->warning("Preencha os campos obrigatórios para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
@@ -252,14 +252,14 @@ class Users extends Admin
             $userUpdate->user_name = $data["user_name"];
             $userUpdate->email = $data["email"];
             $userUpdate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
-            $userUpdate->fixed_phone = preg_replace("/[^0-9]/", "", $data["fixed_phone"]);
+            $userUpdate->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $userUpdate->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
             $userUpdate->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
             $userUpdate->password = (!empty($data["password"]) ? $data["password"] : $userUpdate->password);
             $userUpdate->level_id = $data["level_id"];
             $userUpdate->status = (new User())->statusInputDecode($data["status"]);
             $userUpdate->observations = $data["observations"];
-            $userUpdate->login_updated = $user->login;
+            $userUpdate->login_updated = $user->id;
 
             if (!empty($_FILES["photo"])) {
                 $file = $_FILES["photo"];
@@ -289,7 +289,7 @@ class Users extends Admin
                 return;
             }
 
-            $this->message->success("Usuário {$userUpdate->login} - {$userUpdate->user_name} atualizado com sucesso !!!")->icon("person")->flash();
+            $this->message->success("Usuário {$userUpdate->user_name} atualizado com sucesso !!!")->icon("person")->flash();
             echo json_encode(["redirect" => url("/painel/usuarios")]);
             return;
         }
@@ -306,7 +306,7 @@ class Users extends Admin
             }
 
             $userActived->status = "registered";
-            $userActived->login_updated = $user->login;
+            $userActived->login_updated = $user->id;
 
             if (!$userActived->save()) {
                 $json["message"] = $userActived->message()->render();
@@ -314,7 +314,7 @@ class Users extends Admin
                 return;
             }
 
-            $this->message->success("Usuário {$userActived->login} - {$userActived->user_name} reativado com sucesso !!!")->icon("person")->flash();
+            $this->message->success("Usuário {$userActived->user_name} reativado com sucesso !!!")->icon("person")->flash();
             redirect("/painel/usuarios");
             return;
         }
@@ -337,7 +337,7 @@ class Users extends Admin
             }
 
             $userActived->status = "disabled";
-            $userActived->login_updated = $user->login;
+            $userActived->login_updated = $user->id;
 
             if (!$userActived->save()) {
                 $json["message"] = $userActived->message()->render();
@@ -345,7 +345,7 @@ class Users extends Admin
                 return;
             }
 
-            $this->message->success("Usuário {$userActived->login} - {$userActived->user_name} desativado com sucesso !!!")->icon("person")->flash();
+            $this->message->success("Usuário {$userActived->user_name} desativado com sucesso !!!")->icon("person")->flash();
             redirect("/painel/usuarios");
             return;
         }

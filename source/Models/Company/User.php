@@ -12,12 +12,14 @@ use Source\Core\Model;
  */
 class User extends Model
 {
-    /**
-     * User constructor.
-     */
-    public function __construct()
+
+     public function __construct()
     {
-        parent::__construct("users", ["id"], ["login", "rf", "status", "photo", "user_name", "phone_mobile", "fixed_phone", "email", "password"]);
+        parent::__construct(
+            "users",                                // tabela
+            ["id"],                                 // campos protegidos (não podem ser alterados)
+            ["user_name", "email", "password"]      // campos obrigatórios para insert
+        );
     }
 
     /**
@@ -31,16 +33,6 @@ class User extends Model
         return $find->fetch();
     }
 
-    /**
-     * @param string $rf
-     * @param string $columns
-     * @return null|User
-     */
-    public function findByRf(string $rf, string $columns = "*"): ?User
-    {
-        $find = $this->find("rf = :rf", "rf={$rf}", $columns);
-        return $find->fetch();
-    }
 
     /**
      * @param string $email
@@ -267,16 +259,6 @@ class User extends Model
         if (!empty($this->id)) {
             $userId = $this->id;
 
-            if ($this->find("login = :l AND id != :i", "l={$this->login}&i={$userId}", "id")->fetch()) {
-                $this->message->warning("O login informado já está cadastrado");
-                return false;
-            }
-
-            if ($this->find("rf = :r AND id != :i", "r={$this->rf}&i={$userId}", "id")->fetch()) {
-                $this->message->warning("O RF informado já está cadastrado");
-                return false;
-            }
-
             if ($this->find("email = :e AND id != :i", "e={$this->email}&i={$userId}", "id")->fetch()) {
                 $this->message->warning("O e-mail informado já está cadastrado");
                 return false;
@@ -291,22 +273,18 @@ class User extends Model
 
         /** User Create */
         if (empty($this->id)) {
-            if ($this->findByEmail($this->email, "id")) {
-                $this->message->warning("O e-mail informado já está cadastrado");
-                return false;
-            }
 
-            if ($this->findByLogin($this->login, "id")) {
-                $this->message->warning("O login informado já está cadastrado");
-                return false;
-            }
+            // Verifica se o e-mail já existe (exceto para o próprio usuário em update)
+            $existing = $this->find("email = :e", "e={$this->email}")->fetch();
 
-            if ($this->findByRf($this->rf, "id")) {
-                $this->message->warning("O rf informado já está cadastrado");
+
+            if ($existing && $existing->id != $this->id) {
+                $this->message->warning("Já existe um usuário cadastrado com este e-mail.");
                 return false;
             }
 
             $userId = $this->create($this->safe());
+            
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
                 return false;

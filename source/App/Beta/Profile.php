@@ -29,7 +29,7 @@ class Profile extends Admin
     {
         if (!empty($data["update"])) {
             $user = (new User())->findById($this->user->id);
-            $user->fixed_phone = preg_replace("/[^0-9]/", "", $data["fixed_phone"]);
+            $user->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $user->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
 
             if (!empty($_FILES["photo"])) {

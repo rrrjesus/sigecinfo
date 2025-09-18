@@ -28,11 +28,17 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_USER", $env["DB_USER"] ?? "");
     define("CONF_DB_PASS", $env["DB_PASS"] ?? "");
     define("CONF_DB_NAME", $env["DB_NAME"] ?? "");
+    define("CONF_MAIL_USER", $env["MAIL_USER"] ?? "");
+    define("CONF_MAIL_PASS", $env["MAIL_PASS"] ?? "");
+    define("CONF_MAIL_SUPPORT", $env["MAIL_SUPPORT"] ?? "");
 } else {
     define("CONF_DB_HOST", "");
     define("CONF_DB_USER", "");
     define("CONF_DB_PASS", "");
     define("CONF_DB_NAME", "");
+    define("CONF_MAIL_USER", "");
+    define("CONF_MAIL_PASS", "");
+    define("CONF_MAIL_SUPPORT", "");
 }
 
 /**
