@@ -7,7 +7,7 @@ use CoffeeCode\Optimizer\Optimizer;
 /**
  * FSPHP | Class Seo
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Support
  */
 class Seo
@@ -23,20 +23,20 @@ class Seo
     {
         $this->optimizer = new Optimizer();
         $this->optimizer->openGraph(
-            CONF_SITE_NAME,
-            CONF_SITE_LANG,
+            \CONF_SITE_NAME,
+            \CONF_SITE_LANG,
             $schema
         )->twitterCard(
-            CONF_SOCIAL_TWITTER_CREATOR,
-            CONF_SOCIAL_TWITTER_PUBLISHER,
-            CONF_SITE_DOMAIN
+            \CONF_SOCIAL_TWITTER_CREATOR,
+            \CONF_SOCIAL_TWITTER_PUBLISHER,
+            \CONF_SITE_DOMAIN
         )->publisher(
-            CONF_SOCIAL_FACEBOOK_PAGE,
-            CONF_SOCIAL_FACEBOOK_AUTHOR,
-            CONF_SOCIAL_GOOGLE_PAGE,
-            CONF_SOCIAL_GOOGLE_AUTHOR
+            \CONF_SOCIAL_FACEBOOK_PAGE,
+            \CONF_SOCIAL_FACEBOOK_AUTHOR,
+            \CONF_SOCIAL_GOOGLE_PAGE,
+            \CONF_SOCIAL_GOOGLE_AUTHOR
         )->facebook(
-            CONF_SOCIAL_FACEBOOK_APP
+            \CONF_SOCIAL_FACEBOOK_APP
         );
     }
 

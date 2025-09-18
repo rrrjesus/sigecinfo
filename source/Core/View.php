@@ -7,7 +7,7 @@ use League\Plates\Engine;
 /**
  * FSPHP | Class View
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
+ * @author SIGECINFO Team <contato@sigecinfo.com.br>
  * @package Source\Core
  */
 class View
@@ -20,7 +20,7 @@ class View
      * @param string $path
      * @param string $ext
      */
-    public function __construct(string $path = CONF_VIEW_PATH, string $ext = CONF_VIEW_EXT)
+    public function __construct(string $path = \CONF_VIEW_PATH, string $ext = \CONF_VIEW_EXT)
     {
         $this->engine = new Engine($path, $ext);
     }

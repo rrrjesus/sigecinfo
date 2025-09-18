@@ -2,10 +2,11 @@
 
 namespace Source\Core;
 
+use Source\Support\Log;
+
 /**
- * FSPHP | Class Connect [ Singleton Pattern ]
+ * Class Connect [ Singleton Pattern ]
  *
- * @author Robson V. Leite <cursos@upinside.com.br>
  * @package Source\Core
  */
 class Connect
@@ -35,6 +36,11 @@ class Connect
                     self::OPTIONS
                 );
             } catch (\PDOException $exception) {
+                // Registra o erro no log
+                $log = new Log();
+                $log->error("Erro de conexão com o banco de dados: {$exception->getMessage()}");
+                
+                // Redireciona para página de erro
                 redirect("/ops/problemas");
             }
         }
