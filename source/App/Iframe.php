@@ -19,7 +19,7 @@ class Iframe extends Controller
      */
     public function __construct()
     {
-        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_IFRAME . "/");
+        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_IFRAME);
     }
 
     /**

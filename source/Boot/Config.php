@@ -8,6 +8,15 @@ define("CONF_SITE_TITLE", "Sistema de Gestão de Informações");
 define("CONF_SITE_DESC", "Sistema de Gestão de Informações");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "sigecinfo.com.br");
+define("CONF_SITE_EMAIL", "cotisuporte@smsub.prefeitura.sp.gov.br");
+
+/**
+ * COLORS
+ */
+define("CONF_WEB_COLOR","sigecinfo");
+define("CONF_VIEW_COLOR","sigecinfo");
+define("CONF_APP_COLOR","success");
+define("CONF_ADMIN_COLOR","dark");
 
 /**
  * DATABASE
@@ -43,7 +52,7 @@ define("CONF_VIEW_ADMIN", "admin");
 define("CONF_VIEW_IFRAME", "iframe");
 define("CONF_VIEW_THEME", "web");
 define("CONF_VIEW_PATH", __DIR__ . "/../../themes");
-define("CONF_VIEW_EXT", ".php");
+define("CONF_VIEW_EXT", "php");
 
 /**
  * UPLOAD

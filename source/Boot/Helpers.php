@@ -24,11 +24,7 @@ function is_email(string $email): bool
  */
 function is_passwd(string $password): bool
 {
-    if (password_get_info($password)['algo'] || (mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN)) {
-        return true;
-    }
-
-    return false;
+    return \Source\Boot\Password::isStrong($password);
 }
 
 /**
@@ -296,7 +292,7 @@ function session(): \Source\Core\Session
  * @param string $theme
  * @return string
  */
-function theme(string $path = null, string $theme = CONF_VIEW_THEME): string
+function theme(string $path = null, string $theme = \CONF_VIEW_THEME): string
 {
     if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
         if ($path) {
@@ -557,7 +553,7 @@ function passwd(string $password): string
         return $password;
     }
 
-    return password_hash($password, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
+    return password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
 }
 
 /**

@@ -5,11 +5,9 @@ namespace Source\App;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Contact;
-use Source\Models\Category;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
 use Source\Models\Company\User;
-use Source\Support\Pager;
 
 /**
  * Web Controller
@@ -23,7 +21,7 @@ class Web extends Controller
      */
     public function __construct()
     {
-        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
+        parent::__construct(__DIR__ . "/../../themes/". CONF_VIEW_THEME);
 
         (new Access())->report();
         (new Online())->report();
