@@ -59,8 +59,8 @@ public function patrimonyHistory(?array $data): void
 
         $patrimonys_id = $data["patrimonys_id"];
         $movement_id = preg_replace("/[^0-9\s]/", "", $data["movement_id"]);
-        $unit_id_number = preg_replace("/[^0-9\s]/", "", $data["unit_id_history_edit"]);
-        $unit_id = substr($unit_id_number, 0, 2);  // 12
+        $church_id_number = preg_replace("/[^0-9\s]/", "", $data["church_id_history_edit"]);
+        $church_id = substr($church_id_number, 0, 2);  // 12
         $user_id = preg_replace("/[^0-9\s]/", "", $data["user_id_history_edit"]);
         $observations = $data["observations"];
 
@@ -89,7 +89,7 @@ public function patrimonyHistory(?array $data): void
             return;
         }
 
-        if($data["unit_id_history_edit"] == ""){
+        if($data["church_id_history_edit"] == ""){
             $json['message'] = $this->message->warning("Informe uma igreja para lançar nova movimentação do patrimônio !!!")->icon()->render();
             echo json_encode($json);
             return;
@@ -118,7 +118,7 @@ public function patrimonyHistory(?array $data): void
 
             $patrimonysUpdate->movement_id = $movement_id;
             $patrimonysUpdate->user_id = $user_id;
-            $patrimonysUpdate->unit_id = $unit_id;
+            $patrimonysUpdate->church_id = $church_id;
             $patrimonysUpdate->observations = $observations;
             $patrimonysUpdate->login_updated = $user->login;
 
@@ -126,7 +126,7 @@ public function patrimonyHistory(?array $data): void
             $patrimonysHistoryUpdate->patrimony_id = $patrimonysHistoryUpdate->patrimony_id;
             $patrimonysHistoryUpdate->movement_id = $movement_id;
             $patrimonysHistoryUpdate->user_id = $user_id;
-            $patrimonysHistoryUpdate->unit_id = $unit_id;
+            $patrimonysHistoryUpdate->church_id = $church_id;
             $patrimonysHistoryUpdate->observations = $observations;
             $patrimonysHistoryUpdate->login_updated = $user->login;
 
@@ -178,7 +178,7 @@ public function patrimonyHistory(?array $data): void
 
             $patrimonysUpdate->movement_id = $movement_id;
             $patrimonysUpdate->user_id = $user_id;
-            $patrimonysUpdate->unit_id = $unit_id;
+            $patrimonysUpdate->church_id = $church_id;
             $patrimonysUpdate->observations = $observations;
             $patrimonysUpdate->login_updated = $user->login;
 
@@ -186,7 +186,7 @@ public function patrimonyHistory(?array $data): void
             $patrimonysHistoryUpdate->patrimony_id = $patrimonysHistoryUpdate->patrimony_id;
             $patrimonysHistoryUpdate->movement_id = $movement_id;
             $patrimonysHistoryUpdate->user_id = $user_id;
-            $patrimonysHistoryUpdate->unit_id = $unit_id;
+            $patrimonysHistoryUpdate->church_id = $church_id;
             $patrimonysHistoryUpdate->observations = $observations;
             $patrimonysHistoryUpdate->login_updated = $user->login;
 
@@ -239,7 +239,7 @@ public function patrimonyHistory(?array $data): void
             $patrimonysHistoryUpdate->patrimony_id = $patrimonysUpdate->id;
             $patrimonysHistoryUpdate->movement_id = $movement_id;
             $patrimonysHistoryUpdate->user_id = $user_id;
-            $patrimonysHistoryUpdate->unit_id = $unit_id;
+            $patrimonysHistoryUpdate->church_id = $church_id;
             $patrimonysHistoryUpdate->observations = $observations;
             $patrimonysHistoryUpdate->login_updated = $user->login;
 

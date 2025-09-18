@@ -24,11 +24,11 @@ include_once '../../../source/Boot/Config.php';
 $table = <<<EOT
  ( 
 SELECT patrimonys.id, patrimonys.created_at, movements.movement_name, products.type_part_number, patrimonys.part_number, brands.brand_name, 
-products.product_name, users.user_name, users.login, users.cell_phone, users.rf, users.email, churchs.unit_name, patrimonys.observations, patrimonys.file_terms
+products.product_name, users.user_name, users.login, users.phone_mobile, users.rf, users.email, churchs.church_name, patrimonys.observations, patrimonys.file_terms
 FROM patrimonys
 LEFT JOIN products ON patrimonys.product_id = products.id
 LEFT JOIN brands ON products.brand_id = brands.id
-LEFT JOIN churchs ON patrimonys.unit_id = churchs.id
+LEFT JOIN churchs ON patrimonys.church_id = churchs.id
 LEFT JOIN users ON patrimonys.user_id = users.id
 LEFT JOIN movements ON patrimonys.movement_id = movements.id
 WHERE (((patrimonys.status) Like "actived")))temp
@@ -60,7 +60,7 @@ $columns = array(
     array( 'db' => 'product_name', 'dt' => 6),
     array( 'db' => 'user_name', 'dt' => 7),
     array( 'db' => 'login', 'dt' => 8),
-    array( 'db' => 'cell_phone', 'dt' => 9,
+    array( 'db' => 'phone_mobile', 'dt' => 9,
         'formatter' => function($d) {
             if($d){
                 return '('.substr($d, 0, 2).')'.substr($d, 2, 9);
@@ -69,7 +69,7 @@ $columns = array(
     ),
     array( 'db' => 'rf', 'dt' => 10),
     array( 'db' => 'email', 'dt' => 11),
-    array( 'db' => 'unit_name', 'dt' => 12),
+    array( 'db' => 'church_name', 'dt' => 12),
     array( 'db' => 'observations', 'dt' => 13),
     array( 'db' => 'id', 'dt' => 14,
         'formatter' => function($d) {

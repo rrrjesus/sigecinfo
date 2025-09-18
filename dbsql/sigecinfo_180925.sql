@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/09/2025 às 05:02
+-- Tempo de geração: 18/09/2025 às 05:47
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -29,7 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `churchs` (
   `id` int(11) UNSIGNED NOT NULL,
+  `country_id` varchar(2) DEFAULT NULL,
+  `code_id` int(11) UNSIGNED DEFAULT NULL,
   `church_name` varchar(150) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'actived',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
@@ -41,8 +46,9 @@ CREATE TABLE `churchs` (
 -- Despejando dados para a tabela `churchs`
 --
 
-INSERT INTO `churchs` (`id`, `church_name`, `status`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
-(1, 'Barrocada', 'actived', '2025-09-16 19:55:00', NULL, NULL, NULL);
+INSERT INTO `churchs` (`id`, `country_id`, `code_id`, `church_name`, `address`, `city`, `state`, `status`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
+(1, 'BR', 210912, 'Barrocada', 'Rodovia Fernão Dias - Km 77,5 - Chácara Roma - Casa 2', 'Sao Paulo', 'SP', 'actived', '2025-09-16 19:55:00', '2025-09-18 03:13:04', NULL, NULL),
+(2, 'BR', 210050, 'Jaçanã', 'Rua José Buono, 65', 'São Paulo', 'SP', 'actived', '2025-09-18 03:11:17', '2025-09-18 03:13:11', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,7 +76,7 @@ CREATE TABLE `invitations` (
 
 CREATE TABLE `levels` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `level_name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
@@ -82,7 +88,7 @@ CREATE TABLE `levels` (
 -- Despejando dados para a tabela `levels`
 --
 
-INSERT INTO `levels` (`id`, `name`, `description`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
+INSERT INTO `levels` (`id`, `level_name`, `description`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
 (1, 'Usuario', 'Acesso ao sistema apenas para visualização', '2025-09-16 19:56:18', NULL, NULL, NULL),
 (2, 'Usuario Editor', 'Acesso ao sistema com visualização e edição de alguns itens ', '2025-09-16 19:56:18', NULL, NULL, NULL),
 (3, 'Editor', 'Acesso ao sistema com edição de itens', '2025-09-16 19:56:46', NULL, NULL, NULL),
@@ -128,7 +134,9 @@ CREATE TABLE `report_access` (
 --
 
 INSERT INTO `report_access` (`id`, `users`, `views`, `pages`, `created_at`, `updated_at`) VALUES
-(1, 2, 3, 9, '2025-09-16 23:46:18', '2025-09-17 02:06:24');
+(1, 2, 3, 9, '2025-09-16 23:46:18', '2025-09-17 02:06:24'),
+(2, 4, 4, 64, '2025-09-17 12:02:29', '2025-09-18 02:58:41'),
+(3, 1, 1, 4, '2025-09-18 03:00:18', '2025-09-18 03:45:02');
 
 -- --------------------------------------------------------
 
@@ -152,7 +160,7 @@ CREATE TABLE `report_online` (
 --
 
 INSERT INTO `report_online` (`id`, `user`, `ip`, `url`, `agent`, `pages`, `created_at`, `updated_at`) VALUES
-(3, 1, '192.168.15.54', '/contatos', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 3, '2025-09-17 01:59:55', '2025-09-17 02:06:24');
+(11, 1, '192.168.15.8', '/ops/404', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 2, '2025-09-18 03:45:01', '2025-09-18 03:45:02');
 
 -- --------------------------------------------------------
 
@@ -164,6 +172,8 @@ CREATE TABLE `users` (
   `id` int(11) UNSIGNED NOT NULL,
   `user_name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
+  `phone_landline` varchar(20) DEFAULT NULL,
+  `phone_mobile` varchar(20) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `status` varchar(20) DEFAULT 'registered' COMMENT 'registered, confirmed, trash',
   `level_id` int(11) UNSIGNED DEFAULT NULL,
@@ -179,8 +189,8 @@ CREATE TABLE `users` (
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `user_name`, `email`, `password`, `status`, `level_id`, `position_id`, `church_id`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
-(1, 'rrrjesus@smsub.prefeitura.sp.gov.br', 'rrrjesus@smsub.prefeitura.sp.gov.br', '$2y$10$9p8CR1JBdKTVVp.kxQeRXexNGAsoQqAqY9pv4PbMubeWzzgUpDcCi', 'registered', 5, 1, 1, '2025-09-16 20:02:09', '2025-09-16 20:03:58', NULL, NULL);
+INSERT INTO `users` (`id`, `user_name`, `email`, `phone_landline`, `phone_mobile`, `password`, `status`, `level_id`, `position_id`, `church_id`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
+(1, 'Rodolfo Romaioli Ribeiro de Jesus', 'rrrjesus@smsub.prefeitura.sp.gov.br', '1149343235', '11991091365', '$2y$10$9p8CR1JBdKTVVp.kxQeRXexNGAsoQqAqY9pv4PbMubeWzzgUpDcCi', 'registered', 5, 1, 1, '2025-09-16 20:02:09', '2025-09-17 18:06:26', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -190,8 +200,9 @@ INSERT INTO `users` (`id`, `user_name`, `email`, `password`, `status`, `level_id
 
 CREATE TABLE `user_positions` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `position_name` varchar(100) NOT NULL,
   `description` text DEFAULT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'actived',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `login_created` int(11) UNSIGNED DEFAULT NULL,
@@ -202,8 +213,8 @@ CREATE TABLE `user_positions` (
 -- Despejando dados para a tabela `user_positions`
 --
 
-INSERT INTO `user_positions` (`id`, `name`, `description`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
-(1, 'Anciao', NULL, '2025-09-16 19:57:33', NULL, NULL, NULL);
+INSERT INTO `user_positions` (`id`, `position_name`, `description`, `status`, `created_at`, `updated_at`, `login_created`, `login_updated`) VALUES
+(1, 'Anciao', NULL, 'actived', '2025-09-16 19:57:33', NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -214,8 +225,8 @@ INSERT INTO `user_positions` (`id`, `name`, `description`, `created_at`, `update
 --
 ALTER TABLE `churchs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_churchs_created_by` (`login_created`),
-  ADD KEY `fk_churchs_updated_by` (`login_updated`);
+  ADD KEY `fk_churches_created_by` (`login_created`),
+  ADD KEY `fk_churches_updated_by` (`login_updated`);
 
 --
 -- Índices de tabela `invitations`
@@ -309,13 +320,13 @@ ALTER TABLE `meetings`
 -- AUTO_INCREMENT de tabela `report_access`
 --
 ALTER TABLE `report_access`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `report_online`
 --
 ALTER TABLE `report_online`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `users`
@@ -337,8 +348,8 @@ ALTER TABLE `user_positions`
 -- Restrições para tabelas `churchs`
 --
 ALTER TABLE `churchs`
-  ADD CONSTRAINT `fk_churchs_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_churchs_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_churches_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_churches_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Restrições para tabelas `invitations`

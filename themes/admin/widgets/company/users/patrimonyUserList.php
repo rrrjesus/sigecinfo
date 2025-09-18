@@ -30,7 +30,7 @@
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->user_name) ? $lista->user()->user_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->termlistUser();?></td>
                             <td class="text-center"><?=$lista->fileListUser()?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->unit_name) ? $lista->church()->unit_name : "")?></td>
+                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->church_name) ? $lista->church()->church_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->observations?></td>
                         </tr>
                         <?php endforeach; ?>

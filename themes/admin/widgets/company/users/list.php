@@ -56,7 +56,7 @@
                             <i class="bi bi-person-gear text-dark"></i></a></td>
                         <td class="text-center"><?=$lista->photoList();?></td>
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
-                        <td class="text-center text-uppercase"><?=(!empty($lista->cell_phone) ? '('.substr($lista->cell_phone,0,2).')'.substr($lista->cell_phone,2,9) : "") ;?></td>
+                        <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
                         <td class="text-center"><?=$lista->userPosition()->position_name;?></td>
                         <td class="text-center"><?=$lista->userChurch()->church_name;?></td>
                         <td class="text-center"><?=$lista->email;?></td>

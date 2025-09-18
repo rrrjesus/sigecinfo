@@ -63,7 +63,7 @@ $(function () {
             category_id: {
                 required: true
             },
-            unit_id: {
+            church_id: {
                 required: true
             },
             email: {
@@ -89,7 +89,7 @@ $(function () {
             category_id: {
                 required: "Digite o regime !!!"
             },
-            unit_id: {
+            church_id: {
                 required: "Digite a igreja !!!"
             },
             email: {
@@ -209,7 +209,7 @@ $(function () {
 
     $("#church").validate({
         rules: {
-            unit_name: {
+            church_name: {
                 required: true
             },
             description: {
@@ -226,7 +226,7 @@ $(function () {
             }
         },
         messages: {
-            unit_name: {
+            church_name: {
                 required: "Digite o nome da Igreja !!!"
             },
             description: {

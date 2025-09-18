@@ -37,11 +37,11 @@
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->login) ? $lista->user()->login : "")?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->rf) ? $lista->user()->rf : "")?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->user_name) ? $lista->user()->user_name : "")?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->user()->cell_phone) ? '('.substr($lista->user()->cell_phone, 0, 2).')'.substr($lista->user()->cell_phone, 2, 9) : "")?></td>
+                            <td class="text-center fw-semibold"><?=(!empty($lista->user()->phone_mobile) ? '('.substr($lista->user()->phone_mobile, 0, 2).')'.substr($lista->user()->phone_mobile, 2, 9) : "")?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->user()->email) ? $lista->user()->email : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->termList();?></td>
                             <td class="text-center"><?=$lista->fileList()?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->unit_name) ? $lista->church()->unit_name : "")?></td>
+                            <td class="text-center fw-semibold"><?=(!empty($lista->church()->church_name) ? $lista->church()->church_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->observations?></td>
                             <?php if ($user->level_id > 3){?>
                             <td class="text-center"><button type="button" data-bs-togglee="modal" accesskey="b" data-bs-toggle="modal" data-bs-target="#trash-<?=$lista->id;?>" 

@@ -30,7 +30,7 @@
                             <div class="col-10">
                                 <h5 class="card-title"><?=$patrimonys->product()->brand()->brand_name.' '.$patrimonys->product()->product_name.' - '.$patrimonys->product()->type_part_number.' : '.$patrimonys->part_number?></h5>
                                 <p class="card-text"><?=$patrimonys->product()->acessories?></p>
-                                <p class="card-text"><b><?=$patrimonys->movement()->movement_name?></b> em <?=date_fmt($patrimonys->updated_at)?> - <b>Usuario : </b><?=(!empty($patrimonys->user()->user_name) ? $patrimonys->user()->user_name : 'Não Cadastrado')?> - <b>Igreja : </b><?=$patrimonys->church()->unit_name.buttonLink("/beta/patrimonio/historico/termo/{$patrimonys->id}", "top", "Clique para imprimir o termo", "primary ms-3", "file-earmark-word", "Termo", "9", "t", "_blank")?><?=$patrimonys->fileTerm()?></p>
+                                <p class="card-text"><b><?=$patrimonys->movement()->movement_name?></b> em <?=date_fmt($patrimonys->updated_at)?> - <b>Usuario : </b><?=(!empty($patrimonys->user()->user_name) ? $patrimonys->user()->user_name : 'Não Cadastrado')?> - <b>Igreja : </b><?=$patrimonys->church()->church_name.buttonLink("/beta/patrimonio/historico/termo/{$patrimonys->id}", "top", "Clique para imprimir o termo", "primary ms-3", "file-earmark-word", "Termo", "9", "t", "_blank")?><?=$patrimonys->fileTerm()?></p>
                             </div>
                         </div>
                     </div>
@@ -79,8 +79,8 @@
                             <div class="col-5 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input tabindex="6" type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm unit_id"
-                                    name="unit_id_history_edit" id="unit_id_history_edit" placeholder="IGREJA" value="<?=(!empty($patrimonys->unit_id) ? $patrimonys->church()->id.' - '.$patrimonys->church()->unit_name : "")?>">
+                                    data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm church_id"
+                                    name="church_id_history_edit" id="church_id_history_edit" placeholder="IGREJA" value="<?=(!empty($patrimonys->church_id) ? $patrimonys->church()->id.' - '.$patrimonys->church()->church_name : "")?>">
                             </div>
 
                         </div>
@@ -126,12 +126,12 @@
                 user_id.initialize();
                 $('.user_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: user_id});
 
-                let unit_id = new Bloodhound({
+                let church_id = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
                     local: <?=$patrimonyscreates->completeChurch()?>
                 });
-                unit_id.initialize();
-                $('.unit_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: unit_id});
+                church_id.initialize();
+                $('.church_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: church_id});
 
             </script>
         <?php $this->end(); ?>

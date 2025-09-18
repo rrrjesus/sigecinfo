@@ -54,7 +54,7 @@
                     <div class="col-2 mb-1">
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputCelular"><strong><i class="bi bi-phone me-1"></i>Telefone Celular</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
-                        data-bs-title="Digite o nome do celular" class="form-control form-control-sm mask-cell-phone" name="cell_phone" value="<?=$user->cell_phone?>" placeholder="(11)991065284">
+                        data-bs-title="Digite o nome do celular" class="form-control form-control-sm mask-cell-phone" name="phone_mobile" value="<?=$user->phone_mobile?>" placeholder="(11)991065284">
                     </div>
 
                 </div>
@@ -79,7 +79,7 @@
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                             data-bs-title="Church" class="form-control form-control-sm"
-                            name="church" placeholder="Church" value="<?='00'.$user->userChurch()->id.' - '.$user->userChurch()->unit_name?>" disabled readonly>
+                            name="church" placeholder="Church" value="<?='00'.$user->userChurch()->id.' - '.$user->userChurch()->church_name?>" disabled readonly>
                     </div>
 
                     <div class="col-3 mb-1">

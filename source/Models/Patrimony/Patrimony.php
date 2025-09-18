@@ -22,7 +22,7 @@ class Patrimony extends Model
      */
     public function __construct()
     {
-        parent::__construct("patrimonys", ["id"], ["user_id","patrimonys_name", "brand_id", "product_id", "unit_id", "movement_id", "description", "file_terms", "part_number", "status", "photo", "observations"]);
+        parent::__construct("patrimonys", ["id"], ["user_id","patrimonys_name", "brand_id", "product_id", "church_id", "movement_id", "description", "file_terms", "part_number", "status", "photo", "observations"]);
     }
 
     /**
@@ -75,8 +75,8 @@ class Patrimony extends Model
      */
     public function church(): ?Church
     {
-        if($this->unit_id) {
-            return(new Church())->findById($this->unit_id);
+        if($this->church_id) {
+            return(new Church())->findById($this->church_id);
         }
         return null;
     }
@@ -202,7 +202,7 @@ class Patrimony extends Model
  
          if(!empty($stm)):
              foreach ($stm->fetch(true) as $row):
-                 $array[] = $row->id.' - '.$row->unit_name;
+                 $array[] = $row->id.' - '.$row->church_name;
              endforeach;
              echo json_encode($array); //Return the JSON Array
          endif;

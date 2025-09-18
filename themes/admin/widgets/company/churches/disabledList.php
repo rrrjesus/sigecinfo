@@ -22,7 +22,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-12">
-            <table id="churchesDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
+            <table id="churchsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
                 <thead class="table-danger">
                     <tr>
                         <th class="text-center">FOTO</th>
@@ -43,14 +43,14 @@
                 <?php foreach ($churchs as $lista): ?>
                     <tr>
                         <td class="text-center"><?=$lista->photoListDisabled();?></td>
-                        <td class="text-center text-uppercase"><?=$lista->unit_name;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
                         <td class="text-center text-uppercase"><?=$lista->description;?></td>
                         <td class="text-center text-uppercase"><?=$lista->fixed_phone;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
                         <td class="text-center text-uppercase"><?=$lista->adress;?></td>
                         <td class="text-center"><?=$lista->zip;?></td>
                         <td class="text-center text-uppercase"><?=$lista->it_professional;?></td>
-                        <td class="text-center"><?=$lista->cell_phone;?></td>
+                        <td class="text-center"><?=$lista->phone_mobile;?></td>
                         <td class="text-center text-uppercase"><?=$lista->statusBadge();?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

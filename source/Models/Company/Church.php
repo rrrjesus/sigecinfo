@@ -85,7 +85,7 @@ class Church extends Model
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->churche_name;
+                    $array[] = $row->church_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -143,14 +143,14 @@ class Church extends Model
                 return false;
             }
 
-            $churcheId = $this->create($this->safe());
+            $churchId = $this->create($this->safe());
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
                 return false;
             }
         }
 
-        $this->data = ($this->findById($churcheId))->data();
+        $this->data = ($this->findById($churchId))->data();
         return true;
     }
 }

@@ -39,12 +39,12 @@
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
                         <!-- Sidebar de igrejas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseChurches" aria-expanded="false" aria-controls="collapseChurches">
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseChurchs" aria-expanded="false" aria-controls="collapseChurchs">
                             <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
                             Igrejas
                             <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseChurches" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionChurch">
+                        <div class="collapse" id="collapseChurchs" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionChurch">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>

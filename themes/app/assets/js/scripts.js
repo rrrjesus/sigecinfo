@@ -88,7 +88,7 @@ $(function () {
             product_id: {
                 required: true
             },
-            unit_id: {
+            church_id: {
                 required: true
             },
             type_part_number: {
@@ -105,7 +105,7 @@ $(function () {
             product_id: {
                 required: "Digite o produto !!!"
             },
-            unit_id: {
+            church_id: {
                 required: "Digite a igreja !!!"
             },
             type_part_number: {
@@ -198,9 +198,9 @@ $(function () {
      */
 
     $("input[name='user_id']").blur(function(){
-        var $unit_id = $("input[name='unit_id']");
+        var $church_id = $("input[name='church_id']");
 
-        $unit_id.val('Carregando...');
+        $church_id.val('Carregando...');
 
         $.getJSON(
             '../../themes/smsubapp/autocomplete/complete-user.php',
@@ -209,7 +209,7 @@ $(function () {
 
             function( json )
             {
-                $unit_id.val( json.unit_id );
+                $church_id.val( json.church_id );
             }
         );
     });
@@ -221,9 +221,9 @@ $(function () {
      */
 
      $("input[name='user_id_edit']").blur(function(){
-        var $unit_id_edit = $("input[name='unit_id_edit']");
+        var $church_id_edit = $("input[name='church_id_edit']");
 
-        $unit_id_edit.val('Carregando...');
+        $church_id_edit.val('Carregando...');
 
         $.getJSON(
             '../../../themes/smsubapp/autocomplete/complete-user-edit.php',
@@ -232,7 +232,7 @@ $(function () {
 
             function( json )
             {
-                $unit_id_edit.val( json.unit_id_edit );
+                $church_id_edit.val( json.church_id_edit );
             }
         );
     });
@@ -244,9 +244,9 @@ $(function () {
      */
 
      $("input[name='user_id_history_edit']").blur(function(){
-        var $unit_id_history_edit = $("input[name='unit_id_history_edit']");
+        var $church_id_history_edit = $("input[name='church_id_history_edit']");
 
-        $unit_id_history_edit.val('Carregando...');
+        $church_id_history_edit.val('Carregando...');
 
         $.getJSON(
             '../../../../themes/smsubapp/autocomplete/complete-user-history-edit.php',
@@ -255,7 +255,7 @@ $(function () {
 
             function( json )
             {
-                $unit_id_history_edit.val( json.unit_id_history_edit );
+                $church_id_history_edit.val( json.church_id_history_edit );
             }
         );
     });

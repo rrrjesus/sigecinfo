@@ -712,7 +712,7 @@ $(document).ready(function() {
     });
 
       //Lista de Igrejas
-      $('#churchesDisabled').DataTable( {
+      $('#churchsDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
                 selector: '[data-bs-togglee="tooltip"]'

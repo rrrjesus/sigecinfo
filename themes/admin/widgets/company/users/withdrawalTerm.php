@@ -90,7 +90,7 @@ div.WordSection1
 
 		<p class=MsoNormal style='margin-left:1.25cm;margin-right:1.25cm;text-align:justify;text-indent:-.1pt'><span style='font-size:10.0pt;line-height:150%;font-family:
 		"Arial",sans-serif;font-weight:normal'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eu <span class="text-uppercase"><b><?=$term->user()->user_name?></b></span>,
-		portador do Registro Funcional (RF) <span><b><?=$term->user()->rf?></span></b>, lotado/a na <span><b><?=$term->user()->userChurch()->unit_name?></b></span>,
+		portador do Registro Funcional (RF) <span><b><?=$term->user()->rf?></span></b>, lotado/a na <span><b><?=$term->user()->userChurch()->church_name?></b></span>,
 		&nbsp;declaro assumir responsabilidade pela guarda, conservação deste aparelho
 		(e acessórios) e uso adequado do(s) equipamento(s) abaixo listado(s) , conforme
 		segue:</span></p>
@@ -207,7 +207,7 @@ div.WordSection1
 
 		<p class=MsoNormal style='text-indent:-.1pt;margin-left:1.25cm;margin-right:1.25cm;line-height:normal'><span style='font-size:10.0pt;
 		font-family:"Arial",sans-serif'><b>Celular: </b></span><span style='font-size:
-		10.0pt;font-family:"Arial",sans-serif'><?=(!empty($term->user()->cell_phone) ? '('.substr($term->user()->cell_phone, 0,2).')'.substr($term->user()->cell_phone, 2,9) : "_____________________________");?></span></p>
+		10.0pt;font-family:"Arial",sans-serif'><?=(!empty($term->user()->phone_mobile) ? '('.substr($term->user()->phone_mobile, 0,2).')'.substr($term->user()->phone_mobile, 2,9) : "_____________________________");?></span></p>
 
 
 			<div class="d-flex flex-column text-center">

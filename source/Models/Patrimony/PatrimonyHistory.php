@@ -22,7 +22,7 @@ class  PatrimonyHistory extends Model
      */
     public function __construct()
     {
-        parent::__construct("patrimonys_historys", ["id"], ["patrimony_id", "user_id","patrimonys_name", "product_id", "description", "unit_id", "file_terms", "part_number", "status", "photo", "observations", "created_history", "login_created"]);
+        parent::__construct("patrimonys_historys", ["id"], ["patrimony_id", "user_id","patrimonys_name", "product_id", "description", "church_id", "file_terms", "part_number", "status", "photo", "observations", "created_history", "login_created"]);
     }
 
     /**
@@ -63,8 +63,8 @@ class  PatrimonyHistory extends Model
      */
     public function church(): ?Church
     {
-        if($this->unit_id) {
-            return(new Church())->findById($this->unit_id);
+        if($this->church_id) {
+            return(new Church())->findById($this->church_id);
         }
         return null;
     }
@@ -107,7 +107,7 @@ class  PatrimonyHistory extends Model
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                $array[] = $row->id.' - '.$row->unit_name;
+                $array[] = $row->id.' - '.$row->church_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -241,7 +241,7 @@ class  PatrimonyHistory extends Model
 
          /** Patrimony Create */
          if (empty($this->id)) {
-            // if ($this->find("movement_id = :m AND unit_id = :d AND part_number = :p AND user_id = :u", "m={$this->movement_id}&d={$this->unit_id}&p={$this->part_number}&u={$this->user_id}", "patrimony_id")->fetch()) {
+            // if ($this->find("movement_id = :m AND church_id = :d AND part_number = :p AND user_id = :u", "m={$this->movement_id}&d={$this->church_id}&p={$this->part_number}&u={$this->user_id}", "patrimony_id")->fetch()) {
             //     return false;
             // }
 

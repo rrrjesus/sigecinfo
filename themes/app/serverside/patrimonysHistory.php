@@ -24,11 +24,11 @@ include_once '../../../source/Boot/Config.php';
 $table = <<<EOT
  ( 
 SELECT patrimonys_historys.id, patrimonys_historys.patrimony_id, patrimonys_historys.created_history, movements.movement_name, products.type_part_number, patrimonys_historys.part_number, brands.brand_name, 
-products.product_name, users.user_name, users.login, users.cell_phone, users.rf, users.email, churchs.unit_name, patrimonys_historys.observations, patrimonys_historys.file_terms
+products.product_name, users.user_name, users.login, users.phone_mobile, users.rf, users.email, churchs.church_name, patrimonys_historys.observations, patrimonys_historys.file_terms
 FROM patrimonys_historys
 LEFT JOIN products ON patrimonys_historys.product_id = products.id
 LEFT JOIN brands ON products.brand_id = brands.id
-LEFT JOIN churchs ON patrimonys_historys.unit_id = churchs.id
+LEFT JOIN churchs ON patrimonys_historys.church_id = churchs.id
 LEFT JOIN users ON patrimonys_historys.user_id = users.id
 LEFT JOIN movements ON patrimonys_historys.movement_id = movements.id
 WHERE (((patrimonys_historys.status) Like "actived")))temp
@@ -61,7 +61,7 @@ $columns = array(
     array( 'db' => 'product_name', 'dt' => 7),
     array( 'db' => 'user_name', 'dt' => 8),
     array( 'db' => 'login', 'dt' => 9),
-    array( 'db' => 'cell_phone', 'dt' => 10,
+    array( 'db' => 'phone_mobile', 'dt' => 10,
         'formatter' => function($d) {
             if($d){
                 return '('.substr($d, 0, 2).')'.substr($d, 2, 9);
@@ -70,7 +70,7 @@ $columns = array(
     ),
     array( 'db' => 'rf', 'dt' => 11),
     array( 'db' => 'email', 'dt' => 12),
-    array( 'db' => 'unit_name', 'dt' => 13),
+    array( 'db' => 'church_name', 'dt' => 13),
     array( 'db' => 'observations', 'dt' => 14),
     array( 'db' => 'id', 'dt' => 15,
         'formatter' => function($d) {

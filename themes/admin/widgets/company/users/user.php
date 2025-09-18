@@ -64,7 +64,7 @@
                             <div class="col-2 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" name="cell_phone" 
+                                data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" name="phone_mobile" 
                                 placeholder="(99)99999-9999">
                             </div>
 
@@ -78,8 +78,8 @@
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Church" class="form-control form-control-sm unit_id"
-                                    name="unit_id" placeholder="Igreja">
+                                    data-bs-title="Church" class="form-control form-control-sm church_id"
+                                    name="church_id" placeholder="Igreja">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -192,7 +192,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" 
-                                name="cell_phone" placeholder="(99)99999-9999" value="<?=$user->cell_phone?>">
+                                name="phone_mobile" placeholder="(99)99999-9999" value="<?=$user->phone_mobile?>">
                             </div>
 
                             <div class="col-2 mb-1">
@@ -212,8 +212,8 @@
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Church" class="form-control form-control-sm unit_id" name="unit_id" placeholder="Igreja"
-                                value="<?=$user->userChurch()->id.' - '.$user->userChurch()->unit_name?>">
+                                data-bs-title="Church" class="form-control form-control-sm church_id" name="church_id" placeholder="Igreja"
+                                value="<?=$user->userChurch()->id.' - '.$user->userChurch()->church_name?>">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -306,12 +306,12 @@
                 position_id.initialize();
                 $('.position_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: position_id});
 
-               let unit_id = new Bloodhound({
+               let church_id = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
                     local: <?=$church->completeChurch()?>
                 });
-                unit_id.initialize();
-                $('.unit_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: unit_id});
+                church_id.initialize();
+                $('.church_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: church_id});
 
             </script>
         <?php $this->end(); ?>

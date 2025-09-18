@@ -52,7 +52,7 @@ class Churchs extends Admin
      * @throws \Exception
      */
     /** @return void */
-    public function disabledChurches(): void
+    public function disabledChurchs(): void
     {
         $head = $this->seo->render(
             "Igrejas Desativadas - " . CONF_SITE_NAME ,
@@ -87,10 +87,10 @@ class Churchs extends Admin
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
 
-            $churcheCreate = new Church();
-            $churcheCreate->churche_name = $data["churche_name"];
-            $churcheCreate->login_created = $user->login;
-            $churcheCreate->created_at = date_fmt('', "Y-m-d h:m:s");
+            $churchCreate = new Church();
+            $churchCreate->church_name = $data["church_name"];
+            $churchCreate->login_created = $user->login;
+            $churchCreate->created_at = date_fmt('', "Y-m-d h:m:s");
 
             if(in_array("", $data)){
                 $json['message'] = $this->message->info("Informe a igreja para criar o registro !")->icon()->render();
@@ -98,13 +98,13 @@ class Churchs extends Admin
                 return;
             }
 
-            if (!$churcheCreate->save()) {
-                $json["message"] = $churcheCreate->message()->render();
+            if (!$churchCreate->save()) {
+                $json["message"] = $churchCreate->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            $this->message->success("Igreja {$churcheCreate->churche_name} cadastrada com sucesso...")->icon("emoji-grin me-1")->flash();
+            $this->message->success("Igreja {$churchCreate->church_name} cadastrada com sucesso...")->icon("emoji-grin me-1")->flash();
             $json["redirect"] = url("/beta/igrejas/cadastrar");
 
             echo json_encode($json);
@@ -114,18 +114,18 @@ class Churchs extends Admin
         //update
         if (!empty($data["action"]) && $data["action"] == "update") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheUpdate = (new Church())->findById($data["churche_id"]);
+            $churchUpdate = (new Church())->findById($data["church_id"]);
 
-            if (!$churcheUpdate) {
+            if (!$churchUpdate) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
                 echo json_encode(["redirect" => url("/beta/igrejas")]);
                 return;
             }
 
-            $churcheUpdate = (new Church())->findById($data["churche_id"]);
-            $churcheUpdate->churche_name = $data["churche_name"];
-            $churcheUpdate->login_updated = $user->login;
-            $churcheUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
+            $churchUpdate = (new Church())->findById($data["church_id"]);
+            $churchUpdate->church_name = $data["church_name"];
+            $churchUpdate->login_updated = $user->login;
+            $churchUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
 
             if(in_array("", $data)){
                 $json['message'] = $this->message->info("Informe a igreja para editar o registro !")->icon()->render();
@@ -133,13 +133,13 @@ class Churchs extends Admin
                 return;
             }
 
-            if (!$churcheUpdate->save()) {
-                $json["message"] = $churcheUpdate->message()->render();
+            if (!$churchUpdate->save()) {
+                $json["message"] = $churchUpdate->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            $json["message"] = $this->message->success("Igreja {$churcheUpdate->churche_name} atualizada com sucesso !!!")->icon("emoji-grin me-1")->render();
+            $json["message"] = $this->message->success("Igreja {$churchUpdate->church_name} atualizada com sucesso !!!")->icon("emoji-grin me-1")->render();
             echo json_encode($json);
             return;
         }
@@ -147,24 +147,24 @@ class Churchs extends Admin
           //actived
          if (!empty($data["action"]) && $data["action"] == "actived") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheActived = (new Church())->findById($data["churche_id"]);
+            $churchActived = (new Church())->findById($data["church_id"]);
 
-            if (!$churcheActived) {
+            if (!$churchActived) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
                 echo json_encode(["redirect" => url("/beta/igrejas")]);
                 return;
             }
 
-            $churcheActived->status = "actived";
-            $churcheActived->login_updated = $user->login;
+            $churchActived->status = "actived";
+            $churchActived->login_updated = $user->login;
 
-            if (!$churcheActived->save()) {
-                $json["message"] = $churcheActived->message()->render();
+            if (!$churchActived->save()) {
+                $json["message"] = $churchActived->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            $this->message->success("Igreja {$churcheActived->churche_name} reativada com sucesso !!!")->icon("gift")->flash();
+            $this->message->success("Igreja {$churchActived->church_name} reativada com sucesso !!!")->icon("gift")->flash();
             redirect("/beta/igrejas/desativadas");
             return;
         }
@@ -173,24 +173,24 @@ class Churchs extends Admin
          //disabled
          if (!empty($data["action"]) && $data["action"] == "disabled") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheDisabled = (new Church())->findById($data["churche_id"]);
+            $churchDisabled = (new Church())->findById($data["church_id"]);
 
-            if (!$churcheDisabled) {
+            if (!$churchDisabled) {
                 $this->message->error("Você tentou gerenciar uma igreja que não existe")->icon("gift")->flash();
                 echo json_encode(["redirect" => url("/beta/igrejas")]);
                 return;
             }
 
-            $churcheDisabled->status = "disabled";
-            $churcheDisabled->login_updated = $user->login;
+            $churchDisabled->status = "disabled";
+            $churchDisabled->login_updated = $user->login;
 
-            if (!$churcheDisabled->save()) {
-                $json["message"] = $churcheDisabled->message()->render();
+            if (!$churchDisabled->save()) {
+                $json["message"] = $churchDisabled->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            $this->message->success("Igreja {$churcheDisabled->churche_name} desativada com sucesso !!!")->icon("gift")->flash();
+            $this->message->success("Igreja {$churchDisabled->church_name} desativada com sucesso !!!")->icon("gift")->flash();
             redirect("/beta/igrejas");
             return;
         }
@@ -198,25 +198,25 @@ class Churchs extends Admin
         //delete
         if (!empty($data["action"]) && $data["action"] == "delete") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $churcheDelete = (new Church())->findById($data["churche_id"]);
+            $churchDelete = (new Church())->findById($data["church_id"]);
 
-            if (!$churcheDelete) {
+            if (!$churchDelete) {
                 $this->message->error("Você tentou deletar uma igreja que não existe")->icon("gift")->flash();
                 echo json_encode(["redirect" => url("/beta/igrejas")]);
                 return;
             }
 
-            $churcheDelete->destroy();
+            $churchDelete->destroy();
 
-            $this->message->success("A igreja {$churcheDelete->churche_name} foi excluída com sucesso...")->icon("gift")->flash();
+            $this->message->success("A igreja {$churchDelete->church_name} foi excluída com sucesso...")->icon("gift")->flash();
             redirect("/beta/igrejas");
             return;
         }
 
-        $churcheEdit = null;
-        if (!empty($data["churche_id"])) {
-            $brandId = filter_var($data["churche_id"], FILTER_VALIDATE_INT);
-            $churcheEdit = (new Church())->findById($brandId);
+        $churchEdit = null;
+        if (!empty($data["church_id"])) {
+            $brandId = filter_var($data["church_id"], FILTER_VALIDATE_INT);
+            $churchEdit = (new Church())->findById($brandId);
         }
 
         $head = $this->seo->render(
@@ -229,10 +229,10 @@ class Churchs extends Admin
 
         echo $this->view->render("widgets/churchs/church", [
             "head" => $head,
-            "churchs" => $churcheEdit,
+            "churchs" => $churchEdit,
             "urls" => "igrejas",
             "namepage" => "Igrejas",
-            "name" => ($churcheEdit ? "Editar" : "Cadastrar")
+            "name" => ($churchEdit ? "Editar" : "Cadastrar")
         ]);
     }
 }

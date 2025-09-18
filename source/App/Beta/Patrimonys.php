@@ -173,7 +173,7 @@ class Patrimonys extends Admin
             $product_id_number = preg_replace("/[^0-9\s]/", "", $data["product_id"]);
             $product_id = substr($product_id_number, 0, 3);
             $part_number = $data["part_number"];
-            $unit_id = $data["unit_id"];
+            $church_id = $data["church_id"];
             $user_id = preg_replace("/[^0-9\s]/", "", $data["user_id"]);
             $observations = $data["observations"];
 
@@ -223,7 +223,7 @@ class Patrimonys extends Admin
                 return;
             }
 
-            if($data["unit_id"] == ""){
+            if($data["church_id"] == ""){
                 $json['message'] = $this->message->warning("Informe uma igreja para criar o patrimônio !")->icon()->render();
                 echo json_encode($json);
                 return;
@@ -233,7 +233,7 @@ class Patrimonys extends Admin
             $patrimonyCreate->movement_id = $movement_id;
             $patrimonyCreate->product_id = $product_id;
             $patrimonyCreate->part_number = $part_number;
-            $patrimonyCreate->unit_id = $unit_id;
+            $patrimonyCreate->church_id = $church_id;
             $patrimonyCreate->user_id = $user_id;
             $patrimonyCreate->observations = $observations;
             $patrimonyCreate->login_created = $user->login;
@@ -264,7 +264,7 @@ class Patrimonys extends Admin
             $patrimonyCreateHistory->patrimony_id = $patrimonyCreate->id;
             $patrimonyCreateHistory->movement_id = $movement_id;
             $patrimonyCreateHistory->product_id = $product_id;
-            $patrimonyCreateHistory->unit_id = $unit_id;
+            $patrimonyCreateHistory->church_id = $church_id;
             $patrimonyCreateHistory->user_id = $user_id;
             $patrimonyCreateHistory->part_number = $part_number;
             if (!empty($_FILES["file_terms"])) {
@@ -288,8 +288,8 @@ class Patrimonys extends Admin
 
             $patrimonys_id = $data["patrimonys_id"];
             $movement_id = preg_replace("/[^0-9\s]/", "", $data["movement_id"]);
-            $unit_id_number = preg_replace("/[^0-9\s]/", "", $data["unit_id_edit"]);
-            $unit_id = substr($unit_id_number, 0, 2);
+            $church_id_number = preg_replace("/[^0-9\s]/", "", $data["church_id_edit"]);
+            $church_id = substr($church_id_number, 0, 2);
             //$user_id = filter_var($data["user_id_edit"],FILTER_SANITIZE_NUMBER_INT);
             $user_id = preg_replace("/[^0-9\s]/", "", $data["user_id_edit"]);
             $observations = $data["observations"];
@@ -315,7 +315,7 @@ class Patrimonys extends Admin
                 return;
             }
 
-            if($data["unit_id_edit"] == ""){
+            if($data["church_id_edit"] == ""){
                 $json['message'] = $this->message->warning("Informe uma igreja para lançar nova movimentação do patrimônio !!!")->icon()->render();
                 echo json_encode($json);
                 return;
@@ -351,7 +351,7 @@ class Patrimonys extends Admin
                 $patrimonysUpdate->status = 'disabled';
             }
             $patrimonysUpdate->movement_id = $movement_id;
-            $patrimonysUpdate->unit_id = $unit_id;
+            $patrimonysUpdate->church_id = $church_id;
             $patrimonysUpdate->user_id = $user_id;
             $patrimonysUpdate->observations = $observations;
             $patrimonysUpdate->login_updated = $user->login;
@@ -384,7 +384,7 @@ class Patrimonys extends Admin
             $patrimonysHistory->patrimony_id = $patrimonys_id;
             $patrimonysHistory->movement_id = $movement_id;
             $patrimonysHistory->product_id = $patrimonysUpdate->product_id;
-            $patrimonysHistory->unit_id = $unit_id;
+            $patrimonysHistory->church_id = $church_id;
             if (!empty($_FILES["file_terms"])) {
                 $patrimonysHistory->file_terms = $file_terms;
             };

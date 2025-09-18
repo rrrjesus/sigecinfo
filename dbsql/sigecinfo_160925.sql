@@ -202,8 +202,8 @@ INSERT INTO `user_positions` (`id`, `name`, `description`, `created_at`, `update
 --
 ALTER TABLE `churchs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_churches_created_by` (`login_created`),
-  ADD KEY `fk_churches_updated_by` (`login_updated`);
+  ADD KEY `fk_churchs_created_by` (`login_created`),
+  ADD KEY `fk_churchs_updated_by` (`login_updated`);
 
 --
 -- Índices de tabela `invitations`
@@ -325,8 +325,8 @@ ALTER TABLE `user_positions`
 -- Restrições para tabelas `churchs`
 --
 ALTER TABLE `churchs`
-  ADD CONSTRAINT `fk_churches_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_churches_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_churchs_created_by` FOREIGN KEY (`login_created`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_churchs_updated_by` FOREIGN KEY (`login_updated`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Restrições para tabelas `invitations`

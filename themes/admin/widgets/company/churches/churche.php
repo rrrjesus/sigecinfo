@@ -36,7 +36,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome" class="form-control form-control-sm"
-                                    name="unit_name" placeholder="NOME">
+                                    name="church_name" placeholder="NOME">
 
                             </div>
 
@@ -80,14 +80,14 @@
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Responsavel</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o responsável" class="form-control form-control-sm unit_id"
+                                    data-bs-title="Digite o responsável" class="form-control form-control-sm church_id"
                                     name="it_professional" placeholder="RESPONSÁVEL">
                             </div>
 
                             <div class="col-2 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" name="cell_phone" placeholder="991065284">
+                                data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" name="phone_mobile" placeholder="991065284">
                             </div>
 
                         </div>
@@ -154,7 +154,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome" class="form-control form-control-sm"
-                                    name="unit_name" placeholder="NOME" value="<?=$church->unit_name?>">
+                                    name="church_name" placeholder="NOME" value="<?=$church->church_name?>">
 
                             </div>
 
@@ -199,7 +199,7 @@
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Responsavel</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                    data-bs-title="Digite o responsável" class="form-control form-control-sm unit_id"
+                                    data-bs-title="Digite o responsável" class="form-control form-control-sm church_id"
                                     name="it_professional" placeholder="RESPONSÁVEL" value="<?=$church->it_professional?>">
                             </div>
 
@@ -207,7 +207,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-sm mask-cell-phone" 
-                                name="cell_phone" placeholder="991065284" value="<?=$church->cell_phone?>">
+                                name="phone_mobile" placeholder="991065284" value="<?=$church->phone_mobile?>">
                             </div>
 
                         </div>

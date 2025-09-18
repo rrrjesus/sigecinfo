@@ -15,7 +15,7 @@ CREATE TABLE users (
     status TINYINT(1) DEFAULT 1,
     level_id INT(11) UNSIGNED NULL,
     position_id INT(11) UNSIGNED NULL,
-    church_id INT(11) UNSIGNED NULL, -- antes era unit_id
+    church_id INT(11) UNSIGNED NULL, -- antes era church_id
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     login_created INT(11) UNSIGNED NULL,
@@ -146,8 +146,8 @@ ALTER TABLE user_positions
 
 -- Churchs
 ALTER TABLE churchs
-    ADD CONSTRAINT fk_churches_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
-    ADD CONSTRAINT fk_churches_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
+    ADD CONSTRAINT fk_churchs_created_by FOREIGN KEY (login_created) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    ADD CONSTRAINT fk_churchs_updated_by FOREIGN KEY (login_updated) REFERENCES users(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Meetings
 ALTER TABLE meetings

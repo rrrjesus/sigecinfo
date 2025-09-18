@@ -190,10 +190,10 @@ ul {margin-bottom:0cm;}
       style='font-family:"Arial",sans-serif'>: <?=$term->userPosition($term->userPatrimony()->position_id)->position_name?></span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>IGREJA</span></b><span
-      style='font-family:"Arial",sans-serif'>: <?=$term->userChurch($term->userPatrimony()->unit_id)->unit_name?></span></p>
+      style='font-family:"Arial",sans-serif'>: <?=$term->userChurch($term->userPatrimony()->church_id)->church_name?></span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
       -.1pt;line-height:120%'><b><span style='font-family:"Arial",sans-serif'>TEL</span></b><span
-      style='font-family:"Arial",sans-serif'>.<b>PESSOAL</b>: <?=$term->userPatrimony()->cell_phone?></span></p>
+      style='font-family:"Arial",sans-serif'>.<b>PESSOAL</b>: <?=$term->userPatrimony()->phone_mobile?></span></p>
       <p class=MsoNormal style='margin-left:0cm;text-align:justify;text-indent:
       -.1pt;line-height:120%;padding:0cm 0pt 0.25cm 0pt'><b><span style='font-family:"Arial",sans-serif'>E-MAIL</span></b><span
       style='font-family:"Arial",sans-serif'>: <?=$term->userPatrimony()->email?></span></p>

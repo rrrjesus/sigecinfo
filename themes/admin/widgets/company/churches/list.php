@@ -45,23 +45,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php if(!empty($churches)){ ?>
-                <?php foreach ($churches as $lista): ?>
+                <?php if(!empty($churchs)){ ?>
+                <?php foreach ($churchs as $lista): ?>
                     <tr>
                         <td class="text-center"><a href="igrejas/editar/<?=$lista->id?>" data-bs-togglee="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                            data-bs-title="Clique para editar <?=$lista->unit_name?>" role="button" 
+                            data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-md text-center"><?=$lista->id;?>
                             <i class="bi bi-pencil text-secundary"></i></a></td>
                         <td class="text-center"><?=$lista->photoList();?></td>
-                        <td class="text-center text-uppercase"><?=$lista->unit_name;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
                         <td class="text-center text-uppercase"><?=$lista->description;?></td>
                         <td class="text-center text-uppercase"><?=$lista->fixed_phone;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
                         <td class="text-center text-uppercase"><?=$lista->adress;?></td>
                         <td class="text-center"><?=$lista->zip;?></td>
                         <td class="text-center text-uppercase"><?=$lista->it_professional;?></td>
-                        <td class="text-center"><?=$lista->cell_phone;?></td>
+                        <td class="text-center"><?=$lista->phone_mobile;?></td>
                         <td class="text-center text-uppercase"><?=$lista->statusBadge();?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

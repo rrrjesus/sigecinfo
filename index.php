@@ -87,14 +87,14 @@ $route->get("/contatos", "Patrimony:contact");
 
 //Igrejas
 $route->get("/igrejas", "Churchs:churchs");
-$route->get("/igrejas/desativadas", "Churchs:disabledChurches");
+$route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/cadastrar", "Churchs:church");
 $route->post("/igrejas/cadastrar", "Churchs:church");
-$route->get("/igrejas/editar/{churche_id}", "Churchs:church");
-$route->post("/igrejas/editar/{churche_id}", "Churchs:church");
-$route->get("/igrejas/ativar/{churche_id}/{action}", "Churchs:church");
-$route->get("/igrejas/desativar/{churche_id}/{action}", "Churchs:church");
-$route->get("/igrejas/excluir/{churche_id}/{action}", "Churchs:church");
+$route->get("/igrejas/editar/{church_id}", "Churchs:church");
+$route->post("/igrejas/editar/{church_id}", "Churchs:church");
+$route->get("/igrejas/ativar/{church_id}/{action}", "Churchs:church");
+$route->get("/igrejas/desativar/{church_id}/{action}", "Churchs:church");
+$route->get("/igrejas/excluir/{church_id}/{action}", "Churchs:church");
 
 $route->get("/logoff", "Dash:logoff");
 
@@ -125,14 +125,14 @@ $route->post("/perfil", "Users:profile");
 
 //Igrejas
 $route->get("/igrejas", "Churchs:churchs");
-$route->get("/igrejas/desativadas", "Churchs:disabledChurches");
+$route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/cadastrar", "Churchs:church");
 $route->post("/igrejas/cadastrar", "Churchs:church");
-$route->get("/igrejas/editar/{churche_id}", "Churchs:church");
-$route->post("/igrejas/editar/{churche_id}", "Churchs:church");
-$route->get("/igrejas/ativar/{churche_id}/{action}", "Churchs:church");
-$route->get("/igrejas/desativar/{churche_id}/{action}", "Churchs:church");
-$route->get("/igrejas/excluir/{churche_id}/{action}", "Churchs:church");
+$route->get("/igrejas/editar/{church_id}", "Churchs:church");
+$route->post("/igrejas/editar/{church_id}", "Churchs:church");
+$route->get("/igrejas/ativar/{church_id}/{action}", "Churchs:church");
+$route->get("/igrejas/desativar/{church_id}/{action}", "Churchs:church");
+$route->get("/igrejas/excluir/{church_id}/{action}", "Churchs:church");
 
 $route->get("/cargos", "UsersPositions:userspositions");
 $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");

@@ -18,7 +18,7 @@ class Meeting extends Model
      */
     public function __construct()
     {
-        parent::__construct("meetings", ["id"], ["unit_id", "contact_name", "ramal", "status"]);
+        parent::__construct("meetings", ["id"], ["church_id", "contact_name", "ramal", "status"]);
     }
 
     /**
@@ -50,8 +50,8 @@ class Meeting extends Model
      */
     public function church(): ?Church
     {
-        if($this->unit_id) {
-            return(new Church())->findById($this->unit_id);
+        if($this->church_id) {
+            return(new Church())->findById($this->church_id);
         }
         return null;
     }
@@ -100,7 +100,7 @@ class Meeting extends Model
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->unit_name;
+                    $array[] = $row->church_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -117,7 +117,7 @@ class Meeting extends Model
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = substr($row->unit_name, 0 ,-11);
+                    $array[] = substr($row->church_name, 0 ,-11);
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;

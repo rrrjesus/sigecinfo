@@ -24,11 +24,11 @@ include_once '../../../source/Boot/Config.php';
 $table = <<<EOT
  ( 
 SELECT patrimonys.id, patrimonys.updated_at, movements.movement_name, products.type_part_number, patrimonys.part_number, brands.brand_name, 
-products.product_name, users.user_name, users.login, users.rf, users.email, churchs.unit_name, patrimonys.observations, patrimonys.file_terms
+products.product_name, users.user_name, users.login, users.rf, users.email, churchs.church_name, patrimonys.observations, patrimonys.file_terms
 FROM patrimonys
 LEFT JOIN products ON patrimonys.product_id = products.id
 LEFT JOIN brands ON products.brand_id = brands.id
-LEFT JOIN churchs ON patrimonys.unit_id = churchs.id
+LEFT JOIN churchs ON patrimonys.church_id = churchs.id
 LEFT JOIN users ON patrimonys.user_id = users.id
 LEFT JOIN movements ON patrimonys.movement_id = movements.id
 WHERE (((patrimonys.status) Like "disabled")))temp
@@ -56,7 +56,7 @@ $columns = array(
     array( 'db' => 'login', 'dt' => 7),
     array( 'db' => 'rf', 'dt' => 8),
     array( 'db' => 'email', 'dt' => 9),
-    array( 'db' => 'unit_name', 'dt' => 10),
+    array( 'db' => 'church_name', 'dt' => 10),
     array( 'db' => 'observations', 'dt' => 11),
     array( 'db' => 'id', 'dt' => 12)
 );

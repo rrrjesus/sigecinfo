@@ -17,7 +17,7 @@ class User extends Model
      */
     public function __construct()
     {
-        parent::__construct("users", ["id"], ["login", "rf", "status", "photo", "user_name", "cell_phone", "fixed_phone", "email", "password"]);
+        parent::__construct("users", ["id"], ["login", "rf", "status", "photo", "user_name", "phone_mobile", "fixed_phone", "email", "password"]);
     }
 
     /**
