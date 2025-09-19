@@ -11,12 +11,12 @@ class Church extends Model
         parent::__construct("churchs", ["id"], ["church_name", "country_id", "code_id", "address", "city", "state", "status"]);
     }
 
-        /**
-     * @param string $code_id
+    /**
+     * @param string $email
      * @param string $columns
      * @return null|User
      */
-    public function findByCode(string $code_id, string $columns = "*"): ?Church
+    public function findByCode(string $code_id, string $columns = "*"): ?User
     {
         $find = $this->find("code_id = :code_id", "code_id={$code_id}", $columns);
         return $find->fetch();
@@ -119,7 +119,7 @@ class Church extends Model
         /** User Create */
         if (empty($this->id)) {
             if ($this->findByCode($this->code_id, "id")) {
-                $this->message->warning("A Igreja informada já está cadastrada");
+                $this->message->warning("Já existe uma igreja cadastrada com este código.");
                 return false;
             }
 

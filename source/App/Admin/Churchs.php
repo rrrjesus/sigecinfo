@@ -90,19 +90,20 @@ class Churchs extends Admin
 
             $churchCreate = new Church();
             $churchCreate->church_name = $data["church_name"];
-            $churchCreate->description = $data["description"];
-            $churchCreate->phone_landline = $data["phone_landline"];
-            $churchCreate->email = $data["email"];
-            $churchCreate->adress = $data["adress"];
-            $churchCreate->zip = $data["zip"];
-            $churchCreate->it_professional = $data["it_professional"];
-            $churchCreate->phone_mobile = $data["phone_mobile"];
+            $churchCreate->country_id = $data["country_id"];
+            $churchCreate->code_id = preg_replace("/[^0-9\s]/", "", $data["code_id"]);
+            $churchCreate->phone = preg_replace("/[^0-9\s]/", "", $data["phone"]);
+            $churchCreate->zip_code = preg_replace("/[^0-9\s]/", "", $data["zip_code"]);
+            $churchCreate->address = $data["address"];
+            $churchCreate->address_number = $data["address_number"];
+            $churchCreate->city = $data["city"];
+            $churchCreate->state = $data["state"];
             $churchCreate->observations = $data["observations"];
-            $churchCreate->login_created = $user->login;
+            $churchCreate->login_created = $user->id;
             $churchCreate->created_at = date_fmt('', "Y-m-d h:m:s");
 
-            if($data["church_name"] == "" || $data["description"] == "" || $data["adress"] == "" || $data["zip"] == "" || $data["it_professional"] == ""){
-                $json['message'] = $this->message->info("Informe a igreja, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
+            if($data["church_name"] == "" || $data["country_id"] == "" || $data["code_id"] == "" || $data["zip_code"] == "" || $data["address"] == "" || $data["address_number"] == "" || $data["city"] == "" || $data["state"] == ""){
+                $json['message'] = $this->message->info("Informe a igreja, país, código, cep, endereço, número, cidade e estado para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -133,19 +134,20 @@ class Churchs extends Admin
 
             $churchUpdate = (new Church())->findById($data["church_id"]);
             $churchUpdate->church_name = $data["church_name"];
-            $churchUpdate->description = $data["description"];
-            $churchUpdate->phone_landline = $data["phone_landline"];
-            $churchUpdate->email = $data["email"];
-            $churchUpdate->adress = $data["adress"];
-            $churchUpdate->zip = $data["zip"];
-            $churchUpdate->it_professional = $data["it_professional"];
-            $churchUpdate->phone_mobile = $data["phone_mobile"];
+            $churchUpdate->country_id = $data["country_id"];
+            $churchUpdate->code_id = preg_replace("/[^0-9\s]/", "", $data["code_id"]);
+            $churchUpdate->phone = preg_replace("/[^0-9\s]/", "", $data["phone"]);
+            $churchUpdate->zip_code = preg_replace("/[^0-9\s]/", "", $data["zip_code"]);
+            $churchUpdate->address = $data["address"];
+            $churchUpdate->address_number = $data["address_number"];
+            $churchUpdate->city = $data["city"];
+            $churchUpdate->state = $data["state"];
             $churchUpdate->observations = $data["observations"];
-            $churchUpdate->login_updated = $user->login;
-            $churchUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
+            $churchUpdate->login_created = $user->id;
+            $churchUpdate->created_at = date_fmt('', "Y-m-d h:m:s");
 
-            if($data["church_name"] == "" || $data["description"] == "" || $data["adress"] == "" || $data["zip"] == "" || $data["it_professional"] == ""){
-                $json['message'] = $this->message->info("Informe a igreja, descrição, endereço, cep e responsável para criar o registro !")->icon()->render();
+            if($data["church_name"] == "" || $data["country_id"] == "" || $data["code_id"] == "" || $data["zip_code"] == "" || $data["address"] == "" || $data["address_number"] == "" || $data["city"] == "" || $data["state"] == ""){
+                $json['message'] = $this->message->info("Informe a igreja, país, código, cep, endereço, número, cidade e estado para editar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }

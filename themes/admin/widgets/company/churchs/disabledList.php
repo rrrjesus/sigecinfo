@@ -13,8 +13,8 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
-                data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/beta/contatos")?>"
+            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark"
+                data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/painel/igrejas")?>"
                 role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
 
         </div>

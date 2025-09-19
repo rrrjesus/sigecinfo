@@ -51,13 +51,20 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCode"><strong><i class="bi bi-person-add me-1"></i> Código</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite o código da igreja" class="form-control form-control-sm mask-code"
-                                    name="code_id" placeholder="21-0765 ">
+                                    name="code_id" placeholder="21-0765">
                             </div>
                             
                             <div class="col-2 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputPhoneMobile"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                 data-bs-title="Digite o numero : DDD + dígitos" class="form-control form-control-sm mask-phone" name="phone" placeholder="(11)99106-5284">
+                            </div>
+
+                            <div class="col-2 mb-1">
+                                <label class="col-form-label col-form-label-sm" for="inputZipeCode"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
+                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
+                                name="zip_code" placeholder="02298-098">
                             </div>
 
                         </div>
@@ -72,10 +79,10 @@
                             </div>
 
                             <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputZipeCode"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputNumberAddrees"><strong><i class="bi bi-person-add me-1"></i> Número</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
-                                name="zip_code  " placeholder="02298-098">
+                                data-bs-title="Digite o número da Igreja" class="form-control form-control-sm"
+                                name="address_number" placeholder="265A">
                             </div>
 
                             <div class="col-3 mb-1">
@@ -178,28 +185,35 @@
                                 name="phone" placeholder="(11)99106-5284" value="<?=$church->phone?>">
                             </div>
 
+                            <div class="col-2 mb-1">
+                                <label class="col-form-label col-form-label-sm" for="inputZipAddress"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
+                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
+                                name="zip_code" placeholder="02244-35" value="<?=$church->zip_code?>">
+                            </div>
+
                         </div>
 
                         <div class="row">
 
                             <div class="col-5 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Endereço</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputAddress"><strong><i class="bi bi-person-add me-1"></i> Endereço</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"     
                                     data-bs-title="Digite o endereço da Igreja" class="form-control form-control-sm"
                                     name="address" placeholder="Rua José Buono, 65" value="<?=$church->address?>">
                             </div>
 
                             <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputAddressNumber"><strong><i class="bi bi-person-add me-1"></i> Número</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
-                                name="zip_code" placeholder="02244-35" value="<?=$church->zip_code?>">
+                                data-bs-title="Digite o número da Igreja" class="form-control form-control-sm"
+                                name="address_number" placeholder="265A" value="<?=$church->address_number?>">
                             </div>
 
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCity"><i class="bi bi-person-add me-1"></i><strong>Cidade</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite a cidade" class="form-control form-control-sm mask-city"
+                                    data-bs-title="Digite a cidade" class="form-control form-control-sm"
                                     name="city" placeholder="São Paulo" value="<?=$church->city?>">
                             </div>
 

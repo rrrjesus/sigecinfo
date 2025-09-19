@@ -8,7 +8,7 @@ define("CONF_SITE_TITLE", "Sistema de Gestão de Informações");
 define("CONF_SITE_DESC", "Sistema de Gestão de Informações");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "sigecinfo.com.br");
-define("CONF_SITE_EMAIL", "cotisuporte@smsub.prefeitura.sp.gov.br");
+define("CONF_SITE_EMAIL", "informatica.setor11@informaticast11.online");
 
 /**
  * COLORS

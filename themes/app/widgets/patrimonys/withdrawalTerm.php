@@ -136,7 +136,7 @@ div.WordSection1
 		eventualidade de problemas de ordem técnica ou operacional, o aparelho deverá
 		ser devolvido à </span><span style='font-size:10.0pt;line-height:150%;font-family:
 		"Arial",sans-serif'><b>COTI</b></span><span style='font-size:10.0pt;line-height:150%;
-		font-family:"Arial",sans-serif;font-weight:normal'> de imediato, comunicando por e-mail : <b>cotisuporte@smsub.prefeitura.sp.gov.br</b> ou <b>memorando</b>, 
+		font-family:"Arial",sans-serif;font-weight:normal'> de imediato, comunicando por e-mail : <b>informatica.setor11@informaticast11.online</b> ou <b>memorando</b>, 
 		onde deverá ser registrado o problema apresentado, constando o </span><span
 		style='font-size:10.0pt;line-height:150%;font-family:"Arial",sans-serif'><b><?=$term->product()->type_part_number?></b></span><span
 		style='font-size:10.0pt;line-height:150%;font-family:"Arial",sans-serif;

@@ -207,7 +207,7 @@ $(function () {
         }
     });
 
-    $("#church").validate({
+   $("#church").validate({
         rules: {
             church_name: {
                 required: true
@@ -215,46 +215,59 @@ $(function () {
             country_id: {
                 required: true
             },
-            code_id:{
+            code_id: {
                 required: true
             },
             address: {
                 required: true
             },
+            address_number: {
+                required: true
+                // pattern: /^[0-9]+[A-Za-z]?$/ // aceita 123 ou 123A
+            },
             zip_code: {
                 required: true
+                // pattern: /^[0-9]{5}-?[0-9]{3}$/ // aceita 12345-678 ou 12345678
             },
             city: {
                 required: true
             },
             state: {
                 required: true
+                // pattern: /^[A-Za-z]{2}$/ // sigla do estado (2 letras)
             }
         },
         messages: {
             church_name: {
-                required: "Digite o nome da Igreja !!!"
+                required: "O nome da igreja é obrigatório."
             },
             country_id: {
-                required: "Digite a sigla do País !!!"
+                required: "Informe o país (ex.: BR, US)."
             },
-            code_id:{
-                required: "Digite o código da Igreja !!!"
+            code_id: {
+                required: "Informe o código."
             },
             address: {
-                required: "Digite o endereço da Igreja !!!"
+                required: "O endereço é obrigatório."
+            },
+            address_number: {
+                required: "O número é obrigatório."
+                // pattern: "Digite um número válido (ex.: 123 ou 123A)."
             },
             zip_code: {
-                required: "Digite o Cep da Igreja !!!"
+                required: "Informe o CEP."
+                // pattern: "Digite um CEP válido (ex.: 12345-678)."
             },
             city: {
-                required: "Digite a Cidade da Igreja !!!"
+                required: "Informe a cidade."
             },
             state: {
-                required: "Digite o Estado da Igreja !!!"
+                required: "Informe o estado (ex.: SP)."
+                // pattern: "Digite a sigla do estado com 2 letras (ex.: SP, RJ)."
             }
         }
     });
+
 
     //  data-bs-toggle="tooltip" Bootstrap Title
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-togglee="tooltip"]'))
@@ -318,10 +331,10 @@ $(function () {
         $('.mask-fixed-phone').mask('(00)0000-0000');
         $('.mask-cep').mask('00000-000');
         $('.mask-zip-code').mask('00000-000');
-        $('.mask-state').mask('SS', {translation: {'S': { pattern: /[A-Z]/ }}});
+        $('.mask-state').mask('SS', {translation: {'S': { pattern: /[A-Za-z]/ }},onKeyPress: function(value, e, field, options) {field.val(value.toUpperCase());}});// permite maiúsculas e minúsculas
         $('.mask-code').mask('00-0000');
         //$('.mask-login').mask('S000000');
-        $('.mask-country').mask('SS', {translation: {'S': { pattern: /[A-Z]/ }}});
+        $('.mask-country').mask('SS', {translation: {'S': { pattern: /[A-Za-z]/ }},onKeyPress: function(value, e, field, options) {field.val(value.toUpperCase());}});// permite maiúsculas e minúsculas
         $(".mask-sei").mask('0000.0000/0000000-0', {reverse: true});
 
     //  data-bs-toggle="tooltip" Bootstrap Title
