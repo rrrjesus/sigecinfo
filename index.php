@@ -85,17 +85,6 @@ $route->get("/perfil", "Profile:profile");
 $route->post("/perfil", "Profile:profile");     
 $route->get("/contatos", "Patrimony:contact");
 
-//Igrejas
-$route->get("/igrejas", "Churchs:churchs");
-$route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
-$route->get("/igrejas/cadastrar", "Churchs:church");
-$route->post("/igrejas/cadastrar", "Churchs:church");
-$route->get("/igrejas/editar/{church_id}", "Churchs:church");
-$route->post("/igrejas/editar/{church_id}", "Churchs:church");
-$route->get("/igrejas/ativar/{church_id}/{action}", "Churchs:church");
-$route->get("/igrejas/desativar/{church_id}/{action}", "Churchs:church");
-$route->get("/igrejas/excluir/{church_id}/{action}", "Churchs:church");
-
 $route->get("/logoff", "Dash:logoff");
 
 /**
@@ -143,16 +132,6 @@ $route->post("/cargos/editar/{userposition_id}", "UsersPositions:userposition");
 $route->get("/cargos/ativar/{userposition_id}/{action}", "UsersPositions:userposition");
 $route->get("/cargos/desativar/{userposition_id}/{action}", "UsersPositions:userposition");
 $route->get("/cargos/excluir/{userposition_id}/{action}", "UsersPositions:userposition");
-
-$route->get("/regimes", "UsersCategories:UsersCategories");
-$route->get("/regimes/desativados", "UsersCategories:disabledUsersCategories");
-$route->get("/regimes/cadastrar", "UsersCategories:usercategory");
-$route->post("/regimes/cadastrar", "UsersCategories:usercategory");
-$route->get("/regimes/editar/{usercategory_id}", "UsersCategories:usercategory");
-$route->post("/regimes/editar/{usercategory_id}", "UsersCategories:usercategory");
-$route->get("/regimes/ativar/{usercategory_id}/{action}", "UsersCategories:usercategory");
-$route->get("/regimes/desativar/{usercategory_id}/{action}", "UsersCategories:usercategory");
-$route->get("/regimes/excluir/{usercategory_id}/{action}", "UsersCategories:usercategory");
 
 //Users
 $route->get("/usuarios", "Users:users");

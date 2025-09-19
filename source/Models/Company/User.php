@@ -23,13 +23,13 @@ class User extends Model
     }
 
     /**
-     * @param string $login
+     * @param string $phone_mobile
      * @param string $columns
      * @return null|User
      */
-    public function findByLogin(string $login, string $columns = "*"): ?User
+    public function findByPhoneMobile(string $phone_mobile, string $columns = "*"): ?User
     {
-        $find = $this->find("login = :login", "login={$login}", $columns);
+        $find = $this->find("phone_mobile = :phone_mobile", "phone_mobile={$phone_mobile}", $columns);
         return $find->fetch();
     }
 
@@ -260,7 +260,12 @@ class User extends Model
             $userId = $this->id;
 
             if ($this->find("email = :e AND id != :i", "e={$this->email}&i={$userId}", "id")->fetch()) {
-                $this->message->warning("O e-mail informado já está cadastrado");
+                $this->message->warning("Já existe um usuário cadastrado com este e-mail.");
+                return false;
+            }
+
+            if ($this->find("phone_mobile = :p AND id != :i", "p={$this->phone_mobile}&i={$userId}", "id")->fetch()) {
+                $this->message->warning("Já existe um celular cadastrado com este número.");
                 return false;
             }
 
@@ -274,12 +279,13 @@ class User extends Model
         /** User Create */
         if (empty($this->id)) {
 
-            // Verifica se o e-mail já existe (exceto para o próprio usuário em update)
-            $existing = $this->find("email = :e", "e={$this->email}")->fetch();
-
-
-            if ($existing && $existing->id != $this->id) {
+            if ($this->findByEmail($this->email, "id")) {
                 $this->message->warning("Já existe um usuário cadastrado com este e-mail.");
+                return false;
+            }
+
+            if ($this->findByPhoneMobile($this->phone_mobile, "id")) {
+                $this->message->warning("Já existe um usuário cadastrado com este celular.");
                 return false;
             }
 

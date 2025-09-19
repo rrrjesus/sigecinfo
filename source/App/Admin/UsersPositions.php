@@ -7,7 +7,7 @@ use Source\Models\Company\User;
 
 /**
  * Class UsersPositions
- * @package Source\App\Beta
+ * @package Source\App\Admin
  */
 class UsersPositions extends Admin
 {

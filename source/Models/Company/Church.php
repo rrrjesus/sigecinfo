@@ -11,14 +11,14 @@ class Church extends Model
         parent::__construct("churchs", ["id"], ["church_name", "country_id", "code_id", "address", "city", "state", "status"]);
     }
 
-    /**
-     * @param string $email
+        /**
+     * @param string $code_id
      * @param string $columns
      * @return null|User
      */
-    public function findByEmail(string $email, string $columns = "*"): ?Church
+    public function findByCode(string $code_id, string $columns = "*"): ?Church
     {
-        $find = $this->find("email = :email", "email={$email}", $columns);
+        $find = $this->find("code_id = :code_id", "code_id={$code_id}", $columns);
         return $find->fetch();
     }
 
@@ -52,8 +52,8 @@ class Church extends Model
             return '<a href="../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" target="_blank">
                     <img src="../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
         }else{
-            return '<a href="../storage/images/avatar.jpg" target="_blank">
-                    <img src="../storage/images/avatar.jpg" class="img-thumbnail rounded-circle float-left"
+            return '<a href="../storage/images/avatar-ccb.jpg" target="_blank">
+                    <img src="../storage/images/avatar-ccb.jpg" class="img-thumbnail rounded-circle float-left"
                     height="40" width="40"></a>';
         }
         return null;
@@ -68,29 +68,13 @@ class Church extends Model
             return '<a href="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" target="_blank">
                     <img src="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
         }else{
-            return '<a href="../../storage/images/avatar.jpg" target="_blank">
-                    <img src="../../storage/images/avatar.jpg" class="img-thumbnail rounded-circle float-left"
+            return '<a href="../../storage/images/avatar-ccb.jpg" target="_blank">
+                    <img src="../../storage/images/avatar-ccb.jpg" class="img-thumbnail rounded-circle float-left"
                     height="40" width="40"></a>';
         }
         return null;
     } 
 
-    /**
-     * @return null|Church
-     */
-    static function completeName($columns): ?Church
-    {
-        $stm = (new Church())->find("","",$columns);
-        $array[] = array();
-
-        if(!empty($stm)):
-            foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->church_name;
-            endforeach;
-            echo json_encode($array); //Return the JSON Array
-        endif;
-        return null;
-    }
 
     /**
      * @return null|Church
@@ -115,17 +99,13 @@ class Church extends Model
     public function save(): bool
     {
 
-        if (!is_email($this->email)) {
-            $this->message->warning("O e-mail informado não tem um formato válido")->icon();
-            return false;
-        }
 
         /** User Update */
         if (!empty($this->id)) {
             $churchId = $this->id;
 
-            if (!empty($this->email) && $this->find("email = :e AND id != :i", "e={$this->email}&i={$churchId}", "id")->fetch()) {
-                $this->message->warning("O e-mail informado já está cadastrado");
+            if (!empty($this->code_id) && $this->find("code_id = :c AND id != :i", "c={$this->code_id}&i={$churchId}", "id")->fetch()) {
+                $this->message->warning("A Igreja informada já está cadastrada");
                 return false;
             }
 
@@ -138,8 +118,8 @@ class Church extends Model
 
         /** User Create */
         if (empty($this->id)) {
-            if ($this->findByEmail($this->email, "id")) {
-                $this->message->warning("O e-mail informado já está cadastrado");
+            if ($this->findByCode($this->code_id, "id")) {
+                $this->message->warning("A Igreja informada já está cadastrada");
                 return false;
             }
 

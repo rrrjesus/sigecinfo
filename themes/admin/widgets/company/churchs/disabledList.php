@@ -26,16 +26,16 @@
                 <thead class="table-danger">
                     <tr>
                         <th class="text-center">FOTO</th>
-                        <th class="text-center">NOME</th>
-                        <th class="text-center">DESCRIÇÃO</th>
+                        <th class="text-center">PAÍS</th>
+                        <th class="text-center">CÓDIGO</th>
+                        <th class="text-center">IGREJA</th>
                         <th class="text-center">TELEFONE</th>
-                        <th class="text-center">E-MAIL</th>
                         <th class="text-center">ENDEREÇO</th>
                         <th class="text-center">CEP</th>
-                        <th class="text-center">RESPONSAVEL</th>
-                        <th class="text-center">TEL RESP</th>
+                        <th class="text-center">CIDADE</th>
+                        <th class="text-center">ESTADO</th>
                         <th class="text-center">STATUS</th>
-                        <th class="text-center">DESATIVAR</th>
+                        <th class="text-center">ATIVAR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,14 +43,14 @@
                 <?php foreach ($churchs as $lista): ?>
                     <tr>
                         <td class="text-center"><?=$lista->photoListDisabled();?></td>
+                        <td class="text-center"><?=$lista->country_id;?></td>
+                        <td class="text-center"><?=$lista->code_id;?></td>
                         <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->description;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->phone_landline;?></td>
-                        <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->adress;?></td>
-                        <td class="text-center"><?=$lista->zip;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->it_professional;?></td>
-                        <td class="text-center"><?=$lista->phone_mobile;?></td>
+                        <td class="text-center"><?=$lista->phone;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->address;?></td>
+                        <td class="text-center"><?=$lista->zip_code;?></td>
+                        <td class="text-center text-uppercase"><?=$lista->city;?></td>
+                        <td class="text-center"><?=$lista->state;?></td>
                         <td class="text-center text-uppercase"><?=$lista->statusBadge();?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

@@ -1,5 +1,5 @@
 <?php
-if (strpos(url(), "localhost")) {
+//if (strpos(url(), "localhost")) {
     /**
      * CSS
      */
@@ -60,4 +60,4 @@ if (strpos(url(), "localhost")) {
 
     //Minify JS
     $minAdminJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/assets/scripts.js");
-}
+//}

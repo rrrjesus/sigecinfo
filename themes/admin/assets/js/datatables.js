@@ -656,9 +656,9 @@ $(document).ready(function() {
             });
         },
         buttons: [
-            {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
+            {extend:'excel',title:'Igrejas',header: 'Igrejas',filename:'Igrejas',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
+            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Igrejas',header: 'Igrejas',filename:'Igrejas',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
+            {extend:'print', exportOptions: {columns: ':visible'},title:'Igrejas',header: 'Igrejas',filename:'Igrejas',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
             {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
             "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
@@ -668,7 +668,7 @@ $(document).ready(function() {
                 {display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return data[0] + ' ' + data[6];
+                            return data[2] + ' ' + data[3] + ' - ' + data[4];
                 },
                 update: true
             }),
@@ -689,7 +689,7 @@ $(document).ready(function() {
                 "aTargets": [11], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
                     return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                        'data-bs-title="Clique para desativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[11]+'">' +
+                        'data-bs-title="Clique para desativar '+ full[4] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[11]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[11] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
                             '<div class="modal-dialog modal-sm">\n' +
@@ -698,7 +698,7 @@ $(document).ready(function() {
                                     '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> DESATIVAR - ' + full[2] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja desativar a igreja : ' + full[3] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja desativar a igreja : ' + full[4] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
                                     '<a href="igrejas/desativar/' + full[11] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
@@ -719,19 +719,19 @@ $(document).ready(function() {
             });
         },
         buttons: [
-            {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
+            {extend:'excel',title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
+            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
+            {extend:'print', exportOptions: {columns: ':visible'},title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
             {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
             "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
             "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
         responsive:
-            {details:
+            {details:   
                 {display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return data[0] + ' ' + data[6];
+                            return data[1] + ' ' + data[2] + ' - ' + data[3];
                 },
                 update: true
             }),
@@ -761,7 +761,7 @@ $(document).ready(function() {
                                     '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> ATIVAÇÃO - ' + full[1] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja ativar a igreja : ' + full[1] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja ativar a igreja : ' + full[3] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
                                     '<a href="ativar/' + full[10] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +

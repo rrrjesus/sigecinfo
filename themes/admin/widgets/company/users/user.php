@@ -252,7 +252,7 @@
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
                                 <?=button("top", "Clique para gravar", "success", "disc-fill", "Gravar", "7", "g")?>
-                                <?=buttonLink("/painel/usuarios", "top", "Clique para listar os usuarios", "secondary", "list", "Listar", "8", "l")?>    
+                                <?=buttonLink("/painel/usuarios", "top", "Clique para listar os usuarios", "secondary", "list", "Listar", "8", "l")?>
                             </div>
                         </div>
 

@@ -212,16 +212,22 @@ $(function () {
             church_name: {
                 required: true
             },
-            description: {
+            country_id: {
                 required: true
             },
-            adress: {
+            code_id:{
                 required: true
             },
-            zip: {
+            address: {
                 required: true
             },
-            it_professional: {
+            zip_code: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
                 required: true
             }
         },
@@ -229,17 +235,23 @@ $(function () {
             church_name: {
                 required: "Digite o nome da Igreja !!!"
             },
-            description: {
-                required: "Descreva o nome da Igreja !!!"
+            country_id: {
+                required: "Digite a sigla do País !!!"
             },
-            adress: {
-                required: "Digite o endereço !!!"
+            code_id:{
+                required: "Digite o código da Igreja !!!"
             },
-            zip: {
-                required: "Digite o cep da Igreja!!!"
+            address: {
+                required: "Digite o endereço da Igreja !!!"
             },
-            it_professional: {
-                required: "Digite o nome do responsável da Igreja !!!"
+            zip_code: {
+                required: "Digite o Cep da Igreja !!!"
+            },
+            city: {
+                required: "Digite a Cidade da Igreja !!!"
+            },
+            state: {
+                required: "Digite o Estado da Igreja !!!"
             }
         }
     });
@@ -276,6 +288,22 @@ $(function () {
         }
     }
 
+    /* Função que decide qual máscara usar      */
+    var maskBehavior = function (val) {
+        // Remove todos os caracteres que não são dígitos
+        var digits = val.replace(/\D/g, '');
+        
+        // Se o número de dígitos for 11 (ou mais), usa a máscara de celular.
+        // Senão, usa a máscara de telefone fixo.
+        return digits.length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    };
+
+    var options = {
+        onKeyPress: function(val, e, field, options) {
+            field.mask(maskBehavior.apply({}, arguments), options);
+        }
+    };
+
     /*
      * jQuery MASK
      */
@@ -286,10 +314,14 @@ $(function () {
         $(".mask-imei").mask('000000000000000', {reverse: true});
         $(".mask-card").mask('0000  0000  0000  0000', {reverse: true});
         $('.mask-cell-phone').mask('(00)00000-0000');
+        $('.mask-phone').mask(maskBehavior, options);
         $('.mask-fixed-phone').mask('(00)0000-0000');
         $('.mask-cep').mask('00000-000');
-        $('.mask-login').mask('S000000');
-        $('.mask-rf').mask('0000000');
+        $('.mask-zip-code').mask('00000-000');
+        $('.mask-state').mask('SS', {translation: {'S': { pattern: /[A-Z]/ }}});
+        $('.mask-code').mask('00-0000');
+        //$('.mask-login').mask('S000000');
+        $('.mask-country').mask('SS', {translation: {'S': { pattern: /[A-Z]/ }}});
         $(".mask-sei").mask('0000.0000/0000000-0', {reverse: true});
 
     //  data-bs-toggle="tooltip" Bootstrap Title
