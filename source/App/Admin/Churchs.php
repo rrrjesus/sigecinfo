@@ -4,6 +4,8 @@ namespace Source\App\Admin;
 
 use Source\Models\Company\Church;
 use Source\Models\Company\User;
+use Source\Support\Thumb;
+use Source\Support\Upload;
 
 /**
  * Class Churchs
@@ -102,6 +104,21 @@ class Churchs extends Admin
             $churchCreate->login_created = $user->id;
             $churchCreate->created_at = date_fmt('', "Y-m-d h:m:s");
 
+            //upload photo
+            if (!empty($_FILES["photo"])) {
+                $files = $_FILES["photo"];
+                $upload = new Upload();
+                $image = $upload->image($files, $churchCreate->church_name, 600);
+
+                if (!$image) {
+                    $json["message"] = $upload->message()->render();
+                    echo json_encode($json);
+                    return;
+                }
+
+                $churchCreate->photo = $image;
+            }
+
             if($data["church_name"] == "" || $data["country_id"] == "" || $data["code_id"] == "" || $data["zip_code"] == "" || $data["address"] == "" || $data["address_number"] == "" || $data["city"] == "" || $data["state"] == ""){
                 $json['message'] = $this->message->info("Informe a igreja, país, código, cep, endereço, número, cidade e estado para criar o registro !")->icon()->render();
                 echo json_encode($json);
@@ -145,6 +162,22 @@ class Churchs extends Admin
             $churchUpdate->observations = $data["observations"];
             $churchUpdate->login_created = $user->id;
             $churchUpdate->created_at = date_fmt('', "Y-m-d h:m:s");
+
+            if (!empty($_FILES["photo"])) {
+                $file = $_FILES["photo"];
+                $upload = new Upload();
+
+                if ($churchUpdate->photo()) {
+                    (new Thumb())->flush("storage/{$churchUpdate->photo}");
+                    $upload->remove("storage/{$churchUpdate->photo}");
+                }
+
+                if (!$churchUpdate->photo = $upload->image($file, "{$churchUpdate->church_name} " . time(), 360)) {
+                    $json["message"] = $upload->message()->before("Ooops {$churchUpdate->church_name}! ")->after(".")->render();
+                    echo json_encode($json);
+                    return;
+                }
+            }
 
             if($data["church_name"] == "" || $data["country_id"] == "" || $data["code_id"] == "" || $data["zip_code"] == "" || $data["address"] == "" || $data["address_number"] == "" || $data["city"] == "" || $data["state"] == ""){
                 $json['message'] = $this->message->info("Informe a igreja, país, código, cep, endereço, número, cidade e estado para editar o registro !")->icon()->render();

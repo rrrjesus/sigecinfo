@@ -68,6 +68,13 @@ define("CONF_UPLOAD_IMAGE_DIR", "images");
 define("CONF_UPLOAD_FILE_DIR", "files");
 
 /**
+ * IMAGES
+ */
+define("CONF_IMAGE_CACHE", CONF_UPLOAD_DIR . "/" . CONF_UPLOAD_IMAGE_DIR . "/cache");
+define("CONF_IMAGE_SIZE", 2000);
+define("CONF_IMAGE_QUALITY", ["jpg" => 75, "png" => 5]);
+
+/**
  * LOGS
  */
 define("CONF_LOG_DIR", "storage/logs");

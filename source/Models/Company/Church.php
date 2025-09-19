@@ -46,15 +46,18 @@ class Church extends Model
         endif;  
     }
 
+    /**
+     * @return null|string
+     */
     public function photoList(): ?string
     {
-        if($this->photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo)){
-            return '<a href="../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" target="_blank">
-                    <img src="../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
+        if($this->photo && file_exists(CONF_UPLOAD_DIR.'/'.$this->photo)){
+            return '<a href="../'.CONF_UPLOAD_DIR.'/'.$this->photo.'" target="_blank">
+                    <img src="'.image($this->photo, 30,30).'" class="rounded-circle float-left"></a>';
         }else{
             return '<a href="../storage/images/avatar-ccb.jpg" target="_blank">
-                    <img src="../storage/images/avatar-ccb.jpg" class="img-thumbnail rounded-circle float-left"
-                    height="40" width="40"></a>';
+                    <img src="../storage/images/avatar-ccb.jpg" class="rounded-circle float-left"
+                    height="30" width="30"></a>';
         }
         return null;
     } 

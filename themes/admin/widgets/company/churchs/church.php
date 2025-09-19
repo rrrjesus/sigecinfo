@@ -139,13 +139,14 @@
                     <div class="row mb-1">
 
                         <div class="col-1 mb-1">
-                            <a href="<?php if ($church->photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$church->photo)) {echo '../../../themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$church->photo;} 
-                                else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar-ccb.jpg');}?>" target="_blank">
-                            <img data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Foto" height="90" width="90" src="<?php if ($church->photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$church->photo)) 
-                                {echo '../../../themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$church->photo;}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar-ccb.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
+                            <a href="<?php if (file_exists(CONF_UPLOAD_DIR .'/'.$church->photo)) {echo '../../../'.CONF_UPLOAD_DIR .'/'.$church->photo;} 
+                                else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" target="_blank">
+                            <img data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                data-bs-title="Foto" height="90" width="90" src="<?php if ($church->photo && file_exists(CONF_UPLOAD_DIR .'/'.$church->photo)) 
+                                {echo image($church->photo, 200, 200);}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
                             </a>
                         </div>
+
                         <div class="col-5 mb-1">
                             <label for="formFileSm" class="col-form-label col-form-label-sm"> <strong> Extensões aceitas : .bmp ,.png, .svg, .jpeg e .jpg </strong></label>
                             <input data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 

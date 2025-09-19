@@ -62,19 +62,7 @@
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
                             </nav>
                         </div>
-                        <!-- Sidebar de regimes -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersCategories" aria-expanded="false" aria-controls="collapseUsersCategories">
-                            <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
-                            Regimes
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseUsersCategories" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserCategory">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/regimes")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/regimes/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
-                            </nav>
-                        </div>
-
+                        
                         <!-- Sidebar de usuários -->
                         <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
                             <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
@@ -90,13 +78,13 @@
                     </nav>
                 </div>
 
-                <!-- Sidebar Patrimônio -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePatrimonys" aria-expanded="false" aria-controls="collapsePatrimonys">
+                <!-- Sidebar Reuniões -->
+                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMeetings" aria-expanded="false" aria-controls="collapseMeetings">
                     <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Patrimônio
+                    Reuniões
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
-                <div class="collapse" id="collapsePatrimonys" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="collapseMeetings" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
                         <!-- Sidebar de Empresas -->

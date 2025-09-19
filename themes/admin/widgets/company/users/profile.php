@@ -21,13 +21,14 @@
                     <div class="row mb-1">
 
                     <div class="col-1 mb-1">
-                        <a href="<?php if (file_exists(CONF_UPLOAD_DIR .'/'.$profile->photo)) {echo '../../../'.CONF_UPLOAD_DIR .'/'.$profile->photo;} 
+                        <a href="<?php if (file_exists(CONF_UPLOAD_DIR .'/'.$profile->photo)) {echo '../'.CONF_UPLOAD_DIR .'/'.$profile->photo;} 
                             else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" target="_blank">
                         <img data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                             data-bs-title="Foto" height="90" width="90" src="<?php if ($profile->photo && file_exists(CONF_UPLOAD_DIR .'/'.$profile->photo)) 
                             {echo image($profile->photo, 200, 200);}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
                         </a>
                     </div>
+
                     <div class="col-5 mb-1">
                         <label for="formFileSm" class="col-form-label col-form-label-sm"> <strong> Extensões aceitas : .bmp ,.png, .svg, .jpeg e .jpg </strong></label>
                         <input data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
@@ -36,22 +37,6 @@
                     </div>
 
                     <div class="row">
-
-                        <div class="col-2 mb-1">
-                            <label class="col-form-label col-form-label-sm" for="inputLogin"><strong><i class="bi bi-person me-1"></i> Login</strong></label>
-                            <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o login - letra + 6 dígitos" class="form-control form-control-sm mask-login"
-                                name="login" placeholder="d123456" value="<?=$profile->login?>">
-
-                        </div>
-
-                        <div class="col-2 mb-1">
-                            <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> RF</strong></label>
-                            <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Digite o RF - 7 dígitos" class="form-control form-control-sm mask-rf"
-                                name="rf" placeholder="1234567" value="<?=$profile->rf?>">
-
-                        </div>
 
                         <div class="col-6 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
@@ -98,13 +83,6 @@
                                 name="position_id" placeholder="Cargo" value="<?=$profile->userPosition()->id.' - '.$profile->userPosition()->position_name?>">
                         </div>
 
-                        <div class="col-2 mb-1">
-                            <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Regime</strong></label>
-                            <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                            data-bs-title="Regime" class="form-control form-control-sm category_id" name="category_id" placeholder="Regime"
-                            value="<?=$profile->userCategory()->id.' - '.$profile->userCategory()->category_name?>">
-                        </div>
-
                         <div class="col-4 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                             <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
@@ -144,14 +122,10 @@
                         
                     </div>
 
-
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-auto">
-                            <button data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
-                                data-bs-title="Clique para atualizar o colaborador" class="btn btn-sm btn-outline-success fw-bold me-3"><i class="bi bi-disc-fill me-2"></i>GRAVAR</button>
-                            <a href="<?=url("/painel/usuarios")?>" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
-                                data-bs-title="Clique para listar os usuarios" class="btn btn-sm btn-outline-dark fw-bold">
-                                <i class="bi bi-list-columns me-2"></i>LISTAR</a>
+                            <?=button("top", "Clique para atualizar o colaborador", "success", "disc-fill", "Gravar", "7", "g")?>
+                            <?=buttonLink("/painel/controle/inicial", "top", "Clique para sair", "danger", "arrow-right-circle", "Sair", "8", "l")?>
                         </div>
                     </div>
 
