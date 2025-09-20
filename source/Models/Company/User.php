@@ -74,41 +74,6 @@ class User extends Model
         }
         return null; 
     }
-
-    /**
-     * @return null|string
-     */
-    public function statusSpan(): ?string
-    {
-
-    if ($this->status == "registered") {
-        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
-                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Falta acesso ao e-mail de confirmação">
-                    Registrado</span>';
-    } elseif ($this->status == "confirmed") {
-        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
-                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Usuário confirmou">CONFIRMADO</span>';
-    } else {
-        return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">INATIVO</span>';
-    }
-    return null; 
-    }
-
-    /**
-     * @return null|string
-     */
-    public function photoList(): ?string
-    {
-        if($this->photo && file_exists(CONF_UPLOAD_DIR.'/'.$this->photo)){
-            return '<a href="../'.CONF_UPLOAD_DIR.'/'.$this->photo.'" target="_blank">
-                    <img src="'.image($this->photo, 30,30).'" class="rounded-circle float-left"></a>';
-        }else{
-            return '<a href="../storage/images/avatar.jpg" target="_blank">
-                    <img src="../storage/images/avatar.jpg" class="rounded-circle float-left"
-                    height="30" width="30"></a>';
-        }
-        return null;
-    } 
     
     /**
      * @return null|string
@@ -185,23 +150,6 @@ class User extends Model
         return null;
     }
 
-    /**
-     * @return string
-     */
-    public function levelBadge(): string
-    {
-        if($this->level_id == 1):
-            return '<span class="badge text-bg-primary ms-2">User</span>';
-        elseif($this->level_id == 2):
-            return '<span class="badge text-bg-light ms-2">Edit*</span>';
-        elseif($this->level_id == 3):
-            return '<span class="badge text-bg-info ms-2">Edit</span>';
-        elseif($this->level_id == 4):
-            return '<span class="badge text-bg-success ms-2">Adm*</span>';
-        else:
-            return '<span class="badge text-bg-warning ms-2">Adm</span>';
-        endif;  
-    }
 
    /**
      * @return null|User

@@ -432,6 +432,38 @@ function image(?string $image, int $width, int $height = null): ?string
 }
 
 /**
+ * @param string|null $photo
+ * @return null|string
+ */
+function photoList(?string $photo, string $avatar = 'avatar.jpg'): ?string
+{
+    if($photo && file_exists(CONF_UPLOAD_DIR.'/'.$photo)){
+        return '<a href="../'.CONF_UPLOAD_DIR.'/'.$photo.'" target="_blank">
+                <img src="'.image($photo, 30,30).'" class="rounded-circle float-left"></a>';
+    }else{
+        return '<a href="../storage/images/'.$avatar.'" target="_blank">
+                <img src="../storage/images/'.$avatar.'" class="rounded-circle float-left"
+                height="30" width="30"></a>';
+    }
+    return null;
+}
+
+/**
+ * @param string $status
+ * @return string
+ */
+function statusBadge(string $status): string
+{
+    if($status == 'actived'):
+        return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
+    elseif($status == 'disabled'):
+        return '<span class="badge text-bg-danger ms-2">INATIVO</span>';
+    else:
+            return '<span class="badge text-bg-danger ms-2">BAIXA</span>';
+    endif;
+}
+
+/**
  * ################
  * ###  BUTTONS ###
  * ################
@@ -574,6 +606,40 @@ function passwd_rehash(string $hash): bool
 {
     return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
 }
+
+function level_badge(string $levelName): string
+{
+    $badges = [
+        'Usuario' => '<span class="badge text-bg-primary ms-2">User</span>',
+        'Usuario Editor' => '<span class="badge text-bg-light ms-2">Edit*</span>',
+        'Editor' => '<span class="badge text-bg-info ms-2">Edit</span>',
+        'Editor Administrador' => '<span class="badge text-bg-success ms-2">Adm*</span>',
+        'Administrador do Sistema' => '<span class="badge text-bg-warning ms-2">Adm</span>'
+    ];
+
+    return $badges[$levelName] ?? '<span class="badge text-bg-secondary ms-2">?</span>';
+}
+
+    /**
+     * @param string $status
+     * @return null|string
+     */
+    function statusSpan(string $status): ?string
+    {
+
+    if ($status == "registered") {
+        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
+                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
+                    Registrado</span>';
+    } elseif ($status == "confirmed") {
+        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
+                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">CONFIRMADO</span>';
+    } else {
+        return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">INATIVO</span>';
+    }
+    return null; 
+    }
+    
 
 /**
  * ###################

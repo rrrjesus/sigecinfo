@@ -13,10 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
-                data-bs-title="Clique para cadastrar novo colaborador" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/painel/usuarios")?>"
-                role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
-
+            <?=buttonLink("/painel/usuarios", "top", "Clique para sair", "danger", "arrow-right-circle me-2 mt-1", "Sair", "1", "c")?> 
         </div>
     </div>
 
@@ -48,7 +45,7 @@
                         <td class="text-center"><?=$lista->userPosition()->position_name;?></td>
                         <td class="text-center"><?=$lista->userChurch()->church_name;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center"><?=$lista->statusSpan();?></td>
+                        <td class="text-center"><?=statusBadge($lista->status);?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_nome;?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

@@ -13,10 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark"
-                data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/painel/igrejas")?>"
-                role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
-
+             <?=buttonLink("/painel/igrejas", "top", "Clique para sair", "danger", "arrow-right-circle", "Sair", "1", "s")?> 
         </div>
     </div>
 
@@ -51,7 +48,7 @@
                         <td class="text-center"><?=$lista->zip_code;?></td>
                         <td class="text-center text-uppercase"><?=$lista->city;?></td>
                         <td class="text-center"><?=$lista->state;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->statusBadge();?>
+                        <td class="text-center"><?=statusBadge($lista->status);?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>
                 <?php endforeach; ?>

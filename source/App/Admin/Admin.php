@@ -30,4 +30,20 @@ class Admin extends Controller
             redirect("/painel/login");
         }
     }
+
+    /**
+     * Verifica se o usuário logado tem um dos níveis permitidos.
+     * @param array $allowedLevels - Um array com os NOMES dos níveis permitidos.
+     */
+    protected function authorize(array $allowedLevels): void
+    {
+        $session = new \Source\Core\Session();
+        $userLevelName = $session->user_level_name ?? null;
+
+        if (!in_array($userLevelName, $allowedLevels)) {
+            $session->set("flash", $this->message->error("Acesso negado! Você não tem permissão para esta ação.")->render());
+            redirect("/painel"); // Ou para uma página de "acesso negado"
+            exit;
+        }
+    }
 }

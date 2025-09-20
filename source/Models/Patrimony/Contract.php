@@ -80,18 +80,6 @@ class Contract extends Model
     }
 
     /**
-     * @return string
-     */
-    public function statusBadge(): string
-    {
-        if($this->status == 'actived'){
-            return '<span class="badge text-bg-success ms-2">Ativo</span>';
-        } else {
-            return '<span class="badge text-bg-danger ms-2">Inativo</span>';
-        }  
-    }
-
-    /**
      * @return null|Contract
      */
     static function completeContract(): ?Contract

@@ -68,13 +68,6 @@
                             name="position" placeholder="Church" value="<?=$user->userPosition()->position_name?>" disabled readonly>
                     </div>
 
-                    <div class="col-2 mb-1">
-                        <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Regime</strong></label>
-                        <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
-                        data-bs-title="Categoria" class="form-control form-control-sm"
-                        name="category" placeholder="Categoria" value="<?=$user->userCategory()->category_name?>" disabled readonly>
-                    </div>
-
                     <div class="col-3 mb-1">
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 

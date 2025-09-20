@@ -33,34 +33,6 @@ class Church extends Model
 
         return null;
     }
-
-    /**
-     * @return string
-     */
-    public function statusBadge(): string
-    {
-        if($this->status == 'actived'):
-            return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
-        else:
-            return '<span class="badge text-bg-danger ms-2">INATIVO</span>';
-        endif;  
-    }
-
-    /**
-     * @return null|string
-     */
-    public function photoList(): ?string
-    {
-        if($this->photo && file_exists(CONF_UPLOAD_DIR.'/'.$this->photo)){
-            return '<a href="../'.CONF_UPLOAD_DIR.'/'.$this->photo.'" target="_blank">
-                    <img src="'.image($this->photo, 30,30).'" class="rounded-circle float-left"></a>';
-        }else{
-            return '<a href="../storage/images/avatar-ccb.jpg" target="_blank">
-                    <img src="../storage/images/avatar-ccb.jpg" class="rounded-circle float-left"
-                    height="30" width="30"></a>';
-        }
-        return null;
-    } 
     
     /**
      * @return null|string

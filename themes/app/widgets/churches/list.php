@@ -99,7 +99,7 @@
                         <td class="text-center"><?=$lista->contact_name;?></td>
                         <td class="text-center"><?=$lista->church()->church_name;?></td>
                         <td class="text-center"><?=$lista->ramal;?></td>
-                        <td class="text-center"><?=$lista->statusBadge();?></td>
+                        <td class="text-center"><?=statusBadge($lista->status);?></td>
                     </tr>
                 <?php endforeach; ?>
                 <?php } ?>

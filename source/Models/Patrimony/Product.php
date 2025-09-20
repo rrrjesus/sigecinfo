@@ -55,22 +55,6 @@ class Product extends Model
 
         return null;
     }
-
-        /**
-     * @return null|string
-     */
-    public function photoList(): ?string
-    {
-        if($this->photo && file_exists(CONF_UPLOAD_DIR.'/'.$this->photo)){
-            return '<a href="../../'.CONF_UPLOAD_DIR.'/'.$this->photo.'" target="_blank">
-                    <img src="'.image($this->photo, 30,30).'" class="rounded-circle float-left"></a>';
-        }else{
-            return '<a href="../../storage/images/avatar_product.png" target="_blank">
-                    <img src="../../storage/images/avatar_product.png" class="rounded-circle float-left"
-                    height="30" width="30"></a>';
-        }
-        return null;
-    } 
     
     /**
      * @return null|string

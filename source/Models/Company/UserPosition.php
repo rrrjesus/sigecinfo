@@ -62,18 +62,6 @@ class UserPosition extends Model
     }
 
     /**
-     * @return string
-     */
-    public function statusBadge(): string
-    {
-        if($this->status == 'actived'){
-            return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
-        } else {
-            return '<span class="badge text-bg-danger ms-2">INATIVO</span>';
-        }
-    }
-
-    /**
      * @return bool
      */
     public function save(): bool

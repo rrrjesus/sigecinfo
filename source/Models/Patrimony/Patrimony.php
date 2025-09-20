@@ -225,20 +225,6 @@ class Patrimony extends Model
     /**
      * @return string
      */
-    public function statusBadge(): string
-    {
-        if($this->status == 'actived'){
-            return '<span class="badge text-bg-success ms-2">Ativo</span>';
-        } elseif($this->status == 'disabled'){
-            return '<span class="badge text-bg-warning ms-2">Inativo</span>';
-        } else {
-            return '<span class="badge text-bg-danger ms-2">Baixa</span>';
-        } 
-    }
-
-    /**
-     * @return string
-     */
     public function statusSelect(): ?string
     {
         if ($this->status == "actived") {

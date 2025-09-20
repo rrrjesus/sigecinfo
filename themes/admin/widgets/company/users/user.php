@@ -220,7 +220,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputSetor"><strong><i class="bi bi-building ms-3 me-3"></i> Nivel</strong></label>
                                 <select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Selecione o nível de usuario" name="level_id">
-                                    <option value="<?=$user->level_id?>" selected><?=$user->level()->level_nome?></option>
+                                    <option value="<?=$user->level_id?>" selected><?=$user->level()->level_name?></option>
                                     <option value="1">Usuario</option>
                                     <option value="2">Usuario Editor</option>
                                     <option value="3">Editor</option>

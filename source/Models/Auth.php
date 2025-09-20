@@ -135,7 +135,21 @@ class Auth extends Model
         }
 
         //LOGIN
-        (new Session())->set("authUser", $user->id);
+
+        //Pega a sessão atual
+        $session = new Session();
+
+        //Guarda o ID do usuário (como você já faz)
+        $session->set("authUser", $user->id);
+        
+        //GUARDA AS INFORMAÇÕES DE NÍVEL
+        // O método level() já existe no seu User.php e busca os dados do nível!
+        $userLevel = $user->level(); 
+        if ($userLevel) {
+            $session->set("user_level_id", $userLevel->id);
+            $session->set("user_level_name", $userLevel->level_name);
+        }
+
         return true;
     }
 

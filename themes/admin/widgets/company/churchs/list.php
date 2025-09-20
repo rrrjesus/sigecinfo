@@ -50,7 +50,7 @@
                             data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-sm text-center">
                             <i class="bi bi-pencil text-secundary"></i></a></td>
-                        <td class="text-center"><?=$lista->photoList();?></td>
+                        <td class="text-center"><?=photoList($lista->photo, 'avatar-ccb.jpg');?></td>
                         <td class="text-center"><?=$lista->country_id;?></td>
                         <td class="text-center"><?=$lista->code_id;?></td>
                         <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
@@ -59,7 +59,7 @@
                         <td class="text-center"><?=$lista->zip_code;?></td>
                         <td class="text-center text-uppercase"><?=$lista->city;?></td>
                         <td class="text-center"><?=$lista->state;?></td>
-                        <td class="text-center text-uppercase"><?=$lista->statusBadge();?>
+                        <td class="text-center"><?=statusBadge($lista->status);?>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>
                 <?php endforeach; ?>

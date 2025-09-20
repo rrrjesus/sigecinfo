@@ -38,44 +38,11 @@
                     <li class="nav-item nav col-6 col-lg-auto">
                         <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
                     </li>
-
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/reunioes")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Reuniões" href="<?=url("/reunioes")?>">Reuniões</a>
-                    </li>
-
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/contatos")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Contatos" href="<?=url("/contatos")?>">Contatos</a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/email")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="E-mail" href="<?=url("/email")?>">E-mail</a>
-                    </li>
-
-                    <!--<li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Blog" href="<?=url("/")?>">Blog</a>
-                    </li>-->
                 </ul>
 
                 <hr class="d-lg-none">
 
-                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Facebook" href="https://www.facebook.com/<?=CONF_SOCIAL_FACEBOOK_PAGE?>" target="_blank" rel="noopener">
-                            <i class="bi bi-facebook"></i>
-                            <small class="d-lg-none ms-2">Facebook</small>
-                        </a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.instagram.com/<?=CONF_SOCIAL_INSTAGRAM_PAGE?>" target="_blank" rel="noopener">
-                            <i class="bi bi-instagram"></i>
-                            <small class="d-lg-none ms-2">Instagram</small>
-                        </a>
-                    </li>
-                    <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" href="https://www.youtube.com/<?=CONF_SOCIAL_YOUTUBE_PAGE?>" target="_blank" rel="noopener">
-                            <i class="bi bi-youtube"></i>
-                            <small class="d-lg-none ms-2">YouTube</small>
-                        </a>
-                    </li>
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">   
                     <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
                         <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
                         <hr class="d-lg-none my-2">
@@ -119,10 +86,6 @@
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center" aria-current="true" href="<?=url("/beta/logoff")?>"><i class="bi bi-power me-2 mb-2"></i>Sair</a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><h6 class="dropdown-header">Lançamentos anteriores</h6></li>
-                                <li><a class="dropdown-item" href="http://<?=CONF_DB_HOST?>/agendav2/">v2.0</a></li>
-                                <li><a class="dropdown-item" href="http://<?=CONF_DB_HOST?>/agendav1/">v1.0</a></li>
                             </ul>
                             <?php else:?>
                                 <li class="nav-item col-6 col-lg-auto">

@@ -27,7 +27,7 @@ class Login extends Controller
         $user = Auth::user();
 
         if ($user && $user->level_id >= 3) {
-            redirect("/beta/home");
+            redirect("/beta/perfil");
         } else {
             redirect("/entrar");
         }
@@ -41,7 +41,7 @@ class Login extends Controller
         $user = Auth::user();
 
         if ($user && $user->level_id >= 3) {
-            redirect("/beta/home");
+            redirect("/beta/perfil");
         }
 
         if (!empty($data['csrf'])) {
@@ -69,7 +69,7 @@ class Login extends Controller
 
                 if ($login) {
                     $this->message->success("Seja bem-vindo(a) de volta " . Auth::user()->user_name . "!")->icon()->flash();
-                    $json["redirect"] = url("/beta/home");
+                    $json["redirect"] = url("/beta/perfil");
                 } else {
                     $json['message'] = $auth->message()->before("Ooops! ")->icon()->render();
                 }

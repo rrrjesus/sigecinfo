@@ -43,7 +43,7 @@
                             data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
                             <td class="text-center fw-semibold"><?=$lista->id?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
-                            <td class="text-center fw-semibold"><?=$lista->statusBadge()?></td>
+                            <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
                             <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                                 class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-person"></i></b></td>
                                 <!-- Modal -->

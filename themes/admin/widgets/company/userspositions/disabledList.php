@@ -36,7 +36,7 @@
                         <tr>
                             <td class="text-center fw-semibold"><?=$lista->id?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
-                            <td class="text-center fw-semibold"><?=$lista->statusBadge()?></td>
+                            <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
                             <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#actived-<?=$lista->id;?>" 
                                 class="btn btn-outline-success rounded-circle btn-sm text-center"><i class="bi bi-person"></i></b></td>
                                 <!-- Modal -->

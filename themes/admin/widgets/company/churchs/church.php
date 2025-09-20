@@ -143,7 +143,7 @@
                                 else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" target="_blank">
                             <img data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Foto" height="90" width="90" src="<?php if ($church->photo && file_exists(CONF_UPLOAD_DIR .'/'.$church->photo)) 
-                                {echo image($church->photo, 200, 200);}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
+                                {echo image($church->photo, 200, 200);}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar-ccb.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
                             </a>
                         </div>
 

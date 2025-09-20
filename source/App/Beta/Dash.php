@@ -27,7 +27,7 @@ class Dash extends Admin
      */
     public function dash(): void
     {
-        redirect("/beta/home");
+        redirect("/beta/perfil");
     }
 
     /**
