@@ -35,23 +35,6 @@ class Church extends Model
     }
     
     /**
-     * @return null|string
-     */
-    public function photoListDisabled(): ?string
-    {
-        if($this->photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo)){
-            return '<a href="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" target="_blank">
-                    <img src="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$this->photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
-        }else{
-            return '<a href="../../storage/images/avatar-ccb.jpg" target="_blank">
-                    <img src="../../storage/images/avatar-ccb.jpg" class="img-thumbnail rounded-circle float-left"
-                    height="40" width="40"></a>';
-        }
-        return null;
-    } 
-
-
-    /**
      * @return null|Church
      */
     static function completeChurch(): ?Church

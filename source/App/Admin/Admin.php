@@ -3,6 +3,7 @@
 namespace Source\App\Admin;
 
 use Source\Core\Controller;
+use Source\Core\Session;
 use Source\Models\Auth;
 
 /**
@@ -29,11 +30,17 @@ class Admin extends Controller
             $this->message->error("Para acessar é preciso logar-se")->flash();
             redirect("/painel/login");
         }
+
+        if ($this->user->level_id < 4) { // Nível mínimo para acessar o painel
+            $this->message->error("Você não tem permissão para acessar esta área.")->flash();
+            redirect("/"); // Redireciona para a home do site, por exemplo
+            exit;
+        }
     }
 
     /**
      * Verifica se o usuário logado tem um dos níveis permitidos.
-     * @param array $allowedLevels - Um array com os NOMES dos níveis permitidos.
+     * @param array $allowedLevels
      */
     protected function authorize(array $allowedLevels): void
     {

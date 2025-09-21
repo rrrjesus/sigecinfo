@@ -28,6 +28,7 @@ define("CONF_ADMIN_COLOR","dark");
 /**
  * MAIL
  */ 
+define("CONF_MAIL_HOST", "smtp.hostinger.com.br");
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
 define("CONF_MAIL_OPTION_AUTH", true);

@@ -560,22 +560,22 @@ $(document).ready(function() {
         "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
         "aoColumnDefs": [
             {
-                "aTargets": [10], // o numero da coluna
+                "aTargets": [9], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
                     return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                        'data-bs-title="Clique para desativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[10]+'">' +
+                        'data-bs-title="Clique para desativar '+ full[2] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[9]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
-                        '<div class="modal fade" id="activedModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+                        '<div class="modal fade" id="activedModal' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
                             '<div class="modal-dialog modal-sm">\n' +
                                 '<div class="modal-content">\n' +
                                     '<div class="modal-header bg-warning text-light">\n' +
-                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> Desativar ID: ' + full[10] + '</h6>\n' +
+                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> Desativar ID: ' + full[9] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja desativar o usuario : ' + full[3] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja desativar o usuario : ' + full[2] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="usuarios/desativar/' + full[10] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="usuarios/desativar/' + full[9] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -623,22 +623,22 @@ $(document).ready(function() {
         "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
         "aoColumnDefs": [
             {
-                "aTargets": [9], // o numero da coluna
+                "aTargets": [8], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
                     return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                        'data-bs-title="Clique para ativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#trashModalInicio'+ full[9]+'">' +
+                        'data-bs-title="Clique para ativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#trashModalInicio'+ full[8]+'">' +
                         '<i class="bi bi-person-check"></i></button>' +
-                        '<div class="modal fade" id="trashModalInicio' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+                        '<div class="modal fade" id="trashModalInicio' + full[8] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
                             '<div class="modal-dialog modal-sm">\n' +
                                 '<div class="modal-content">\n' +
                                     '<div class="modal-header bg-warning text-light">\n' +
-                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> Ativar ID: ' + full[9] + '</h6>\n' +
+                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> Ativar ID: ' + full[8] + '</h6>\n' +
                                     '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
                                     '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja ativar o usuario : ' + full[3] + ' ?</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja ativar o usuario : ' + full[1] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="ativar/' + full[9] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="ativar/' + full[8] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +

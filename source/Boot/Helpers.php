@@ -449,6 +449,24 @@ function photoList(?string $photo, string $avatar = 'avatar.jpg'): ?string
 }
 
 /**
+ * @param string|null $photo
+ * @return null|string
+ */
+
+function photoListDisabled(?string $photo, string $avatar = 'avatar.jpg'): ?string
+{
+    if($photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo)){
+        return '<a href="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo.'" target="_blank">
+                <img src="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
+    }else{
+        return '<a href="../../storage/images/'.$avatar.'" target="_blank">
+                <img src="../../storage/images/'.$avatar.'" class="img-thumbnail rounded-circle float-left"
+                height="40" width="40"></a>';
+    }
+    return null;
+}
+
+/**
  * @param string $status
  * @return string
  */

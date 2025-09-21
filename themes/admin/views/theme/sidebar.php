@@ -27,9 +27,63 @@
                     Ver Aplicativo
                 </a>
 
-                <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">GERENCIAMENTO</div>
+                <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">GERENCIAMENTO</div>  
+                
+                <!-- Sidebar Usuários -->
+                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
+                    <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
+                    Usuários
+                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUsers" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
-                <!-- Sidebar Usuário -->
+                        <!-- Sidebar de usuários -->
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
+                            <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
+                            Usuários
+                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUser" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUser">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/usuarios/cadastrar")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/usuarios")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/usuarios/desativados")?>"><i class="bi bi-list bi-2xx me-2"></i> Desativados</a>
+                            </nav>
+                        </div>
+
+                        <!-- Sidebar de níveis de usuários -->
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersLevels" aria-expanded="false" aria-controls="collapseUsersLevels">
+                            <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
+                            Níveis
+                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUsersLevels" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserLevel">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis/desativados")?>"><i class="bi bi-list bi-2xx me-2"></i> Desativados</a>
+                            </nav>
+                        </div>
+
+                        <!-- Sidebar de cargos de usuários -->
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersPositions" aria-expanded="false" aria-controls="collapseUsersPositions">
+                            <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
+                            Cargos
+                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseUsersPositions" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserPosition">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos/desativados")?>"><i class="bi bi-list bi-2xx me-2"></i> Desativados</a>
+                            </nav>
+                        </div>
+                        
+                    </nav>
+                </div>
+
+                <!-- Sidebar Secretaria -->
                 <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseInstitutions" aria-expanded="false" aria-controls="collapseInstitutions">
                     <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
                     Secretaria
@@ -46,33 +100,9 @@
                         </a>
                         <div class="collapse" id="collapseChurchs" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionChurch">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
-                            </nav>
-                        </div>
-                        <!-- Sidebar de cargos -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersPositions" aria-expanded="false" aria-controls="collapseUsersPositions">
-                            <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
-                            Cargos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseUsersPositions" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserPosition">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/cargos/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
-                            </nav>
-                        </div>
-                        
-                        <!-- Sidebar de usuários -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">
-                            <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
-                            Usuários
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseUser" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUser">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/usuarios")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/usuarios/cadastrar")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/igrejas/desativadas")?>"><i class="bi bi-list bi-2xx me-2"></i> Desativadas</a>
                             </nav>
                         </div>
                     </nav>
@@ -85,65 +115,6 @@
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseMeetings" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-
-                        <!-- Sidebar de Empresas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseCompanies" aria-expanded="false" aria-controls="pagesCollapseCompanies">
-                            Empresas
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseCompanies" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionCompanies">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                        <!-- Sidebar de Marcas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseBrands" aria-expanded="false" aria-controls="pagesCollapseBrands">
-                            Marcas
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseBrands" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionBrands">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                        <!-- Sidebar de Produtos -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseProducts" aria-expanded="false" aria-controls="pagesCollapseProducts">
-                            Produtos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseProducts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionProducts">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/produtos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/produtos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                        <!-- Sidebar de Contratos -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseContracts" aria-expanded="false" aria-controls="pagesCollapseContracts">
-                            Contratos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseContracts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionContracts">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/contratos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/contratos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>
-
-                 <!-- Sidebar Contratos -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseContracts" aria-expanded="false" aria-controls="collapsePatrimonys">
-                    <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Contratos
-                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseContracts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
                         <!-- Sidebar de Empresas -->

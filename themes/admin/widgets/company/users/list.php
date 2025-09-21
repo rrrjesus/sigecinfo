@@ -27,7 +27,6 @@
             <table id="users" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                 <thead class="table-secondary">
                 <tr>
-                    <th class="text-center"><i class="bi bi-unlock me-1"></i><br>ID</th>
                     <th class="text-center"><i class="bi bi-person-gear me-1"></i><br>GERENCIAR</th>
                     <th class="text-center"><i class="bi bi-person-circle me-1"></i><br>FOTO</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NOME</th>
@@ -44,7 +43,6 @@
                 <?php if(!empty($users)){ ?>
                 <?php foreach ($users as $lista): ?>
                     <tr>
-                        <td class="text-center"><?=$lista->id?></td>
                         <td class="text-center"><a href="usuarios/editar/<?=$lista->id?>" data-bs-toggle="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                             data-bs-title="Clique para editar <?=$lista->user_name?>" role="button" 
