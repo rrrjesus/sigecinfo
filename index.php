@@ -9,26 +9,30 @@ require __DIR__ . "/vendor/autoload.php";
 
 use CoffeeCode\Router\Router;
 use Source\Core\Session;
+use Source\Core\View;
+use Source\Support\Email;
+use Source\Models\Auth;
 
 $session = new Session();
 $route = new Router(url(), ":");
-$route->namespace("Source\App");
+
+/**
+ * SERVICE CONTAINER / DEPENDENCY INJECTION SETUP
+ */
+$view = new View();
+$email = new Email();
+$auth = new Auth($view, $email);
 
 /**
  * WEB ROUTES
  */
+$route->namespace("Source\App");
 $route->group(null);
 $route->get("/", "Web:home");
 $route->get("/sobre", "Web:about");
-
-//assinatura de email
 $route->get("/email", "Web:creatorCard");
-
-//reuniões
 $route->group("/reunioes");
 $route->get("/", "Web:meetings");
-
-//agenda
 $route->group("/contatos");
 $route->get("/", "Web:contact");
 
@@ -55,14 +59,9 @@ $route->get("/termos", "Web:terms");
 /**
  * VIEWS ROUTES
  */
-
 $route->namespace("Source\App");
 $route->group("/iframes");
-
-//agenda iframes
 $route->get("/contatos", "Iframe:contact");
-
-//assinatura de email iframes
 $route->get("/email", "Iframe:creatorCard");
 
 /**
@@ -70,33 +69,31 @@ $route->get("/email", "Iframe:creatorCard");
  */
 $route->namespace("Source\App\Beta");
 $route->group("/beta");
-
-//login
 $route->get("/", "Login:root");
 $route->get("/login", "Login:login");
 $route->post("/login", "Login:login");
-
-//dash
 $route->get("/", "Dash:dash");
 $route->get("/home", "Dash:home");
 $route->post("/home", "Dash:home");
-
 $route->get("/perfil", "Profile:profile");
 $route->post("/perfil", "Profile:profile");     
 $route->get("/contatos", "Patrimony:contact");
-
 $route->get("/logoff", "Dash:logoff");
 
 /**
- * ADMIN ROUTES
+ * ADMIN ROUTES (Refactored for Dependency Injection)
  */
 $route->namespace("Source\App\Admin");
 $route->group("/painel");
 
 //Login
 $route->get("/", "Login:root");
-$route->get("/login", "Login:login");
-$route->post("/login", "Login:login");
+$route->get("/login", function ($data) use ($auth) {
+    (new \Source\App\Admin\Login($auth))->login($data);
+});
+$route->post("/login", function ($data) use ($auth) {
+    (new \Source\App\Admin\Login($auth))->login($data);
+});
 
 //Dash
 $route->get("/controle", "Dash:dash");
@@ -107,10 +104,6 @@ $route->get("/logoff", "Dash:logoff");
 //perfil
 $route->get("/perfil", "Users:profile");
 $route->post("/perfil", "Users:profile");
-
-/**
- * Company
- */
 
 //Igrejas
 $route->get("/igrejas", "Churchs:churchs");
@@ -123,6 +116,7 @@ $route->get("/igrejas/ativar/{church_id}/{action}", "Churchs:church");
 $route->get("/igrejas/desativar/{church_id}/{action}", "Churchs:church");
 $route->get("/igrejas/excluir/{church_id}/{action}", "Churchs:church");
 
+//Cargos
 $route->get("/cargos", "UsersPositions:userspositions");
 $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
 $route->get("/cargos/cadastrar", "UsersPositions:userposition");
@@ -150,7 +144,6 @@ $route->get("/usuarios/historico/termo/{patrimonys_id}", "Users:termHistory");
 $route->post("/notifications/count", "Notifications:count");
 $route->post("/notifications/list", "Notifications:list");
 
-//END ADMIN
 $route->namespace("Source\App");
 
 /**

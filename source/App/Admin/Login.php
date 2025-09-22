@@ -11,12 +11,17 @@ use Source\Models\Auth;
  */
 class Login extends Controller
 {
+    /** @var Auth */
+    private Auth $auth;
+
     /**
      * Login constructor.
+     * @param Auth $auth
      */
-    public function __construct()
+    public function __construct(Auth $auth)
     {
         parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN);
+        $this->auth = $auth;
     }
 
     /**
@@ -26,7 +31,7 @@ class Login extends Controller
     {
         $user = Auth::user();
 
-        if ($user && $user->level_id >= 5) {
+        if ($user && $user->level_id >= 3) {
             redirect("/painel/controle");
         } else {
             redirect("/painel/login");
@@ -39,8 +44,7 @@ class Login extends Controller
     public function login(?array $data): void
     {
         $user = Auth::user();
-
-        if ($user && $user->level_id >= 5) {
+        if ($user && $user->level_id >= 3) {
             redirect("/painel/controle");
         }
 
@@ -51,13 +55,12 @@ class Login extends Controller
                 return;
             }
 
-            $auth = new Auth();
-            $login = $auth->login($data["email"], $data["password"], true, 5);
+            $login = $this->auth->login($data["email"], $data["password"], true, 3);
 
             if ($login) {
                 $json["redirect"] = url("/painel/controle");
             } else {
-                $json["message"] = $auth->message()->render();
+                $json["message"] = $this->auth->message()->render();
             }
 
             echo json_encode($json);

@@ -47,7 +47,7 @@ class Auth extends Model
     }
 
     /**
-     * log-out
+     * Log-out
      */
     public static function logout(): void
     {
@@ -225,4 +225,4 @@ class Auth extends Model
         $user->save();
         return true;
     }
-}   
+}

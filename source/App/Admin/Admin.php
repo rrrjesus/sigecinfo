@@ -12,9 +12,7 @@ use Source\Models\Auth;
  */
 class Admin extends Controller
 {
-    /**
-     * @var \Source\Models\Company\User|null
-     */
+    /** @var \Source\Models\Company\User|null */
     protected $user;
 
     /**
@@ -26,30 +24,30 @@ class Admin extends Controller
 
         $this->user = Auth::user();
 
-        if (!$this->user || $this->user->level_id < 5) {
+        if (!$this->user) {
             $this->message->error("Para acessar é preciso logar-se")->flash();
             redirect("/painel/login");
+            exit;
         }
 
-        if ($this->user->level_id < 4) { // Nível mínimo para acessar o painel
+        if ($this->user->level_id < 3) {
             $this->message->error("Você não tem permissão para acessar esta área.")->flash();
-            redirect("/"); // Redireciona para a home do site, por exemplo
+            redirect("/");
             exit;
         }
     }
 
     /**
-     * Verifica se o usuário logado tem um dos níveis permitidos.
      * @param array $allowedLevels
      */
     protected function authorize(array $allowedLevels): void
     {
-        $session = new \Source\Core\Session();
+        $session = new Session();
         $userLevelName = $session->user_level_name ?? null;
 
         if (!in_array($userLevelName, $allowedLevels)) {
             $session->set("flash", $this->message->error("Acesso negado! Você não tem permissão para esta ação.")->render());
-            redirect("/painel"); // Ou para uma página de "acesso negado"
+            redirect("/painel");
             exit;
         }
     }

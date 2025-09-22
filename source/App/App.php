@@ -11,7 +11,7 @@ use Source\Models\App\AppInvoice;
 use Source\Models\App\AppOrder;
 use Source\Models\App\AppPlan;
 use Source\Models\App\AppSubscription;
-use Source\Models\App\AppWallet;
+use Source\Models\AppWallet;
 use Source\Models\Contact;
 use Source\Models\Event;
 use Source\Models\Report\Access;
