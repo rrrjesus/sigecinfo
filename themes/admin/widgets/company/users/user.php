@@ -102,7 +102,7 @@
                                 <label class="col-form-label col-form-label-sm"><strong><i class="bi bi-lock me-1"></i>Senha</strong></label>
                                     <input type="password" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite a senha, Padrão : smsub12345" class="form-control form-control-sm"
-                                        name="password" placeholder="********" value="smsub12345">
+                                        name="password" placeholder="********" value="Mudar12345?!">
                                 </div>  
 
                             </div>
@@ -196,24 +196,22 @@
                             </div>
 
                             <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                data-bs-title="Situação" class="form-control form-control-sm status"
-                                name="status" placeholder="Status" value="<?=$user->statusInput()?>">
+                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label><select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                    data-bs-title="Selecione o status de usuario" name="status"><?=user_status_options($user->status); ?></select>
                             </div>
 
                             <div class="col-5 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Cargo" class="form-control form-control-sm position_id"
-                                    name="position_id" placeholder="Cargo" value="<?=$user->userPosition()->id.' - '.$user->userPosition()->position_name?>">
+                                    name="position_id" placeholder="Cargo" value="<?=$user->position()->id.' - '.$user->position()->position_name?>">
                             </div>
 
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Church" class="form-control form-control-sm church_id" name="church_id" placeholder="Igreja"
-                                value="<?=$user->userChurch()->id.' - '.$user->userChurch()->church_name?>">
+                                value="<?=$user->church()->id.' - '.$user->church()->church_name?>">
                             </div>
 
                             <div class="col-3 mb-1">

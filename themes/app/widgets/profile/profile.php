@@ -65,14 +65,14 @@
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                             data-bs-title="Cargo" class="form-control form-control-sm"
-                            name="position" placeholder="Church" value="<?=$user->userPosition()->position_name?>" disabled readonly>
+                            name="position" placeholder="Church" value="<?=$user->position()->position_name?>" disabled readonly>
                     </div>
 
                     <div class="col-3 mb-1">
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                             data-bs-title="Church" class="form-control form-control-sm"
-                            name="church" placeholder="Church" value="<?='00'.$user->userChurch()->id.' - '.$user->userChurch()->church_name?>" disabled readonly>
+                            name="church" placeholder="Church" value="<?='00'.$user->church()->id.' - '.$user->church()->church_name?>" disabled readonly>
                     </div>
 
                     <div class="col-3 mb-1">
@@ -89,7 +89,7 @@
                     <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label>
                     <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                     data-bs-title="Categoria" class="form-control form-control-sm"
-                    name="category" placeholder="Categoria" value="<?=$user->statusInput()?>" disabled readonly>
+                    name="category" placeholder="Categoria" value="<?=status_name($user->status)?>" disabled readonly>
                 </div>
 
                 <div class="col-2 mb-1">

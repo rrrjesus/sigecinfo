@@ -2,13 +2,12 @@
 
 namespace Source\App\Admin;
 
+use Source\Models\Company\Church;
+use Source\Models\Company\Level;
 use Source\Models\Company\User;
 use Source\Models\Company\UserPosition;
-use Source\Models\Company\Church;
 use Source\Support\Thumb;
 use Source\Support\Upload;
-use Source\Models\Patrimony\Patrimony;
-use Source\Models\Patrimony\PatrimonyHistory;
 
 /**
  * Class Users
@@ -25,116 +24,78 @@ class Users extends Admin
     }
 
     /**
-     * @param array|null $data
-     * @throws \Exception
+     * Lista os usuários ativos
      */
-    /** @return void */
     public function users(): void
     {
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " Usuarios",
-            "Lista de usuarios ativos",
-            url("/usuarios"),
-            theme("/assets/images/favicon.ico")
-        );
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
-        $user = (new User());
-        $users = $user->find("status != :s", "s=disabled")->fetch(true);
+        $head = $this->seo->render(CONF_SITE_NAME . " | Usuários", CONF_SITE_DESC, url("/painel"), null, false);
+        $users = (new User())->find("status != :s", "s=disabled")->order("user_name ASC")->fetch(true);
 
-        echo $this->view->render("widgets/company/users/list",
-            [
-                "app" => "usuarios",
-                "head" => $head,
-                "users" => $users,
-                "urls" => "usuarios",
-                "namepage" => "Usuarios",
-                "name" => "Listar",
-                "registers" => (object)[
-                    "actived" => $user->find("status != :s", "s=disabled")->count(),
-                    "disabled" => $user->find("status = :s", "s=disabled")->count()
-                ]
-            ]);
-
+        echo $this->view->render("widgets/company/users/list", [
+            "head" => $head,
+            "users" => $users,
+            "registers" => (object)["disabled" => (new User())->find("status = :s", "s=disabled")->count()]
+        ]);
     }
 
     /**
-     * @param array|null $data
-     * @throws \Exception
+     * Lista os usuários desativados
      */
-    /** @return void */
     public function disabledUsers(): void
     {
-        $head = $this->seo->render(
-            "Usuarios Registrados - " . CONF_SITE_NAME ,
-            "Painel para gerenciamento de usuarios registrados",
-            url("/painel/usuarios/registrados"),
-            theme("/assets/images/favicon.ico")
-        );
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
-        $user = (new User());
-        $users = $user->find("status = :s", "s=disabled")->fetch(true);
+        $head = $this->seo->render(CONF_SITE_NAME . " | Usuários Desativados", CONF_SITE_DESC, url("/painel"), null, false);
+        $users = (new User())->find("status = :s", "s=disabled")->order("user_name ASC")->fetch(true);
 
-        echo $this->view->render("widgets/company/users/disabledList",
-            [
-                "app" => "usuarios",
-                "head" => $head,
-                "users" => $users,
-                "urls" => "usuarios",
-                "namepage" => "Usuarios",
-                "name" => "Desativados",
-            ]);
-
+        echo $this->view->render("widgets/company/users/disabledList", [
+            "head" => $head,
+            "users" => $users
+        ]);
     }
 
     /**
+     * Gerencia o perfil do próprio usuário logado
      * @param array|null $data
-     * @throws \Exception
      */
     public function profile(?array $data): void
     {
-        //update profile
-        if (!empty($data["action"]) && $data["action"] == "profile") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userProfile = (new User())->findById($this->user->id);
+        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
 
-            if (!$userProfile) {
-                $this->message->error("Erro ao gerenciar seu perfil")->icon("person")->flash();
-                echo json_encode(["redirect" => url("/painel/perfil")]);
-                return;
-            }
+        if (!empty($data["action"]) && $data["action"] == "profile") {
+            $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
+            $userProfile = (new User())->findById($this->user->id);
 
             $userProfile->user_name = $data["user_name"];
             $userProfile->email = $data["email"];
             $userProfile->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userProfile->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
-            $userProfile->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
-            $userProfile->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
-            $userProfile->password = (!empty($data["password"]) ? $data["password"] : $userProfile->password);
-            $userProfile->level_id = $data["level_id"];
-            $userProfile->status = (new User())->statusInputDecode($data["status"]);
-            $userProfile->observations = $data["observations"];
             $userProfile->login_updated = $this->user->id;
 
-            if (!empty($_FILES["photo"])) {
-                $file = $_FILES["photo"];
-                $upload = new Upload();
+            if (!empty($data["password"])) {
+                if (empty($data["password_re"]) || $data["password"] != $data["password_re"]) {
+                    $json["message"] = $this->message->warning("Para alterar, informe e repita sua nova senha.")->render();
+                    echo json_encode($json);
+                    return;
+                }
+                $userProfile->password = $data["password"];
+            } else {
+                unset($userProfile->password);
+            }
 
+            if (!empty($_FILES["photo"])) {
+                $upload = new Upload();
                 if ($userProfile->photo()) {
                     (new Thumb())->flush("storage/{$userProfile->photo}");
                     $upload->remove("storage/{$userProfile->photo}");
                 }
-
-                if (!$userProfile->photo = $upload->image($file, "{$userProfile->user_name}" . time(), 360)) {
-                    $json["message"] = $upload->message()->before("Ooops {$userProfile->user->user_name}! ")->after(".")->render();
+                if (!$userProfile->photo = $upload->image($_FILES["photo"], "{$userProfile->user_name} " . time(), 360)) {
+                    $json["message"] = $upload->message()->render();
                     echo json_encode($json);
                     return;
                 }
-            }
-
-            if($data["user_name"] == "" || $data["church_id"] == "" || $data["position_id"] == "" || $data["status"] == ""){
-                $json['message'] = $this->message->warning("Preencha os campos obrigatórios para criar o registro !")->icon()->render();
-                echo json_encode($json);
-                return;
             }
 
             if (!$userProfile->save()) {
@@ -143,86 +104,51 @@ class Users extends Admin
                 return;
             }
 
-            $this->message->success("Seu perfil foi atualizado com sucesso !!!")->icon("person")->flash();
+            $this->message->success("Seu perfil foi atualizado com sucesso!")->flash();
             echo json_encode(["reload" => true]);
             return;
         }
 
-        $profileEdit = null;
-        $userposition = new UserPosition();
-        $church = new Church();
-
-        if (!empty($this->user->id)) {
-            $profileId = filter_var($this->user->id, FILTER_VALIDATE_INT);
-            $profileEdit = (new User())->findById($profileId);
-        }
-
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " | " . "Perfil de {$profileEdit->user_name}",
-            CONF_SITE_DESC,
-            url("/painel/perfil"),
-            url("/painel/assets/images/image.jpg"),
-            false
-        );
-
+        $head = $this->seo->render(CONF_SITE_NAME . " | Perfil de {$this->user->user_name}", CONF_SITE_DESC, url("/painel"), null, false);
         echo $this->view->render("widgets/company/users/profile", [
-            "app" => "perfil",
             "head" => $head,
-            "profile" => $profileEdit,
-            "userposition" => $userposition,
-            "church" => $church,
-            "urls" => "perfil",
-            "namepage" => "Perfil",
-            "name" => "{$profileEdit->user_name}",
-            "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) :
-            theme("/assets/images/avatar.jpg", CONF_VIEW_ADMIN))
+            "profile" => $this->user,
+            "userposition" => (new UserPosition()),
+            "church" => (new Church())
         ]);
     }
 
     /**
      * @param array|null $data
-     * @throws \Exception
      */
-    public function user(?array $data): void
+    public function create(?array $data): void
     {
-        $user = (new User())->findById($this->user->id);
-        
-        //create
-        if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
+        if (!empty($data["action"]) && $data["action"] == "create") {
+            $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
+            
             $userCreate = new User();
             $userCreate->user_name = $data["user_name"];
             $userCreate->email = $data["email"];
+            $userCreate->password = $data["password"];
             $userCreate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userCreate->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
-            $userCreate->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
-            $userCreate->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
-            $userCreate->password = $data["password"];
+            $userCreate->position_id = $data["position_id"];
+            $userCreate->church_id = $data["church_id"];
             $userCreate->level_id = $data["level_id"];
             $userCreate->observations = $data["observations"];
-            $userCreate->created_at = date("Y-m-d h:m:s");
-            $userCreate->login_created = $user->id;
+            $userCreate->login_created = $this->user->id;
 
-            //upload photo
             if (!empty($_FILES["photo"])) {
-                $files = $_FILES["photo"];
                 $upload = new Upload();
-                $image = $upload->image($files, $userCreate->user_name, 600);
-
+                $image = $upload->image($_FILES["photo"], $userCreate->user_name, 600);
                 if (!$image) {
                     $json["message"] = $upload->message()->render();
                     echo json_encode($json);
                     return;
                 }
-
                 $userCreate->photo = $image;
-            }
-
-            if($data["user_name"] == "" || $data["church_id"] == "" || $data["position_id"] == ""){
-                $json['message'] = $this->message->warning("Preencha os campos obrigatórios para criar o registro !")->icon()->render();
-                echo json_encode($json);
-                return;
             }
 
             if (!$userCreate->save()) {
@@ -231,254 +157,131 @@ class Users extends Admin
                 return;
             }
 
-            $this->message->success("Usuário {$userCreate->user_name} cadastrado com sucesso...")->icon("person")->flash();
-            $json["redirect"] = url("/painel/usuarios/cadastrar");
-
+            $this->message->success("Usuário {$userCreate->user_name} cadastrado com sucesso!")->flash();
+            $json["redirect"] = url("/painel/usuarios");
             echo json_encode($json);
             return;
         }
 
-        //update
-        if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userUpdate = (new User())->findById($data["user_id"]);
+        $head = $this->seo->render(CONF_SITE_NAME . " | Novo Usuário", CONF_SITE_DESC, url("/painel"), "", false);
+        echo $this->view->render("widgets/company/users/user", [
+            "head" => $head,
+            "user" => null,
+            "userposition" => (new UserPosition()),
+            "church" => (new Church())
+        ]);
+    }
 
-            if (!$userUpdate) {
-                $this->message->error("Você tentou gerenciar um usuário que não existe")->icon("person")->flash();
-                echo json_encode(["redirect" => url("/painel/usuarios")]);
-                return;
+    /**
+     * @param array $data
+     */
+    public function edit(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        
+        $userEdit = (new User())->findById($data["user_id"]);
+        if (!$userEdit) {
+            $this->message->error("Você tentou editar um usuário que não existe.")->flash();
+            redirect("/painel/usuarios");
+        }
+
+        if (!empty($data["action"]) && $data["action"] == "update") {
+            $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
+
+            $userEdit->user_name = $data["user_name"];
+            $userEdit->email = $data["email"];
+            $userEdit->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
+            $userEdit->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
+            $userEdit->position_id = $data["position_id"];
+            $userEdit->church_id = $data["church_id"];
+            $userEdit->level_id = $data["level_id"];
+            $userEdit->status = $data["status"];
+            $userEdit->observations = $data["observations"];
+            $userEdit->login_updated = $this->user->id;
+            
+            if (!empty($data["password"])) {
+                $userEdit->password = $data["password"];
+            } else {
+                unset($userEdit->password);
             }
 
-            $userUpdate->user_name = $data["user_name"];
-            $userUpdate->email = $data["email"];
-            $userUpdate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
-            $userUpdate->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
-            $userUpdate->position_id = preg_replace("/[^0-9\s]/", "", $data["position_id"]);
-            $userUpdate->church_id = preg_replace("/[^0-9\s]/", "", $data["church_id"]);
-            $userUpdate->password = (!empty($data["password"]) ? $data["password"] : $userUpdate->password);
-            $userUpdate->level_id = $data["level_id"];
-            $userUpdate->status = (new User())->statusInputDecode($data["status"]);
-            $userUpdate->observations = $data["observations"];
-            $userUpdate->login_updated = $user->id;
-
             if (!empty($_FILES["photo"])) {
-                $file = $_FILES["photo"];
                 $upload = new Upload();
-
-                if ($userUpdate->photo()) {
-                    (new Thumb())->flush("storage/{$userUpdate->photo}");
-                    $upload->remove("storage/{$userUpdate->photo}");
+                if ($userEdit->photo()) {
+                    (new Thumb())->flush("storage/{$userEdit->photo}");
+                    $upload->remove("storage/{$userEdit->photo}");
                 }
-
-                if (!$userUpdate->photo = $upload->image($file, "{$userUpdate->user_name} " . time(), 360)) {
-                    $json["message"] = $upload->message()->before("Ooops {$userUpdate->user_name}! ")->after(".")->render();
+                if (!$userEdit->photo = $upload->image($_FILES["photo"], "{$userEdit->user_name} " . time(), 360)) {
+                    $json["message"] = $upload->message()->render();
                     echo json_encode($json);
                     return;
                 }
             }
 
-            if($data["user_name"] == "" || $data["church_id"] == "" || $data["position_id"] == "" || $data["status"] == ""){
-                $json['message'] = $this->message->warning("Preencha os campos obrigatórios para criar o registro !")->icon()->render();
+            if (!$userEdit->save()) {
+                $json["message"] = $userEdit->message()->render();
                 echo json_encode($json);
                 return;
             }
-
-            if (!$userUpdate->save()) {
-                $json["message"] = $userUpdate->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $this->message->success("Usuário {$userUpdate->user_name} atualizado com sucesso !!!")->icon("person")->flash();
-            echo json_encode(["redirect" => url("/painel/usuarios")]);
+            
+            $this->message->success("Usuário {$userEdit->user_name} atualizado com sucesso!")->flash();
+            $json["redirect"] = url("/painel/usuarios/editar/{$userEdit->id}");
+            echo json_encode($json);
             return;
         }
 
-         //actived
-         if (!empty($data["action"]) && $data["action"] == "actived") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userActived = (new User())->findById($data["user_id"]);
-
-            if (!$userActived) {
-                $this->message->error("Você tentou gerenciar um usuário que não existe")->icon("person")->flash();
-                echo json_encode(["redirect" => url("/painel/usuarios")]);
-                return;
-            }
-
-            $userActived->status = "registered";
-            $userActived->login_updated = $user->id;
-
-            if (!$userActived->save()) {
-                $json["message"] = $userActived->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $this->message->success("Usuário {$userActived->user_name} reativado com sucesso !!!")->icon("person")->flash();
-            redirect("/painel/usuarios");
-            return;
-        }
-
-        
-         //disabled
-         if (!empty($data["action"]) && $data["action"] == "disabled") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userActived = (new User())->findById($data["user_id"]);
-
-            if (!$userActived) {
-                $this->message->error("Você tentou gerenciar um usuário que não existe")->icon("person")->flash();
-                echo json_encode(["redirect" => url("/painel/usuarios")]);
-                return;
-            }
-
-            if($userActived->id == user()->id) {
-                $this->message->error("Você não pode desativar seu próprio usuário ...")->icon("person")->flash();
-                redirect("/painel/usuarios");
-            }
-
-            $userActived->status = "disabled";
-            $userActived->login_updated = $user->id;
-
-            if (!$userActived->save()) {
-                $json["message"] = $userActived->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $this->message->success("Usuário {$userActived->user_name} desativado com sucesso !!!")->icon("person")->flash();
-            redirect("/painel/usuarios");
-            return;
-        }
-
-        //delete
-        if (!empty($data["action"]) && $data["action"] == "delete") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userDelete = (new User())->findById($data["user_id"]);
-
-            if (!$userDelete) {
-                $this->message->error("Você tentou deletar um usuário que não existe")->icon()->icon("person")->flash();
-                redirect("/painel/usuarios");
-                return;
-            }
-
-            if($userDelete->id == user()->id) {
-                $this->message->error("Operação invalida ...")->icon("person")->flash();
-                redirect("/painel/usuarios");
-            }
-
-            if ($userDelete->photo && file_exists(__DIR__ . "/../../../" . CONF_UPLOAD_DIR . "/{$userDelete->photo}")) {
-                unlink(__DIR__ . "/../../../" . CONF_UPLOAD_DIR . "/{$userDelete->photo}");
-                (new Thumb())->flush($userDelete->photo);
-            }
-
-            $userDelete->destroy();
-
-            $this->message->success("O usuário {$userDelete->user_name} foi excluído com sucesso...")->icon("person")->flash();
-            redirect("/painel/usuarios");
-
-            return;
-        }
-
-        $userposition = new UserPosition();
-        $church = new Church();
-
-        $userEdit = null;
-        $userPatrimony = null;
-        $userHistory = null;
-
-        if (!empty($data["user_id"])) {
-            $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
-            $userEdit = (new User())->findById($userId);
-            $userPatrimony = (new Patrimony())->find("user_id = :u", "u={$userId}")->fetch(true);
-            $userHistory = (new PatrimonyHistory())->find("user_id = :u", "u={$userId}")->fetch(true);
-        }
-
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " | " . ($userEdit ? "Perfil de {$userEdit->user_name}" : "Novo Usuário"),
-            CONF_SITE_DESC,
-            url("/painel"),
-            url("/painel/assets/images/image.jpg"),
-            false
-        );
-
+        $head = $this->seo->render(CONF_SITE_NAME . " | Editar Usuário: {$userEdit->user_name}", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/company/users/user", [
-            "app" => "usuarios",
             "head" => $head,
             "user" => $userEdit,
-            "userpatrimony" => $userPatrimony,
-            "userhistory" => $userHistory,
-            "userposition" => $userposition,
-            "church" => $church,
-            "urls" => ($userEdit ? "usuarios" : "usuarios"),
-            "namepage" => "Usuários",
-            "name" => ($userEdit ? "Editar" : "Cadastrar")
+            "userposition" => (new UserPosition()),
+            "church" => (new Church())
         ]);
     }
-
 
     /**
-     * @param array|null $data
-     * @throws \Exception
+     * @param array $data
      */
-    public function term(?array $data): void
+    public function delete(array $data): void
     {
-        //update term
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-        $termPrint = (new Patrimony())->findById($data["patrimonys_id"]);
+        $this->authorize(['Administrador do Sistema']);
 
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " - Termo de - ".(!empty($termPrint->user()->rf) ? $termPrint->user()->rf : "Responsabilidade")." - "
-            .(!empty($termPrint->user()->user_name) ? $termPrint->user()->user_name : "")." - ".$termPrint->product()->type_part_number.":".$termPrint->part_number ,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/favicon.ico"),
-            false
-        );
-
-        if($termPrint->movement_id < 4){
-            echo $this->view->render("widgets/company/users/withdrawalTerm", [
-                "head" => $head,
-                "term" => $termPrint,
-                "urls" => "patrimonio/termo/{$termPrint->id}",
-                "namepage" => "Termo",
-                "name" => "Imprimir"
-            ]);
-        } else {
-            echo $this->view->render("widgets/company/users/returnTerm", [
-                "head" => $head,
-                "term" => $termPrint,
-                "urls" => "patrimonio/termo/{$termPrint->id}",
-                "namepage" => "Termo",
-                "name" => "Imprimir"
-            ]);
+        $userDelete = (new User())->findById($data["user_id"]);
+        if (!$userDelete) {
+            $this->message->error("O usuário que você tentou excluir não existe.")->flash();
+            redirect("/painel/usuarios");
         }
+        
+        if ($userDelete->id === $this->user->id) {
+            $this->message->warning("Você não pode excluir sua própria conta.")->flash();
+            redirect("/painel/usuarios");
+        }
+
+        if ($userDelete->photo()) {
+            (new Thumb())->flush("storage/{$userDelete->photo}");
+            (new Upload())->remove("storage/{$userDelete->photo}");
+        }
+        $userDelete->destroy();
+
+        $this->message->success("Usuário excluído com sucesso.")->flash();
+        redirect("/painel/usuarios");
     }
 
-        /**
-     * @param array|null $data
-     * @throws \Exception
+    /**
+     * @param array $data
      */
-    public function termHistory(?array $data): void
+    public function toggleStatus(array $data): void
     {
-        //update term
-        $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-        $termPrint = (new PatrimonyHistory())->findById($data["patrimonys_id"]);
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
+        $user = (new User())->findById($userId);
 
-        $head = $this->seo->render(
-            CONF_SITE_NAME . " - Termo de - ".(!empty($termPrint->user()->rf) ? $termPrint->user()->rf : "Responsabilidade")." - "
-            .(!empty($termPrint->user()->user_name) ? $termPrint->user()->user_name : "")." - ".$termPrint->product()->type_part_number.":".$termPrint->part_number ,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/favicon.ico"),
-            false
-        );
+        if ($user) {
+            $user->status = ($user->status == "actived" ? "disabled" : "actived");
+            $user->login_updated = $this->user->id;
+            $user->save();
+        }
 
-        echo $this->view->render("widgets/company/users/term", [
-            "head" => $head,
-            "term" => $termPrint,
-            "urls" => "patrimonio/historico/termo/{$termPrint->id}",
-            "namepage" => "Termo",
-            "name" => "Imprimir"
-        ]);
+        redirect(url_back());
     }
 }

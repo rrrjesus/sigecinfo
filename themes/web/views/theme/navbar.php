@@ -11,8 +11,6 @@
     </symbol>
 </svg>
 
-<?php $user = (new \Source\Models\Auth())->user(); ?>
-
 <nav class="container-md bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
         <a class="navbar-brand p-0 me-0 me-lg-2 fw-bold fs-4" href="/" aria-label="Agenda">
             <img width="130" height="40" src="<?=theme("/assets/images/ccb_logo/logo-ccb-light.png")?>">
@@ -51,7 +49,7 @@
                     <li class="nav-item dropdown">
                         <?php if (user()):?>
                             <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-                                <span class="d-lg-none" aria-hidden="true"><?=$user->login?> : </span>
+                                <span class="d-lg-none" aria-hidden="true"><?=user()->user_name?> : </span>
                                 <?php if (user()->photo()): ?>
                                     <img src="<?= image(user()->photo, 260, 260); ?>" width="30" height="30" class="img-fluid rounded-circle"/>
                                 <?php else: ?>

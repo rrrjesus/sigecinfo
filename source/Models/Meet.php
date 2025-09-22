@@ -4,6 +4,7 @@ namespace Source\Models;
 
 use Source\Core\Model;
 use Source\Models\Company\Church;
+use Source\Models\UserPosition;
 
 /**
  * SIGECINFO | Class Meeting

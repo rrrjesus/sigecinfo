@@ -481,6 +481,28 @@ function statusBadge(string $status): string
 }
 
 /**
+ * Gera as opções de <option> para o status do usuário.
+ * @param string|null $currentStatus O status atual para pré-selecionar a opção.
+ * @return string
+ */
+function user_status_options(?string $currentStatus): string
+{
+    $statuses = [
+        'registered' => 'Registrado',
+        'confirmed' => 'Confirmado',
+        'disabled' => 'Desativado'
+    ];
+
+    $htmlOptions = "";
+    foreach ($statuses as $value => $text) {
+        $selected = ($currentStatus === $value) ? "selected" : "";
+        $htmlOptions .= "<option value=\"{$value}\" {$selected}>{$text}</option>";
+    }
+
+    return $htmlOptions;
+}
+
+/**
  * ################
  * ###  BUTTONS ###
  * ################
@@ -635,6 +657,17 @@ function level_badge(string $levelName): string
     ];
 
     return $badges[$levelName] ?? '<span class="badge text-bg-secondary ms-2">?</span>';
+}
+
+function status_name(string $status): string
+{
+    $names = [
+        'registered' => 'REGISTRADO',
+        'Confirmed' => 'CONFIRMADO',
+        'trash' => 'DESATIVADO'
+    ];
+
+    return $names[$status] ?? '';
 }
 
     /**

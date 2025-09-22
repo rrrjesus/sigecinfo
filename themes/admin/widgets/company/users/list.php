@@ -51,10 +51,10 @@
                         <td class="text-center"><?=photoList($lista->photo);?></td>
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
                         <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
-                        <td class="text-center"><?=$lista->userPosition()->position_name;?></td>
-                        <td class="text-center"><?=$lista->userChurch()->church_name;?></td>
+                        <td class="text-center"><?=$lista->position()->position_name;?></td>
+                        <td class="text-center"><?=$lista->church()->church_name;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center"><?=statusSpan($lista->status);?></td>
+                        <td class="text-center"><?=status_name($lista->status);?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

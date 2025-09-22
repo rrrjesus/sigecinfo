@@ -156,7 +156,7 @@ div.WordSection1
 			<div class="d-flex flex-column text-center">
 				<div class="fw-bold mb-2 mt-4" style='font-size:10.0pt'>Recebido por :</div>
 				<div class="text-uppercase fw-bold" style='font-size:8.0pt'><?=user()->user_name?></div>
-				<div class="fw-bold" style='font-size:8.0pt'><?=user()->userPosition()->position_name?></div>
+				<div class="fw-bold" style='font-size:8.0pt'><?=user()->position()->position_name?></div>
 				<div class="fw-bold" style='font-size:8.0pt'>RF: <?=user()->rf?></div>
 			</div>
 

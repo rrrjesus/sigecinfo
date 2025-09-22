@@ -53,13 +53,17 @@ class Seo
      * @param string $title
      * @param string $description
      * @param string $url
-     * @param string $image
+     * @param string|null $image
      * @param bool $follow
      * @return string
      */
-    public function render(string $title, string $description, string $url, string $image, bool $follow = true): string
+    public function render(string $title, string $description, string $url, ?string $image, bool $follow = true): string
     {
-        return $this->optimizer->optimize($title, $description, $url, $image, $follow)->render();
+        // CORREÇÃO: Verifica se a imagem é nula. Se for, usa uma imagem padrão.
+        $imageUrl = $image ?? theme("/assets/images/avatar.jpg");
+
+        $this->optimizer->optimize($title, $description, $url, $imageUrl, $follow);
+        return $this->optimizer->render();
     }
 
     /**

@@ -73,28 +73,28 @@
                             <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label>
                             <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                             data-bs-title="Situação" class="form-control form-control-sm status"
-                            name="status" placeholder="Status" value="<?=$profile->statusInput()?>">
+                            name="status" placeholder="Status" value="<?=status_name($profile->status)?>">
                         </div>
 
                         <div class="col-5 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
                             <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Cargo" class="form-control form-control-sm position_id"
-                                name="position_id" placeholder="Cargo" value="<?=$profile->userPosition()->id.' - '.$profile->userPosition()->position_name?>">
+                                name="position_id" placeholder="Cargo" value="<?=$profile->position()->id.' - '.$profile->position()->position_name?>">
                         </div>
 
                         <div class="col-4 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                             <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                             data-bs-title="Church" class="form-control form-control-sm church_id" name="church_id" placeholder="Igreja"
-                            value="<?=$profile->userChurch()->id.' - '.$profile->userChurch()->church_name?>">
-                        </div>
-
+                            value="<?=$profile->church()->id.' - '.$profile->church()->church_name?>">
+                        </div>                      
+                        
                         <div class="col-3 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputSetor"><strong><i class="bi bi-building ms-3 me-3"></i> Nivel</strong></label>
-                            <select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                            <select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                 data-bs-title="Selecione o nível de usuario" name="level_id">
-                                <option value="<?=$profile->level_id?>" selected><?=$profile->level()->level_nome?></option>
+                                <option value="<?=$profile->level_id?>" selected><?=$profile->level()->level_name?></option>
                                 <option value="1">Usuario</option>
                                 <option value="2">Usuario Editor</option>
                                 <option value="3">Editor</option>
@@ -153,13 +153,6 @@
                 });
                 position_id.initialize();
                 $('.position_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: position_id});
-
-                let category_id = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                local: ['1 - ADMITIDO', '2 - COMISSIONADO', '3 - CONSULTORIA', '4 - CONTRATADO', '5 - EFETIVO' ,'6 - ESTAGIO', '7 - PRODAM', '8 - RESIDENCIA']
-                });
-                category_id.initialize();
-                $('.category_id').typeahead({hint: true, highlight: true, minLength: 1}, {source: category_id});
 
                 let church_id = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,

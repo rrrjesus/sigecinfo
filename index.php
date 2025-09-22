@@ -28,33 +28,27 @@ $auth = new Auth($view, $email);
  */
 $route->namespace("Source\App");
 $route->group(null);
+
+// Rotas que não precisam de autenticação
 $route->get("/", "Web:home");
 $route->get("/sobre", "Web:about");
 $route->get("/email", "Web:creatorCard");
-$route->group("/reunioes");
-$route->get("/", "Web:meetings");
-$route->group("/contatos");
-$route->get("/", "Web:contact");
-
-//auth
-$route->group(null);
-$route->get("/entrar", "Web:login");
-$route->post("/entrar", "Web:login");
-$route->get("/cadastrar", "Web:register");
-$route->post("/cadastrar", "Web:register");
-$route->get("/recuperar", "Web:forget");
-$route->post("/recuperar", "Web:forget");
-$route->get("/recuperar/{code}", "Web:reset");
-$route->post("/recuperar/resetar", "Web:reset");
-
-//optin
-$route->group(null);
+$route->get("/reunioes", "Web:meetings");
+$route->get("/contatos", "Web:contact");
 $route->get("/confirma", "Web:confirm");
 $route->get("/obrigado/{email}", "Web:success");
-
-//services
-$route->group(null);
 $route->get("/termos", "Web:terms");
+
+// Rotas de autenticação (auth) com Injeção de Dependência
+$route->group(null);
+$route->get("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
+$route->post("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
+$route->get("/cadastrar", function($data) use ($auth) { (new \Source\App\Web($auth))->register($data); });
+$route->post("/cadastrar", function($data) use ($auth) { (new \Source\App\Web($auth))->register($data); });
+$route->get("/recuperar", function($data) use ($auth) { (new \Source\App\Web($auth))->forget($data); });
+$route->post("/recuperar", function($data) use ($auth) { (new \Source\App\Web($auth))->forget($data); });
+$route->get("/recuperar/{code}", function($data) use ($auth) { (new \Source\App\Web($auth))->reset($data); });
+$route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\App\Web($auth))->reset($data); });
 
 /**
  * VIEWS ROUTES
@@ -69,31 +63,23 @@ $route->get("/email", "Iframe:creatorCard");
  */
 $route->namespace("Source\App\Beta");
 $route->group("/beta");
-$route->get("/", "Login:root");
-$route->get("/login", "Login:login");
-$route->post("/login", "Login:login");
-$route->get("/", "Dash:dash");
-$route->get("/home", "Dash:home");
-$route->post("/home", "Dash:home");
-$route->get("/perfil", "Profile:profile");
-$route->post("/perfil", "Profile:profile");     
-$route->get("/contatos", "Patrimony:contact");
-$route->get("/logoff", "Dash:logoff");
+$route->get("/login", function($data) use ($auth) { (new \Source\App\Beta\Login($auth))->login($data); });
+$route->post("/login", function($data) use ($auth) { (new \Source\App\Beta\Login($auth))->login($data); });
+$route->get("/", function($data) { (new \Source\App\Beta\Dash())->dash($data); });
+$route->get("/home", function($data) { (new \Source\App\Beta\Dash())->home($data); });
+$route->post("/home", function($data) { (new \Source\App\Beta\Dash())->home($data); });
+$route->get("/perfil", function($data) { (new \Source\App\Beta\Profile())->profile($data); });
+$route->post("/perfil", function($data) { (new \Source\App\Beta\Profile())->profile($data); });
+$route->get("/logoff", function($data) { (new \Source\App\Beta\Dash())->logoff($data); });
 
 /**
- * ADMIN ROUTES (Refactored for Dependency Injection)
+ * ADMIN ROUTES
  */
 $route->namespace("Source\App\Admin");
 $route->group("/painel");
-
-//Login
-$route->get("/", "Login:root");
-$route->get("/login", function ($data) use ($auth) {
-    (new \Source\App\Admin\Login($auth))->login($data);
-});
-$route->post("/login", function ($data) use ($auth) {
-    (new \Source\App\Admin\Login($auth))->login($data);
-});
+$route->get("/", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->root($data); });
+$route->get("/login", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->login($data); });
+$route->post("/login", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->login($data); });
 
 //Dash
 $route->get("/controle", "Dash:dash");
@@ -101,7 +87,7 @@ $route->get("/controle/inicial", "Dash:home");
 $route->post("/controle/inicial", "Dash:home");
 $route->get("/logoff", "Dash:logoff");
 
-//perfil
+//Perfil do Usuário Logado
 $route->get("/perfil", "Users:profile");
 $route->post("/perfil", "Users:profile");
 
@@ -114,9 +100,8 @@ $route->post("/igrejas/editar/{church_id}", "Churchs:edit");
 $route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
 $route->post("/igrejas/excluir", "Churchs:delete");
-$route->post("/igrejas/excluir", "Churchs:delete");
 
-//Cargos
+//Cargos (Mantido como original, pois não refatoramos o controller)
 $route->get("/cargos", "UsersPositions:userspositions");
 $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
 $route->get("/cargos/cadastrar", "UsersPositions:userposition");
@@ -127,16 +112,16 @@ $route->get("/cargos/ativar/{userposition_id}/{action}", "UsersPositions:userpos
 $route->get("/cargos/desativar/{userposition_id}/{action}", "UsersPositions:userposition");
 $route->get("/cargos/excluir/{userposition_id}/{action}", "UsersPositions:userposition");
 
-//Users
+//Users (Rotas alinhadas com o controller Users.php refatorado)
 $route->get("/usuarios", "Users:users");
+$route->get("/usuarios/cadastrar", "Users:create");
+$route->post("/usuarios/cadastrar", "Users:create");
+$route->get("/usuarios/editar/{user_id}", "Users:edit");
+$route->post("/usuarios/editar/{user_id}", "Users:edit");
+$route->post("/usuarios/excluir", "Users:delete");
 $route->get("/usuarios/desativados", "Users:disabledUsers");
-$route->get("/usuarios/cadastrar", "Users:user");
-$route->post("/usuarios/cadastrar", "Users:user");
-$route->get("/usuarios/editar/{user_id}", "Users:user");
-$route->post("/usuarios/editar/{user_id}", "Users:user");
-$route->get("/usuarios/ativar/{user_id}/{action}", "Users:user");
-$route->get("/usuarios/desativar/{user_id}/{action}", "Users:user");
-$route->get("/usuarios/excluir/{user_id}/{action}", "Users:user");
+$route->get("/usuarios/status/{user_id}", "Users:toggleStatus");
+$route->get("/usuarios/json", "Users:listJson");
 $route->get("/usuarios/termo/{patrimonys_id}", "Users:term");
 $route->get("/usuarios/historico/termo/{patrimonys_id}", "Users:termHistory");
 
@@ -149,17 +134,15 @@ $route->namespace("Source\App");
 /**
  * ERROR ROUTES
  */
+$route->namespace("Source\App");
 $route->group("/ops");
 $route->get("/{errcode}", "Web:error");
 
 /**
- * ROUTE
+ * ROUTE DISPATCH
  */
 $route->dispatch();
 
-/**
- * ERROR REDIRECT
- */
 if ($route->error()) {
     $route->redirect("/ops/{$route->error()}");
 }

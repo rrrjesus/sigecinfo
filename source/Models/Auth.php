@@ -211,8 +211,10 @@ class Auth extends Model
         if (!is_passwd($password)) {
             $min = CONF_PASSWD_MIN_LEN;
             $max = CONF_PASSWD_MAX_LEN;
-            $this->message->info("Sua senha deve ter entre {$min} e {$max} caracteres.");
+            $this->message->warning("A senha deve ter maiúscula, número, caracter especial e entre {$min} e {$max} caracteres.");
             return false;
+
+
         }
 
         if ($password != $passwordRe) {
