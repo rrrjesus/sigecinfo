@@ -3,6 +3,8 @@
 namespace Source\Models\Company;
 
 use Source\Core\Model;
+use Source\Models\Company\Church;
+
 
 /**
  * FSPHP | Class User Active Record Pattern
@@ -15,11 +17,7 @@ class User extends Model
 
      public function __construct()
     {
-        parent::__construct(
-            "users",                                // tabela
-            ["id"],                                 // campos protegidos (não podem ser alterados)
-            ["user_name", "email", "password"]      // campos obrigatórios para insert
-        );
+        parent::__construct("users", ["id"], ["user_name", "email", "password"]);
     }
 
     /**
@@ -43,21 +41,6 @@ class User extends Model
     {
         $find = $this->find("email = :email", "email={$email}", $columns);
         return $find->fetch();
-    }
-
-    /**
-     * @return null|string
-     */
-    public function statusSelected(): ?string
-    {
-        if ($this->status == "registered") {
-            return '<option value="registered" selected>Registrado</option><option value="confirmed">Confirmado</option><option value="disabled">Desabilitado</option>';
-        } elseif ($this->status == "confirmed") {
-            return '<option value="confirmed" selected>Confirmado</option><option value="registered">Registrado</option><option value="disabled">Desabilitado</option>';
-        } else {
-            return '<option value="disabled" selected>Desabilitado</option><option value="registered">Registrado</option><option value="confirmed">Confirmado</option>';
-        }
-        return null; 
     }
 
     /**

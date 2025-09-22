@@ -144,11 +144,14 @@ class Churchs extends Admin
             $churchUpdate->login_updated = $this->user->id;
             
             if (!empty($_FILES["photo"])) {
+
                 $upload = new Upload();
+
                 if ($churchUpdate->photo) {
                     (new Thumb())->flush("storage/{$churchUpdate->photo}");
                     $upload->remove("storage/{$churchUpdate->photo}");
                 }
+                
                 $image = $upload->image($_FILES["photo"], "{$churchUpdate->church_name} " . time(), 600);
                 if (!$image) {
                     $json["message"] = $upload->message()->render();

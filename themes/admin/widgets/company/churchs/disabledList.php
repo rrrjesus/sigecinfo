@@ -39,7 +39,7 @@
                 <?php if(!empty($churchs)){ ?>
                 <?php foreach ($churchs as $lista): ?>
                     <tr>
-                        <td class="text-center"><?=photoListDisabled($lista->photo, 'avatar-ccb.jpg');?></td>
+                        <td class="text-center"><?=photoListDisabled($lista->photo, 'avatar.jpg');?></td>
                         <td class="text-center"><?=$lista->country_id;?></td>
                         <td class="text-center"><?=$lista->code_id;?></td>
                         <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
