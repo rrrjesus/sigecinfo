@@ -1,14 +1,12 @@
 <?php
 
-namespace Source\Models;
+namespace Source\Models\Company;
 
 use Source\Core\Model;
 
 /**
- * SIGECINFO | Class Church
- *
- * @author SIGECINFO Team <contato@sigecinfo.com.br>
- * @package Source\Models
+ * Class Church
+ * @package Source\Models\Company
  */
 class Church extends Model
 {
@@ -17,16 +15,26 @@ class Church extends Model
      */
     public function __construct()
     {
-        parent::__construct("churchs", ["id"], ["church_name", "status"]);
+        $requiredFields = [
+            "church_name", "country_id", "code_id", "zip_code",
+            "address", "address_number", "city", "state"
+        ];
+
+        parent::__construct("churchs", ["id"], $requiredFields);
     }
 
     /**
+     * @param string|null $code_id
      * @param string $columns
      * @return null|Church
      */
-    public function findByChurch(string $name_church, string $columns = "*"): ?Church
+    public function findByCode(?string $code_id, string $columns = "*"): ?Church
     {
-        $find = $this->find("name_church = :name_church", "name_church={$name_church}", $columns);
+        if (empty($code_id)) {
+            return null;
+        }
+
+        $find = $this->find("code_id = :code", "code={$code_id}", $columns);
         return $find->fetch();
     }
 
@@ -35,38 +43,27 @@ class Church extends Model
      */
     public function save(): bool
     {
-
-        /** Church Update */
-        if (!empty($this->id)) {
-            $churchId = $this->id;
-
-            if ($this->find("church_name = :church_name AND id != :i", "church_name={$this->church_name}&i={$churchId}", "id")->fetch()) {
-                $this->message->warning("A igreja informada já está cadastrada");
-                return false;
-            }
-
-            $this->update($this->safe(), "id = :id", "id={$churchId}");
-            if ($this->fail()) {
-                $this->message->error("Erro ao atualizar, verifique os dados");
+        foreach ($this->required as $field) {
+            if (empty($this->data->$field)) {
+                $this->message->warning("Por favor, preencha todos os campos obrigatórios.");
                 return false;
             }
         }
 
-        /** Church Create */
-        if (empty($this->id)) {
-            if ($this->findByChurch($this->name_church, "id")) {
-                $this->message->warning("A igreja informada já está cadastrada !!!");
-                return false;
-            }
+        $checkByName = $this->find("church_name = :name AND id != :id", "name={$this->church_name}&id={$this->id}");
+        if ($checkByName->count()) {
+            $this->message->warning("A igreja informada já está cadastrada no sistema.");
+            return false;
+        }
 
-            $churchId = $this->create($this->safe());
-            if ($this->fail()) {
-                $this->message->error("Erro ao cadastrar, verifique os dados");
+        if (!empty($this->code_id)) {
+            $checkByCode = $this->find("code_id = :code AND id != :id", "code={$this->code_id}&id={$this->id}");
+            if ($checkByCode->count()) {
+                $this->message->warning("O código informado já está em uso por outra igreja.");
                 return false;
             }
         }
 
-        $this->data = ($this->findById($churchId))->data();
-        return true;
+        return parent::save();
     }
 }

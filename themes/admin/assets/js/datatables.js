@@ -701,7 +701,7 @@ $(document).ready(function() {
                                     '<div class="modal-body fw-semibold">Deseja desativar a igreja : ' + full[4] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="igrejas/desativar/' + full[11] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="igrejas/status/' + full[11] + '" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -764,7 +764,7 @@ $(document).ready(function() {
                                     '<div class="modal-body fw-semibold">Deseja ativar a igreja : ' + full[3] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="ativar/' + full[10] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<a href="status/' + full[10] + '" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +

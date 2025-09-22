@@ -437,8 +437,8 @@ function image(?string $image, int $width, int $height = null): ?string
  */
 function photoList(?string $photo, string $avatar = 'avatar.jpg'): ?string
 {
-    if($photo && file_exists(CONF_UPLOAD_DIR.'/'.$photo)){
-        return '<a href="../'.CONF_UPLOAD_DIR.'/'.$photo.'" target="_blank">
+    if($photo && file_exists(CONF_VIEW_ADMIN.'/'.$photo)){
+        return '<a href="../'.CONF_VIEW_ADMIN.'/'.$photo.'" target="_blank">
                 <img src="'.image($photo, 30,30).'" class="rounded-circle float-left"></a>';
     }else{
         return '<a href="../storage/images/'.$avatar.'" target="_blank">
@@ -455,9 +455,9 @@ function photoList(?string $photo, string $avatar = 'avatar.jpg'): ?string
 
 function photoListDisabled(?string $photo, string $avatar = 'avatar.jpg'): ?string
 {
-    if($photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo)){
-        return '<a href="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo.'" target="_blank">
-                <img src="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/assinatura/'.$photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
+    if($photo && file_exists('themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$photo)){
+        return '<a href="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$photo.'" target="_blank">
+                <img src="../../themes/'.CONF_VIEW_ADMIN.'/assets/images/'.$photo.'" height="40" width="40" class="img-thumbnail rounded-circle float-left"></a>';
     }else{
         return '<a href="../../storage/images/'.$avatar.'" target="_blank">
                 <img src="../../storage/images/'.$avatar.'" class="img-thumbnail rounded-circle float-left"
