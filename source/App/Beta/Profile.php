@@ -2,9 +2,11 @@
 
 namespace Source\App\Beta;
 
+use Source\Models\Auth;
 use Source\Models\Company\User;
 use Source\Support\Thumb;
 use Source\Support\Upload;
+
 
 /**
  * Class Profile
@@ -15,9 +17,9 @@ class Profile extends Admin
     /**
      * Profile constructor.
      */
-    public function __construct()
+    public function __construct(Auth $auth)
     {
-        parent::__construct();
+        parent::__construct($auth);
     }
 
 
@@ -28,7 +30,11 @@ class Profile extends Admin
     public function profile(?array $data): void
     {
         if (!empty($data["update"])) {
+
+            $data = sanitize_array($data);
+
             $user = (new User())->findById($this->user->id);
+
             $user->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $user->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
 
@@ -50,12 +56,13 @@ class Profile extends Admin
 
             if (!empty($data["password"])) {
                 if (empty($data["password_re"]) || $data["password"] != $data["password_re"]) {
-                    $json["message"] = $this->message->warning("Para alterar sua senha, informe e repita a nova senha!")->icon()->render();
+                    $json["message"] = $this->message->warning("Para alterar, informe e repita a nova senha.")->render();
                     echo json_encode($json);
                     return;
                 }
-
                 $user->password = $data["password"];
+            } else {
+                unset($user->password);
             }
 
             if (!$user->save()) {
@@ -80,13 +87,7 @@ class Profile extends Admin
         echo $this->view->render("widgets/profile/profile", [
             "head" => $head,
             "user" => $this->user,
-            "urls" => "perfil",
-            "icon" => "person",
-            "urls" => "perfil",
-            "namepage" => "Usuários",
-            "name" => "Perfil",
-            "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) :
-                theme("/assets/images/avatar.jpg", CONF_VIEW_APP))
+            "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) : theme("/assets/images/avatar.jpg", CONF_VIEW_APP))
         ]);
     }
 }

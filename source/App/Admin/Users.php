@@ -263,7 +263,7 @@ class Users extends Admin
         }
         $userDelete->destroy();
 
-        $this->message->success("Usuário excluído com sucesso.")->flash();
+        $this->message->success("Usuário {$userDelete->user_name} excluído com sucesso.")->flash();
         redirect("/painel/usuarios");
     }
 
@@ -282,6 +282,13 @@ class Users extends Admin
             $user->save();
         }
 
-        redirect(url_back());
+        if($user->status == "actived"):
+            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
+        else:
+            $this->message->success("O usuário {$user->user_name} foi desativado com sucesso !!!")->flash();
+        endif;
+
+        redirect("/painel/usuarios");
     }
+    
 }

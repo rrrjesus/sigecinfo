@@ -30,16 +30,22 @@ $route->namespace("Source\App");
 $route->group(null);
 
 // Rotas que não precisam de autenticação
-$route->get("/", "Web:home");
-$route->get("/sobre", "Web:about");
-$route->get("/email", "Web:creatorCard");
-$route->get("/reunioes", "Web:meetings");
-$route->get("/contatos", "Web:contact");
-$route->get("/confirma", "Web:confirm");
-$route->get("/obrigado/{email}", "Web:success");
-$route->get("/termos", "Web:terms");
+$route->get("/", function($data) use ($auth) { (new \Source\App\Web($auth))->home($data); });
+$route->get("/sobre", function($data) use ($auth) { (new \Source\App\Web($auth))->about($data); });
+// $route->get("/email", function($data) use ($auth) { (new \Source\App\Web($auth))->creatorCard($data); });
+$route->get("/reunioes", function($data) use ($auth) { (new \Source\App\Web($auth))->meetings($data); });
+// $route->get("/contatos", function($data) use ($auth) { (new \Source\App\Web($auth))->contact($data); });
 
-// Rotas de autenticação (auth) com Injeção de Dependência
+//optin
+$route->group(null);
+$route->get("/confirma", function($data) use ($auth) { (new \Source\App\Web($auth))->confirm($data); });
+$route->get("/obrigado/{email}", function($data) use ($auth) { (new \Source\App\Web($auth))->success($data); });
+
+//services
+$route->group(null);
+$route->get("/termos", function($data) use ($auth) { (new \Source\App\Web($auth))->terms($data); });
+
+//auth
 $route->group(null);
 $route->get("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
 $route->post("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
@@ -53,24 +59,25 @@ $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\Ap
 /**
  * VIEWS ROUTES
  */
-$route->namespace("Source\App");
-$route->group("/iframes");
-$route->get("/contatos", "Iframe:contact");
-$route->get("/email", "Iframe:creatorCard");
+// $route->namespace("Source\App");
+// $route->group("/iframes");
+// $route->get("/contatos", "Iframe:contact");
+// $route->get("/email", "Iframe:creatorCard");
 
 /**
  * APP ROUTES
  */
 $route->namespace("Source\App\Beta");
 $route->group("/beta");
-$route->get("/login", function($data) use ($auth) { (new \Source\App\Beta\Login($auth))->login($data); });
-$route->post("/login", function($data) use ($auth) { (new \Source\App\Beta\Login($auth))->login($data); });
-$route->get("/", function($data) { (new \Source\App\Beta\Dash())->dash($data); });
-$route->get("/home", function($data) { (new \Source\App\Beta\Dash())->home($data); });
-$route->post("/home", function($data) { (new \Source\App\Beta\Dash())->home($data); });
-$route->get("/perfil", function($data) { (new \Source\App\Beta\Profile())->profile($data); });
-$route->post("/perfil", function($data) { (new \Source\App\Beta\Profile())->profile($data); });
-$route->get("/logoff", function($data) { (new \Source\App\Beta\Dash())->logoff($data); });
+
+$route->get("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
+$route->post("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
+$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->dash($data);});
+$route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->home($data);});
+$route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->home($data);});
+$route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Profile($auth))->profile($data);});
+$route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Profile($auth))->profile($data);});
+$route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->logoff($data);});
 
 /**
  * ADMIN ROUTES

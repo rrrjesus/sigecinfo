@@ -13,7 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-             <?=buttonLink("/painel/igrejas", "top", "Clique para sair", "danger", "arrow-right-circle", "Sair", "1", "s")?> 
+            <?= button(["href" => "/painel/igrejas", "accesskey" => "s" , "btncolor" => "danger", "title" => "Clique para sair", "custom" => "trash", "name" => "Sair", "icon" => "trash"]); ?>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
                 <?php if(!empty($churchs)){ ?>
                 <?php foreach ($churchs as $lista): ?>
                     <tr>
-                        <td class="text-center"><?=photoListDisabled($lista->photo, 'avatar.jpg');?></td>
+                        <td class="text-center"><?=photoList($lista->photo, 'avatar.jpg');?></td>
                         <td class="text-center"><?=$lista->country_id;?></td>
                         <td class="text-center"><?=$lista->code_id;?></td>
                         <td class="text-center text-uppercase"><?=$lista->church_name;?></td>

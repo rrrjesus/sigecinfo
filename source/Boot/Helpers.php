@@ -62,6 +62,26 @@ function is_chip(string $chip): string
  */
 
 /**
+ * Sanitiza um array de dados, aplicando trim e strip_tags a cada valor.
+ * @param array $data O array de dados a ser limpo.
+ * @return array O array de dados limpo.
+ */
+function sanitize_array(array $data): array
+{
+    // 1. Limpa os espaços em branco do início e do fim de todos os campos.
+    $sanitizedData = array_map('trim', $data);
+
+    // 2. Remove as tags HTML/PHP de cada campo que seja uma string.
+    foreach ($sanitizedData as $key => $value) {
+        if (is_string($value)) {
+            $sanitizedData[$key] = strip_tags($value);
+        }
+    }
+
+    return $sanitizedData;
+}
+
+/**
  * @param string $string
  * @return string
  */
@@ -433,37 +453,25 @@ function image(?string $image, int $width, int $height = null): ?string
 
 /**
  * @param string|null $photo
- * @return null|string
+ * @param string $avatar
+ * @return string
  */
-function photoList(?string $photo, string $avatar = 'avatar.jpg'): ?string
+function photoList(?string $photo, string $avatar = 'avatar.jpg'): string
 {
-    if($photo && file_exists(CONF_UPLOAD_DIR.'/'.$photo)){
-        return '<a href="../'.CONF_UPLOAD_DIR.'/'.$photo.'" target="_blank">
-                <img src="'.image($photo, 30,30).'" class="rounded-circle float-left"></a>';
-    }else{
-        return '<a href="../storage/images/'.$avatar.'" target="_blank">
-                <img src="../storage/images/'.$avatar.'" class="rounded-circle float-left"
-                height="30" width="30"></a>';
+    $avatarUrl = url("/storage/images/{$avatar}");
+    if ($photo && file_exists(CONF_UPLOAD_DIR . "/{$photo}")) {
+        $photoUrl = url(CONF_UPLOAD_DIR . "/{$photo}");
+        $thumbUrl = image($photo, 30, 30);
+    } else {
+        $photoUrl = $avatarUrl;
+        $thumbUrl = $avatarUrl;
     }
-    return null;
+
+    return "<a href=\"{$photoUrl}\" target=\"_blank\">
+                <img src=\"{$thumbUrl}\" class=\"rounded-circle float-left\" height=\"30\" width=\"30\">
+            </a>";
 }
 
-/**
- * @param string|null $photo
- * @return null|string
- */
-function photoListDisabled(?string $photo, string $avatar = 'avatar.jpg'): ?string
-{
-    if($photo && file_exists(CONF_UPLOAD_DIR.'/'.$photo)){
-        return '<a href="../'.CONF_UPLOAD_DIR.'/'.$photo.'" target="_blank">
-                <img src="'.image($photo, 30,30).'" class="rounded-circle float-left"></a>';
-    }else{
-        return '<a href="../../storage/images/'.$avatar.'" target="_blank">
-                <img src="../../storage/images/'.$avatar.'" class="rounded-circle float-left"
-                height="30" width="30"></a>';
-    }
-    return null;
-}
 
 /**
  * @param string $status
@@ -508,29 +516,46 @@ function user_status_options(?string $currentStatus): string
  * ################
  */
 
- function buttonLink(string $href = "/", string $placement = "top", string $title = "Siegcinfo", string $btncolor = "success", string $icon = "person", string $name = "Button", string $tabindex = "l", string $accesskey = "l", string $target =""): ?string
- {
-    return '<a role="button" href="'.url($href).'" data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success"
-    data-bs-title="'.$title.'" class="btn btn-outline-'.$btncolor.' btn-sm position-relative rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'" target="'.$target.'" rel="noopener"><span class="btn-label"><i class="bi bi-'.$icon.'"></i></span>  <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'</a>';
- }
+/**
+ * Gera um botão ou um link estilizado como botão.
+ * @param array $options
+ * @return string|null
+ */
+function button(array $options): ?string
+{
+    // Valores padrão
+    $defaults = [
+        "name" => "Button",
+        "icon" => "person",
+        "btncolor" => "success",
+        "placement" => "top",
+        "custom" => "success",
+        "title" => "SIGECINFO",
+        "tabindex" => "1",
+        "accesskey" => "g",
+        "href" => null,
+        "disabled_count" => null,
+        "is_circle" => false // Para o estilo arredondado
+    ];
 
- function buttonLinkCircle(string $href = "/", string $placement = "top", string $title = "Siegcinfo", string $btncolor = "success", string $icon = "person", string $name = "Button", string $tabindex = "l", string $accesskey = "l", string $target =""): ?string
- {
-    return '<a role="button" href="'.url($href).'" data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success"
-    data-bs-title="'.$title.'" class="btn btn-outline-'.$btncolor.' btn-sm position-relative rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'" target="'.$target.'" rel="noopener"><i class="bi bi-'.$icon.'"></i>  <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'</a>';
- }
+    $attr = array_merge($defaults, $options);
 
- function buttonLinkDisabled(string $href = "/", string $placement = "top", string $title = "Siegcinfo", string $btncolor = "secondary", string $icon = "person", string $name = "Button", string $tabindex = "l", string $accesskey = "d", string $count = ""): ?string
- {
-    return '<a role="button" href="'.url($href).'" data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success"
-    data-bs-title="'.$title.'" class="btn btn-outline-'.$btncolor.' btn-sm position-relative rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'"><span class="btn-label"><i class="bi bi-'.$icon.' text-danger"></i></span>  <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$count.'</span></a>';
- }
+    $tag = $attr["href"] ? "a" : "button";
+    $href = $attr["href"] ? "href=\"" . url($attr["href"]) . "\"" : "";
+    $role = $attr["href"] ? "role=\"button\"" : "";
+    
+    $countBadge = $attr["disabled_count"] ? "<span class=\"position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger\">{$attr["disabled_count"]}</span>" : "";
+    $iconHtml = "<span class=\"btn-label\"><i class=\"bi bi-{$attr["icon"]}\"></i></span>";
+    $textHtml = " <u>" . substr($attr["name"], 0, 1) . "</u>" . substr($attr["name"], 1, 12);
+    
+    $class = "btn btn-sm btn-outline-{$attr["btncolor"]} fw-semibold me-3 position-relative" . ($attr["is_circle"] ? " rounded-circle" : " rounded-pill");
 
- function button(?string $placement = "top", string $title = "Siegcinfo", string $btncolor = "success", string $icon = "person", string $name = "Button", string $tabindex = "1", string $accesskey = "g"): string
- {
-    return '<button data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success" data-bs-title="'.$title.'" 
-        class="btn btn-sm btn-outline-'.$btncolor.' rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'"><span class="btn-label"><i class="bi bi-'.$icon.'"></i></span> <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'</button>';
- }
+    return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-togglee=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
+                {$iconHtml}
+                {$textHtml}
+                {$countBadge}
+            </{$tag}>";
+}
  
 
 
@@ -663,8 +688,9 @@ function status_name(string $status): string
 {
     $names = [
         'registered' => 'REGISTRADO',
-        'Confirmed' => 'CONFIRMADO',
-        'trash' => 'DESATIVADO'
+        'confirmed' => 'CONFIRMADO',
+        'actived' => 'ATIVADO',
+        'disabled' => 'DESATIVADO'
     ];
 
     return $names[$status] ?? '';

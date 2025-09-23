@@ -13,10 +13,10 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <?=buttonLink("/painel/usuarios/cadastrar", "top", "Clique para cadastrar novo usuário", "success", "building-add", "Cadastrar", "1", "c")?> 
+            <?= button(["href" => "/painel/usuarios/cadastrar", "accesskey" => "d", "title" => "Clique para cadastrar novo usuário", "name" => "Cadastrar", "icon" => "building-add"]); ?>
                <?php 
                     if(!empty($registers->disabled)){ ?>
-                        <?=buttonLinkDisabled("/painel/usuarios/desativados", "top", "Clique para listar os usuários desativados", "secondary", "building-add", "Desativados", "2", "D", $registers->disabled)?> 
+                        <?= button(["href" => "/painel/usuarios/desativados", "accesskey" => "d", "title" => "Clique para listar usuários desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
             <?php } ?>
         </div>
     </div>
@@ -51,10 +51,10 @@
                         <td class="text-center"><?=photoList($lista->photo);?></td>
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
                         <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
-                        <td class="text-center"><?=$lista->position()->position_name;?></td>
-                        <td class="text-center"><?=$lista->church()->church_name;?></td>
+                        <td class="text-center"><?=(!empty($lista->position_id) ? $lista->position()->position_name : "") ;?></td>
+                        <td class="text-center"><?=(!empty($lista->church_id) ? $lista->church()->church_name : "") ;?></td>
                         <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center"><?=status_name($lista->status);?></td>
+                        <td class="text-center"><?=statusBadge($lista->status);?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>

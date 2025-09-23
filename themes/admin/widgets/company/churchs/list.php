@@ -13,10 +13,10 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <?=buttonLink("/painel/igrejas/cadastrar", "top", "Clique para cadastrar nova Igreja", "success", "building-add", "Cadastrar", "1", "c")?> 
+            <?= button(["href" => "/painel/igrejas/cadastrar", "accesskey" => "c", "title" => "Clique para cadastrar nova igreja", "name" => "Cadastrar", "icon" => "building-add"]); ?>
                <?php 
                     if(!empty($registers->disabled)){ ?>
-                        <?=buttonLinkDisabled("/painel/igrejas/desativadas", "top", "Clique para listar as Igrejas desativadas", "secondary", "building-add", "Desativadas", "2", "D", $registers->disabled)?> 
+                        <?= button(["href" => "/painel/igrejas/desativadas", "accesskey" => "d", "title" => "Clique para listar igrejas desativadas", "name" => "Desativadas", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
             <?php } ?>
         </div>
        

@@ -204,14 +204,15 @@
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Cargo" class="form-control form-control-sm position_id"
-                                    name="position_id" placeholder="Cargo" value="<?=$user->position()->id.' - '.$user->position()->position_name?>">
+                                    name="position_id" placeholder="Cargo" 
+                                    value="<?=(!empty($user->position_id) ? $user->position()->id.' - '.$user->position()->position_name : "") ;?>">
                             </div>
 
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Church" class="form-control form-control-sm church_id" name="church_id" placeholder="Igreja"
-                                value="<?=$user->church()->id.' - '.$user->church()->church_name?>">
+                                value="<?=(!empty($user->church_id) ? $user->church()->id.' - '.$user->church()->church_name : "") ;?>">
                             </div>
 
                             <div class="col-3 mb-1">

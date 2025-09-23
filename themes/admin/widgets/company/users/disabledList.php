@@ -13,7 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <?=buttonLink("/painel/usuarios", "top", "Clique para sair", "danger", "arrow-right-circle me-2 mt-1", "Sair", "1", "c")?> 
+            <?= button(["href" => "/painel/usuarios", "btncolor" => "danger", "accesskey" => "s" ,"title" => "Clique para sair", "custom" => "trash", "name" => "Sair", "icon" => "trash"]); ?>
         </div>
     </div>
 
@@ -37,11 +37,11 @@
                 <?php if(!empty($users)){ ?>
                 <?php foreach ($users as $lista): ?>
                     <tr>
-                        <td class="text-center"><?=photoListDisabled($lista->photo, 'avatar.jpg');?></td>
+                        <td class="text-center"><?=photoList($lista->photo, 'avatar.jpg');?></td>
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
                         <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
-                        <td class="text-center"><?=$lista->position()->position_name;?></td>
-                        <td class="text-center"><?=$lista->church()->church_name;?></td>
+                        <td class="text-center"><?=(!empty($lista->position_id) ? $lista->position()->position_name : "");?></td>
+                        <td class="text-center"><?=(!empty($lista->church_id) ? $lista->church()->church_name : "");?></td>
                         <td class="text-center"><?=$lista->email;?></td>
                         <td class="text-center"><?=statusSpan($lista->status);?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>

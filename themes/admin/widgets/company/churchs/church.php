@@ -106,7 +106,7 @@
                             <div class="mb-3 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
                                 <textarea class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite as observações" rows="2" name="observations"></textarea>
+                                data-bs-title="Digite as observações" rows="4" name="observations"></textarea>
                             </div>
 
                         </div>
@@ -231,7 +231,7 @@
                             <div class="mb-3 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
                                 <textarea class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite as observações" rows="2" name="observations"><?=$church->observations?></textarea>
+                                data-bs-title="Digite as observações" rows="4" name="observations"><?=$church->observations?></textarea>
                             </div>
 
                         </div>

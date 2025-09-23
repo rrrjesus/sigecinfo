@@ -173,7 +173,7 @@ class Churchs extends Admin
                 return;
             }
 
-            $this->message->success("Igreja atualizada com sucesso!")->flash();
+            $this->message->success("Igreja {$churchUpdate->church_name} atualizada com sucesso!")->flash();
             $json["redirect"] = url("/painel/igrejas/editar/{$churchUpdate->id}");
             echo json_encode($json);
             return;
@@ -203,12 +203,10 @@ class Churchs extends Admin
             $churchDelete->destroy();
         }
 
-        $this->message->success("A igreja foi excluída com sucesso. Redirecionando...");
-
-        $json["message"] = $this->message->render(); // Usa render() para enviar a mensagem no JSON
-        $json["redirect"] = url("/painel/igrejas"); // Envia a URL de redirect no JSON
-
+        $this->message->success("A igreja {$churchDelete->church_name} foi excluída com sucesso.")->flash();
+        $json["redirect"] = url("/painel/igrejas");
         echo json_encode($json);
+        return;
     }
 
     /**

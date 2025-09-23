@@ -72,7 +72,8 @@
                         <label class="col-form-label col-form-label-sm text-<?=CONF_APP_COLOR?>" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
                         <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                             data-bs-title="Church" class="form-control form-control-sm"
-                            name="church" placeholder="Church" value="<?='00'.$user->church()->id.' - '.$user->church()->church_name?>" disabled readonly>
+                            name="church" placeholder="Igreja" 
+                            value="<?=(!empty($user->church_id) ? $user->church()->id.' - '.$user->church()->church_name : "") ;?>" disabled readonly>
                     </div>
 
                     <div class="col-3 mb-1">
@@ -132,8 +133,7 @@
 
                 <div class="row justify-content-center mt-4 mb-3">
                     <div class="col-auto">
-                        <button data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success"
-                            data-bs-title="Clique para atualizar o colaborador" class="btn btn-sm btn-outline-success fw-bold me-2"><i class="bi bi-disc-fill me-2"></i>ATUALIZAR</button>
+                        <?= button(["name" => "Gravar", "title" => "Clique para atualizar o Perfil", "icon" => "disc-fill", "btncolor" => "success"]); ?>
                     </div>
                 </div>
             </form>
