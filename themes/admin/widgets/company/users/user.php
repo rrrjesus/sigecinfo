@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="col-6 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Church</strong></label>
+                                <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Church" class="form-control form-control-sm church_id"
                                     name="church_id" placeholder="Igreja">

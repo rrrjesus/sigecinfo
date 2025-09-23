@@ -203,8 +203,12 @@ class Churchs extends Admin
             $churchDelete->destroy();
         }
 
-        $this->message->success("A igreja foi excluída com sucesso.")->flash();
-        redirect("/painel/igrejas");
+        $this->message->success("A igreja foi excluída com sucesso. Redirecionando...");
+
+        $json["message"] = $this->message->render(); // Usa render() para enviar a mensagem no JSON
+        $json["redirect"] = url("/painel/igrejas"); // Envia a URL de redirect no JSON
+
+        echo json_encode($json);
     }
 
     /**
@@ -222,6 +226,12 @@ class Churchs extends Admin
             $church->save();
         }
 
+        if($church->status == "actived"):
+            $this->message->success("A igreja {$church->church_name} foi ativada com sucesso !!!")->flash();
+        else:
+            $this->message->success("A igreja {$church->church_name} foi desativada com sucesso !!!")->flash();
+        endif;
+        
         redirect(url_back());
     }
 }

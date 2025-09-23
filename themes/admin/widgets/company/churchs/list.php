@@ -39,6 +39,7 @@
                         <th class="text-center">ESTADO</th>
                         <th class="text-center">STATUS</th>
                         <th class="text-center">DESATIVAR</th>
+                        <th class="text-center">EXCLUIR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +61,7 @@
                         <td class="text-center text-uppercase"><?=$lista->city;?></td>
                         <td class="text-center"><?=$lista->state;?></td>
                         <td class="text-center"><?=statusBadge($lista->status);?>
+                        <td class="text-center"><?=$lista->id;?></td>
                         <td class="text-center"><?=$lista->id;?></td>
                     </tr>
                 <?php endforeach; ?>

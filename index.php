@@ -99,7 +99,7 @@ $route->get("/igrejas/editar/{church_id}", "Churchs:edit");
 $route->post("/igrejas/editar/{church_id}", "Churchs:edit");
 $route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
-$route->post("/igrejas/excluir", "Churchs:delete");
+$route->post("/igrejas/excluir/{church_id}", "Churchs:delete");
 
 //Cargos (Mantido como original, pois não refatoramos o controller)
 $route->get("/cargos", "UsersPositions:userspositions");

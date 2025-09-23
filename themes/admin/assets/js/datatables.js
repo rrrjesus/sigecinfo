@@ -648,7 +648,7 @@ $(document).ready(function() {
         ]
     });
 
-    //Lista de Igrejas
+  //Lista de Igrejas
     $('#churchs').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
@@ -657,10 +657,9 @@ $(document).ready(function() {
         },
         buttons: [
             {extend:'excel',title:'Igrejas',header: 'Igrejas',filename:'Igrejas',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Igrejas',header: 'Igrejas',filename:'Igrejas',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
             {extend:'print', exportOptions: {columns: ':visible'},title:'Igrejas',header: 'Igrejas',filename:'Igrejas',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
             {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
+        "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
             "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
             "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
         responsive:
@@ -681,13 +680,12 @@ $(document).ready(function() {
             "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
             "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
         },
-        // dom: "lBftipr",
         "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
+        "aaSorting": [0, 'asc'],
         "aoColumnDefs": [
             {
-                "aTargets": [11], // o numero da coluna
-                "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
+                "aTargets": [11], // Coluna de desativar
+                "mRender": function (data, type, full) {
                     return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[4] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[11]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
@@ -702,6 +700,32 @@ $(document).ready(function() {
                                     '<div class="modal-footer">\n' +
                                     '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
                                     '<a href="igrejas/status/' + full[11] + '" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '</div>\n' +
+                                '</div>\n' +
+                            '</div>\n' +
+                        '</div>';
+                }
+            },
+            {
+                "aTargets": [12], // Coluna de excluir
+                "mRender": function (data, type, full) {
+                    return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                        'data-bs-title="Clique para excluir '+ full[4] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[12]+'">' +
+                        '<i class="bi bi-trash text-secondary"></i></button>' +
+                        '<div class="modal fade" id="deleteModal' + full[12] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
+                            '<div class="modal-dialog modal-sm">\n' +
+                                '<div class="modal-content">\n' +
+                                    '<div class="modal-header bg-danger text-dark">\n' +
+                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> EXCLUIR - ' + full[2] + '</h6>\n' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
+                                    '</div>\n' +
+                                    '<div class="modal-body fw-semibold">Deseja excluir a igreja : ' + full[4] + ' ?</div>\n' +
+                                    '<div class="modal-footer">\n' +
+                                    '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
+                                    '<form action="igrejas/excluir/' + full[12] + '" method="POST" style="display: inline;">\n' +
+                                        '<input type="hidden" name="church_id" value="' + full[12] + '">\n' +
+                                        '<button type="submit" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle"></i> Sim</button>\n' +
+                                    '</form>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
