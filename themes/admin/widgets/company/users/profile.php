@@ -124,7 +124,7 @@
 
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-auto">
-                            <?=button("top", "Clique para atualizar o colaborador", "success", "disc-fill", "Gravar", "7", "g")?>
+                        <?=button("top", "Clique para atualizar o colaborador", "success", "disc-fill", "Gravar", "7", "g")?>
                             <?=buttonLink("/painel/controle/inicial", "top", "Clique para sair", "danger", "arrow-right-circle", "Sair", "8", "l")?>
                         </div>
                     </div>

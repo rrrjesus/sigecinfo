@@ -17,10 +17,11 @@
 
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-auto">
-                        <?=buttonLink("/painel/cargos/cadastrar", "top", "Clique para cadastrar cargo", "success", "building-add", "Cadastrar", "1", "c")?> 
-                        <?php if(!empty($registers->disabled)){ ?>
-                            <?=buttonLinkDisabled("/painel/cargos/desativados", "top", "Clique para listar os cargos desativados", "secondary", "building-add", "Desativados", "2", "D", $registers->disabled)?> 
-                        <?php } ?>
+                        <?= button(["href" => "/painel/cargos/cadastrar", "accesskey" => "c", "title" => "Clique para cadastrar novo cargo", "name" => "Cadastrar", "icon" => "building-add"]); ?>
+               <?php 
+                    if(!empty($registers->disabled)){ ?>
+                        <?= button(["href" => "/painel/cargos/desativados", "accesskey" => "d", "title" => "Clique para listar cargos desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+            <?php } ?>
                         </div>
                     </div>
 
@@ -28,8 +29,8 @@
                         <thead class="table-secondary">
                             <tr>
                                 <th class="text-center">EDITAR</th>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">CARGO</th>
+                                <th class="text-center">MINISTÉRIO/CARGO</th>
+                                <th class="text-center">TIPO</th>
                                 <th class="text-center">STATUS</th>
                                 <th class="text-center">DESATIVAR</th>
                             </tr>
@@ -41,8 +42,8 @@
                             <td class="text-center fw-semibold"><a href="<?= url("/painel/cargos/editar/{$lista->id}"); ?>" 
                             role="button" aria-disabled="true" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                             data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
-                            <td class="text-center fw-semibold"><?=$lista->id?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
+                            <td class="text-center fw-semibold"><?=$lista->description?></td>
                             <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
                             <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                                 class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-person"></i></b></td>

@@ -44,7 +44,7 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCountry"><strong><i class="bi bi-person-add me-1"></i> País</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite o País da Igreja" class="form-control form-control-sm mask-country"
-                                    name="country_id" placeholder="BR">
+                                    name="country_id" value="BR" placeholder="BR">
                             </div>  
 
                             <div class="col-2 mb-1">
@@ -89,14 +89,14 @@
                                 <label class="col-form-label col-form-label-sm" for="inputCity"><i class="bi bi-person-add me-1"></i><strong>Cidade</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite a Cidade da Igreja" class="form-control form-control-sm"
-                                    name="city" placeholder="São Paulo">
+                                    name="city" value="São Paulo" placeholder="São Paulo">
                             </div>
 
                             <div class="col-2 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputState"><strong><i class="bi bi-person-add me-1"></i> Estado</strong></label>
                                 <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite o estado" class="form-control form-control-sm mask-state"
-                                    name="state" placeholder="SP">
+                                    name="state" value="SP" placeholder="SP">
                             </div>  
 
                         </div>
@@ -113,8 +113,8 @@
 
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <?=button("top", "Clique para gravar", "success", "disc-fill", "Gravar", "7", "g")?>
-                                <?=buttonLink("/painel/igrejas", "top", "Clique para listar as igrejas", "secondary", "list", "Listar", "8", "l")?>
+                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
+                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar as igrejas", "accesskey" => "l", "href" => "/painel/igrejas"]); ?>
                             </div>
                         </div>
 
@@ -238,8 +238,8 @@
 
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <?=button("top", "Clique para atualizar a igreja", "success", "disc-fill", "Gravar", "7", "g")?>
-                                <?=buttonLink("/painel/igrejas", "top", "Clique para listar as igrejas", "secondary", "list", "Listar", "8", "l")?>
+                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
+                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar as igrejas", "accesskey" => "l", "href" => "/painel/igrejas"]); ?>
                             </div>
                         </div>
 

@@ -100,8 +100,8 @@ class Churchs extends Admin
                 return;
             }
 
-            $this->message->success("Igreja cadastrada com sucesso!")->flash();
-            $json["redirect"] = url("/painel/igrejas");
+            $this->message->success("Igreja {$churchCreate->church_name} cadastrada com sucesso!")->flash();
+            $json["redirect"] = url("/painel/igrejas/cadastrar");
             echo json_encode($json);
             return;
         }
@@ -204,9 +204,7 @@ class Churchs extends Admin
         }
 
         $this->message->success("A igreja {$churchDelete->church_name} foi excluída com sucesso.")->flash();
-        $json["redirect"] = url("/painel/igrejas");
-        echo json_encode($json);
-        return;
+        redirect("/painel/igrejas");
     }
 
     /**

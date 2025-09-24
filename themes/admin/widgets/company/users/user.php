@@ -119,8 +119,8 @@
 
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <?=button("top", "Clique para gravar", "success", "disc-fill", "Gravar", "7", "g")?>
-                                <?=buttonLink("/painel/usuarios", "top", "Clique para listar os usuarios", "secondary", "list", "Listar", "8", "l")?>    
+                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
+                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar os usuarios", "accesskey" => "l", "href" => "/painel/usuarios"]); ?>
                             </div>
                         </div>
                     </div>
@@ -250,8 +250,8 @@
                     
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <?=button("top", "Clique para gravar", "success", "disc-fill", "Gravar", "7", "g")?>
-                                <?=buttonLink("/painel/usuarios", "top", "Clique para listar os usuarios", "secondary", "list", "Listar", "8", "l")?>
+                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
+                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar os usuarios", "accesskey" => "l", "href" => "/painel/usuarios"]); ?>
                             </div>
                         </div>
 

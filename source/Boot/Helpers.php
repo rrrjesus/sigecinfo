@@ -498,6 +498,7 @@ function user_status_options(?string $currentStatus): string
     $statuses = [
         'registered' => 'Registrado',
         'confirmed' => 'Confirmado',
+        'actived' => 'Ativado',
         'disabled' => 'Desativado'
     ];
 
@@ -551,9 +552,9 @@ function button(array $options): ?string
     $class = "btn btn-sm btn-outline-{$attr["btncolor"]} fw-semibold me-3 position-relative" . ($attr["is_circle"] ? " rounded-circle" : " rounded-pill");
 
     return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-togglee=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
-                {$iconHtml}
-                {$textHtml}
-                {$countBadge}
+    {$iconHtml}
+    {$textHtml}
+    {$countBadge}
             </{$tag}>";
 }
  

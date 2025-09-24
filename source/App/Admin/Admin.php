@@ -46,8 +46,8 @@ class Admin extends Controller
         $userLevelName = $session->user_level_name ?? null;
 
         if (!in_array($userLevelName, $allowedLevels)) {
-            $session->set("flash", $this->message->error("Acesso negado! Você não tem permissão para esta ação.")->render());
-            redirect("/painel");
+            $this->message->error("Acesso negado! Você não tem permissão para esta ação. !!!")->flash();
+            redirect(url_back());
             exit;
         }
     }
