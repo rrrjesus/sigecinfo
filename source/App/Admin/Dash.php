@@ -33,7 +33,7 @@ class Dash extends Admin
      */
     public function dash(): void
     {
-        redirect("/painel/controle/inicial");
+        redirect("/painel/usuarios");
     }
 
     /**

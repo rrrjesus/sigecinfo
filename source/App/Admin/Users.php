@@ -68,7 +68,7 @@ class Users extends Admin
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
             $userProfile = (new User())->findById($this->user->id);
 
-            $userProfile->user_name = $data["user_name"];
+            $userProfile->user_name = mb_convert_case($data["user_name"], MB_CASE_TITLE, "UTF-8");
             $userProfile->email = $data["email"];
             $userProfile->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userProfile->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
@@ -96,6 +96,12 @@ class Users extends Admin
                     echo json_encode($json);
                     return;
                 }
+            }
+
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
+            $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja, e o nivel para criar o registro !")->icon()->render();
+            echo json_encode($json);
+            return;
             }
 
             if (!$userProfile->save()) {
@@ -129,7 +135,7 @@ class Users extends Admin
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
             
             $userCreate = new User();
-            $userCreate->user_name = $data["user_name"];
+            $userCreate->user_name = mb_convert_case($data["user_name"], MB_CASE_TITLE, "UTF-8");
             $userCreate->email = $data["email"];
             $userCreate->password = $data["password"];
             $userCreate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
@@ -149,6 +155,12 @@ class Users extends Admin
                     return;
                 }
                 $userCreate->photo = $image;
+            }
+
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == "" || $data["password"] == ""){
+                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja, nivel e a senha para criar o registro !")->icon()->render();
+                echo json_encode($json);
+                return;
             }
 
             if (!$userCreate->save()) {
@@ -188,7 +200,7 @@ class Users extends Admin
         if (!empty($data["action"]) && $data["action"] == "update") {
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
 
-            $userEdit->user_name = $data["user_name"];
+            $userEdit->user_name = mb_convert_case($data["user_name"], MB_CASE_TITLE, "UTF-8");
             $userEdit->email = $data["email"];
             $userEdit->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userEdit->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
@@ -216,6 +228,12 @@ class Users extends Admin
                     echo json_encode($json);
                     return;
                 }
+            }
+
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
+                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja e o nivel para criar o registro !")->icon()->render();
+                echo json_encode($json);
+                return;
             }
 
             if (!$userEdit->save()) {

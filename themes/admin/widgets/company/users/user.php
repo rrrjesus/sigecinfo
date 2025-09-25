@@ -101,7 +101,7 @@
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm"><strong><i class="bi bi-lock me-1"></i>Senha</strong></label>
                                     <input type="password" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                                        data-bs-title="Digite a senha, Padrão : smsub12345" class="form-control form-control-sm"
+                                        data-bs-title="Digite a senha, Padrão : Mudar12345?" class="form-control form-control-sm"
                                         name="password" placeholder="********" value="Mudar12345?!">
                                 </div>  
 

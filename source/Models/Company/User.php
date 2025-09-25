@@ -107,26 +107,27 @@ class User extends Model
             }
 
             if (!empty($this->phone_mobile) && $this->find("phone_mobile = :p AND id != :i", "p={$this->phone_mobile}&i={$userId}")->fetch()) {
-                $this->message->warning("Já existe um celular cadastrado com este número.");
+                $this->message->warning("Já existe um celular cadastrado com este número.")->icon();
                 return false;
             }
 
             $this->update($this->safe(), "id = :id", "id={$userId}");
             if ($this->fail()) {
-                $this->message->error("Erro ao atualizar, verifique os dados");
+                $this->message->error("Erro ao atualizar, verifique os dados")->icon();
                 return false;
             }
         }
 
         /** User Create */
         if (empty($this->id)) {
+
             if ($this->findByEmail($this->email, "id")) {
-                $this->message->warning("Já existe um usuário cadastrado com este e-mail.");
+                $this->message->warning("Já existe um usuário cadastrado com este e-mail.")->icon();
                 return false;
             }
             
             if (!empty($this->phone_mobile) && $this->find("phone_mobile = :p", "p={$this->phone_mobile}")->fetch()) {
-                $this->message->warning("Já existe um usuário cadastrado com este celular.");
+                $this->message->warning("Já existe um usuário cadastrado com este celular.")->icon();
                 return false;
             }
 

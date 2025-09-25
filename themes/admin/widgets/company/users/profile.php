@@ -69,12 +69,10 @@
                             name="phone_mobile" placeholder="991065284" value="<?=$profile->phone_mobile?>">
                         </div>
 
-                        <div class="col-2 mb-1">
-                            <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label>
-                            <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
-                            data-bs-title="Situação" class="form-control form-control-sm status"
-                            name="status" placeholder="Status" value="<?=status_name($profile->status)?>">
-                        </div>
+                            <div class="col-2 mb-1">
+                                <label class="col-form-label col-form-label-sm" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label><select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                    data-bs-title="Selecione o status de usuario" name="status"><?=user_status_options($profile->status); ?></select>
+                            </div>
 
                         <div class="col-5 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Cargo</strong></label>
@@ -124,9 +122,9 @@
 
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-auto">
-                        <?=button("top", "Clique para atualizar o colaborador", "success", "disc-fill", "Gravar", "7", "g")?>
-                            <?=buttonLink("/painel/controle/inicial", "top", "Clique para sair", "danger", "arrow-right-circle", "Sair", "8", "l")?>
-                        </div>
+                            <?= button([ "name" => "Atualizar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para atualizar", "accesskey" => "a"]); ?>
+                            <?= button([ "name" => "Sair", "icon" => "person", "btncolor" => "danger", "custom" => "dark", "title" => "Clique para sair", "accesskey" => "s", "href" => "/painel/usuarios"]); ?>
+                    </div>
                     </div>
 
                         </form>
@@ -139,13 +137,6 @@
 
         <?php $this->start("scripts"); ?>
             <script>
-
-                let status = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: ['1 - REGISTRADO', '2 - CONFIRMADO', '3 - INATIVO']
-                    });
-                status.initialize();
-                $('.status').typeahead({hint: true, highlight: true, minLength: 1}, {source: status});
 
                 let position_id = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
