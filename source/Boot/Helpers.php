@@ -551,7 +551,7 @@ function button(array $options): ?string
     
     $class = "btn btn-sm btn-outline-{$attr["btncolor"]} fw-semibold me-3 position-relative" . ($attr["is_circle"] ? " rounded-circle" : " rounded-pill");
 
-    return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-togglee=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
+    return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-toggle=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
     {$iconHtml}
     {$textHtml}
     {$countBadge}
@@ -705,11 +705,11 @@ function status_name(string $status): string
     {
 
     if ($status == "registered") {
-        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
+        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
                     Registrado</span>';
     } elseif ($status == "confirmed") {
-        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-togglee="tooltip" 
+        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">CONFIRMADO</span>';
     } else {
         return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">INATIVO</span>';

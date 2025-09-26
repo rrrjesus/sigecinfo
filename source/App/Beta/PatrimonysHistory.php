@@ -290,7 +290,7 @@ public function patrimonyHistory(?array $data): void
         $patrimonyActived = (new PatrimonyHistory())->findById($data["patrimonys_id"]);
 
         if (!$patrimonyActived) {
-            $this->message->error("Você tentou gerenciar um patrimônio que não existe")->icon()->flash();
+            $this->message->error("Você tentou gerenciar um patrimônio que não existe")->flash();
             echo json_encode(["redirect" => url("/beta/patrimonios")]);
             return;
         }
@@ -315,7 +315,7 @@ public function patrimonyHistory(?array $data): void
         $patrimonyDisabled = (new PatrimonyHistory())->findById($data["patrimonys_id"]);
 
         if (!$patrimonyDisabled) {
-            $this->message->error("Você tentou gerenciar um patrimônio que não existe")->icon()->flash();
+            $this->message->error("Você tentou gerenciar um patrimônio que não existe")->flash();
             echo json_encode(["redirect" => url("/beta/patrimonios")]);
             return;
         }
@@ -348,13 +348,13 @@ public function patrimonyHistory(?array $data): void
         }
 
         if($patrimonyDelete->updated_at == $patrimonyHistoryDelete->updated_at){
-            $this->message->warning("Não é possível excluir o registro atual, crie um novo histórico antes ...")->icon()->flash();
+            $this->message->warning("Não é possível excluir o registro atual, crie um novo histórico antes ...")->flash();
             redirect("/beta/patrimonio/detalhe/{$patrimonyHistoryDelete->patrimony_id}");
             return;
         }
 
         if($countHystory->count() < 2 ){
-            $this->message->warning("Erro ")->icon()->flash();
+            $this->message->warning("Erro ")->flash();
         redirect("/beta/patrimonio/detalhe/{$patrimonyHistoryDelete->patrimony_id}");
         return;
         }

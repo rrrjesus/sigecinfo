@@ -21,7 +21,7 @@
                         
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputChurch"><strong><i class="bi bi-person me-1"></i> Igreja</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
+                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                                     data-bs-title="Digite a igreja" class="form-control form-control-sm"
                                     name="church_name" placeholder="IGREJA">
 
@@ -57,7 +57,7 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputIgreja"><strong><i class="bi bi-person me-1"></i> Igreja</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
+                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-success" 
                                     data-bs-title="Digite a igreja" class="form-control form-control-sm"
                                     name="church_name" placeholder="IGREJA" value="<?=$churchs->church_name?>">
 

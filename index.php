@@ -108,6 +108,9 @@ $route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
 $route->get("/igrejas/excluir/{church_id}", "Churchs:delete");
 
+//N[iveis]
+$route->get("/niveis", "Levels:levels");
+
 //Cargos (Mantido como original, pois não refatoramos o controller)
 $route->get("/cargos", "UsersPositions:userspositions");
 $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
@@ -125,7 +128,7 @@ $route->get("/usuarios/cadastrar", "Users:create");
 $route->post("/usuarios/cadastrar", "Users:create");
 $route->get("/usuarios/editar/{user_id}", "Users:edit");
 $route->post("/usuarios/editar/{user_id}", "Users:edit");
-$route->post("/usuarios/excluir", "Users:delete");
+$route->get("/usuarios/excluir/{user_id}", "Users:delete");
 $route->get("/usuarios/desativados", "Users:disabledUsers");
 $route->get("/usuarios/status/{user_id}", "Users:toggleStatus");
 $route->get("/usuarios/json", "Users:listJson");

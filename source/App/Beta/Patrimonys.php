@@ -130,7 +130,7 @@ class Patrimonys extends Admin
             $historico = (new PatrimonyHistory())->find("patrimony_id = :p", "p={$patrimonyId}")->fetch(true);
 
             if(!$PatrimonysEdit){
-                $this->message->error("Você tentou visualizar um patrimônio que não existe")->icon()->flash();
+                $this->message->error("Você tentou visualizar um patrimônio que não existe")->flash();
                 redirect("/beta/patrimonios");
                 return;
             }
@@ -405,7 +405,7 @@ class Patrimonys extends Admin
             $patrimonyActived = (new Patrimony())->findById($data["patrimonys_id"]);
 
             if (!$patrimonyActived) {
-                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->icon()->flash();
+                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->flash();
                 echo json_encode(["redirect" => url("/beta/patrimonios")]);
                 return;
             }
@@ -431,7 +431,7 @@ class Patrimonys extends Admin
             $patrimonyDisabled = (new Patrimony())->findById($data["patrimonys_id"]);
 
             if (!$patrimonyDisabled) {
-                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->icon()->flash();
+                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->flash();
                 echo json_encode(["redirect" => url("/beta/patrimonios")]);
                 return;
             }
@@ -456,7 +456,7 @@ class Patrimonys extends Admin
             $patrimonyWriteoff = (new Patrimony())->findById($data["patrimonys_id"]);
 
             if (!$patrimonyWriteoff) {
-                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->icon()->flash();
+                $this->message->error("Você tentou gerenciar um patrimônio que não existe")->flash();
                 echo json_encode(["redirect" => url("/beta/patrimonios")]);
                 return;
             }

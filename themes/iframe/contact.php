@@ -18,7 +18,7 @@
     <tbody>
     <?php foreach ($contact as $lista): ?>
     <tr>
-        <td class="text-center fw-semibold" data-bs-togglee="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+        <td class="text-center fw-semibold" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
             data-bs-title="O ramal <?=$lista->ramal." é de ".$lista->contact_name.' '.(!empty($lista->church()->church_name) ? $lista->church()->church_name : "NÃO CADASTRADO")?>"><?=(!empty($lista->contact_name) ? $lista->contact_name : "")?></td>
         <td class="text-center fw-semibold">
         <?php if(!empty($lista->church()->church_name) && !empty($lista->church()->status == "actived")):

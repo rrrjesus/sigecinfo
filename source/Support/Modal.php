@@ -122,8 +122,8 @@ use Source\Core\Session;
                                 {$this->getText()} ?
                             </div>
                             <div class='modal-footer'>
-                                <button type='button' class='btn btn-outline-danger btn-sm fw-semibold' data-bs-dismiss='modal'><i class='bi bi-trash'></i> Não</button>
-                                <a href='teste' class='btn btn-outline-success btn-sm fw-semibold'><i class='bi bi-plus-circle' role='button' ></i> Sim</a>
+                                <button type='button' class='btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill' data-bs-dismiss='modal'><i class='bi bi-trash'></i> Não</button>
+                                <a href='teste' class='btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill'><i class='bi bi-plus-circle' role='button' ></i> Sim</a>
                             </div>
                             </div>
                         </div>

@@ -25,7 +25,7 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputCargo"><strong><i class="bi bi-person me-1"></i> Cargo</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite o Cargo do Servidor" class="form-control form-control-sm"
                                     name="position_name" placeholder="Cargo do Servidor">
 
@@ -63,7 +63,7 @@
                             <div class="col-6 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputCargo"><strong><i class="bi bi-person ms-3 me-3"></i> Cargo</strong></label>
-                                <input type="text" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Digite o Cargo do Servidor" class="form-control form-control-sm"
                                     name="position_name" placeholder="Cargo do Servidor" value="<?=$userposition->position_name?>">
 
@@ -73,7 +73,7 @@
                         <div class="row justify-content-center"> 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputDescription"><strong><i class="bi bi-building ms-3 me-3"></i> Tipo</strong></label>
-                                <select class="form-control form-control-sm" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                <select class="form-control form-control-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                                     data-bs-title="Selecione o ntipo de cargo" name="description">
                                     <option value="<?=$userposition->description?>" selected><?=$userposition->description?></option>
                                     <option value="1">Brigada</option>

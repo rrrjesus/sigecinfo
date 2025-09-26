@@ -23,11 +23,11 @@
 
                     <div class="row justify-content-center mb-4">
                         <div class="col-12 ml-auto text-center">
-                            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                data-bs-title="Clique para cadastrar novo colaborador" class="btn btn-outline-success btn-sm me-3 fw-semibold" href="<?=url("/grupos/adicionar")?>"
                                role="button"><i class="bi bi-telephone-plus me-2 mt-1"></i>Adicionar</a>
                             <?php if(!empty($registers->disabled)){ ?>
-                                <a role="button" href="<?=url("/grupos/desativados")?>" data-bs-togglee="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                                <a role="button" href="<?=url("/grupos/desativados")?>" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                    data-bs-title="Clique para acessar grupos desativados" class="btn btn-outline-secondary btn-sm position-relative fw-semibold mt-1"><i class="bi bi-telephone-x text-danger me-2 mt-1">
                                     </i> Desativados<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?=$registers->disabled?></span></a>
                             <?php } ?>

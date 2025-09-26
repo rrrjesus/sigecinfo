@@ -3,7 +3,7 @@ $(function () {
     var patrimonys = $('#patrimonys').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-togglee="tooltip"]'
+                selector: '[data-bs-toggle="tooltip"]'
             });
         },
         buttons: [
@@ -52,7 +52,7 @@ $(function () {
             {
                 "aTargets": [16], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[16]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[16] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -64,8 +64,8 @@ $(function () {
                                     '</div>\n' +
                                     '<div class="modal-body fw-semibold">Deseja desativar o patrimonio id : ' + full[16] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
-                                    '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="patrimonios/desativar/' + full[16] + '/disabled" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
+                                    '<a href="patrimonios/desativar/' + full[16] + '/disabled" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -80,7 +80,7 @@ $(function () {
     var disabledPatrimony = $('#disabledPatrimony').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-togglee="tooltip"]'
+                selector: '[data-bs-toggle="tooltip"]'
             });
         },
         buttons: [
@@ -134,7 +134,7 @@ $(function () {
             {
                 "aTargets": [12], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar id : '+ full[12] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[12]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[12] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -146,8 +146,8 @@ $(function () {
                                     '</div>\n' +
                                     '<div class="modal-body fw-semibold">Deseja ativar o patrimonio id : ' + full[12] + ' ?</div>\n' +
                                     '<div class="modal-footer">\n' +
-                                    '<button type="button" class="btn btn-outline-danger btn-sm fw-semibold" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="ativar/' + full[12] + '/actived" class="btn btn-outline-success btn-sm fw-semibold"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
+                                    '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
+                                    '<a href="ativar/' + full[12] + '/actived" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
                                     '</div>\n' +
                                 '</div>\n' +
                             '</div>\n' +
@@ -162,7 +162,7 @@ $(function () {
     $('#historyPatrimony').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-togglee="tooltip"]'
+                selector: '[data-bs-toggle="tooltip"]'
             });
         },
         buttons: [
@@ -229,7 +229,7 @@ $(function () {
     var patrimonysHistory = $('#patrimonysHistory').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-togglee="tooltip"]'
+                selector: '[data-bs-toggle="tooltip"]'
             });
         },
         buttons: [
@@ -276,7 +276,7 @@ $(function () {
     var contacts = $('#contacts').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-togglee="tooltip"]'
+                selector: '[data-bs-toggle="tooltip"]'
             });
         },
         buttons: [

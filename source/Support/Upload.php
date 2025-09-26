@@ -43,6 +43,7 @@ class Upload
     public function image(array $image, string $name, int $width = CONF_IMAGE_SIZE): ?string
     {
         $upload = new Image(CONF_UPLOAD_DIR, CONF_UPLOAD_IMAGE_DIR);
+        
         if (empty($image['type']) || !in_array($image['type'], $upload::isAllowed())) {
             $this->message->error("Você não selecionou uma imagem válida");
             return null;

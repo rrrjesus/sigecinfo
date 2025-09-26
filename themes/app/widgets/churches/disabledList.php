@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                 data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/beta/contatos")?>"
                 role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
 
@@ -43,13 +43,13 @@
                 <?php if(!empty($contacts) && user()->level_id > 3){ ?>
                 <?php foreach ($contacts as $lista): ?>
                     <tr>
-                        <td class="text-center"><a href="../contatos/ativar/<?=$lista->id?>/actived" data-bs-togglee="tooltip" 
+                        <td class="text-center"><a href="../contatos/ativar/<?=$lista->id?>/actived" data-bs-toggle="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para reativar <?=$lista->contact_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-telephone-outbound text-secondary"></i></a></td>
                         <td class="text-center"><?=$lista->contact_name;?></td>
                         <td class="text-center"><?=$lista->church()->church_name;?></td>
                         <td class="text-center"><?=$lista->ramal;?></td>
-                        <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
+                        <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                         class="btn btn-outline-success rounded-circle btn-sm text-center"><i class="bi bi-telephone-x"></i></b></td>
                             <!-- Modal -->
                         <div class="modal fade" id="disabled-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

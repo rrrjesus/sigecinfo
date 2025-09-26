@@ -192,6 +192,7 @@ class Churchs extends Admin
     public function delete(array $data): void
     {
         $this->authorize(['Administrador do Sistema']);
+
         $churchId = filter_var($data["church_id"], FILTER_VALIDATE_INT);
         $churchDelete = (new Church())->findById($churchId);
 
@@ -204,7 +205,7 @@ class Churchs extends Admin
         }
 
         $this->message->success("A igreja {$churchDelete->church_name} foi excluída com sucesso.")->flash();
-        redirect("/painel/igrejas");
+        redirect(url_back());
     }
 
     /**

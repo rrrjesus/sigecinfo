@@ -13,11 +13,11 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                 data-bs-title="Clique para cadastrar novo colaborador" class="btn btn-outline-success btn-sm me-3 fw-semibold" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"
                 role="button"><i class="bi bi-telephone-plus me-2 mt-1"></i>Cadastrar</a>
                 <?php if(!empty($registers->disabled)){ ?>
-                <a role="button" href="<?=url("/painel/patrimonio/marcas/desativadas")?>" data-bs-togglee="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                <a role="button" href="<?=url("/painel/patrimonio/marcas/desativadas")?>" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                     data-bs-title="Clique para acessar marcas desativados" class="btn btn-outline-secondary btn-sm position-relative fw-semibold"><i class="bi bi-telephone-x text-danger me-2 mt-1">
                     </i> Desativadas<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?=$registers->disabled?></span></a>
             <?php } ?>
@@ -42,12 +42,12 @@
                 <?php if(!empty($brands)){ ?>
                 <?php foreach ($brands as $lista): ?>
                 <tr>
-                    <td class="text-center fw-semibold"><a href="<?= url("/painel/patrimonio/marcas/editar/{$lista->id}"); ?>" role="button" aria-disabled="true" data-bs-togglee="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                    <td class="text-center fw-semibold"><a href="<?= url("/painel/patrimonio/marcas/editar/{$lista->id}"); ?>" role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                     data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
                     <td class="text-center fw-semibold"><?=(!empty($lista->brand_name) ? $lista->brand_name : "")?></td>
                     <td class="text-center fw-semibold"><?=(!empty($lista->description) ? $lista->description : "")?></td>
                     <td class="text-center fw-semibold"><?=$lista->statusBadge()?></td>
-                    <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
+                    <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                                 class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-bootstrap"></i></b></td>
                                 <!-- Modal -->
                             <div class="modal fade" id="disabled-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -13,7 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-togglee="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                 data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/painel/patrimonio/marcas")?>"
                 role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
 
@@ -38,7 +38,7 @@
                     <td class="text-center fw-semibold"><?=(!empty($lista->brand_name) ? $lista->brand_name : "")?></td>
                     <td class="text-center fw-semibold"><?=(!empty($lista->description) ? $lista->description : "")?></td>
                     <td class="text-center fw-semibold"><?=$lista->statusBadge()?></td>
-                    <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#actived-<?=$lista->id;?>" 
+                    <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#actived-<?=$lista->id;?>" 
                         class="btn btn-outline-success rounded-circle btn-sm text-center"><i class="bi bi-bootstrap"></i></b></td>
                         <!-- Modal -->
                     <div class="modal fade" id="actived-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

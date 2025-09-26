@@ -43,7 +43,7 @@
                 <?php if(!empty($contacts)){ ?>
                 <?php foreach ($contacts as $lista): ?>
                     <tr>
-                        <td class="text-center"><a href="contatos/editar/<?=$lista->id?>" data-bs-togglee="tooltip" 
+                        <td class="text-center"><a href="contatos/editar/<?=$lista->id?>" data-bs-toggle="tooltip" 
                             data-bs-placement="right" data-bs-custom-class="custom-tooltip-success" data-bs-title="Clique para editar <?=$lista->contact_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-sm text-center <?php if(user()->level_id < 3){echo 'disabled';}?>"><i class="bi bi-pencil text-<?=CONF_APP_COLOR?>"></i></a></td>
                         <td class="text-center text-uppercase"><?=$lista->contact_name;?></td>
@@ -51,7 +51,7 @@
                         <td class="text-center"><?=$lista->church()->church_name;?></td>
                         <td class="text-center text-uppercase"><?=$lista->church()->it_professional;?></td>
                         <td class="text-center"><?=$lista->church()->phone_landline;?></td>
-                        <td class="text-center"><button type="button" data-bs-togglee="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
+                        <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
                         class="btn btn-outline-danger rounded-circle btn-sm text-center"><i class="bi bi-telephone-x"></i></b></td>
                             <!-- Modal -->
                         <div class="modal fade" id="disabled-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

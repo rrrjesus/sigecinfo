@@ -44,7 +44,7 @@
                             <td class="text-center fw-semibold"><?=(!empty($lista->church()->church_name) ? $lista->church()->church_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->observations?></td>
                             <?php if ($user->level_id > 3){?>
-                            <td class="text-center"><button type="button" data-bs-togglee="modal" accesskey="b" data-bs-toggle="modal" data-bs-target="#trash-<?=$lista->id;?>" 
+                            <td class="text-center"><button type="button" data-bs-toggle="modal" accesskey="b" data-bs-toggle="modal" data-bs-target="#trash-<?=$lista->id;?>" 
                                 class="btn btn-outline-danger rounded-circle btn-sm text-center"><i class="bi bi-trash"></i></b></td>
                                     <!-- Modal -->
                                 <div class="modal fade" id="trash-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

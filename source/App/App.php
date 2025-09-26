@@ -51,7 +51,7 @@ class App extends Controller
         if ($this->user->status != "confirmed") {
             $session = new Session();
             if (!$session->has("appconfirmed")) {
-                $this->message->info("IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro e ativar todos os recursos.")->icon()->flash();
+                $this->message->info("IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro e ativar todos os recursos.")->flash();
                 $session->set("appconfirmed", true);
                 (new Auth())->register($this->user);
             }

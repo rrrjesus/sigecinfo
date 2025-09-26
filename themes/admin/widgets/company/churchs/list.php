@@ -46,7 +46,7 @@
                 <?php if(!empty($churchs)){ ?>
                 <?php foreach ($churchs as $lista): ?>
                     <tr>
-                        <td class="text-center"><a href="igrejas/editar/<?=$lista->id?>" data-bs-togglee="tooltip" 
+                        <td class="text-center"><a href="igrejas/editar/<?=$lista->id?>" data-bs-toggle="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                             data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-sm text-center">

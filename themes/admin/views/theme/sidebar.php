@@ -60,9 +60,7 @@
                         </a>
                         <div class="collapse" id="collapseUsersLevels" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserLevel">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis/desativados")?>"><i class="bi bi-list bi-2xx me-2"></i> Desativados</a>
                             </nav>
                         </div>
 
@@ -169,7 +167,7 @@
 
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">UTILIDADES</div>
 
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/logoff")?>" data-bs-togglee="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/logoff")?>" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                     data-bs-title="Clique para sair do sistema" data-bs-toggle="modal" data-bs-target="#modalSair">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Sair

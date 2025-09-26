@@ -192,6 +192,7 @@ class Users extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
         
         $userEdit = (new User())->findById($data["user_id"]);
+
         if (!$userEdit) {
             $this->message->error("Você tentou editar um usuário que não existe.")->flash();
             redirect("/painel/usuarios");
@@ -264,7 +265,9 @@ class Users extends Admin
     {
         $this->authorize(['Administrador do Sistema']);
 
-        $userDelete = (new User())->findById($data["user_id"]);
+        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
+        $userDelete = (new User())->findById($userId);
+
         if (!$userDelete) {
             $this->message->error("O usuário que você tentou excluir não existe.")->flash();
             redirect("/painel/usuarios");
@@ -282,7 +285,7 @@ class Users extends Admin
         $userDelete->destroy();
 
         $this->message->success("Usuário {$userDelete->user_name} excluído com sucesso.")->flash();
-        redirect("/painel/usuarios");
+        redirect(url_back());
     }
 
     /**
@@ -293,6 +296,16 @@ class Users extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
         $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
         $user = (new User())->findById($userId);
+
+        if (!$user) {
+            $this->message->error("O usuário que você tentou manipular não existe.")->flash();
+            redirect("/painel/usuarios");
+        }
+        
+        if ($user->id === $this->user->id) {
+            $this->message->warning("Você não pode desativar sua própria conta.")->flash();
+            redirect("/painel/usuarios");
+        }
 
         if ($user) {
             $user->status = ($user->status == "actived" ? "disabled" : "actived");

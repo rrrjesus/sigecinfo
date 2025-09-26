@@ -31,6 +31,7 @@
                     <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>STATUS</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NIVEL</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>ATIVAR</th>
+                    <th class="text-center"><i class="bi bi-person me-1"></i><br>EXCLUIR</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,9 +47,10 @@
                         <td class="text-center"><?=statusSpan($lista->status);?></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>
                         <td class="text-center"><?=$lista->id;?></td>
+                        <td class="text-center"><?=$lista->id;?></td>
                     </tr>
                 <?php endforeach; ?>
-                <?php }else{redirect("/painel/usuarios");} ?>
+                <?php }else{} ?>
                 </tbody>
             </table>
         </div>
