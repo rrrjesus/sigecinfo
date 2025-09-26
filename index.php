@@ -120,7 +120,7 @@ $route->get("/cargos/editar/{userposition_id}", "UsersPositions:userposition");
 $route->post("/cargos/editar/{userposition_id}", "UsersPositions:userposition");
 $route->get("/cargos/ativar/{userposition_id}/{action}", "UsersPositions:userposition");
 $route->get("/cargos/desativar/{userposition_id}/{action}", "UsersPositions:userposition");
-$route->get("/cargos/excluir/{userposition_id}/{action}", "UsersPositions:userposition");
+$route->get("/cargos/excluir/{userposition_id}/{action}", "UsersPositions:delete");
 
 //Users (Rotas alinhadas com o controller Users.php refatorado)
 $route->get("/usuarios", "Users:users");

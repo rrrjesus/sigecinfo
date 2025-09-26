@@ -146,84 +146,8 @@ class UsersPositions extends Admin
             return;
         }
 
-          //actived
-         if (!empty($data["action"]) && $data["action"] == "actived") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userpositionActived = (new UserPosition())->findById($data["userposition_id"]);
-            $userposition = (new UserPosition())->find("status = :s","s=disabled")->count();
-
-            if (!$userpositionActived) {
-                $this->message->error("Você tentou gerenciar um cargo que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/cargos")]);
-                return;
-            }
-
-            $userpositionActived->status = "actived";
-            $userpositionActived->login_updated = $user->login;
-
-            if (!$userpositionActived->save()) {
-                $json["message"] = $userpositionActived->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-
-            if($userposition > 1){
-                $this->message->success("Cargo {$userpositionActived->position_name} reativado com sucesso !!!")->icon("gift")->flash();
-                redirect("/painel/cargos/desativados");
-                return;
-            }else{
-                $this->message->warning("A lixeira esta vazia")->icon("trash")->flash();
-                redirect("/painel/cargos");
-                return;
-            }
-        }
-
-        
-         //disabled
-         if (!empty($data["action"]) && $data["action"] == "disabled") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userpositionDisabled = (new UserPosition())->findById($data["userposition_id"]);
-
-            if (!$userpositionDisabled) {
-                $this->message->error("Você tentou gerenciar um cargo que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/cargos")]);
-                return;
-            }
-
-            $userpositionDisabled->status = "disabled";
-            $userpositionDisabled->login_updated = $user->login;
-
-            if (!$userpositionDisabled->save()) {
-                $json["message"] = $userpositionDisabled->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $this->message->success("Cargo {$userpositionDisabled->position_name} desativado com sucesso !!!")->icon("gift")->flash();
-            redirect("/painel/cargos");
-            return;
-        }
-
-        //delete
-        if (!empty($data["action"]) && $data["action"] == "delete") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userpositionDelete = (new UserPosition())->findById($data["userposition_id"]);
-
-            if (!$userpositionDelete) {
-                $this->message->error("Você tentou deletar um cargo que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/cargos")]);
-                return;
-            }
-
-            $userpositionDelete->destroy();
-
-            $this->message->success("A igreja {$userpositionDelete->position_name} foi excluída com sucesso...")->icon("gift")->flash();
-            redirect("/painel/cargos");
-            return;
-        }
-
         $userpositionEdit = null;
+
         if (!empty($data["userposition_id"])) {
             $userpositionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
             $userpositionEdit = (new UserPosition())->findById($userpositionId);
@@ -244,5 +168,69 @@ class UsersPositions extends Admin
             "namepage" => "Cargos",
             "name" => ($userpositionEdit ? "Editar" : "Cadastrar")
         ]);
+    }
+
+     /**
+     * @param array $data
+     */
+    public function delete(array $data): void
+    {
+        $this->authorize(['Administrador do Sistema']);
+
+        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
+        $userDelete = (new User())->findById($userId);
+
+        if (!$userDelete) {
+            $this->message->error("O usuário que você tentou excluir não existe.")->flash();
+            redirect("/painel/usuarios");
+        }
+        
+        if ($userDelete->id === $this->user->id) {
+            $this->message->warning("Você não pode excluir sua própria conta.")->flash();
+            redirect("/painel/usuarios");
+        }
+
+        if ($userDelete->photo()) {
+            (new Thumb())->flush("storage/{$userDelete->photo}");
+            (new Upload())->remove("storage/{$userDelete->photo}");
+        }
+        $userDelete->destroy();
+
+        $this->message->success("Usuário {$userDelete->user_name} excluído com sucesso.")->flash();
+        redirect(url_back());
+    }
+
+    /**
+     * @param array $data
+     */
+    public function toggleStatus(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
+        $user = (new User())->findById($userId);
+
+        if (!$user) {
+            $this->message->error("O usuário que você tentou manipular não existe.")->flash();
+            redirect("/painel/usuarios");
+        }
+        
+        if ($user->id === $this->user->id) {
+            $this->message->warning("Você não pode desativar sua própria conta.")->flash();
+            redirect("/painel/usuarios");
+        }
+
+        if ($user) {
+            $user->status = ($user->status == "actived" ? "disabled" : "actived");
+            $user->login_updated = $this->user->id;
+            $user->save();
+        }
+
+        if($user->status == "actived"):
+            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
+        else:
+            $this->message->success("O usuário {$user->user_name} foi desativado com sucesso !!!")->flash();
+        endif;
+
+        redirect("/painel/usuarios");
     }
 }

@@ -120,41 +120,7 @@
                             </nav>
                         </div>
 
-                        <!-- Sidebar de Marcas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseBrands" aria-expanded="false" aria-controls="pagesCollapseBrands">
-                            Marcas
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseBrands" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionBrands">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                        <!-- Sidebar de Produtos -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseProducts" aria-expanded="false" aria-controls="pagesCollapseProducts">
-                            Produtos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseProducts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionProducts">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/produtos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/produtos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                        <!-- Sidebar de Contratos -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseContracts" aria-expanded="false" aria-controls="pagesCollapseContracts">
-                            Contratos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseContracts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionContracts">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/contratos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/contratos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
+                       
                     </nav>
                 </div>
 
