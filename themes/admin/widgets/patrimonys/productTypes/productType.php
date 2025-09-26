@@ -24,7 +24,7 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Nome" class="form-control form-control-sm"
                                     name="type_name" placeholder="NOME">
 
@@ -36,7 +36,7 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Descrição</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Descrição" class="form-control form-control-sm"
                                     name="description" placeholder="DESCRIÇÃO" id="description">
                             </div>
@@ -45,9 +45,9 @@
 
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                                <button data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Clique para criar o registro" class="btn btn-sm btn-outline-success fw-bold me-2"><i class="bi bi-disc-fill me-2"></i>GRAVAR</button>
-                                <a href="<?=url("/painel/patrimonio/marcas")?>" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                                <a href="<?=url("/painel/patrimonio/marcas")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Clique para listar os usuarios" class="btn btn-sm btn-outline-dark fw-bold">
                                 <i class="bi bi-list-columns me-2"></i>LISTAR</a>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="col-6 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Nome" class="form-control form-control-sm"
                                     name="type_name" placeholder="NOME" value="<?=$productTypes->type_name?>">
 
@@ -88,7 +88,7 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Descrição</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Descrição" class="form-control form-control-sm"
                                     name="description" placeholder="DESCRIÇÃO" id="description" value="<?=$productTypes->description?>" >
                             </div> 
@@ -97,9 +97,9 @@
 
                         <div class="row justify-content-center mt-4 mb-3">
                             <div class="col-auto">
-                                <button data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                                <button data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Clique para atualizar a marca" class="btn btn-sm btn-outline-success fw-bold me-2"><i class="bi bi-disc-fill me-2"></i>GRAVAR</button>
-                                <a href="<?=url("/painel/patrimonio/marcas")?>" role="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                                <a href="<?=url("/painel/patrimonio/marcas")?>" role="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Clique para listar as marcas" class="btn btn-sm btn-outline-smsub fw-bold me-2"><i class="bi bi-list me-2"></i>LISTAR</a>
                                 <a href="<?= url("/painel/patrimonio/marcas/excluir/{$productTypes->id}/delete"); ?>" class="btn btn-sm btn-outline-danger fw-bold me-2"><i class="bi bi-trash me-2"></i>EXCLUIR</a>
                             </div>

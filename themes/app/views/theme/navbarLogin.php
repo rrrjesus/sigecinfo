@@ -36,20 +36,20 @@
                 <hr class="d-lg-none">
                 <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
                     <li class="nav-item nav col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
                     </li>
                     <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/contatos")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Contatos" href="<?=url("/contatos")?>">Contatos</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/contatos")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Contatos" href="<?=url("/contatos")?>">Contatos</a>
                     </li>
                     <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/email")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="E-mail" href="<?=url("/email")?>">E-mail</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/email")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="E-mail" href="<?=url("/email")?>">E-mail</a>
                     </li>
                     <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/sobre")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Sobre" href="<?=url("/sobre")?>">Sobre</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/sobre")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Sobre" href="<?=url("/sobre")?>">Sobre</a>
                     </li>
 
                     <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/blog")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Blog" href="<?=url("/blog")?>">Blog</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/blog")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Blog" href="<?=url("/blog")?>">Blog</a>
                     </li>
                 </ul>
 
@@ -57,7 +57,7 @@
 
                 <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
                     <li class="nav-item col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Facebook" href="https://www.facebook.com/<?=CONF_SOCIAL_FACEBOOK_PAGE?>" target="_blank" rel="noopener">
+                        <a class="nav-link py-2 px-0 px-lg-2" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Facebook" href="https://www.facebook.com/<?=CONF_SOCIAL_FACEBOOK_PAGE?>" target="_blank" rel="noopener">
                             <i class="bi bi-facebook"></i>
                             <small class="d-lg-none ms-2">Facebook</small>
                         </a>

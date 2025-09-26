@@ -705,11 +705,11 @@ function status_name(string $status): string
     {
 
     if ($status == "registered") {
-        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle="tooltip" 
+        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
                     Registrado</span>';
     } elseif ($status == "confirmed") {
-        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle="tooltip" 
+        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">CONFIRMADO</span>';
     } else {
         return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">INATIVO</span>';

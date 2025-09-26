@@ -52,17 +52,10 @@
                             </nav>
                         </div>
 
-                        <!-- Sidebar de níveis de usuários -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersLevels" aria-expanded="false" aria-controls="collapseUsersLevels">
-                            <div class="sb-nav-link-icon"><i class="bi bi-building bi-2xx"></i></div>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top"  data-bs-custom-class="custom-tooltip-dark" data-bs-title="Listar Níveis de Usuários">
+                            <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                             Níveis
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseUsersLevels" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionUserLevel">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/niveis")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
 
                         <!-- Sidebar de cargos de usuários -->
                         <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseUsersPositions" aria-expanded="false" aria-controls="collapseUsersPositions">
@@ -167,7 +160,7 @@
 
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">UTILIDADES</div>
 
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/logoff")?>" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/logoff")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-dark" 
                     data-bs-title="Clique para sair do sistema" data-bs-toggle="modal" data-bs-target="#modalSair">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Sair

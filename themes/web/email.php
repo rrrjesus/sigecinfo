@@ -32,19 +32,19 @@
 
                     <div class="col-4">
                         <strong><label for="inputNome" class="col-4 col-form-label col-form-label-sm">NOME</label></strong>
-                        <input tabindex="1" autofocus data-bs-toggle="tooltip" data-bs-placement="top" maxlength="50" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <input tabindex="1" autofocus data-bs-toggle-tooltip="tooltip" data-bs-placement="top" maxlength="50" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Comece a digitar seu nome, caso não apareça na lista, digite manualmente" class="form-control form-control-sm border-<?=color_month();?> nomeinp" name="nomeinp" id="nomeinp" type="text" placeholder="DIGITE O NOME COMPLETO"/>
                     </div>
 
                     <div class="col-4">
                         <strong><label for="inputCargo" class="col-4 col-form-label col-form-label-sm">CARGO</label></strong>
-                        <input tabindex="2" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <input tabindex="2" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Digite o cargo que você ocupa" class="form-control form-control-sm border-<?=color_month();?> cargoinp" type="text" maxlength="62" name="cargoinp" id="cargoinp" placeholder="DIGITE O CARGO"/>
                     </div>
 
                     <div class="col-4">
                         <strong><label for="inputSector" class="col-4 col-form-label col-form-label-sm">SETOR</label></strong>
-                        <input tabindex="3" data-bs-toggle="tooltip" data-bs-placement="top"
+                        <input tabindex="3" data-bs-toggle-tooltip="tooltip" data-bs-placement="top"
                                 data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Digite o setor em que você trabalha"  class="form-control form-control-sm border-<?=color_month();?> sector" type="text" maxlength="54" id="sector" name="sector" placeholder="DIGITE O SETOR"/>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="col-4">
                         <strong><label for="input" class="col-form-label col-form-label-sm">EMAIL</label></strong>
                         <div class="input-group input-group-sm mb-3">
-                            <input tabindex="4" type="text" aria-describedby="inputGroupPrepend" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                            <input tabindex="4" type="text" aria-describedby="inputGroupPrepend" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Preenchimento automático !!! Editável apenas se o e-mail não estiver preenchido !!!" class="form-control form-control-sm border-<?=color_month();?> emailinp" id="emailinp"
                                     maxlength="47" name="emailinp" placeholder="DIGITE O INÍCIO">
                             <span class="input-group-text" id="inputGroupPrepend">@smsub.prefeitura.sp.gov.br</span>
@@ -64,7 +64,7 @@
                     <div class="col-4">
                         <strong><label for="inputTelefone" class="col-2 col-form-label col-form-label-sm">RAMAL</label></strong>
                         <div class="input-group  input-group-sm mb-3">
-                            <input tabindex="5" type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                            <input tabindex="5" type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Apenas se tiver, digite os 4 dígitos do ramal de telefone" class="form-control form-control-sm border-<?=color_month();?> ramalinp" id="ramalinp"
                                     name="ramalinp" maxlength="4" placeholder="DIGITE OS 4 DÍGITOS">
                         </div>
@@ -73,7 +73,7 @@
                     <div class="col-2">
                         <strong><label for="inputAndar" class="col-2 col-form-label col-form-label-sm">ANDAR</label></strong>
                         <div class="input-group input-group-sm mb-3">
-                            <input tabindex="6" type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                            <input tabindex="6" type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Apenas se tiver, digite apenas o número do andar" class="form-control form-control-sm border-<?=color_month();?> andarinp" maxlength="2" placeholder="10, 23 ou 24" name="andarinp">
                         <span class="input-group-text">º Andar</span>
                         </div>
@@ -82,7 +82,7 @@
                     <div class="col-2">
                         <strong><label for="inputSala" class="col-2 col-form-label col-form-label-sm">SALA</label></strong>
                         <div class="input-group  input-group-sm mb-3">
-                            <input tabindex="7" type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                            <input tabindex="7" type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                     data-bs-title="Apenas se tiver, digite apenas o número e letra da sala" class="form-control form-control-sm border-<?=color_month();?> salainp" maxlength="4" placeholder="Nº e LETRA" name="salainp">
                             <span class="input-group-text">Sala</span>
                         </div>
@@ -93,20 +93,20 @@
                 <div class="row justify-content-center mb-2">
                     <div class="col-5">
                         <strong><label for="inputLogoTitle" class="col-4 col-form-label col-form-label-sm">SIGECINFO/SUBS</label></strong>
-                        <input tabindex="8" data-bs-toggle="tooltip" data-bs-placement="top" maxlength="50" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <input tabindex="8" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" maxlength="50" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 value="SIGECINFO" data-bs-title="Digite a Secretaria ou Subprefeitura" class="form-control form-control-sm border-<?=color_month();?> secsubinp" name="secsubinp" id="secsubinp" type="text" placeholder="DIGITE A SECRETARIA/SUBPREFEIRURA"/>
                     </div>
 
                     <div class="col-5">
                         <strong><label for="inputLogoTitle" class="col-4 col-form-label col-form-label-sm">ENDEREÇO</label></strong>
-                        <input tabindex="9" data-bs-toggle="tooltip" data-bs-placement="top" maxlength="64" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <input tabindex="9" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" maxlength="64" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Preenchimento automático !!! Mas pode ser editado !!!" class="form-control form-control-sm border-<?=color_month();?> enderecoinp" name="enderecoinp" id="enderecoinp" type="text"
                                 value="R. José Buono, 65 - Jaçanã "placeholder="ENDEREÇO DA SECRETARIA/SUBPREFEIRURA"/>
                     </div>
 
                     <div class="col-2">
                         <strong><label for="inputCep" class="col-4 col-form-label col-form-label-sm">CEP</label></strong>
-                        <input tabindex="10" data-bs-toggle="tooltip" data-bs-placement="top" maxlength="9" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <input tabindex="10" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" maxlength="9" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 value="02273-120" data-bs-title="Preenchimento automático !!! Mas pode ser editado !!!" class="form-control form-control-sm border-<?=color_month();?> cepinp" name="cepinp" id="cepinp" type="text" placeholder="00000-000"/>
                     </div>
                 </div>
@@ -135,10 +135,10 @@
 
                 <div class="row justify-content-center mt-3 mb-3">
                     <div class="col-auto">
-                        <button tabindex="11" id="gerarpng" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        <button tabindex="11" id="gerarpng" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                                 data-bs-title="Clique para gerar a assinatura" class="btn btn-outline-success btn-sm fw-bold me-3"><i class="bi bi-card-text me-1"></i> GERAR</button>
-                        <a href="<?=url("/email")?>" tabindex="12" data-bs-toggle="tooltip" data-bs-placement="bottom" role="button" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                        <a href="<?=url("/email")?>" tabindex="12" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" role="button" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                             data-bs-title="Clique para apagar os campos" class="btn btn-outline-secondary btn-sm fw-bold"><i class="bi bi-eraser me-1"></i>APAGAR</a>
                     </div>
                 </div>

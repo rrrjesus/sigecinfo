@@ -74,7 +74,7 @@ $columns = array(
     array( 'db' => 'observations', 'dt' => 14),
     array( 'db' => 'id', 'dt' => 15,
         'formatter' => function($d) {
-            return '<a href="../patrimonio/historico/termo/'.$d.'" role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            return '<a href="../patrimonio/historico/termo/'.$d.'" role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                         data-bs-title="Clique para visualizar" target="_blank" class="btn btn-sm btn-outline-primary rounded-circle fw-bold me-2"><i class="bi bi-file-earmark-word"></i></a>';
                     }
     ),

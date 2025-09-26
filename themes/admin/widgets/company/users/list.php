@@ -44,7 +44,7 @@
                 <?php if(!empty($users)){ ?>
                 <?php foreach ($users as $lista): ?>
                     <tr>
-                        <td class="text-center"><a href="usuarios/editar/<?=$lista->id?>" data-bs-toggle="tooltip" 
+                        <td class="text-center"><a href="usuarios/editar/<?=$lista->id?>" data-bs-toggle-tooltip="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
                             data-bs-title="Clique para editar <?=$lista->user_name?>" role="button" 
                             class="btn btn-outline-secondary rounded-circle btn-sm text-center">

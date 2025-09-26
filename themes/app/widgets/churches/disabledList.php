@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            <a data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                 data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/beta/contatos")?>"
                 role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
 
@@ -43,7 +43,7 @@
                 <?php if(!empty($contacts) && user()->level_id > 3){ ?>
                 <?php foreach ($contacts as $lista): ?>
                     <tr>
-                        <td class="text-center"><a href="../contatos/ativar/<?=$lista->id?>/actived" data-bs-toggle="tooltip" 
+                        <td class="text-center"><a href="../contatos/ativar/<?=$lista->id?>/actived" data-bs-toggle-tooltip="tooltip" 
                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para reativar <?=$lista->contact_name?>" role="button" 
                             class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-telephone-outbound text-secondary"></i></a></td>
                         <td class="text-center"><?=$lista->contact_name;?></td>

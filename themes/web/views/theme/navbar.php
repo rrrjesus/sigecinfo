@@ -34,7 +34,7 @@
                 <hr class="d-lg-none">
                 <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
                     <li class="nav-item nav col-6 col-lg-auto">
-                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
                     </li>
                 </ul>
 

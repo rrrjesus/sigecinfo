@@ -25,7 +25,7 @@
                             <div class="col-3 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputSei"><strong><i class="bi bi-person me-1"></i> Processo SEI</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o Número de Processo SEI - Ex : 6012.2019/0005605-6" class="form-control form-control-sm mask-sei"
                                         name="sei_process" placeholder="6012.2019/0005605-6">
 
@@ -33,7 +33,7 @@
 
                             <div class="col-6 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputProcess"><strong><i class="bi bi-person me-1"></i> Nome do Contrato</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome do Contrato - Ex : Simpress Tabets/Impressoras 2021" class="form-control form-control-sm"
                                     name="contract_name" placeholder="Simpress Tabets/Impressoras 2021">
 
@@ -43,7 +43,7 @@
                             <div class="col-3 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputStatus"><strong><i class="bi bi-check2-square ms-3 me-3"></i> Status</strong></label>
-                                <select class="form-control form-control-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <select class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Selecione o status" name="status" id="status">
                                     <option value="actived" selected>Ativo</option>
                                     <option value="disabled">Inativo</option>
@@ -57,7 +57,7 @@
 
                             <div class="col-4 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputManager"><strong><i class="bi bi-person me-1"></i> Nome do Responsável</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome do Responsável pelo Contrato" class="form-control form-control-sm user_manager"
                                     name="manager_id" placeholder="Responsável pelo Contrato">
 
@@ -66,7 +66,7 @@
                             <div class="col-4 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputInspector"><strong><i class="bi bi-person me-1"></i> Nome do Fiscal</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o nome do Fiscal do Contrato" class="form-control form-control-sm user_inspector"
                                         name="inspector_id" placeholder="Fiscal do Contrato">
 
@@ -74,7 +74,7 @@
 
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputDeputyInspector"><strong><i class="bi bi-person me-1"></i> Nome do Suplente</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o nome do Suplente do Contrato" class="form-control form-control-sm user_deputy_inspector"
                                         name="deputy_inspector_id" placeholder="Suplente do Contrato">
 
@@ -86,7 +86,7 @@
 
                             <div class="col-12 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Descrição</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Descrição" class="form-control form-control-sm"
                                     name="description" placeholder="DESCRIÇÃO" id="description">
                             </div>
@@ -97,7 +97,7 @@
 
                             <div class="md-12 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                <textarea class="form-control form-control-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <textarea class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title=Observações" name="observations" rows="2"></textarea>
                             </div>
 
@@ -133,7 +133,7 @@
                             <div class="col-3 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputSei"><strong><i class="bi bi-person me-1"></i> Processo SEI</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o Número de Processo SEI - Ex : 6012.2019/0005605-6" class="form-control form-control-sm"
                                         name="sei_process" placeholder="6012.2019/0005605-6" value="<?=$contracts->sei_process?>">
 
@@ -141,7 +141,7 @@
 
                             <div class="col-6 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputProcess"><strong><i class="bi bi-person me-1"></i> Nome do Contrato</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome do Contrato - Ex : Simpress Tabets/Impressoras 2021" class="form-control form-control-sm"
                                     name="contract_name" placeholder="Simpress Tabets/Impressoras 2021" value="<?=$contracts->contract_name?>">
 
@@ -151,7 +151,7 @@
                             <div class="col-3 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputStatus"><strong><i class="bi bi-check2-square ms-3 me-3"></i> Status</strong></label>
-                                <select class="form-control form-control-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <select class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Selecione o status" name="status" id="status">
                                     <?=$contracts->statusSelect()?>
                                 </select>
@@ -164,7 +164,7 @@
 
                             <div class="col-4 mb-1">
                             <label class="col-form-label col-form-label-sm" for="inputManager"><strong><i class="bi bi-person me-1"></i> Nome do Responsável</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o nome do Responsável pelo Contrato" class="form-control form-control-sm user_manager"
                                     name="manager_id" placeholder="Responsável pelo Contrato" value="<?=(!empty($contracts->userManager()->id) ? $contracts->userManager()->id.' - '.$contracts->userManager()->user_name : "")?>">
 
@@ -173,7 +173,7 @@
                             <div class="col-4 mb-1">
 
                                 <label class="col-form-label col-form-label-sm" for="inputInspector"><strong><i class="bi bi-person me-1"></i> Nome do Fiscal</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o nome do Fiscal do Contrato" class="form-control form-control-sm user_inspector"
                                         name="inspector_id" placeholder="Fiscal do Contrato" value="<?=(!empty($contracts->userInspector()->id) ? $contracts->userInspector()->id.' - '.$contracts->userInspector()->user_name : "")?>">
 
@@ -181,7 +181,7 @@
 
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputDeputyInspector"><strong><i class="bi bi-person me-1"></i> Nome do Suplente</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o nome do Suplente do Contrato" class="form-control form-control-sm user_deputy_inspector"
                                         name="deputy_inspector_id" placeholder="Suplente do Contrato" value="<?=(!empty($contracts->userDeputyInspector()->id) ? $contracts->userDeputyInspector()->id.' - '.$contracts->userDeputyInspector()->user_name : "")?>">
 
@@ -193,7 +193,7 @@
 
                             <div class="col-12 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputSobreNome"><strong><i class="bi bi-person-add me-1"></i> Descrição</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Descrição" class="form-control form-control-sm"
                                     name="description" placeholder="DESCRIÇÃO" id="description" value="<?=$contracts->description?>">
                             </div>
@@ -204,7 +204,7 @@
 
                             <div class="md-12 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                <textarea class="form-control form-control-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <textarea class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title=Observações" name="observations" rows="2"><?=$contracts->observations?></textarea>
                             </div>
 

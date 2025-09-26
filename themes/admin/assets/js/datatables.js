@@ -22,7 +22,7 @@ $(document).ready(function() {
    $('#userspositions').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -60,7 +60,7 @@ $(document).ready(function() {
     $('#userspositionsDisabled').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -98,7 +98,7 @@ $(document).ready(function() {
     $('#userscategories').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -136,7 +136,7 @@ $(document).ready(function() {
     $('#userscategoriesDisabled').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -174,7 +174,7 @@ $(document).ready(function() {
     $('#brands').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -212,7 +212,7 @@ $(document).ready(function() {
       $('#brandsDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -250,7 +250,7 @@ $(document).ready(function() {
     $('#contracts').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -286,7 +286,7 @@ $(document).ready(function() {
             {
                 "aTargets": [10], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[10]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -313,7 +313,7 @@ $(document).ready(function() {
       $('#contractsDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -349,7 +349,7 @@ $(document).ready(function() {
             {
                 "aTargets": [10], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para ativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#modalAtivar'+ full[10] +'">' +
                         '<i class="bi bi-person-check"></i></button>' +
                         '<div class="modal fade" id="modalAtivar' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -376,7 +376,7 @@ $(document).ready(function() {
     $('#products').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -412,7 +412,7 @@ $(document).ready(function() {
             {
                 "aTargets": [7], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[2] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[7]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[7] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -436,7 +436,7 @@ $(document).ready(function() {
             // {
             //     "aTargets": [7], // o numero da coluna
             //     "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-            //         return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+            //         return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
             //             'data-bs-title="Clique para excluir definitivamente '+ full[7] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#trashModalFim'+ full[7]+'">' +
             //             '<i class="bi bi-trash"></i></button>' +
             //             '<div class="modal fade" id="trashModalFim' + full[7] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -463,7 +463,7 @@ $(document).ready(function() {
     $('#productsDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -499,7 +499,7 @@ $(document).ready(function() {
             {
                 "aTargets": [6], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para ativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#modalAtivar'+ full[6]+'">' +
                         '<i class="bi bi-person-check"></i></button>' +
                         '<div class="modal fade" id="modalAtivar' + full[6] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -526,7 +526,7 @@ $(document).ready(function() {
     $('#users').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -563,7 +563,7 @@ $(document).ready(function() {
                 "aTargets": [9], // o numero da coluna
                 "mRender": function (data, type, full) 
                 { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                     'data-bs-title="Clique para desativar '+ full[2] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[9]+'">' +
                     '<i class="bi bi-person-dash text-secondary"></i></button>' +
                     '<div class="modal fade" id="activedModal' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -587,7 +587,7 @@ $(document).ready(function() {
                 "aTargets": [10], // Coluna de excluir
                 "mRender": function (data, type, full) 
                 {
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                     'data-bs-title="Clique para excluir '+ full[2] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[10]+'">' +
                     '<i class="bi bi-trash text-secondary"></i></button>' +
                     '<div class="modal fade" id="deleteModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -615,7 +615,7 @@ $(document).ready(function() {
     $('#usersDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -651,7 +651,7 @@ $(document).ready(function() {
             {
                 "aTargets": [8], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para ativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#trashModalInicio'+ full[8]+'">' +
                         '<i class="bi bi-person-check"></i></button>' +
                         '<div class="modal fade" id="trashModalInicio' + full[8] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -675,7 +675,7 @@ $(document).ready(function() {
                 "aTargets": [9], // Coluna de excluir
                 "mRender": function (data, type, full) 
                 {
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                     'data-bs-title="Clique para excluir '+ full[1] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[9]+'">' +
                     '<i class="bi bi-trash text-secondary"></i></button>' +
                     '<div class="modal fade" id="deleteModal' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -703,7 +703,7 @@ $(document).ready(function() {
     $('#churchs').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -737,7 +737,7 @@ $(document).ready(function() {
             {
                 "aTargets": [11], // Coluna de desativar
                 "mRender": function (data, type, full) {
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[4] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[11]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[11] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -760,7 +760,7 @@ $(document).ready(function() {
             {
                 "aTargets": [12], // Coluna de excluir
                 "mRender": function (data, type, full) {
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para excluir '+ full[4] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[12]+'">' +
                         '<i class="bi bi-trash text-secondary"></i></button>' +
                         '<div class="modal fade" id="deleteModal' + full[12] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -788,7 +788,7 @@ $(document).ready(function() {
       $('#churchsDisabled').DataTable( {
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -824,7 +824,7 @@ $(document).ready(function() {
             {
                 "aTargets": [10], // o numero da coluna
                 "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                         'data-bs-title="Clique para desativar '+ full[3] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[10]+'">' +
                         '<i class="bi bi-person-dash text-secondary"></i></button>' +
                         '<div class="modal fade" id="activedModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -848,7 +848,7 @@ $(document).ready(function() {
                 "aTargets": [11], // Coluna de excluir
                 "mRender": function (data, type, full) 
                 {
-                    return '<button type="button" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
                     'data-bs-title="Clique para excluir '+ full[4] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[11]+'">' +
                     '<i class="bi bi-trash text-secondary"></i></button>' +
                     '<div class="modal fade" id="deleteModal' + full[11] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
@@ -872,10 +872,23 @@ $(document).ready(function() {
         ]
     });
 
+    $('#levels').DataTable({
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
+            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
+            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
+        },
+        "lengthMenu": [[5, -1], [5, "Todos"]],
+        "aaSorting": [0, 'desc'],
+    });
+
     $('#historyPatrimonyUser').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [
@@ -912,7 +925,7 @@ $(document).ready(function() {
     $('#patrimonyUser').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [

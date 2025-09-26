@@ -269,8 +269,8 @@ $(function () {
     });
 
 
-    //  data-bs-toggle="tooltip" Bootstrap Title
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-togglee="tooltip"]'))
+    //  data-bs-toggle-tooltip="tooltip" Bootstrap Title
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
@@ -337,8 +337,8 @@ $(function () {
         $('.mask-country').mask('SS', {translation: {'S': { pattern: /[A-Za-z]/ }},onKeyPress: function(value, e, field, options) {field.val(value.toUpperCase());}});// permite maiúsculas e minúsculas
         $(".mask-sei").mask('0000.0000/0000000-0', {reverse: true});
 
-    //  data-bs-toggle="tooltip" Bootstrap Title
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-togglee="tooltip"]'))
+    //  data-bs-toggle-tooltip="tooltip" Bootstrap Title
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })

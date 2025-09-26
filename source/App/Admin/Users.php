@@ -35,6 +35,9 @@ class Users extends Admin
 
         echo $this->view->render("widgets/company/users/list", [
             "head" => $head,
+            "urls" => "usuarios",
+            "namepage" => "Usuários",
+            "name" => "Listar",
             "users" => $users,
             "registers" => (object)["disabled" => (new User())->find("status = :s", "s=disabled")->count()]
         ]);
@@ -52,6 +55,9 @@ class Users extends Admin
 
         echo $this->view->render("widgets/company/users/disabledList", [
             "head" => $head,
+            "urls" => "usuarios",
+            "namepage" => "Usuários",
+            "name" => "Listar Desativados",
             "users" => $users
         ]);
     }
@@ -118,6 +124,9 @@ class Users extends Admin
         $head = $this->seo->render(CONF_SITE_NAME . " | Perfil de {$this->user->user_name}", CONF_SITE_DESC, url("/painel"), null, false);
         echo $this->view->render("widgets/company/users/profile", [
             "head" => $head,
+            "urls" => "usuarios",
+            "namepage" => "Usuários",
+            "name" => "Perfil",
             "profile" => $this->user,
             "userposition" => (new UserPosition()),
             "church" => (new Church())
@@ -178,6 +187,9 @@ class Users extends Admin
         $head = $this->seo->render(CONF_SITE_NAME . " | Novo Usuário", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/company/users/user", [
             "head" => $head,
+            "urls" => "usuarios",
+            "namepage" => "Usuários",
+            "name" => "Cadastrar",
             "user" => null,
             "userposition" => (new UserPosition()),
             "church" => (new Church())
@@ -252,6 +264,9 @@ class Users extends Admin
         $head = $this->seo->render(CONF_SITE_NAME . " | Editar Usuário: {$userEdit->user_name}", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/company/users/user", [
             "head" => $head,
+            "urls" => "usuarios",
+            "namepage" => "Usuários",
+            "name" => "Editar",
             "user" => $userEdit,
             "userposition" => (new UserPosition()),
             "church" => (new Church())

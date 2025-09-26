@@ -23,18 +23,18 @@
                 <h1 class="h3 mb-3 fw-normal mt-5">Fazer Login</h1>
 
                 <div class="form-floating mb-3">
-                    <input class="form-control" type="email" name="email" id="email" value="<?=($cookie ?? null)?>" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                    <input class="form-control" type="email" name="email" id="email" value="<?=($cookie ?? null)?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                         data-bs-title="Digite seu e-mail : ">
                     <label for="floatingInput">Digite seu e-mail : </label>
                 </div>
 
                 <label for="esqueciForm" class="form-label">
-                    <a class="text-<?=color_month()?> text-center fw-bold" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                    <a class="text-<?=color_month()?> text-center fw-bold" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                     data-bs-title="Clique para recuperar sua senha" href="<?= url("/recuperar"); ?>">Esqueceu a senha?</a>
                 </label>
                 <div class="form-floating">
                     
-                    <input type="password" name="password" class="form-control mt-2" id="password" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                    <input type="password" name="password" class="form-control mt-2" id="password" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                         data-bs-title="Digite sua senha : ">
                     <label for="floatingInput">Digite sua senha : </label>
                     <!-- <span class="bi bi-eye-slash" id="bi-eye-slash"></span> -->

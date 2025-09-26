@@ -20,7 +20,7 @@
     <tbody>
     <?php foreach ($contact as $lista): ?>
     <tr>
-        <td class="text-center fw-semibold" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+        <td class="text-center fw-semibold" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
             data-bs-title="O ramal <?=$lista->ramal." é de ".$lista->contact_name.' '.(!empty($lista->sector()->sector_name) ? $lista->sector()->sector_name : "NÃO CADASTRADO")?>"><?=(!empty($lista->contact_name) ? $lista->contact_name : "")?></td>
         <td class="text-center fw-semibold">
         <?php if(!empty($lista->sector()->sector_name) && !empty($lista->sector()->status == "actived")):

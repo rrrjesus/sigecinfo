@@ -2,7 +2,7 @@ $(document).ready(function() {
     var contact = $('#contact').DataTable({
         drawCallback: function() {
             $('body').tooltip({
-                selector: '[data-bs-toggle="tooltip"]'
+                selector: '[data-bs-toggle-tooltip="tooltip"]'
             });
         },
         buttons: [

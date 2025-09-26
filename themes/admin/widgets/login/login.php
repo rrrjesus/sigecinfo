@@ -13,27 +13,27 @@
         <label for="inputPassword" class="form-label fw-semibold"><i class="bi bi-envelope-at pe-2"></i>Email</label>
         <div class="form-floating mb-3 mt-1">
             <input class="form-control" type="email" name="email" id="email" value="<?=($cookie ?? null)?>"
-                   placeholder="nome@smsub.prefeitura.sp.gov.br" data-bs-toggle="tooltip" data-bs-placement="right"
+                   placeholder="nome@smsub.prefeitura.sp.gov.br" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"
                    data-bs-title="Digite seu email !!!">
         </div>
 
         <label for="inputPassword" class="form-label fw-semibold"><i class="bi bi-lock pe-2"></i>Senha</label>
         <div class="form-floating mb-3 mt-1">
             <input type="password" name="password" id="password" class="form-control" placeholder="********"
-                   data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!">
+                   data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!">
         </div>
 
         <div class="form-check text-start my-2">
             <input class="form-check-input" type="checkbox" id="togglePassword">
             <label class="form-check-label" for="flexCheckDefault">
-                Mostrar a Senha <span class="badge rounded-pill text-bg-dark ps-2" data-bs-toggle="tooltip" data-bs-placement="right"  data-bs-title="Selecione caso queira ver a senha">?</span>
+                Mostrar a Senha <span class="badge rounded-pill text-bg-dark ps-2" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"  data-bs-title="Selecione caso queira ver a senha">?</span>
             </label>
         </div>
 
         <p class="my-3"><a class="link-body-emphasis text-decoration-none fw-semibold text-danger" href="<?= url("/recuperar"); ?>">Esqueceu a senha ?</a></p>
 
         <div class="d-grid">
-            <button class="btn btn-outline-<?=CONF_ADMIN_COLOR?> fw-semibold mt-3" type="submit" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Clique para fazer o login">Entrar</button>
+            <button class="btn btn-outline-<?=CONF_ADMIN_COLOR?> fw-semibold mt-3" type="submit" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Clique para fazer o login">Entrar</button>
         </div>
     </form>
 

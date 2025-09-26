@@ -13,7 +13,7 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <a data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+            <a data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                 data-bs-title="Clique para sair" class="btn btn-outline-danger btn-sm me-3 fw-semibold" href="<?=url("/painel/patrimonio/contratos")?>"
                 role="button"><i class="bi bi-arrow-right-circle me-2 mt-1"></i>Sair</a>
 
@@ -42,7 +42,7 @@
                 <?php if(!empty($contracts)){ ?>
                 <?php foreach ($contracts as $lista): ?>
                 <tr>
-                    <td class="text-center fw-semibold"><a href="<?= url("/painel/patrimonio/contratos/editar/{$lista->id}"); ?>" role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                    <td class="text-center fw-semibold"><a href="<?= url("/painel/patrimonio/contratos/editar/{$lista->id}"); ?>" role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                     data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
                     <td class="text-center fw-semibold"><?=(!empty($lista->id) ? $lista->id : "")?></td>
                     <td class="text-center fw-semibold"><?=(!empty($lista->sei_process) ? $lista->sei_process : "")?></td>

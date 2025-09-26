@@ -40,7 +40,7 @@
                         <?php foreach ($userspositions as $lista): ?>
                         <tr>
                             <td class="text-center fw-semibold"><a href="<?= url("/painel/cargos/editar/{$lista->id}"); ?>" 
-                            role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
+                            role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
                             data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
                             <td class="text-center fw-semibold"><?=$lista->description?></td>

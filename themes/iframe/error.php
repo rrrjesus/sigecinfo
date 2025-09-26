@@ -9,7 +9,7 @@
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <?php if ($error->link): ?>
                 <a class="btn btn-<?=color_month();?> btn-lg px-4 gap-3 text-light" role="button"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
+                   data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
                    data-bs-title="Clique para enviar um email ao suporte" href="<?=$error->link; ?>"><?= $error->linkTitle; ?></a>
             <?php endif; ?>
         </div>

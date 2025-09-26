@@ -14,7 +14,7 @@
                 <div class="carousel-caption" style="text-shadow: 0.1em 0.1em 0.2em #063cee">
                     <h1>Service Desk COTI.</h1>
                     <p>As vantagens e agilidade que o serviço de suporte traz para seu dia dia na SIGECINFO.</p>
-                    <p><a class="btn btn-lg btn-<?=color_month();?> text-light" href="<?=url("/contatos")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar os Contatos">Agenda de Contatos</a></p>
+                    <p><a class="btn btn-lg btn-<?=color_month();?> text-light" href="<?=url("/contatos")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar os Contatos">Agenda de Contatos</a></p>
                 </div>
             </div> -->
         </div>
@@ -25,8 +25,8 @@
                     <h1 class="text-dark">Gerador de Assinatura de E-mail.</h1>
                     <p class="text-dark">Mais uma ferramenta para facilitar seu dia a dia , basta preencher seus dados e gerar sua assinatura de e-mail na hora.</p>
                     <p>
-                        <a class="btn btn-lg btn-<?=color_month();?> text-light me-5" href="<?=url("/contatos")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar os Contatos"><i class="bi bi-book-half me-2"></i>Agenda de Contatos</a>
-                        <a class="btn btn-lg btn-<?=color_month();?> text-light" href="<?=url("/email")?>" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar o Gerador de Assinatura de E-mail"><i class="bi bi-card-heading me-2"></i>Assinatura de E-mail</a></p>
+                        <a class="btn btn-lg btn-<?=color_month();?> text-light me-5" href="<?=url("/contatos")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar os Contatos"><i class="bi bi-book-half me-2"></i>Agenda de Contatos</a>
+                        <a class="btn btn-lg btn-<?=color_month();?> text-light" href="<?=url("/email")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-title="Clique para acessar o Gerador de Assinatura de E-mail"><i class="bi bi-card-heading me-2"></i>Assinatura de E-mail</a></p>
                 </div>
             </div> -->
         </div>
@@ -53,7 +53,7 @@
                 <h3 class="fs-2 text-body-emphasis">Abertura de Chamado - TI</h3>
                 <p>Para solicitação de suporte técnico é necessário a abertura de chamado no.
                     Basta enviar e-mail para <strong>informatica.setor11@gmail.com</strong>. Ao enviar o e-mail o sistema abre automaticamente um chamado. É possivel acompanhar as tratativas nas respostas de e-mail.</p>
-                <!-- <a href="<?=url("/blog/servicedesk")?>" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-placement="bottom" 
+                <!-- <a href="<?=url("/blog/servicedesk")?>" class="btn btn-primary" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-<?=color_month()?>" data-bs-placement="bottom" 
                     data-bs-title="Saiba Mais">Saiba Mais</a> -->
             </div>
             <div class="feature col">

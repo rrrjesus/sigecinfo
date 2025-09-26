@@ -29,14 +29,14 @@
 
                             <div class="col-6 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputProduto"><i class="bi bi-person-add me-1"></i><strong>Produto</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" tabindex="2" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" tabindex="2" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                 data-bs-title="Digite o nome do produto - Ex : 1 - Tablet" class="form-control form-control-sm product_id"
                                     name="product_id" placeholder="PRODUTO" value="<?php if($patrimonys->product_id){echo $patrimonys->product()->id.' - '.$patrimonys->product()->product_name.' - '.$patrimonys->product()->contract()->contract_name.' - (Nº de Registro '.$patrimonys->product()->type_part_number.')';}else{echo '';}?>">
                             </div>
 
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputMovimentacao"><i class="bi bi-person-add me-1"></i><strong>Estado</strong></label>
-                                <input type="text" data-bs-toggle="tooltip" autofocus data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                <input type="text" data-bs-toggle-tooltip="tooltip" autofocus data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title="Digite o estado do patrimonio - Ex : 1- ESTOQUE, 2 - RETIRADO ... " tabindex="3" class="form-control form-control-sm movement_id"
                                     name="movement_id" placeholder="ESTADO">
                             </div>
@@ -49,14 +49,14 @@
 
                                 <div class="col-5 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Usuario</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" tabindex="4" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" tabindex="4" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite o usuário - Ex : 1 - João Bento Badaró" class="form-control form-control-sm user_id"
                                         name="user_id_edit" id="user_id_edit" placeholder="USUÁRIO">
                                 </div>
 
                                 <div class="col-7 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="inputSobreNome"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
-                                    <input type="text" data-bs-toggle="tooltip" tabindex="8" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <input type="text" data-bs-toggle-tooltip="tooltip" tabindex="8" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                         data-bs-title="Digite a igreja - Ex : 22 - SIGECINFO/COTI" class="form-control form-control-sm church_id"
                                         name="church_id_edit" id="church_id_edit" placeholder="IGREJA">
                                 </div>
@@ -67,7 +67,7 @@
 
                                 <div class="mb-3 mb-1">
                                     <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                    <textarea class="form-control form-control-sm" tabindex="5" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
+                                    <textarea class="form-control form-control-sm" tabindex="5" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-<?=color_month()?>" 
                                     data-bs-title=Observações" rows="2" name="observations"></textarea>
                                 </div>
 
