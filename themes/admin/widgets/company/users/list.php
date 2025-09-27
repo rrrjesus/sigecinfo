@@ -40,28 +40,7 @@
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>EXCLUIR</th>
                 </tr>
                 </thead>
-                <tbody>
-                <?php if(!empty($users)){ ?>
-                <?php foreach ($users as $lista): ?>
-                    <tr>
-                        <td class="text-center"><a href="usuarios/editar/<?=$lista->id?>" data-bs-toggle-tooltip="tooltip" 
-                            data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                            data-bs-title="Clique para editar <?=$lista->user_name?>" role="button" 
-                            class="btn btn-outline-secondary rounded-circle btn-sm text-center">
-                            <i class="bi bi-person-gear text-dark"></i></a></td>
-                        <td class="text-center"><?=photoList($lista->photo);?></td>
-                        <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
-                        <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
-                        <td class="text-center"><?=(!empty($lista->position_id) ? $lista->position()->position_name : "") ;?></td>
-                        <td class="text-center"><?=(!empty($lista->church_id) ? $lista->church()->church_name : "") ;?></td>
-                        <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center"><?=statusBadge($lista->status);?></td>
-                        <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>
-                        <td class="text-center"><?=$lista->id;?></td>
-                        <td class="text-center"><?=$lista->id;?></td>
-                    </tr>
-                <?php endforeach; ?>
-                <?php } ?>
+                 <tbody class="text-center">
 
                 </tbody>
             </table>

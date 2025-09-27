@@ -128,7 +128,7 @@ $route->get("/usuarios/cadastrar", "Users:create");
 $route->post("/usuarios/cadastrar", "Users:create");
 $route->get("/usuarios/editar/{user_id}", "Users:edit");
 $route->post("/usuarios/editar/{user_id}", "Users:edit");
-$route->get("/usuarios/excluir/{user_id}", "Users:delete");
+$route->post("/usuarios/excluir", "Users:delete");
 $route->get("/usuarios/desativados", "Users:disabledUsers");
 $route->get("/usuarios/status/{user_id}", "Users:toggleStatus");
 $route->get("/usuarios/json", "Users:listJson");

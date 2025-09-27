@@ -84,6 +84,7 @@ define("CONF_VIEW_EXT", "php");
 define("CONF_UPLOAD_DIR", "storage");
 define("CONF_UPLOAD_IMAGE_DIR", "images");
 define("CONF_UPLOAD_FILE_DIR", "files");
+define("CONF_PROJECT_ROOT", dirname(__DIR__, 2));
 
 /**
  * IMAGES

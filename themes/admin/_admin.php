@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <?= $head; ?>
+    
+    <script>const SITE_URL = "<?= url(); ?>";</script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="<?= theme("/assets/images/favicon/apple-touch-icon.png", CONF_VIEW_ADMIN); ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= theme("/assets/images/favicon/favicon-32x32.png", CONF_VIEW_ADMIN); ?>">

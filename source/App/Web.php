@@ -99,7 +99,7 @@ class Web extends Controller
     public function login(?array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta");
+            redirect("/beta/perfil");
         }
 
         if (!empty($data['csrf'])) {

@@ -1,5 +1,93 @@
 $(document).ready(function() {
-    //var table =
+
+    /**
+     * PASSO 1: Função Helper para criar APENAS o BOTÃO de ação.
+     */
+    function createActionButton(config) {
+        var modalId = config.action + 'Modal' + config.id;
+        var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
+
+        return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+            'data-bs-title="' + config.tooltip + '" class="btn btn-outline-' + config.btn_class + ' btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+            '<i class="bi ' + icon + ' text-secondary"></i></button>';
+    }
+
+    /**
+     * PASSO 2: Função Helper para criar e ANEXAR o MODAL ao <body>.
+     */
+    function appendActionModal(config) {
+        var modalId = config.action + 'Modal' + config.id;
+
+        // Se o modal já existir no body, não faz nada.
+        if ($('#' + modalId).length > 0) {
+            return;
+        }
+
+        var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
+        var modalHeaderClass = (config.action === 'delete' ? 'bg-danger text-dark' : 'bg-warning text-dark');
+        var title = (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
+
+        var actionButton;
+        if (config.method === 'POST') {
+            actionButton =
+                '<form action="' + config.url + '" method="POST" style="display: inline;">\n' +
+                '   <input type="hidden" name="' + config.id_field + '" value="' + config.id + '">\n' +
+                '   <button type="submit" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</button>\n' +
+                '</form>\n';
+        } else { // GET
+            actionButton = '<a href="' + config.url + '" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</a>\n';
+        }
+
+        var modalHtml =
+            '<div class="modal fade action-modal" id="' + modalId + '" tabindex="-1" aria-hidden="true" style="z-index: 1060;">\n' +
+            '   <div class="modal-dialog modal-sm">\n' +
+            '       <div class="modal-content">\n' +
+            '           <div class="modal-header ' + modalHeaderClass + '">\n' +
+            '               <h6 class="modal-title text-center"><i class="bi ' + icon + ' me-2"></i> ' + title + ' - ' + config.name + '</h6>\n' +
+            '               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
+            '           </div>\n' +
+            '           <div class="modal-body fw-semibold">' + config.question + '</div>\n' +
+            '           <div class="modal-footer">\n' +
+            '               <button type="button" class="btn btn-sm btn-outline-danger fw-semibold rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Não</button>\n' +
+            actionButton +
+            '           </div>\n' +
+            '       </div>\n' +
+            '   </div>\n' +
+            '</div>';
+        
+        $('body').append(modalHtml);
+    }
+
+    /**
+     * PASSO 3: Função de Callback para gerar os modais e ativar os tooltips.
+     */
+    var drawCallbackWithModals = function() {
+        var api = this.api();
+        var rows = api.rows({ page: 'current' }).nodes();
+        var data = api.rows({ page: 'current' }).data();
+
+        // Para cada linha de dados, crie e anexe os modais necessários
+        $.each(data, function(index, rowData) {
+            // Modal para Alterar Status
+            var isActived = (rowData[7].includes("ATIVO") || rowData[7].includes("CONFIRMADO") || rowData[7].includes("REGISTRADO"));
+            appendActionModal({
+                action: 'toggleStatus', id: rowData[9], name: rowData[2], method: 'GET',
+                question: 'Deseja ' + (isActived ? 'desativar o usuário: ' : 'ativar o usuário: ') + rowData[2] + '?',
+                url: 'usuarios/status/' + rowData[9],
+                icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
+            });
+
+            // Modal para Excluir
+            appendActionModal({
+                action: 'delete', id: rowData[10], name: rowData[2], method: 'POST',
+                question: 'Deseja excluir o usuário: ' + rowData[2] + '?',
+                url: 'usuarios/excluir', id_field: 'user_id'
+            });
+        });
+
+        // Ativa os tooltips
+        $('[data-bs-toggle-tooltip="tooltip"]').tooltip();
+    };
 
     $('#online').DataTable( {
         "language": {
@@ -523,18 +611,15 @@ $(document).ready(function() {
     });
 
     // Lista de Usuarios
-    $('#users').DataTable( {
-        drawCallback: function() {
-            $('body').tooltip({
-                selector: '[data-bs-toggle-tooltip="tooltip"]'
-            });
-        },
+    var users = $('#users').DataTable({
+        destroy: true, // Adicionado para robustez
+        drawCallback: drawCallbackWithModals, 
         buttons: [
             {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
             // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
             {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
             {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
+             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
             "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
             "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
         responsive:
@@ -558,66 +643,38 @@ $(document).ready(function() {
         // dom: "lBftipr",
         "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
         "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
-        "aoColumnDefs": [
-            {
-                "aTargets": [9], // o numero da coluna
-                "mRender": function (data, type, full) 
-                { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                    'data-bs-title="Clique para desativar '+ full[2] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#activedModal'+ full[9]+'">' +
-                    '<i class="bi bi-person-dash text-secondary"></i></button>' +
-                    '<div class="modal fade" id="activedModal' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
-                        '<div class="modal-dialog modal-sm">\n' +
-                            '<div class="modal-content">\n' +
-                                '<div class="modal-header bg-warning text-light">\n' +
-                                '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-person-dash me-2"></i> Desativar ID: ' + full[9] + '</h6>\n' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
-                                '</div>\n' +
-                                '<div class="modal-body fw-semibold">Deseja desativar o usuario : ' + full[2] + ' ?</div>\n' +
-                                '<div class="modal-footer">\n' +
-                                '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                '<a href="usuarios/status/' + full[9] + '" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
-                                '</div>\n' +
-                            '</div>\n' +
-                        '</div>\n' +
-                    '</div>';
-                }
-            },
-            {
-                "aTargets": [10], // Coluna de excluir
-                "mRender": function (data, type, full) 
-                {
-                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                    'data-bs-title="Clique para excluir '+ full[2] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[10]+'">' +
-                    '<i class="bi bi-trash text-secondary"></i></button>' +
-                    '<div class="modal fade" id="deleteModal' + full[10] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
-                        '<div class="modal-dialog modal-sm">\n' +
-                            '<div class="modal-content">\n' +
-                                '<div class="modal-header bg-danger text-dark">\n' +
-                                '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> EXCLUIR - ' + full[2] + '</h6>\n' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
-                                '</div>\n' +
-                                '<div class="modal-body fw-semibold">Deseja excluir o usuário : ' + full[2] + ' ?</div>\n' +
-                                '<div class="modal-footer">\n' +
-                                '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                '<a href="usuarios/excluir/' + full[10] + '" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
-                                '</div>\n' +
-                            '</div>\n' +
-                        '</div>\n' +
-                    '</div>';
-                
-                }
+        processing: true,
+        serverside: true,
+        ajax: '../themes/admin/serverside/users.php',
+        "aoColumnDefs": [{
+            "aTargets": [9], // Coluna Desativar/Ativar
+            "mRender": function(data, type, full) {
+                var isActived = (full[7].includes("ATIVO") || full[7].includes("CONFIRMADO") || full[7].includes("REGISTRADO"));
+                return createActionButton({
+                    action: 'toggleStatus', id: full[9],
+                    tooltip: (isActived ? 'Clique para desativar ' : 'Clique para ativar ') + full[2],
+                    btn_class: (isActived ? 'warning' : 'success'),
+                    icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
+                });
             }
-        ]
+        }, {
+            "aTargets": [10], // Coluna Excluir
+            "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: full[10],
+                    tooltip: 'Clique para excluir ' + full[2],
+                    btn_class: 'danger'
+                });
+            }
+        }]
     });
+
+    $('div.dt-search input', users.table().container()).focus();
 
     // Usuarios desabilitados
     $('#usersDisabled').DataTable( {
-        drawCallback: function() {
-            $('body').tooltip({
-                selector: '[data-bs-toggle-tooltip="tooltip"]'
-            });
-        },
+        destroy: true, // Adicionado para robustez
+        drawCallback: drawCallbackWithModals, 
         buttons: [
             {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
             // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
@@ -647,56 +704,27 @@ $(document).ready(function() {
         // dom: "lBftipr",
         "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
         "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
-        "aoColumnDefs": [
-            {
-                "aTargets": [8], // o numero da coluna
-                "mRender": function (data, type, full) { //aqui é uma funçãozinha para pegar os ids
-                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                        'data-bs-title="Clique para ativar '+ full[1] +'" class="btn btn-outline-warning btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#trashModalInicio'+ full[8]+'">' +
-                        '<i class="bi bi-person-check"></i></button>' +
-                        '<div class="modal fade" id="trashModalInicio' + full[8] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
-                            '<div class="modal-dialog modal-sm">\n' +
-                                '<div class="modal-content">\n' +
-                                    '<div class="modal-header bg-warning text-light">\n' +
-                                    '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> Ativar ID: ' + full[8] + '</h6>\n' +
-                                    '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
-                                    '</div>\n' +
-                                    '<div class="modal-body fw-semibold">Deseja ativar o usuario : ' + full[1] + ' ?</div>\n' +
-                                    '<div class="modal-footer">\n' +
-                                    '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                    '<a href="status/' + full[8] + '" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
-                                    '</div>\n' +
-                                '</div>\n' +
-                            '</div>\n' +
-                        '</div>';
-                }
-            },
-            {
-                "aTargets": [9], // Coluna de excluir
-                "mRender": function (data, type, full) 
-                {
-                    return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
-                    'data-bs-title="Clique para excluir '+ full[1] +'" class="btn btn-outline-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#deleteModal'+ full[9]+'">' +
-                    '<i class="bi bi-trash text-secondary"></i></button>' +
-                    '<div class="modal fade" id="deleteModal' + full[9] + '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">\n' +
-                        '<div class="modal-dialog modal-sm">\n' +
-                            '<div class="modal-content">\n' +
-                                '<div class="modal-header bg-danger text-dark">\n' +
-                                '<h6 class="modal-title text-center" id="exampleModalLabel"><i class="bi bi-trash me-2"></i> EXCLUIR - ' + full[1] + '</h6>\n' +
-                                '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
-                                '</div>\n' +
-                                '<div class="modal-body fw-semibold">Deseja excluir o usuário : ' + full[1] + ' ?</div>\n' +
-                                '<div class="modal-footer">\n' +
-                                '<button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash"></i> Não</button>\n' +
-                                '<a href="../usuarios/excluir/' + full[9] + '" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-plus-circle" role="button" ></i> Sim</a>\n' +
-                                '</div>\n' +
-                            '</div>\n' +
-                        '</div>\n' +
-                    '</div>';
-                
-                }
+       "aoColumnDefs": [{
+            "aTargets": [8], // Coluna Desativar/Ativar
+            "mRender": function(data, type, full) {
+                var isActived = (full[6].includes("ATIVO") || full[6].includes("CONFIRMADO") || full[6].includes("REGISTRADO"));
+                return createActionButton({
+                    action: 'toggleStatus', id: full[8],
+                    tooltip: (isActived ? 'Clique para desativar ' : 'Clique para ativar ') + full[1],
+                    btn_class: (isActived ? 'warning' : 'success'),
+                    icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
+                });
             }
-        ]
+        }, {
+            "aTargets": [9], // Coluna Excluir
+            "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: full[9],
+                    tooltip: 'Clique para excluir ' + full[1],
+                    btn_class: 'danger'
+                });
+            }
+        }]
     });
 
   //Lista de Igrejas
