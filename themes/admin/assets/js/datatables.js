@@ -1,13 +1,15 @@
 $(document).ready(function() {
 
     /**
-     * PASSO 1: Função Helper para criar APENAS o BOTÃO de ação.
-     */
+    * ===================================================================
+    * FUNÇÕES GLOBAIS DE AJUDA (HELPERS) PARA DATATABLES
+    * ===================================================================
+    */
+    
     function createActionButton(config) {
         var modalId = config.action + 'Modal' + config.id;
         var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
-
-        return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"\n' +
+        return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
             'data-bs-title="' + config.tooltip + '" class="btn btn-outline-' + config.btn_class + ' btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
             '<i class="bi ' + icon + ' text-secondary"></i></button>';
     }
@@ -17,75 +19,74 @@ $(document).ready(function() {
      */
     function appendActionModal(config) {
         var modalId = config.action + 'Modal' + config.id;
-
-        // Se o modal já existir no body, não faz nada.
-        if ($('#' + modalId).length > 0) {
-            return;
-        }
+        if ($('#' + modalId).length > 0) return;
 
         var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
-        var modalHeaderClass = (config.action === 'delete' ? 'bg-danger text-dark' : 'bg-warning text-dark');
-        var title = (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
+        var modalHeaderClass = config.header_class || (config.action === 'delete' ? 'bg-danger text-dark' : 'bg-warning text-dark');
+        var title = config.title || (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
 
-        var actionButton;
-        if (config.method === 'POST') {
-            actionButton =
-                '<form action="' + config.url + '" method="POST" style="display: inline;">\n' +
-                '   <input type="hidden" name="' + config.id_field + '" value="' + config.id + '">\n' +
-                '   <button type="submit" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</button>\n' +
-                '</form>\n';
-        } else { // GET
-            actionButton = '<a href="' + config.url + '" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</a>\n';
-        }
+        var actionButton = (config.method === 'POST')
+            ? `<form action="${config.url}" method="POST" style="display: inline;">
+                   <input type="hidden" name="${config.id_field}" value="${config.id}">
+                   <button type="submit" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</button>
+               </form>`
+            : `<a href="${config.url}" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</a>`;
 
         var modalHtml =
-            '<div class="modal fade action-modal" id="' + modalId + '" tabindex="-1" aria-hidden="true" style="z-index: 1060;">\n' +
-            '   <div class="modal-dialog modal-sm">\n' +
-            '       <div class="modal-content">\n' +
-            '           <div class="modal-header ' + modalHeaderClass + '">\n' +
-            '               <h6 class="modal-title text-center"><i class="bi ' + icon + ' me-2"></i> ' + title + ' - ' + config.name + '</h6>\n' +
-            '               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>\n' +
-            '           </div>\n' +
-            '           <div class="modal-body fw-semibold">' + config.question + '</div>\n' +
-            '           <div class="modal-footer">\n' +
-            '               <button type="button" class="btn btn-sm btn-outline-danger fw-semibold rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Não</button>\n' +
-            actionButton +
-            '           </div>\n' +
-            '       </div>\n' +
-            '   </div>\n' +
-            '</div>';
-        
+            `<div class="modal fade action-modal" id="${modalId}" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+               <div class="modal-dialog modal-sm">
+                   <div class="modal-content">
+                       <div class="modal-header ${modalHeaderClass}">
+                           <h6 class="modal-title text-center"><i class="bi ${icon} me-2"></i> ${title} - ${config.name}</h6>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       </div>
+                       <div class="modal-body fw-semibold">${config.question}</div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-sm btn-outline-danger fw-semibold rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Não</button>
+                           ${actionButton}
+                       </div>
+                   </div>
+               </div>
+            </div>`;
         $('body').append(modalHtml);
     }
 
     /**
      * PASSO 3: Função de Callback para gerar os modais e ativar os tooltips.
      */
-    var drawCallbackWithModals = function() {
+    var drawCallbackWithModals = function(settings) {
         var api = this.api();
-        var rows = api.rows({ page: 'current' }).nodes();
         var data = api.rows({ page: 'current' }).data();
+        var config = settings.oInit.modalConfig;
 
-        // Para cada linha de dados, crie e anexe os modais necessários
-        $.each(data, function(index, rowData) {
-            // Modal para Alterar Status
-            var isActived = (rowData[7].includes("ATIVO") || rowData[7].includes("CONFIRMADO") || rowData[7].includes("REGISTRADO"));
-            appendActionModal({
-                action: 'toggleStatus', id: rowData[9], name: rowData[2], method: 'GET',
-                question: 'Deseja ' + (isActived ? 'desativar o usuário: ' : 'ativar o usuário: ') + rowData[2] + '?',
-                url: 'usuarios/status/' + rowData[9],
-                icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
+        if (config) {
+            $.each(data, function(index, rowData) {
+                if (config.toggleStatus) {
+                    var statusConfig = config.toggleStatus;
+                    var isActived = (String(rowData[statusConfig.status_col]).includes("ATIVO") || String(rowData[statusConfig.status_col]).includes("CONFIRMADO") || String(rowData[statusConfig.status_col]).includes("REGISTRADO"));
+                    appendActionModal({
+                        action: 'toggleStatus', id: rowData[statusConfig.id_col], name: rowData[statusConfig.name_col],
+                        method: 'GET',
+                        question: `Deseja ${isActived ? 'desativar' : 'ativar'} ${statusConfig.item_name}: ${rowData[statusConfig.name_col]}?`,
+                        url: SITE_URL + statusConfig.base_url + rowData[statusConfig.id_col],
+                        icon: (isActived ? 'bi-person-dash' : 'bi-person-check'),
+                        title: (isActived ? 'DESATIVAR' : 'ATIVAR'),
+                        header_class: (isActived ? 'bg-warning text-dark' : 'bg-success text-dark'),
+                    });
+                }
+                if (config.delete) {
+                    var deleteConfig = config.delete;
+                    appendActionModal({
+                        action: 'delete', id: rowData[deleteConfig.id_col], name: rowData[deleteConfig.name_col],
+                        method: 'POST',
+                        question: `Deseja excluir ${deleteConfig.item_name}: ${rowData[deleteConfig.name_col]}?`,
+                        url: SITE_URL + deleteConfig.base_url,
+                        id_field: deleteConfig.id_field
+                    });
+                }
             });
+        }
 
-            // Modal para Excluir
-            appendActionModal({
-                action: 'delete', id: rowData[10], name: rowData[2], method: 'POST',
-                question: 'Deseja excluir o usuário: ' + rowData[2] + '?',
-                url: 'usuarios/excluir', id_field: 'user_id'
-            });
-        });
-
-        // Ativa os tooltips
         $('[data-bs-toggle-tooltip="tooltip"]').tooltip();
     };
 
@@ -612,8 +613,8 @@ $(document).ready(function() {
 
     // Lista de Usuarios
     var users = $('#users').DataTable({
-        destroy: true, // Adicionado para robustez
-        drawCallback: drawCallbackWithModals, 
+        destroy: true,
+        drawCallback: drawCallbackWithModals,
         buttons: [
             {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
             // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
@@ -646,35 +647,53 @@ $(document).ready(function() {
         processing: true,
         serverside: true,
         ajax: '../themes/admin/serverside/users.php',
-        "aoColumnDefs": [{
-            "aTargets": [9], // Coluna Desativar/Ativar
-            "mRender": function(data, type, full) {
+        modalConfig: {
+        toggleStatus: { id_col: 9, status_col: 7, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
+        delete: { id_col: 10, name_col: 2, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
+        },
+        "aoColumnDefs": [
+            { "aTargets": [9], "mRender": function(data, type, full) {
                 var isActived = (full[7].includes("ATIVO") || full[7].includes("CONFIRMADO") || full[7].includes("REGISTRADO"));
                 return createActionButton({
                     action: 'toggleStatus', id: full[9],
-                    tooltip: (isActived ? 'Clique para desativar ' : 'Clique para ativar ') + full[2],
+                    tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[2],
                     btn_class: (isActived ? 'warning' : 'success'),
                     icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
                 });
-            }
-        }, {
-            "aTargets": [10], // Coluna Excluir
-            "mRender": function(data, type, full) {
+            }},
+            { "aTargets": [10], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[10],
-                    tooltip: 'Clique para excluir ' + full[2],
-                    btn_class: 'danger'
+                    tooltip: 'Excluir ' + full[2], btn_class: 'danger'
                 });
-            }
-        }]
+            }}
+        ]
     });
 
     $('div.dt-search input', users.table().container()).focus();
 
     // Usuarios desabilitados
     $('#usersDisabled').DataTable( {
-        destroy: true, // Adicionado para robustez
-        drawCallback: drawCallbackWithModals, 
+        destroy: true,
+        drawCallback: drawCallbackWithModals,
+        modalConfig: {
+            toggleStatus: { id_col: 8, status_col: 6, name_col: 1, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
+            delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
+        },
+       "aoColumnDefs": [
+            { "aTargets": [8], "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'toggleStatus', id: full[8], tooltip: 'Ativar ' + full[1],
+                    btn_class: 'success', icon: 'bi-person-check'
+                });
+            }},
+            { "aTargets": [9], "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: full[9], tooltip: 'Excluir ' + full[1],
+                    btn_class: 'danger'
+                });
+            }}
+        ],
         buttons: [
             {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
             // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
@@ -703,28 +722,7 @@ $(document).ready(function() {
         },
         // dom: "lBftipr",
         "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc'], /* 'desc' Carregar table decrescente e asc crescente*/
-       "aoColumnDefs": [{
-            "aTargets": [8], // Coluna Desativar/Ativar
-            "mRender": function(data, type, full) {
-                var isActived = (full[6].includes("ATIVO") || full[6].includes("CONFIRMADO") || full[6].includes("REGISTRADO"));
-                return createActionButton({
-                    action: 'toggleStatus', id: full[8],
-                    tooltip: (isActived ? 'Clique para desativar ' : 'Clique para ativar ') + full[1],
-                    btn_class: (isActived ? 'warning' : 'success'),
-                    icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
-                });
-            }
-        }, {
-            "aTargets": [9], // Coluna Excluir
-            "mRender": function(data, type, full) {
-                return createActionButton({
-                    action: 'delete', id: full[9],
-                    tooltip: 'Clique para excluir ' + full[1],
-                    btn_class: 'danger'
-                });
-            }
-        }]
+        "aaSorting": [0, 'asc']
     });
 
   //Lista de Igrejas
