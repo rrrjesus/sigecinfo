@@ -40,54 +40,15 @@
                         <?php if(!empty($userspositions)){ ?>
                         <?php foreach ($userspositions as $lista): ?>
                         <tr>
-                            <td class="text-center fw-semibold"><a href="<?= url("/painel/cargos/editar/{$lista->id}"); ?>" 
-                            role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
-                            data-bs-title="Clique para editar" class="btn btn-sm btn-outline-warning rounded-circle fw-bold me-2"><i class="bi bi-pencil text-secondary"></i></a></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
-                            <td class="text-center fw-semibold"><?=$lista->description?></td>
-                            <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
-                            <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#disabled-<?=$lista->id;?>" 
-                                class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-person"></i></b></td>
-
-                            <td class="text-center"><button type="button" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#delete-<?=$lista->id;?>" class="btn btn-outline-danger rounded-circle btn-sm text-center"><i class="bi bi-trash"></i></b></td>  
-
-                            <!-- Modal Disable -->
-                            <div class="modal fade" id="disabled-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-sm modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-warning text-dark">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-person-x text-dark me-2"></i> DESATIVAR </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body fs-5 text-center">
-                                            Deseja desativar o Cargo <?=$lista->position_name?> ?
-                                        </div>
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash me-2"></i>Não</button>
-                                            <a href="cargos/desativar/<?=$lista->id?>/disabled" role="button" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check2-circle me-2"></i>Sim</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Modal Delete -->
-                            <div class="modal fade" id="delete-<?=$lista->id;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-sm modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-danger text-dark">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-trash text-dark me-2"></i> DELETAR </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body fs-5 text-center">
-                                            Deseja excluir o Cargo <?=$lista->position_name?> ?
-                                        </div>
-                                        <div class="modal-footer justify-content-center">
-                                            <button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-trash me-2"></i>Não</button>
-                                            <a href="cargos/excluir/<?=$lista->id?>/disabled" role="button" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check2-circle me-2"></i>Sim</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                             <td class="text-center"><a href="cargos/editar/<?=$lista->id?>" data-bs-toggle-tooltip="tooltip" 
+                            data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                            data-bs-title="Clique para editar <?=$lista->position_name?>" role="button" 
+                            class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-pencil text-secundary"></i></a></td>
+                            <td class="text-center"><?=$lista->position_name;?></td>
+                            <td class="text-center"><?=$lista->description;?></td>
+                            <td class="text-center"><?=statusBadge($lista->status);?>
+                            <td class="text-center"><?=$lista->id;?></td>
+                            <td class="text-center"><?=$lista->id;?></td>
 
 
                         </tr>

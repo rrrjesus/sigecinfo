@@ -63,6 +63,7 @@
 </div>
 
 <script src="<?= theme("/assets/scripts.js", CONF_VIEW_ADMIN); ?>"></script>
+
 <?= $this->section("scripts"); ?>
 
 </body>

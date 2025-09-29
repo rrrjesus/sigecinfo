@@ -5,10 +5,8 @@ namespace Source\Models\Company;
 use Source\Core\Model;
 
 /**
- * Rodolfo | Class Church Active Record Pattern
- *
- * @author SIGECINFO Team <contato@sigecinfo.com.br>
- * @package Source\Models
+ * Class UserPosition
+ * @package Source\Models\Company
  */
 class UserPosition extends Model
 {
@@ -18,17 +16,6 @@ class UserPosition extends Model
     public function __construct()
     {
         parent::__construct("user_positions", ["id"], ["position_name"]);
-    }
-
-    /**
-     * @param string $position_name
-     * @param string $columns
-     * @return null|UserPosition
-     */
-    public function findByPosition(string $position_name, string $columns = "*"): ?UserPosition
-    {
-        $find = $this->find("position_name = :position_name", "position_name={$position_name}", $columns);
-        return $find->fetch();
     }
 
     /**
@@ -49,59 +36,24 @@ class UserPosition extends Model
     }
 
     /**
-     * @return null|null
-     */
-    public function status(): ?string
-    {
-        if ($this->status == "actived") {
-            return '<option value="actived" selected>Ativado</option><option value="disabled">Desativado</option>';
-        } else {
-            return '<option value="disabled" selected>Desativado</option><option value="actived">Ativado</option>';
-        }
-        return null; 
-    }
-
-    /**
      * @return bool
      */
     public function save(): bool
     {
-        if (!$this->required()) {
-            $this->message->warning("O campo : Cargo é obrigatório !!!")->icon();
+        // 1. Validação de campos obrigatórios
+        if (empty($this->position_name)) {
+            $this->message->warning("O nome do cargo é obrigatório.");
             return false;
         }
 
-        /** UserPosition Update */
-        if (!empty($this->id)) {
-            $positionId = $this->id;
-
-            if ($this->find("position_name = :p AND id != :i", "p={$this->position_name}&i={$positionId}", "id")->fetch()) {
-                $this->message->warning("O cargo informado já está cadastrado");
-                return false;
-            }
-
-            $this->update($this->safe(), "id = :id", "id={$positionId}");
-            if ($this->fail()) {
-                $this->message->error("Erro ao atualizar, verifique os dados");
-                return false;
-            }
+        // 2. Validação de duplicidade
+        $checkByName = $this->find("position_name = :name AND id != :id", "name={$this->position_name}&id={$this->id}");
+        if ($checkByName->count()) {
+            $this->message->warning("Este cargo já está cadastrado no sistema.");
+            return false;
         }
 
-        /** UserPosition Create */
-        if (empty($this->id)) {
-            if ($this->findByPosition($this->position_name, "id")) {
-                $this->message->warning("O cargo informado já está cadastrado");
-                return false;
-            }
-
-            $positionId = $this->create($this->safe());
-            if ($this->fail()) {
-                $this->message->error("Erro ao cadastrar, verifique os dados");
-                return false;
-            }
-        }
-
-        $this->data = ($this->findById($positionId))->data();
-        return true;
+        // 3. Se passar nas validações, salva os dados.
+        return parent::save();
     }
 }

@@ -106,21 +106,20 @@ $route->get("/igrejas/editar/{church_id}", "Churchs:edit");
 $route->post("/igrejas/editar/{church_id}", "Churchs:edit");
 $route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
-$route->get("/igrejas/excluir/{church_id}", "Churchs:delete");
+$route->post("/igrejas/excluir", "Churchs:delete");
 
 //N[iveis]
 $route->get("/niveis", "Levels:levels");
 
 //Cargos (Mantido como original, pois não refatoramos o controller)
 $route->get("/cargos", "UsersPositions:userspositions");
+$route->get("/cargos/cadastrar", "UsersPositions:create");
+$route->post("/cargos/cadastrar", "UsersPositions:create");
+$route->get("/cargos/editar/{userposition_id}", "UsersPositions:edit");
+$route->post("/cargos/editar/{userposition_id}", "UsersPositions:edit");
 $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
-$route->get("/cargos/cadastrar", "UsersPositions:userposition");
-$route->post("/cargos/cadastrar", "UsersPositions:userposition");
-$route->get("/cargos/editar/{userposition_id}", "UsersPositions:userposition");
-$route->post("/cargos/editar/{userposition_id}", "UsersPositions:userposition");
-$route->get("/cargos/ativar/{userposition_id}/{action}", "UsersPositions:userposition");
-$route->get("/cargos/desativar/{userposition_id}/{action}", "UsersPositions:userposition");
-$route->get("/cargos/excluir/{userposition_id}/{action}", "UsersPositions:delete");
+$route->get("/cargos/status/{userposition_id}", "UsersPositions:toggleStatus");
+$route->post("/cargos/excluir", "UsersPositions:delete");
 
 //Users (Rotas alinhadas com o controller Users.php refatorado)
 $route->get("/usuarios", "Users:users");

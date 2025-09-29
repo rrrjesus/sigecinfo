@@ -20,34 +20,26 @@ class UsersPositions extends Admin
     }
 
     /**
-     * igreja LISTA
+     * Lista os cargos ativos
      */
     public function userspositions(): void
     {
-        $head = $this->seo->render(
-            "Cargos - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/favicon.ico"),
-            false
-        );
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
-        $userspositions = (new UserPosition())->find("status = :s", "s=actived")->fetch(true);
-        $userposition = new UserPosition();
-
+        $head = $this->seo->render("Cargos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/cargos"), null, false);
+        $positions = (new UserPosition())->find("status = :s", "s=actived")->order("position_name ASC")->fetch(true);
+        
         echo $this->view->render("widgets/company/userspositions/list", [
             "head" => $head,
-            "userspositions" => $userspositions,
+            "userspositions" => $positions,
             "urls" => "cargos",
             "namepage" => "Cargos",
             "name" => "Lista",
-            "registers" => (object)[
-                "disabled" => $userposition->find("status = :s", "s=disabled")->count()
-            ]
+            "registers" => (object)["disabled" => (new UserPosition())->find("status = :s", "s=disabled")->count()]
         ]);
     }
 
-        /**
+    /**
      * @param array|null $data
      * @throws \Exception
      */
@@ -78,125 +70,92 @@ class UsersPositions extends Admin
 
     /**
      * @param array|null $data
-     * @throws \Exception
      */
-    public function userposition(?array $data): void
+    public function create(?array $data): void
     {
-        $user = (new User())->findById($this->user->id);
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
-        //create
         if (!empty($data["action"]) && $data["action"] == "create") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
+            $data = sanitize_array($data);
 
-            $userpositionCreate = new UserPosition();
-            $userpositionCreate->position_name = $data["position_name"];
-            $userpositionCreate->login_created = $user->login;
-            $userpositionCreate->login_updated = $user->login;
-            $userpositionCreate->created_at = date_fmt('', "Y-m-d h:m:s");
+            $positionCreate = new UserPosition();
+            $positionCreate->position_name = $data["position_name"];
+            $positionCreate->login_created = $this->user->id;
 
-            if($data["position_name"] == ""){
-                $json['message'] = $this->message->info("Informe o cargo para criar o registro !")->icon()->render();
+            if (!$positionCreate->save()) {
+                $json["message"] = $positionCreate->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            if (!$userpositionCreate->save()) {
-                $json["message"] = $userpositionCreate->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $this->message->success("Cargo {$userpositionCreate->position_name} cadastrado com sucesso...")->icon("emoji-grin me-1")->flash();
-            $json["redirect"] = url("/painel/cargos/cadastrar");
-
+            $this->message->success("Cargo cadastrado com sucesso!")->flash();
+            $json["redirect"] = url("/painel/cargos");
             echo json_encode($json);
             return;
         }
 
-        //update
-        if (!empty($data["action"]) && $data["action"] == "update") {
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-            $userpositionUpdate = (new UserPosition())->findById($data["userposition_id"]);
-
-            if (!$userpositionUpdate) {
-                $this->message->error("Você tentou gerenciar um cargo que não existe")->icon("gift")->flash();
-                echo json_encode(["redirect" => url("/painel/cargos")]);
-                return;
-            }
-
-            $userpositionUpdate = (new UserPosition())->findById($data["userposition_id"]);
-            $userpositionUpdate->position_name = $data["position_name"];
-            $userpositionUpdate->login_updated = $user->login;
-            $userpositionUpdate->updated_at = date_fmt('', "Y-m-d h:m:s");
-
-            if($data["position_name"] == ""){
-                $json['message'] = $this->message->info("Informe o cargo para editar o registro !")->icon()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            if (!$userpositionUpdate->save()) {
-                $json["message"] = $userpositionUpdate->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $json["message"] = $this->message->success("Cargo {$userpositionUpdate->position_name} atualizado com sucesso !!!")->icon("emoji-grin me-1")->render();
-            echo json_encode($json);
-            return;
-        }
-
-        $userpositionEdit = null;
-
-        if (!empty($data["userposition_id"])) {
-            $userpositionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
-            $userpositionEdit = (new UserPosition())->findById($userpositionId);
-        }
-
-        $head = $this->seo->render(
-            "Cargos - " . CONF_SITE_NAME,
-            CONF_SITE_DESC,
-            url(),
-            theme("/assets/images/favicon.ico"),
-            false
-        );
-
+        $head = $this->seo->render("Cadastrar Cargo - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/cargos"), null, false);
         echo $this->view->render("widgets/company/userspositions/userposition", [
             "head" => $head,
-            "userposition" => $userpositionEdit,
-            "urls" => "cargos",
-            "namepage" => "Cargos",
-            "name" => ($userpositionEdit ? "Editar" : "Cadastrar")
+            "userposition" => null
         ]);
     }
 
-     /**
+    /**
+     * @param array $data
+     */
+    public function edit(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        
+        $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
+        $positionUpdate = (new UserPosition())->findById($positionId);
+
+        if (!$positionUpdate) {
+            $this->message->error("Você tentou editar um cargo que não existe.")->flash();
+            redirect("/painel/cargos");
+        }
+
+        if (!empty($data["action"]) && $data["action"] == "update") {
+            $data = sanitize_array($data);
+            
+            $positionUpdate->position_name = $data["position_name"];
+            $positionUpdate->login_updated = $this->user->id;
+
+            if (!$positionUpdate->save()) {
+                $json["message"] = $positionUpdate->message()->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $this->message->success("Cargo atualizado com sucesso!")->flash();
+            $json["redirect"] = url("/painel/cargos/editar/{$positionUpdate->id}");
+            echo json_encode($json);
+            return;
+        }
+
+        $head = $this->seo->render("Editar Cargo: {$positionUpdate->position_name}", CONF_SITE_DESC, url("/painel/cargos"), null, false);
+        echo $this->view->render("widgets/company/userspositions/userposition", [
+            "head" => $head,
+            "userposition" => $positionUpdate
+        ]);
+    }
+
+    /**
      * @param array $data
      */
     public function delete(array $data): void
     {
         $this->authorize(['Administrador do Sistema']);
 
-        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
-        $userDelete = (new User())->findById($userId);
+        $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
+        $positionDelete = (new UserPosition())->findById($positionId);
 
-        if (!$userDelete) {
-            $this->message->error("O usuário que você tentou excluir não existe.")->flash();
-            redirect("/painel/usuarios");
-        }
-        
-        if ($userDelete->id === $this->user->id) {
-            $this->message->warning("Você não pode excluir sua própria conta.")->flash();
-            redirect("/painel/usuarios");
+        if ($positionDelete) {
+            $positionDelete->destroy();
         }
 
-        if ($userDelete->photo()) {
-            (new Thumb())->flush("storage/{$userDelete->photo}");
-            (new Upload())->remove("storage/{$userDelete->photo}");
-        }
-        $userDelete->destroy();
-
-        $this->message->success("Usuário {$userDelete->user_name} excluído com sucesso.")->flash();
+        $this->message->success("O cargo foi excluído com sucesso.")->flash();
         redirect(url_back());
     }
 
@@ -206,31 +165,18 @@ class UsersPositions extends Admin
     public function toggleStatus(array $data): void
     {
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
-        $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
-        $user = (new User())->findById($userId);
 
-        if (!$user) {
-            $this->message->error("O usuário que você tentou manipular não existe.")->flash();
-            redirect("/painel/usuarios");
+        $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
+        $position = (new UserPosition())->findById($positionId);
+
+        if ($position) {
+            $position->status = ($position->status == "actived" ? "disabled" : "actived");
+            $position->login_updated = $this->user->id;
+            $position->save();
         }
         
-        if ($user->id === $this->user->id) {
-            $this->message->warning("Você não pode desativar sua própria conta.")->flash();
-            redirect("/painel/usuarios");
-        }
-
-        if ($user) {
-            $user->status = ($user->status == "actived" ? "disabled" : "actived");
-            $user->login_updated = $this->user->id;
-            $user->save();
-        }
-
-        if($user->status == "actived"):
-            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
-        else:
-            $this->message->success("O usuário {$user->user_name} foi desativado com sucesso !!!")->flash();
-        endif;
-
-        redirect("/painel/usuarios");
+        $actionText = ($position->status == "actived" ? "ativado" : "desativado");
+        $this->message->success("O cargo foi {$actionText} com sucesso!")->flash();
+        redirect(url_back());
     }
 }
