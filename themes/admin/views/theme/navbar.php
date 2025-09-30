@@ -1,7 +1,7 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="<?=url("/painel")?>">
-        <img width="120" height="40" src="<?=theme("/assets/images/ccb_logo/logo-ccb-light.png")?>">
+        <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-final-v3.png", CONF_VIEW_ADMIN)?>">
     </a>
 
     <!-- Sidebar Toggle-->
@@ -55,7 +55,7 @@
                         src="<?= image(user()->photo, 260, 260); ?>"/>
             <?php else: ?>
                 <img class="rounded-circle m-2" width="32" height="32" alt="<?= user()->user_name; ?>" title="<?= user()->user_name; ?>"
-                        src="<?= theme("/assets/images/avatar.jpg", CONF_VIEW_APP); ?>"/>
+                        src="<?= theme("/assets/images/avatar.jpg", CONF_VIEW_ADMIN); ?>"/>
             <?php endif; ?></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="<?=url("/painel/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>

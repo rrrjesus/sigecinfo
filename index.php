@@ -134,18 +134,33 @@ $route->get("/usuarios/json", "Users:listJson");
 $route->get("/usuarios/termo/{patrimonys_id}", "Users:term");
 $route->get("/usuarios/historico/termo/{patrimonys_id}", "Users:termHistory");
 
+// Tipos de Evento
+$route->get("/tipos-de-eventos", "EventTypes:list");
+$route->get("/tipos-de-eventos/cadastrar", "EventTypes:create");
+$route->post("/tipos-de-eventos/cadastrar", "EventTypes:create");
+$route->get("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
+$route->post("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
+$route->post("/tipos-de-eventos/excluir", "EventTypes:delete");
+
+// Eventos
+$route->get("/eventos", "Events:list");
+$route->get("/eventos/cadastrar", "Events:create");
+$route->post("/eventos/cadastrar", "Events:create");
+$route->get("/eventos/editar/{event_id}", "Events:edit");
+$route->post("/eventos/editar/{event_id}", "Events:edit");
+$route->post("/eventos/excluir", "Events:delete");
+
 //notification center
 $route->post("/notifications/count", "Notifications:count");
 $route->post("/notifications/list", "Notifications:list");
 
-$route->namespace("Source\App");
-
 /**
  * ERROR ROUTES
  */
-$route->namespace("Source\App");
 $route->group("/ops");
-$route->get("/{errcode}", "Web:error");
+$route->get("/{errcode}", function ($data) use ($auth) {
+    (new \Source\App\Web($auth))->error($data);
+});
 
 /**
  * ROUTE DISPATCH

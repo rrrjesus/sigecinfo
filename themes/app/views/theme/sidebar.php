@@ -1,10 +1,3 @@
-<style>
-    .sb-sidenav-menu a:hover {
-        background: #157347;
-        color: #ffffff;
-    }
-</style>
-
 
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion bg-<?=CONF_APP_COLOR?>" id="sidenavAccordion">
@@ -63,7 +56,7 @@
 
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">UTILIDADES</div>
 
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/logoff")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-success" 
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/logoff")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" 
                     data-bs-title="Clique para sair do sistema" data-bs-toggle="modal" data-bs-target="#modalSair">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Sair

@@ -22,7 +22,7 @@ define("CONF_SITE_ADDR_ZIPCODE", "01011-100");
  */
 define("CONF_WEB_COLOR","sigecinfo");
 define("CONF_VIEW_COLOR","sigecinfo");
-define("CONF_APP_COLOR","success");
+define("CONF_APP_COLOR","secondary");
 define("CONF_ADMIN_COLOR","dark");
 
 /**

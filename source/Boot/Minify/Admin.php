@@ -1,5 +1,5 @@
 <?php
-// if (strpos(url(), "localhost")) {
+if (strpos(url(), "localhost")) {
     /**
      * CSS
      */
@@ -29,9 +29,9 @@
      * JS
      */
     $minAdminJS = new MatthiasMullie\Minify\JS();
+    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
-    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery-ui.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.mask.js");
@@ -59,4 +59,4 @@
 
     //Minify JS
     $minAdminJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/assets/scripts.js");
-// }
+}

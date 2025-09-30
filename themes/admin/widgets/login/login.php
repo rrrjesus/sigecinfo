@@ -5,7 +5,7 @@
         <?=csrf_input();?>
         <div class="row justify-content-center">
             <div class="form-floating mb-3 mt-1 text-center">
-                <img height="80" width="200" src="<?=theme("assets/images/ccb_logo/SUBPREFEITURAS_HORIZONTAL_FUNDO_CLARO.png", CONF_VIEW_ADMIN)?>" class="mb-1 me-2" alt="logo" >
+                <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-final.png", CONF_VIEW_ADMIN)?>">
             </div>
         </div>
                 <div class="ajax_response"><?=flash();?></div>
@@ -33,7 +33,7 @@
         <p class="my-3"><a class="link-body-emphasis text-decoration-none fw-semibold text-danger" href="<?= url("/recuperar"); ?>">Esqueceu a senha ?</a></p>
 
         <div class="d-grid">
-            <button class="btn btn-outline-<?=CONF_ADMIN_COLOR?> fw-semibold mt-3" type="submit" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Clique para fazer o login">Entrar</button>
+            <button class="btn btn-outline-secondary fw-semibold mt-3" type="submit" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Clique para fazer o login">Entrar</button>
         </div>
     </form>
 
@@ -53,11 +53,6 @@
     <footer class="pt-3">
         <div class="d-flex flex-column flex-sm-row justify-content-between pt-2 border-top">
             <p>&copy; 2023 Todos os direitos reservados.</p>
-            <ul class="list-unstyled d-flex">
-                <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
-                <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
-                <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
-            </ul>
         </div>
         <div class="d-flex flex-column flex-sm-row justify-content-between">
             <p>Desenvolvido por <strong>rrrjesus</strong></p>

@@ -5,6 +5,11 @@
   background:linear-gradient(rgb(27, 27, 27),rgb(23, 24, 23)) left/10px 100% no-repeat;
   }
 
+  .sb-sidenav-menu a:hover {
+        background: #424242;
+        color: #ffffff;
+  }
+
 /*DEFAULT LOAD*/
 .ajax_load {
   display: none;

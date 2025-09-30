@@ -12,8 +12,8 @@
 </svg>
 
 <nav class="container-md bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
-        <a class="navbar-brand p-0 me-0 me-lg-2 fw-bold fs-4" href="/" aria-label="Agenda">
-            <img width="130" height="40" src="<?=theme("/assets/images/ccb_logo/logo-ccb-light.png")?>">
+        <a class="navbar-brand p-0 me-0 me-lg-2 fw-bold fs-4" href="/" aria-label="Sobre">
+            <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v3.png", CONF_VIEW_WEB)?>">
         </a>
 
         <div class="d-flex">
@@ -35,6 +35,12 @@
                 <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
                     <li class="nav-item nav col-6 col-lg-auto">
                         <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/")?>" aria-current="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Home" href="<?= url(); ?>">Home</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
+                    <li class="nav-item nav col-6 col-lg-auto">
+                        <a class="nav-link py-2 px-0 px-lg-2 <?=navbar_active("/sobre")?>" aria-current="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="bottom" data-bs-title="Sobre" href="<?= url("/sobre"); ?>">Sobre</a>
                     </li>
                 </ul>
 

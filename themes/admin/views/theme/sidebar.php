@@ -1,11 +1,3 @@
-<style>
-    .sb-sidenav-menu a:hover {
-        background: #424242;
-        color: #ffffff;
-    }
-</style>
-
-
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion bg-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
@@ -99,28 +91,46 @@
                     </nav>
                 </div>
 
-                <!-- Sidebar Reuniões -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMeetings" aria-expanded="false" aria-controls="collapseMeetings">
+                <!-- Sidebar Eventos -->
+                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEvents" aria-expanded="false" aria-controls="collapseEvents">
                     <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Reuniões
+                    Eventos
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseMeetings" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div class="collapse" id="collapseEvents" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
                         <!-- Sidebar de Empresas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseCompanies" aria-expanded="false" aria-controls="pagesCollapseCompanies">
-                            Empresas
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseAppointments" aria-expanded="false" aria-controls="pagesCollapseAppointments">
+                            Agendamento
                             <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                         </a>
-                        <div class="collapse" id="patrimonyCollapseCompanies" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionCompanies">
+                        <div class="collapse" id="patrimonyCollapseAppointments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionAppointments">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
                                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                             </nav>
                         </div>
 
-                       
+                    </nav>
+                </div>
+
+                 <div class="collapse" id="collapseEvents" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+                        <!-- Sidebar de Empresas -->
+                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseTypes" aria-expanded="false" aria-controls="pagesCollapseTypes">
+                            Tipo
+                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                        </a>
+                        <div class="collapse" id="patrimonyCollapseTypes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionTypes">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                            </nav>
+                        </div>
+                        
+
                     </nav>
                 </div>
 

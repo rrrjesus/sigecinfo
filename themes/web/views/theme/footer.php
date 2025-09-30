@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-12 col-lg-8 mb-3">
                 <a data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-<?=color_month()?>"
-                   data-bs-title="Agenda de Ramais" class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="<?=url("/contatos")?>" aria-label=Contatos">
-                    <img class="img-thumbnail fs-1 mb-3 me-2 " width="120" height="30" src="<?=theme("/assets/images/ccb_logo/logo-ccb-light.png")?>">
+                   data-bs-title="Sobre o Sistema" class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="<?=url("/sobre")?>" aria-label=Sobre">
+                    <img class="img-thumbnail fs-1 mb-3 me-2 " width="120" height="30" src="<?=theme("/assets/images/logo/sigecinfo-logo-v3.png", CONF_VIEW_WEB)?>">
                     <span class="text-<?=color_month();?> fw-bold fs-6 text-uppercase"><?=CONF_SITE_NAME?></span>
                 </a>
                 <ul class="list-unstyled small">
