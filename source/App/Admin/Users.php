@@ -303,7 +303,7 @@ class Users extends Admin
         redirect(url_back());
     }
 
-    /**
+  /**
      * @param array $data
      */
     public function toggleStatus(array $data): void
@@ -314,25 +314,30 @@ class Users extends Admin
 
         if (!$user) {
             $this->message->error("O usuário que você tentou manipular não existe.")->flash();
-            redirect("/painel/usuarios");
+            redirect(url_back());
+            return;
         }
-        
+
         if ($user->id === $this->user->id) {
             $this->message->warning("Você não pode desativar sua própria conta.")->flash();
-            redirect("/painel/usuarios");
+            redirect(url_back());
+            return;
         }
 
-        if ($user) {
-            $user->status = ($user->status == "disabled" ? "actived" : "disabled");
-            $user->login_updated = $this->user->id;
-            $user->save();
-        }
+        // Lógica de status mais robusta
+        $currentStatus = $user->status;
+        $newStatus = (in_array($currentStatus, ["actived", "confirmed", "registered"]) ? "disabled" : "actived");
+        $user->status = $newStatus;
+        $user->login_updated = $this->user->id;
 
-        if($user->status == "disabled"):
-            $this->message->success("O usuário {$user->user_name} foi desativado com sucesso !!!")->flash();
-        else:
-            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
-        endif;
+        // Verifica se o save() foi bem-sucedido antes de dar a mensagem
+        if ($user->save()) {
+            $actionText = ($newStatus == "disabled" ? "desativado" : "ativado");
+            $this->message->success("O usuário {$user->user_name} foi {$actionText} com sucesso!")->flash();
+        } else {
+            // Se o save() falhar, exibe a mensagem de erro específica da Model
+            $this->message->error($user->message()->getText())->flash();
+        }
 
         redirect(url_back());
     }
