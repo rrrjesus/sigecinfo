@@ -479,12 +479,10 @@ function photoList(?string $photo, string $avatar = 'avatar.jpg'): string
  */
 function statusBadge(string $status): string
 {
-    if($status == 'actived'):
-        return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
-    elseif($status == 'disabled'):
-        return '<span class="badge text-bg-danger ms-2">INATIVO</span>';
+    if($status == 'disabled'):
+        return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
     else:
-            return '<span class="badge text-bg-danger ms-2">BAIXA</span>';
+        return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
     endif;
 }
 

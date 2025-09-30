@@ -323,18 +323,18 @@ class Users extends Admin
         }
 
         if ($user) {
-            $user->status = ($user->status == "actived" ? "disabled" : "actived");
+            $user->status = ($user->status == "disabled" ? "actived" : "disabled");
             $user->login_updated = $this->user->id;
             $user->save();
         }
 
-        if($user->status == "actived"):
-            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
-        else:
+        if($user->status == "disabled"):
             $this->message->success("O usuário {$user->user_name} foi desativado com sucesso !!!")->flash();
+        else:
+            $this->message->success("O usuário {$user->user_name} foi ativado com sucesso !!!")->flash();
         endif;
 
-        redirect("/painel/usuarios");
+        redirect(url_back());
     }
     
 }

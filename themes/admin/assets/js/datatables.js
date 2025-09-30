@@ -61,7 +61,19 @@ $(document).ready(function() {
             $.each(data, function(index, rowData) {
                 if (config.toggleStatus) {
                     var statusConfig = config.toggleStatus;
-                    var isActived = (String(rowData[statusConfig.status_col]).toLowerCase().includes("ativo") || String(rowData[statusConfig.status_col]).toLowerCase().includes("confirmado") || String(rowData[statusConfig.status_col]).toLowerCase().includes("registrado"));
+                    
+                    // Verifica o status exato em vez de usar .includes()
+                    var statusValue = String(rowData[statusConfig.status_col]).toLowerCase();
+                    var isActived = (
+                        statusValue.includes('bg-success') || 
+                        statusValue === "ativo" ||
+                        statusValue === "actived" || 
+                        statusValue === "confirmado" || 
+                        statusValue === "confirmed" || 
+                        statusValue === "registrado" || 
+                        statusValue === "registered"
+                    );
+                    
                     appendActionModal({
                         action: 'toggleStatus', id: rowData[statusConfig.id_col], name: rowData[statusConfig.name_col],
                         method: 'GET',
@@ -115,27 +127,24 @@ $(document).ready(function() {
    $('#userspositions').DataTable({
         destroy: true,
         drawCallback: drawCallbackWithModals,
-        processing: true,
-        serverSide: true,
-        ajax: '../themes/admin/serverside/users.php',
         modalConfig: {
-            toggleStatus: { id_col: 9, status_col: 7, name_col: 2, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
-            delete: { id_col: 10, name_col: 2, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo' }
+            toggleStatus: { id_col: 4, status_col: 3, name_col: 1, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
+            delete: { id_col: 5, name_col: 1, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo' }
         },
         "aoColumnDefs": [
-            { "aTargets": [9], "mRender": function(data, type, full) {
-                var isActived = (String(full[7]).toLowerCase().includes("ativo") || String(full[7]).toLowerCase().includes("confirmado") || String(full[7]).toLowerCase().includes("registrado"));
+            { "aTargets": [4], "mRender": function(data, type, full) {
+                var isActived = (String(full[3]).toLowerCase().includes("ativo"));
                 return createActionButton({
-                    action: 'toggleStatus', id: full[9],
-                    tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[2],
+                    action: 'toggleStatus', id: full[4],
+                    tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[4],
                     btn_class: (isActived ? 'warning' : 'success'),
                     icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
                 });
             }},
-            { "aTargets": [10], "mRender": function(data, type, full) {
+            { "aTargets": [5], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'delete', id: full[10],
-                    tooltip: 'Excluir ' + full[2], btn_class: 'danger'
+                    action: 'delete', id: full[5],
+                    tooltip: 'Excluir ' + full[1], btn_class: 'danger'
                 });
             }}
         ],
@@ -175,20 +184,20 @@ $(document).ready(function() {
         destroy: true,
         drawCallback: drawCallbackWithModals,
         modalConfig: {
-            toggleStatus: { id_col: 4, status_col: 3, name_col: 1, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
-            delete: { id_col: 5, name_col: 1, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo' }
+            toggleStatus: { id_col: 3, status_col: 2, name_col: 0, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
+            delete: { id_col: 4, name_col: 0, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo' }
         },
         "aoColumnDefs": [
-            { "aTargets": [4], "mRender": function (data, type, full) {
+            { "aTargets": [3], "mRender": function (data, type, full) {
                 return createActionButton({
-                    action: 'toggleStatus', id: full[3], tooltip: 'Ativar ' + full[4],
+                    action: 'toggleStatus', id: full[3], tooltip: 'Ativar ' + full[0],
                     btn_class: 'success', icon: 'bi-check-circle'
                 });
             }},
-            { "aTargets": [11], "mRender": function (data, type, full) {
+            { "aTargets": [4], "mRender": function (data, type, full) {
                 return createActionButton({
-                    action: 'delete', id: full[5], 
-                    tooltip: 'Excluir ' + full[1],
+                    action: 'delete', id: full[4], 
+                    tooltip: 'Excluir ' + full[0],
                     btn_class: 'danger'
                 });
             }}

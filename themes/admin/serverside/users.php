@@ -51,10 +51,10 @@ $columns = array(
     array('db' => 'email', 'dt' => 6),
     array('db' => 'status', 'dt' => 7,
         'formatter' => function($d) {
-            if ($d == 'actived') {
-                return '<span class="badge bg-success">ATIVO</span>';
+            if ($d == 'disabled') {
+                return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
             } else {
-                return '';
+                return '<span class="badge text-bg-success ms-2">ATIVO</span>';
             }
         }
     ),

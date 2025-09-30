@@ -24,7 +24,6 @@
                     <table id="userspositionsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
                         <thead class="table-danger">
                             <tr>
-                                <th class="text-center">EDITAR</th>
                                 <th class="text-center">CARGO</th>
                                 <th class="text-center">DESCRIÇÃO</th>
                                 <th class="text-center">STATUS</th>
@@ -36,7 +35,6 @@
                         <?php if(!empty($userspositions)){ ?>
                         <?php foreach ($userspositions as $lista): ?>
                         <tr>
-                            <td class="text-center fw-semibold"><?=$lista->id?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
                             <td class="text-center fw-semibold"><?=(!empty($lista->description) ? $lista->description : "")?></td>
                             <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
