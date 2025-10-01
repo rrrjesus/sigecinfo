@@ -459,6 +459,7 @@ function image(?string $image, int $width, int $height = null): ?string
 function photoList(?string $photo, string $avatar = 'avatar.jpg'): string
 {
     $avatarUrl = url("/storage/images/{$avatar}");
+    
     if ($photo && file_exists(CONF_UPLOAD_DIR . "/{$photo}")) {
         $photoUrl = url(CONF_UPLOAD_DIR . "/{$photo}");
         $thumbUrl = image($photo, 30, 30);

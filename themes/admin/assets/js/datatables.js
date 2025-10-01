@@ -528,4 +528,67 @@ $(document).ready(function() {
         "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
         "aaSorting": [0, 'asc']
     });
+
+   // Adicione dentro de $(document).ready(function() { ... });
+
+    $('#events').DataTable({
+        destroy: true,
+        drawCallback: drawCallbackWithModals,
+        processing: true,
+        serverSide: true,
+        ajax: '../themes/admin/serverside/events.php',
+        modalConfig: {
+            toggleStatus: { id_col: 7, status_col: 5, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
+            delete: { id_col: 8, name_col: 1, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+        },
+        "aoColumnDefs": [
+            {
+                "aTargets": [6], // Coluna Editar
+                "mRender": function(data, type, full) {
+                    return '<a href="' + SITE_URL + '/painel/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
+                }
+            },
+            {
+                "aTargets": [7], // Coluna Status
+                "mRender": function(data, type, full) {
+                    var statusHtml = String(full[5]); // Pega o HTML do status
+                    var isActived = statusHtml.includes('scheduled'); // Assumindo que 'scheduled' é o status "ativo"
+                    return createActionButton({
+                        action: 'toggleStatus', id: data,
+                        tooltip: (isActived ? 'Cancelar ' : 'Reagendar ') + full[1],
+                        btn_class: (isActived ? 'warning' : 'success'),
+                        icon: (isActived ? 'bi-calendar-x' : 'bi-calendar-check')
+                    });
+                }
+            },
+            {
+                "aTargets": [8], // Coluna Excluir
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'delete', id: data,
+                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                    });
+                }
+            }
+        ],
+        // ... (suas outras configs: language, buttons, dom, etc.)
+        "aaSorting": [2, 'desc'] // Ordenar por data de início
+    });
+
+    // Tabela de Tipos de Evento
+    $('#eventTypes').DataTable({
+        destroy: true,
+        drawCallback: customTooltipCallback, // Usa o callback simples para ativar os tooltips
+        language: {
+            "sEmptyTable": "Nenhum registo encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registos",
+            "sInfoFiltered": "(Filtrados de _MAX_ registos)",
+            "sLengthMenu": "_MENU_ Resultados por Página",
+            "sSearch": "Pesquisar",
+            "oPaginate": { "sNext": "Próximo", "sPrevious": "Anterior" }
+        },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "aaSorting": [0, 'asc']
+    });
 });
