@@ -529,8 +529,7 @@ $(document).ready(function() {
         "aaSorting": [0, 'asc']
     });
 
-   // Adicione dentro de $(document).ready(function() { ... });
-
+    // Tabela de Eventos
     $('#events').DataTable({
         destroy: true,
         drawCallback: drawCallbackWithModals,
@@ -551,13 +550,12 @@ $(document).ready(function() {
             {
                 "aTargets": [7], // Coluna Status
                 "mRender": function(data, type, full) {
-                    var statusHtml = String(full[5]); // Pega o HTML do status
-                    var isActived = statusHtml.includes('scheduled'); // Assumindo que 'scheduled' é o status "ativo"
+                    var isScheduled = String(full[5]).toLowerCase().includes('scheduled');
                     return createActionButton({
                         action: 'toggleStatus', id: data,
-                        tooltip: (isActived ? 'Cancelar ' : 'Reagendar ') + full[1],
-                        btn_class: (isActived ? 'warning' : 'success'),
-                        icon: (isActived ? 'bi-calendar-x' : 'bi-calendar-check')
+                        tooltip: (isScheduled ? 'Cancelar Evento' : 'Reagendar Evento'),
+                        btn_class: (isScheduled ? 'warning' : 'success'),
+                        icon: (isScheduled ? 'bi-calendar-x' : 'bi-calendar-check')
                     });
                 }
             },
@@ -571,24 +569,179 @@ $(document).ready(function() {
                 }
             }
         ],
-        // ... (suas outras configs: language, buttons, dom, etc.)
-        "aaSorting": [2, 'desc'] // Ordenar por data de início
+        responsive:
+            {details:
+                    {display: DataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
+                            },
+                            update: true
+                        }),
+                        renderer: DataTable.Responsive.renderer.tableAll({})}},
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
+            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
+            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
+        },
+
+        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
+        "aaSorting": [0, 'asc']
+    });
+
+    // Tabela de Eventos Desativados
+    $('#disabledEvents').DataTable({
+        destroy: true,
+        drawCallback: drawCallbackWithModals, // Usa o callback completo
+        processing: true,
+        serverSide: true,
+        ajax: '../../themes/admin/serverside/disabledEvents.php',
+        modalConfig: {
+            toggleStatus: { id_col: 5, status_col: 3, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
+            delete: { id_col: 6, name_col: 1, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+        },
+        "aoColumnDefs": [
+            {
+                "aTargets": [4], // Coluna Ativar
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'toggleStatus', id: data,
+                        tooltip: 'Ativar ' + full[1],
+                        btn_class: 'success',
+                        icon: 'bi-check-circle'
+                    });
+                }
+            },
+            {
+                "aTargets": [5], // Coluna Excluir
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'delete', id: data,
+                        tooltip: 'Excluir ' + full[1],
+                        btn_class: 'danger'
+                    });
+                }
+            }
+        ],
+        responsive:
+            {details:
+                    {display: DataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
+                            },
+                            update: true
+                        }),
+                        renderer: DataTable.Responsive.renderer.tableAll({})}},
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
+            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
+            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
+        },
+
+        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
+        "aaSorting": [0, 'asc']
     });
 
     // Tabela de Tipos de Evento
     $('#eventTypes').DataTable({
         destroy: true,
-        drawCallback: customTooltipCallback, // Usa o callback simples para ativar os tooltips
-        language: {
-            "sEmptyTable": "Nenhum registo encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registos",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registos",
-            "sInfoFiltered": "(Filtrados de _MAX_ registos)",
-            "sLengthMenu": "_MENU_ Resultados por Página",
-            "sSearch": "Pesquisar",
-            "oPaginate": { "sNext": "Próximo", "sPrevious": "Anterior" }
+        drawCallback: drawCallbackWithModals,
+        modalConfig: {
+            toggleStatus: { id_col: 4, status_col: 2, name_col: 0, base_url: '/painel/tipos-de-eventos/status/', item_name: 'o tipo de evento' },
+            delete: { id_col: 5, name_col: 0, base_url: '/painel/tipos-de-eventos/excluir', id_field: 'type_id', item_name: 'o tipo de evento' }
         },
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "aoColumnDefs": [
+            { "aTargets": [3], "mRender": function (data, type, full) {
+                return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
+            }},
+            { "aTargets": [4], "mRender": function (data, type, full) {
+                return createActionButton({
+                    action: 'toggleStatus', id: data,
+                    tooltip: 'Desativar ' + full[0], btn_class: 'warning'
+                });
+            }},
+            { "aTargets": [5], "mRender": function (data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: data,
+                    tooltip: 'Excluir ' + full[0], btn_class: 'danger'
+                });
+            }}
+        ],
+        responsive:
+            {details:
+                    {display: DataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
+                            },
+                            update: true
+                        }),
+                        renderer: DataTable.Responsive.renderer.tableAll({})}},
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
+            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
+            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
+        },
+
+        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
+        "aaSorting": [0, 'asc']
+    });
+
+    // Tabela de Tipos de Evento Desativados
+    $('#disabledEventTypes').DataTable({
+        destroy: true,
+        drawCallback: drawCallbackWithModals,
+        modalConfig: {
+            toggleStatus: { id_col: 4, status_col: 2, name_col: 0, base_url: '/painel/tipos-de-eventos/status/', item_name: 'o tipo de evento' },
+            delete: { id_col: 5, name_col: 0, base_url: '/painel/tipos-de-eventos/excluir', id_field: 'type_id', item_name: 'o tipo de evento' }
+        },
+    "aoColumnDefs": [
+            { "aTargets": [3], "mRender": function(data, type, full) {
+                return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
+            }},
+            { "aTargets": [4], "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'toggleStatus', id: data, tooltip: 'Ativar ' + full[0],
+                    btn_class: 'success', icon: 'bi-check-circle'
+                });
+            }},
+            { "aTargets": [5], "mRender": function(data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: data, tooltip: 'Excluir ' + full[0],
+                    btn_class: 'danger'
+                });
+            }}
+        ],
+        responsive:
+            {details:
+                    {display: DataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
+                            },
+                            update: true
+                        }),
+                        renderer: DataTable.Responsive.renderer.tableAll({})}},
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
+            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
+            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
+        },
+
+        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
         "aaSorting": [0, 'asc']
     });
 });

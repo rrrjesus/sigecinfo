@@ -23,13 +23,13 @@ class EventType extends Model
      */
     public function save(): bool
     {
-        // Validação de campos obrigatórios
+        // Regra 1: Validação de campo obrigatório
         if (empty($this->name)) {
             $this->message->warning("O nome do tipo de evento é obrigatório.");
             return false;
         }
 
-        // Validação de duplicidade
+        // Regra 2: Validação de duplicidade
         $checkByName = $this->find("name = :name AND id != :id", "name={$this->name}&id={$this->id}");
         if ($checkByName->count()) {
             $this->message->warning("Este tipo de evento já está registado.");

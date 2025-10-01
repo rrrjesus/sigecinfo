@@ -268,6 +268,38 @@ $(function () {
         }
     });
 
+    // No seu ficheiro scripts.js
+
+    $("#eventForm").validate({
+        rules: {
+            title: {
+                required: true
+            },
+            type_id: {
+                required: true
+            },
+            start_at: {
+                required: true
+            }
+        },
+        messages: {
+            title: {
+                required: "O título do evento é obrigatório."
+            },
+            type_id: {
+                required: "Por favor, selecione um tipo de evento."
+            },
+            start_at: {
+                required: "A data e hora de início são obrigatórias."
+            }
+        }
+    });
+
+    // Adicione ao seu scripts.js
+    $("#eventTypeForm").validate({
+        rules: { name: { required: true } },
+        messages: { name: { required: "O nome do tipo de evento é obrigatório." } }
+    });
 
     //  data-bs-toggle-tooltip="tooltip" Bootstrap Title
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'))

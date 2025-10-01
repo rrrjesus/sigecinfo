@@ -107,8 +107,8 @@
                         </a>
                         <div class="collapse" id="patrimonyCollapseAppointments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionAppointments">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/eventos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                             </nav>
                         </div>
 
@@ -125,8 +125,8 @@
                         </a>
                         <div class="collapse" id="patrimonyCollapseTypes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionTypes">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/patrimonio/marcas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/tipos-de-eventos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/tipos-de-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                             </nav>
                         </div>
                         

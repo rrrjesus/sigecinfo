@@ -134,12 +134,14 @@ $route->get("/usuarios/json", "Users:listJson");
 $route->get("/usuarios/termo/{patrimonys_id}", "Users:term");
 $route->get("/usuarios/historico/termo/{patrimonys_id}", "Users:termHistory");
 
-// Tipos de Evento
+//Tipos de Eventos
 $route->get("/tipos-de-eventos", "EventTypes:list");
+$route->get("/tipos-de-eventos/desativados", "EventTypes:disabledList");
 $route->get("/tipos-de-eventos/cadastrar", "EventTypes:create");
 $route->post("/tipos-de-eventos/cadastrar", "EventTypes:create");
 $route->get("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
 $route->post("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
+$route->get("/tipos-de-eventos/status/{type_id}", "EventTypes:toggleStatus");
 $route->post("/tipos-de-eventos/excluir", "EventTypes:delete");
 
 // Eventos
@@ -149,6 +151,8 @@ $route->post("/eventos/cadastrar", "Events:create");
 $route->get("/eventos/editar/{event_id}", "Events:edit");
 $route->post("/eventos/editar/{event_id}", "Events:edit");
 $route->post("/eventos/excluir", "Events:delete");
+$route->get("/eventos/desativados", "Events:disabledEvents");
+$route->get("/eventos/status/{event_id}", "Events:toggleStatus");
 
 //notification center
 $route->post("/notifications/count", "Notifications:count");

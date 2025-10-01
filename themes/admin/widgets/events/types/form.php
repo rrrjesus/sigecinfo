@@ -26,7 +26,7 @@
                     </div>
                     <div class="row justify-content-center mt-4">
                         <div class="col-auto">
-                            <?= button(["name" => "Registar Tipo", "icon" => "check-circle"]); ?>
+                            <?= button(["name" => "Registar Tipo", "icon" => "check-circle", "btncolor" => "success"]); ?>
                             <?= button(["href" => "/painel/tipos-de-eventos", "name" => "Listar Todos", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>
@@ -37,9 +37,16 @@
                     <?= csrf_input(); ?>
 
                     <div class="row mb-3">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <label for="name" class="form-label"><strong>Nome do Tipo de Evento</strong></label>
                             <input type="text" id="name" name="name" class="form-control" value="<?= $eventType->name; ?>" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="status" class="form-label"><strong>Status</strong></label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="actived" <?= ($eventType->status == 'actived' ? "selected" : ""); ?>>Ativo</option>
+                                <option value="disabled" <?= ($eventType->status == 'disabled' ? "selected" : ""); ?>>Inativo</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">

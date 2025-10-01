@@ -488,6 +488,25 @@ function statusBadge(string $status): string
 }
 
 /**
+ * Gera um badge de status para eventos.
+ * @param string $status
+ * @return string
+ */
+function eventStatusBadge(string $status): string
+{
+    switch ($status) {
+        case 'scheduled':
+            return '<span class="badge fw-semibold text-bg-primary">AGENDADO</span>';
+        case 'done':
+            return '<span class="badge fw-semibold text-bg-secondary">REALIZADO</span>';
+        case 'canceled':
+            return '<span class="badge fw-semibold text-bg-danger">CANCELADO</span>';
+        default:
+            return '<span class="badge fw-semibold text-bg-dark">INDEFINIDO</span>';
+    }
+}
+
+/**
  * Gera as opções de <option> para o status do usuário.
  * @param string|null $currentStatus O status atual para pré-selecionar a opção.
  * @return string

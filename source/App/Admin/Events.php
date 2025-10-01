@@ -30,11 +30,24 @@ class Events extends Admin
         $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
-        $events = (new Event())->find()->order("start_at DESC")->fetch(true);
         
         echo $this->view->render("widgets/events/list", [
             "head" => $head,
-            "events" => $events
+            "registers" => (object)["disabled" => (new Event())->find("status = :s", "s=canceled")->count()]
+        ]);
+    }
+
+        /**
+     * Lista os eventos desativados/cancelados
+     */
+    public function disabledEvents(): void
+    {
+        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+
+        $head = $this->seo->render("Eventos Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
+        
+        echo $this->view->render("widgets/events/disabledList", [
+            "head" => $head
         ]);
     }
 
@@ -173,7 +186,27 @@ class Events extends Admin
         }
 
         $this->message->success("O evento foi excluído com sucesso.")->flash();
-        echo json_encode(["reload" => true]);
-        return;
+        redirect(url_back());
+    }
+
+    /**
+     * @param array $data
+     */
+    public function toggleStatus(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
+        $event = (new Event())->findById($eventId);
+
+        if ($event) {
+            // Lógica para alternar entre 'scheduled' (agendado) e 'canceled' (cancelado)
+            $event->status = ($event->status == "scheduled" ? "canceled" : "scheduled");
+            $event->updated_by = $this->user->id;
+            $event->save();
+        }
+        
+        $actionText = ($event->status == "scheduled" ? "reagendado" : "cancelado");
+        $this->message->success("O evento foi {$actionText} com sucesso!")->flash();
+        redirect(url_back());
     }
 }

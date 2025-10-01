@@ -10,27 +10,39 @@ use Source\Models\EventType;
  */
 class EventTypes extends Admin
 {
-    /**
-     * EventTypes constructor.
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * Lista os tipos de evento
+     * Lista os tipos de evento ativos
      */
     public function list(): void
     {
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render("Tipos de Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
-        $eventTypes = (new EventType())->find()->order("name ASC")->fetch(true);
         
         echo $this->view->render("widgets/events/types/list", [
             "head" => $head,
-            "eventTypes" => $eventTypes
+            "eventTypes" => (new EventType())->find("status = 'actived'")->order("name ASC")->fetch(true),
+            "registers" => (object)["disabled" => (new EventType())->find("status = 'disabled'")->count()]
+        ]);
+    }
+
+    /**
+     * Lista os tipos de evento desativados
+     */
+    public function disabledList(): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+
+        $head = $this->seo->render("Tipos de Evento Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
+        
+        echo $this->view->render("widgets/events/types/disabledList", [
+            "head" => $head,
+            "eventTypes" => (new EventType())->find("status = 'disabled'")->order("name ASC")->fetch(true)
         ]);
     }
 
@@ -50,22 +62,21 @@ class EventTypes extends Admin
             $eventType->created_by = $this->user->id;
 
             if (!$eventType->save()) {
+                header('Content-Type: application/json');
                 $json["message"] = $eventType->message()->render();
                 echo json_encode($json);
                 return;
             }
 
             $this->message->success("Tipo de evento registado com sucesso!")->flash();
+            header('Content-Type: application/json');
             $json["redirect"] = url("/painel/tipos-de-eventos");
             echo json_encode($json);
             return;
         }
 
         $head = $this->seo->render("Registar Tipo de Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
-        echo $this->view->render("widgets/events/types/form", [
-            "head" => $head,
-            "eventType" => null
-        ]);
+        echo $this->view->render("widgets/events/types/form", [ "head" => $head, "eventType" => null ]);
     }
 
     /**
@@ -88,25 +99,25 @@ class EventTypes extends Admin
             
             $eventType->name = $data["name"];
             $eventType->description = $data["description"];
+            $eventType->status = $data["status"];
             $eventType->updated_by = $this->user->id;
 
             if (!$eventType->save()) {
+                header('Content-Type: application/json');
                 $json["message"] = $eventType->message()->render();
                 echo json_encode($json);
                 return;
             }
 
             $this->message->success("Tipo de evento atualizado com sucesso!")->flash();
+            header('Content-Type: application/json');
             $json["redirect"] = url("/painel/tipos-de-eventos/editar/{$eventType->id}");
             echo json_encode($json);
             return;
         }
 
         $head = $this->seo->render("Editar Tipo de Evento: {$eventType->name}", CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
-        echo $this->view->render("widgets/events/types/form", [
-            "head" => $head,
-            "eventType" => $eventType
-        ]);
+        echo $this->view->render("widgets/events/types/form", [ "head" => $head, "eventType" => $eventType ]);
     }
 
     /**
@@ -124,7 +135,26 @@ class EventTypes extends Admin
         }
 
         $this->message->success("O tipo de evento foi excluído com sucesso.")->flash();
-        echo json_encode(["reload" => true]);
-        return;
+        redirect(url_back());
+    }
+
+    /**
+     * @param array $data
+     */
+    public function toggleStatus(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $typeId = filter_var($data["type_id"], FILTER_VALIDATE_INT);
+        $eventType = (new EventType())->findById($typeId);
+
+        if ($eventType) {
+            $eventType->status = ($eventType->status == "actived" ? "disabled" : "actived");
+            $eventType->updated_by = $this->user->id;
+            $eventType->save();
+        }
+        
+        $actionText = ($eventType->status == "actived" ? "ativado" : "desativado");
+        $this->message->success("O tipo de evento foi {$actionText} com sucesso!")->flash();
+        redirect(url_back());
     }
 }

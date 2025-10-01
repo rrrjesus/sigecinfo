@@ -12,6 +12,10 @@
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
             <?= button(["href" => "/painel/eventos/cadastrar", "name" => "Registar Novo Evento", "icon" => "calendar-plus"]); ?>
+             <?php 
+                    if(!empty($registers->disabled)){ ?>
+                        <?= button(["href" => "/painel/eventos/desativados", "accesskey" => "d", "title" => "Clique para listar eventos desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+            <?php } ?>
         </div>
     </div>
 

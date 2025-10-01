@@ -6,34 +6,31 @@
 
     <div class="row justify-content-center mb-4">
         <div class="col-12 ml-auto text-center">
-            <?= button(["href" => "/painel/tipos-de-eventos/cadastrar", "name" => "Registar Tipo", "icon" => "plus-circle"]); ?>
-            <?php if (!empty($registers->disabled)): ?>
-                <?= button(["href" => "/painel/tipos-de-eventos/desativados", "name" => "Desativados", "icon" => "archive", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
-            <?php endif; ?>
+            <?= button(["href" => "/painel/tipos-de-eventos", "name" => "Voltar", "icon" => "arrow-left-circle", "btncolor" => "secondary"]); ?>
         </div>
     </div>
 
     <div class="d-flex justify-content-center"><div class="col-12">
-        <table id="eventTypes" class="table table-bordered table-sm table-hover" style="width:100%">
-            <thead class="table-secondary">
+        <table id="disabledEventTypes" class="table table-bordered table-sm table-hover" style="width:100%">
+            <thead class="table-danger">
                 <tr>
                     <th class="text-center">Nome do Tipo</th>
                     <th>Descrição</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Editar</th>
-                    <th class="text-center">Desativar</th>
+                    <th class="text-center">Ativar</th>
                     <th class="text-center">Excluir</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($eventTypes)): foreach ($eventTypes as $type): ?>
+                 <?php if (!empty($eventTypes)): foreach ($eventTypes as $type): ?>
                     <tr>
                         <td class="text-center fw-semibold"><?= $type->name; ?></td>
                         <td><?= $type->description; ?></td>
                         <td class="text-center"><?= statusBadge($type->status); ?></td>
-                        <td class="text-center"><?= $type->id; // Para o botão Editar ?></td>
-                        <td class="text-center"><?= $type->id; // Para o botão Desativar ?></td>
-                        <td class="text-center"><?= $type->id; // Para o botão Excluir ?></td>
+                        <td><?= $type->id; // Para o botão Editar ?></td>
+                        <td><?= $type->id; // Para o botão Ativar ?></td>
+                        <td><?= $type->id; // Para o botão Excluir ?></td>
                     </tr>
                 <?php endforeach; endif; ?>
             </tbody>

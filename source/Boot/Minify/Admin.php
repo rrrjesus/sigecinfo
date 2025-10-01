@@ -30,9 +30,9 @@
      */
     $minAdminJS = new MatthiasMullie\Minify\JS();
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.min.js");
+    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
-    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery-ui.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.mask.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.validate.min.js");
