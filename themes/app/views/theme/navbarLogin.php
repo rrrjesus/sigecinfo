@@ -11,7 +11,7 @@
     </symbol>
 </svg>
 
-<?php $user = (new \Source\Models\Auth())->user(); ?>
+<?php $user = (new \Source\Domain\Shared\Models\Auth;())->user(); ?>
 
 <nav class="container-md bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
         <a class="navbar-brand p-0 me-0 me-lg-2 fw-bold fs-4" href="/" aria-label="Agenda">

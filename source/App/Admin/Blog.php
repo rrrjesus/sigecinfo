@@ -4,7 +4,7 @@ namespace Source\App\Admin;
 
 use Source\Models\Category;
 use Source\Models\Post;
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 use Source\Support\Pager;
 use Source\Support\Thumb;
 use Source\Support\Upload;

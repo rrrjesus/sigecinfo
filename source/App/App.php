@@ -5,23 +5,21 @@ namespace Source\App;
 use Source\Core\Controller;
 use Source\Core\Session;
 use Source\Core\View;
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 use Source\Models\App\AppCategory;
 use Source\Models\App\AppInvoice;
 use Source\Models\App\AppOrder;
 use Source\Models\App\AppPlan;
 use Source\Models\App\AppSubscription;
 use Source\Models\AppWallet;
-use Source\Models\Contact;
-use Source\Models\Event;
-use Source\Models\Report\Access;
-use Source\Models\Report\Online;
-use Source\Models\Company\User;
+use Source\Domain\Event\Models\Event;
+use Source\Domain\Report\Models\Access;
+use Source\Domain\Report\Models\Online;
+use Source\Domain\User\Models\User;
 use Source\Support\Email;
 use Source\Support\Thumb;
 use Source\Support\Upload;
 use Source\Models\QRCode;
-use Source\Models\Patrimony;
 
 /**
  * Class App

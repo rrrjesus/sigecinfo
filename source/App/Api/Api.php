@@ -3,7 +3,7 @@
 namespace Source\App\Api;
 
 use Source\Core\Controller;
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 //use Source\Models\CafeApp\AppInvoice;
 //use Source\Models\CafeApp\AppWallet;
 

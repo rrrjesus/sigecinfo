@@ -3,7 +3,7 @@
 namespace Source\App\Admin;
 
 use Source\Models\Patrimony\productType;
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 
 /**
  * Class productTypes

@@ -2,14 +2,14 @@
 
 namespace Source\App\Admin;
 
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 use Source\Models\Patrimony\Brand;
 use Source\Models\Patrimony\Patrimony;
 use Source\Models\Patrimony\Product;
 use Source\Models\Report\Online;
-use Source\Models\Company\Church;
-use Source\Models\Company\User;
-use Source\Models\Company\UserPosition;
+use Source\Domain\Church\Models\Church;
+use Source\Domain\User\Models\User;
+use Source\Domain\User\Models\UserPosition;
 use Source\Models\Patrimony\Company;
 use Source\Models\Patrimony\Contract;
 use Source\Models\Patrimony\productType;

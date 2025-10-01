@@ -11,7 +11,7 @@ use CoffeeCode\Router\Router;
 use Source\Core\Session;
 use Source\Core\View;
 use Source\Support\Email;
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 
 $session = new Session();
 $route = new Router(url(), ":");
@@ -72,17 +72,17 @@ $route->group("/beta");
 
 $route->get("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
 $route->post("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
-$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->dash($data);});
-$route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->home($data);});
-$route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->home($data);});
-$route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Profile($auth))->profile($data);});
-$route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Profile($auth))->profile($data);});
-$route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Dash($auth))->logoff($data);});
+$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->dash($data);});
+$route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
+$route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
+$route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
+$route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
+$route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
 
 /**
  * ADMIN ROUTES
  */
-$route->namespace("Source\App\Admin");
+$route->namespace("Source\App\Admin\Controllers");
 $route->group("/painel");
 $route->get("/", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->root($data); });
 $route->get("/login", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->login($data); });

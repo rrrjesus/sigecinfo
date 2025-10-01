@@ -3,7 +3,7 @@
 namespace Source\App\Beta;
 
 use Source\Core\Controller;
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 
 /**
  * Class Login

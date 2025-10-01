@@ -2,7 +2,7 @@
 
 namespace Source\App\Beta;
 
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 use Source\Support\Upload;
 use Source\Models\Patrimony\Patrimony;
 use Source\Models\Patrimony\PatrimonyHistory;

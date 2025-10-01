@@ -2,7 +2,7 @@
 
 namespace Source\App\Admin;
 
-use Source\Models\Notification;
+use Source\Domain\Shared\Models\Notification;
 
 /**
  * Class Notifications

@@ -3,7 +3,7 @@
 namespace Source\App\Beta;
 
 use Source\Core\Controller;
-use Source\Models\Auth;
+use Source\Domain\Shared\Models\Auth;
 use Source\Core\Session;
 
 /**
@@ -12,7 +12,7 @@ use Source\Core\Session;
  */
 class Admin extends Controller
 {
-    /** @var \Source\Models\Company\User|null */
+    /** @var \Source\Domain\User\Models\User|null */
     protected $user;
 
     /** @var Auth */

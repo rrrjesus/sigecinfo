@@ -5,7 +5,7 @@ namespace Source\App;
 use Source\Core\Controller;
 use Source\Models\Contact;
 use Source\Models\Category;
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 
 /**
  * Iframe Controller

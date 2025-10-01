@@ -3,11 +3,10 @@
 namespace Source\App;
 
 use Source\Core\Controller;
-use Source\Models\Auth;
-use Source\Models\Contact;
-use Source\Models\Report\Access;
-use Source\Models\Report\Online;
-use Source\Models\Company\User;
+use Source\Domain\Shared\Models\Auth;
+use Source\Domain\Report\Models\Access;
+use Source\Domain\Report\Models\Online;
+use Source\Domain\User\Models\User;
 
 /**
  * Web Controller

@@ -292,11 +292,11 @@ function navbar_active($url): ?string
  */
 
 /**
- * @return \Source\Models\Company\User|null
+ * @return \Source\Domain\User\Models\User|null
  */
-function user(): ?\Source\Models\Company\User
+function user(): ?\Source\Domain\User\Models\User
 {
-    return \Source\Models\Auth::user();
+    return \Source\Domain\Shared\Models\Auth::user();
 }
 
 /**
@@ -743,35 +743,34 @@ function status_name(string $status): string
  */
    
  /**
- * @return string
+ * Gera o HTML do breadcrumb a partir de um array.
+ * @param array $crumbs Array de "migalhas", onde cada uma é um array com "title" e "link" (opcional).
+ * @param string $homeIcon O HTML para o ícone da página inicial.
+ * @return string O HTML completo do breadcrumb.
  */
 
-function breadcrumbAdmin(string $urls = null,string $namepage = null,string $name = null): string
+function breadcrumb(array $crumbs = [], string $homeIcon = '<i class="bi bi-house-door-fill"></i>'): string
 {
-    if($urls){
-        return '<li class="breadcrumb-item">
-                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="'.url("/painel/{$urls}").'">' .$namepage.'</a></li>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">'.$name.'</li>';
+    $html = '<div class="container-fluid my-3"><nav aria-label="breadcrumb"><ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">';
+
+    // Adiciona o link "Início" automaticamente
+    $base_url = (strpos($_GET['route'] ?? '/', 'painel') === 1 ? url('/painel/controle') : url('/beta/home'));
+    $html .= '<li class="breadcrumb-item"><a class="link-body-emphasis fw-semibold text-decoration-none" href="' . $base_url . '">' . $homeIcon . ' Início</a></li>';
+
+    // Itera sobre as migalhas passadas
+    foreach ($crumbs as $index => $crumb) {
+        // A última migalha é a página ativa e não tem link
+        if ($index === array_key_last($crumbs)) {
+            $html .= '<li class="breadcrumb-item active" aria-current="page">' . $crumb['title'] . '</li>';
+        } else {
+            $link = isset($crumb['link']) ? $crumb['link'] : '#';
+            $html .= '<li class="breadcrumb-item"><a class="link-body-emphasis fw-semibold text-decoration-none" href="' . $link . '">' . $crumb['title'] . '</a></li>';
+        }
     }
-    return null;
+
+    $html .= '</ol></nav></div>';
+    return $html;
 }
-
- /**
- * @return string
- */
-
- function breadcrumbApp(string $urls = null,string $namepage = null,string $name = null): string
- {
-    if($urls){
-        return '<li class="breadcrumb-item">
-                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="'.url("/beta/{$urls}").'">' .$namepage.'</a></li>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">'.$name.'</li>';
-    }
-     return null;
- }
-
 /**
  * ###################
  * ###   REQUEST   ###

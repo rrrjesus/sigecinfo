@@ -5,7 +5,7 @@ namespace Source\App\Admin;
 use Source\Models\Patrimony\Contract;
 use Source\Models\Patrimony\Brand;
 use Source\Models\Patrimony\Product;
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 use Source\Support\Thumb;
 use Source\Support\Upload;
 
