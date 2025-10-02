@@ -264,15 +264,19 @@ class Users extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Usuários", "link" => url("/painel/usuarios/editar/{$userEdit->id}")],
+            ["title" => "Editar"]
+        ];
+
         $head = $this->seo->render(CONF_SITE_NAME . " | Editar Usuário: {$userEdit->user_name}", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/company/users/user", [
             "head" => $head,
-            "urls" => "usuarios",
-            "namepage" => "Usuários",
-            "name" => "Editar",
+            "breadcrumb" => $breadcrumb,
             "user" => $userEdit,
-            "userposition" => (new UserPosition()),
-            "church" => (new Church())
+            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
+            "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);
     }
 
