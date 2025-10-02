@@ -473,6 +473,41 @@ function photoList(?string $photo, string $avatar = 'avatar.jpg'): string
             </a>";
 }
 
+/**
+ * Gera o HTML de uma imagem de perfil ou uma imagem padrão.
+ * Verifica a existência do ficheiro e retorna a URL correta para a imagem e a sua miniatura.
+ *
+ * @param string|null $photoPath O caminho da foto guardado no banco de dados.
+ * @param int $width A largura da miniatura desejada.
+ * @param int|null $height A altura da miniatura desejada.
+ * @param string $defaultAvatar O nome do ficheiro de avatar padrão.
+ * @return string O HTML completo da tag <img>.
+ */
+function userPhoto(?string $photoPath, int $width, int $height = null, string $defaultAvatar = 'avatar.jpg'): string
+{
+    // Define a URL do avatar padrão
+    $defaultImageUrl = theme("/assets/images/{$defaultAvatar}", CONF_VIEW_ADMIN);
+
+    // Verifica se um caminho de foto foi fornecido
+    if ($photoPath) {
+        // Constrói o caminho absoluto no disco para verificar se o ficheiro existe
+        $absolutePath = CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$photoPath}";
+        
+        if (file_exists($absolutePath)) {
+            // Se o ficheiro existe, gera a URL da miniatura usando a helper 'image()'
+            $imageUrl = image($photoPath, $width, $height);
+        } else {
+            // Se o ficheiro não existe, usa a imagem padrão
+            $imageUrl = $defaultImageUrl;
+        }
+    } else {
+        // Se nenhum caminho de foto foi fornecido, usa a imagem padrão
+        $imageUrl = $defaultImageUrl;
+    }
+    
+    return "<img src=\"{$imageUrl}\" width=\"85\" height=\"85\" class=\"img-thumbnail rounded-circle float-left\" id=\"foto-cliente\">";
+}
+
 
 /**
  * @param string $status

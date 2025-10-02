@@ -124,15 +124,19 @@ class Users extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Perfil", "link" => url("/painel/perfil")],
+            ["title" => "Editar"]
+        ];
+
         $head = $this->seo->render(CONF_SITE_NAME . " | Perfil de {$this->user->user_name}", CONF_SITE_DESC, url("/painel"), null, false);
         echo $this->view->render("widgets/company/users/profile", [
             "head" => $head,
-            "urls" => "usuarios",
-            "namepage" => "Usuários",
-            "name" => "Perfil",
+            "breadcrumb" => $breadcrumb,
             "profile" => $this->user,
-            "userposition" => (new UserPosition()),
-            "church" => (new Church())
+            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
+            "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);
     }
 
@@ -187,15 +191,19 @@ class Users extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Utilizadores", "link" => url("/painel/usuarios")],
+            ["title" => "Criar"]
+        ];
+
         $head = $this->seo->render(CONF_SITE_NAME . " | Novo Usuário", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/company/users/user", [
             "head" => $head,
-            "urls" => "usuarios",
-            "namepage" => "Usuários",
-            "name" => "Cadastrar",
+            "breadcrumb" => $breadcrumb,
             "user" => null,
-            "userposition" => (new UserPosition()),
-            "church" => (new Church())
+            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
+            "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);
     }
 

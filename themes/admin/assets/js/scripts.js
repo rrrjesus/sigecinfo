@@ -69,6 +69,9 @@ $(function () {
             email: {
                 required: true
             },
+            level_id: {
+                required: true
+            },
             password: {
                 valsenha: true
             }
@@ -94,6 +97,9 @@ $(function () {
             },
             email: {
                 required: "Digite um email !!!"
+            },
+            level_id: {
+                required: "Digite um níve !!!"
             },
             password: {
                 valsenha: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere"

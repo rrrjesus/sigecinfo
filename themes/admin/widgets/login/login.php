@@ -3,7 +3,7 @@
 
 <link href="<?=theme("/assets/login/login_style.css", CONF_VIEW_ADMIN)?>" rel="stylesheet" />
 
-<div class="form-signin w-100 m-auto mt-2">
+<div class="form-signin w-100 m-auto mt-5">
     <form class="needs-validation" novalidate id="login" name="login" action="<?= url("/painel/login"); ?>" method="post" enctype="multipart/form-data">
 
         <?=csrf_input();?>

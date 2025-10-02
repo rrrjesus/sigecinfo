@@ -49,8 +49,6 @@
                             <td class="text-center"><?=statusBadge($lista->status);?>
                             <td class="text-center"><?=$lista->id;?></td>
                             <td class="text-center"><?=$lista->id;?></td>
-
-
                         </tr>
                         <?php endforeach; ?>
                         <?php } ?>

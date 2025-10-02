@@ -34,7 +34,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
 
                             <div class="col-8 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
@@ -53,7 +53,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
 
                             <div class="col-4 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputEmail"><strong><i class="bi bi-envelope-at me-1"></i> E-mail</strong></label>
@@ -96,7 +96,7 @@
 
                         </div>
 
-                        <div class="row">  
+                        <div class="row mb-3">  
 
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm"><strong><i class="bi bi-lock me-1"></i>Senha</strong></label>
@@ -107,7 +107,7 @@
 
                             </div>
 
-                        <div class="row">   
+                        <div class="row mb-3">   
                             
                             <div class="mb-3 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
@@ -162,7 +162,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
 
                             <div class="col-8 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
@@ -180,7 +180,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
 
                             <div class="col-3 mb-1">
                                 <label class="col-form-label col-form-label-sm" for="inputEmail"><strong><i class="bi bi-envelope-at me-1"></i> E-mail</strong></label>
@@ -237,7 +237,7 @@
 
                         </div>
 
-                        <div class="row">   
+                        <div class="row mb-3">   
                             
                             <div class="mb-3 mb-1">
                                 <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>

@@ -28,12 +28,15 @@ class Levels extends Admin
 
         $head = $this->seo->render("Níveis - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $levels = (new Level())->find()->order("level_name DESC")->fetch(true);
+
+        $breadcrumb = [
+            ["title" => "Nível", "link" => url("/painel/niveis")],
+            ["title" => "Listar"]
+        ];
         
         echo $this->view->render("widgets/company/levels/list", [
             "head" => $head,
-            "urls" => "niveis",
-            "namepage" => "Níveis",
-            "name" => "Lista",
+            "breadcrumb" => $breadcrumb,
             "levels" => $levels
         ]);
     }
