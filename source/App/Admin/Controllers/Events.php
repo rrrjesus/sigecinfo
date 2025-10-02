@@ -32,8 +32,14 @@ class Events extends Admin
 
         $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
         
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/eventos")],
+            ["title" => "Listar"]
+        ];
+
         echo $this->view->render("widgets/events/list", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "registers" => (object)["disabled" => (new Event())->find("status = :s", "s=canceled")->count()]
         ]);
     }
@@ -47,8 +53,14 @@ class Events extends Admin
 
         $head = $this->seo->render("Eventos Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
         
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/eventos/desabilitados")],
+            ["title" => "Listar Desabilitados"]
+        ];
+
         echo $this->view->render("widgets/events/disabledList", [
-            "head" => $head
+            "head" => $head,
+            "breadcrumb" => $breadcrumb
         ]);
     }
 
@@ -96,6 +108,12 @@ class Events extends Admin
         }
 
         $head = $this->seo->render("Registar Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
+
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/eventos/desabilitados")],
+            ["title" => "Listar Desabilitados"]
+        ];
+
         echo $this->view->render("widgets/events/form", [
             "head" => $head,
             "event" => null,

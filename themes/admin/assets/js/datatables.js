@@ -2,6 +2,48 @@ $(document).ready(function() {
 
     /**
      * ===================================================================
+     * FUNÇÃO HELPER PARA CONFIGURAÇÃO PADRÃO DO DATATABLES
+     * ===================================================================
+     */
+    function getDefaultDataTablesConfig(tableName, isServerSide = true) {
+        let config = {
+            destroy: true,
+            drawCallback: drawCallbackWithModals, // Callback padrão para os modais
+            buttons: [
+                { extend: 'excel', title: tableName, header: tableName, filename: tableName, className: 'btn btn-outline-success btn-sm mb-2', text: '<i class="bi bi-file-earmark-excel"></i>' },
+                { extend: 'print', exportOptions: { columns: ':visible' }, title: tableName, header: tableName, filename: tableName, orientation: 'portrait', className: 'btn btn-outline-secondary btn-sm mb-2', text: '<i class="bi bi-printer"></i>' },
+                { extend: 'colvis', titleAttr: 'Select Colunas', className: 'btn btn-outline-info btn-sm mb-2', text: '<i class="bi bi-list"></i>' }
+            ],
+            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
+                   "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
+                   "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
+            responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[2] || '') + ' ' + (data[3] || '') + ' - ' + (data[4] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+            },
+            "language": { /* ... sua configuração de idioma ... */ },
+            "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
+            "aaSorting": [0, 'asc']
+        };
+
+        // Adiciona as opções de server-side apenas se for necessário
+        if (isServerSide) {
+            config.processing = true;
+            config.serverSide = true;
+        }
+
+        return config;
+    }
+
+    /**
+     * ===================================================================
      * FUNÇÕES GLOBAIS DE AJUDA (HELPERS) PARA DATATABLES
      * ===================================================================
      */
@@ -218,11 +260,7 @@ $(document).ready(function() {
     });
 
     // Lista de Usuarios
-    var users = $('#users').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
-        processing: true,
-        serverSide: true,
+    var users = $('#users').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuarios"), {
         ajax: '../themes/admin/serverside/users.php',
         modalConfig: {
             toggleStatus: { id_col: 9, status_col: 7, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
@@ -244,37 +282,8 @@ $(document).ready(function() {
                     tooltip: 'Excluir ' + full[2], btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:
-                {display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return data[0] + ' ' + data[3];
-                },
-                update: true
-            }),
-            renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        // dom: "lBftipr",
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc'] /* 'desc' Carregar table decrescente e asc crescente*/
-    });
+        ]
+    }));
 
     $('div.dt-search input', users.table().container()).focus();
 
@@ -302,7 +311,6 @@ $(document).ready(function() {
         ],
         buttons: [
             {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
             {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
             {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
@@ -523,11 +531,7 @@ $(document).ready(function() {
     });
 
     // Tabela de Eventos
-    $('#events').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
-        processing: true,
-        serverSide: true,
+    $('#events').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
         ajax: '../themes/admin/serverside/events.php',
         modalConfig: {
             toggleStatus: { id_col: 7, status_col: 5, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
@@ -561,29 +565,8 @@ $(document).ready(function() {
                     });
                 }
             }
-        ],
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
     // Tabela de Eventos Desativados
     $('#disabledEvents').DataTable({
