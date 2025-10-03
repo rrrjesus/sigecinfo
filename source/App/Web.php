@@ -177,6 +177,7 @@ class Web extends Controller
             }
 
             echo json_encode($json);
+            
             return;
         }
 

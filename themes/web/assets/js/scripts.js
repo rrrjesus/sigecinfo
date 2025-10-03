@@ -48,67 +48,71 @@ $(function () {
     }, 'Sua senha deve ter pelo menos 8 caracteres e conter pelo menos um número e um caractere.');
 
 
+    
     $("#login").validate({
-        rules: {
-            email: {
-                required: true
-                // remote: "remote/valida-email.php"
-            },
-            password: {
-                required: true,
-                strongPassword: true
-            }
+    rules: {
+        email: {
+            required: true,
+            email: true
         },
-        messages: {
-            email: {
-                required: "Digite seu email !!!"
-                // remote: "Email não encontrado !!!"
-            },
-            password: {
-                required: "Digite sua senha !!!",
-                strongPassword: "Sua senha deve ter pelo menos 8 caracteres"
-            }
+        password: {
+            required: true,
+            strongPassword: true
         }
+    },
+    messages: {
+        email: {
+            required: "Digite seu email !!!",
+            email: "Por favor, digite um endereço de email válido."
+        },
+        password: {
+            required: "Digite sua senha !!!",
+            strongPassword: "Sua senha deve ter pelo menos 8 caracteres"
+        }
+    }
     });
 
     $("#forget").validate({
         rules: {
             email: {
-                required: true
-                // remote: "remote/valida-email.php"
+                required: true,
+                email: true
             }
         },
         messages: {
             email: {
-                required: "Digite seu email !!!"
-                // remote: "Email não encontrado !!!"
+                required: "Digite seu email !!!",
+                email: "Por favor, digite um endereço de email válido."
             }
         }
     });
+   
 
     $("#reset").validate({
         rules: {
             password: {
                 required: true,
-                strongPassword: true
+                strongPassword: true,
+                email: true
             },
             password_re: {
                 required: true,
                 strongPassword: true,
-                equalTo: "#password"
+                equalTo: "#password",
+                email: true
             }
         },
         messages: {
             password: {
                 required: "Digite sua senha !!!",
-                required: true,
-                strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere"
+                strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere",
+                email: "Por favor, digite um endereço de email válido."
             },
             password_re: {
                 required: "Redigite a sua senha !!!",
-                required: true,
                 strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere",
-                equalTo: "As senhas não conferem !!!"
+                equalTo: "As senhas não conferem !!!",
+                email: "Por favor, digite um endereço de email válido."
             }
         }
     });
@@ -151,26 +155,22 @@ $(function () {
     });
 
     //  data-bs-toggle-tooltip="tooltip" Bootstrap Title
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'));
+
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    });
 
-    // Mostrar senha no login
-    // let btn = document.querySelector('.bi-eye-slash');
-    
-    // btn.addEventListener('click', function() {
-    //     let input = document.querySelector('#password');
-    //     let span = document.querySelector('#bi-eye-slash');
+    const togglePasswordCheckbox = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#password');
 
-    //     if(input.getAttribute('type') == 'password') {
-    //         input.setAttribute('type', 'text');
-    //         span.setAttribute('class', 'bi bi-eye');
-    //     } else {
-    //         input.setAttribute('type', 'password');
-    //         span.setAttribute('class', 'bi bi-eye-slash');
-    //     }
-    // });
+    if (togglePasswordCheckbox && passwordField) {
+        togglePasswordCheckbox.addEventListener('change', function () {
+            // Verifica o tipo atual do campo e alterna para o outro
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+        });
+    }
     
     // scroll animate
     $("[data-go]").click(function (e) {

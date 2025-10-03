@@ -15,7 +15,6 @@
         "source/Boot/Helpers.php",
         "source/Boot/Minify/Web.php",
         "source/Boot/Minify/Beta.php",
-        "source/Boot/Minify/Iframe.php",
         "source/Boot/Minify/Admin.php"
         ]
     },

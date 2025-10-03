@@ -21,15 +21,15 @@
 </div>
 
 
-<header class="navbar navbar-expand-lg bd-navbar-<?=color_month()?> sticky-top">
+<header class="navbar navbar-expand-lg bd-navbar-secondary sticky-top">
 
 <style>
 /* Typeahead Color*/
 span.twitter-typeahead .tt-suggestion:focus, .dropdown-item:hover, span.twitter-typeahead .tt-suggestion:hover {
-    background-color: var(--bs-<?=color_month()?>);
+    background-color: var(--bs-secondary);
 }
 .ajax_load_box_circle {
-    border-top: 16px solid var(--bs-<?=color_month()?>);
+    border-top: 16px solid var(--bs-secondary);
 }
 </style>
 

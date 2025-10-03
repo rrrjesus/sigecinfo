@@ -13,7 +13,7 @@
 
 <nav class="container-md bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
         <a class="navbar-brand p-0 me-0 me-lg-2 fw-bold fs-4" href="/" aria-label="Sobre">
-            <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v3.png", CONF_VIEW_WEB)?>">
+            <img width="90" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v2.png", CONF_VIEW_WEB)?>">
         </a>
 
         <div class="d-flex">
@@ -26,7 +26,7 @@
 
         <div class="offcanvas-lg offcanvas-end flex-grow-1 navbar-collapse justify-content-md-center" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="true">
             <div class="offcanvas-header px-4 pb-0">
-                <div class="offcanvas-title text-light" id="bdNavbarOffcanvasLabel"><img width="130" height="40" src="<?=theme("/assets/images/ccb_logo/logo-ccb-light.png")?>"></div>
+                <div class="offcanvas-title text-light" id="bdNavbarOffcanvasLabel"><img width="90" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v2.png", CONF_VIEW_WEB)?>"></div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
             </div>
 
@@ -44,8 +44,7 @@
                     </li>
                 </ul>
 
-                <hr class="d-lg-none">
-
+                
                 <ul class="navbar-nav flex-row flex-wrap ms-md-auto">   
                     <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto">
                         <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
