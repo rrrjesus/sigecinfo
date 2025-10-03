@@ -84,9 +84,10 @@ $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Contro
  */
 $route->namespace("Source\App\Admin\Controllers");
 $route->group("/painel");
-$route->get("/", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->root($data); });
-$route->get("/login", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->login($data); });
-$route->post("/login", function ($data) use ($auth) { (new \Source\App\Admin\Login($auth))->login($data); });
+
+$route->get("/", function ($data) use ($auth) { (new \Source\App\Admin\Controllers\Login($auth))->root($data); });
+$route->get("/login", function ($data) use ($auth) { (new \Source\App\Admin\Controllers\Login($auth))->login($data); });
+$route->post("/login", function ($data) use ($auth) { (new \Source\App\Admin\Controllers\Login($auth))->login($data); });
 
 //Dash
 $route->get("/controle", "Dash:dash");

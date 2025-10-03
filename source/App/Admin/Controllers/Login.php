@@ -1,9 +1,10 @@
 <?php
 
-namespace Source\App\Admin;
+namespace Source\App\Admin\Controllers;
 
 use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
+use Source\App\Admin\Admin;
 
 /**
  * Class Login
@@ -20,7 +21,7 @@ class Login extends Controller
      */
     public function __construct(Auth $auth)
     {
-        parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN);
+        parent::__construct(__DIR__ . "/../../../../themes/" . CONF_VIEW_ADMIN);
         $this->auth = $auth;
     }
 

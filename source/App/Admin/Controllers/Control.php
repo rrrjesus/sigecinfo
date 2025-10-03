@@ -1,11 +1,12 @@
 <?php
 
-namespace Source\App\Admin;
+namespace Source\App\Admin\Controllers;
 
 use Source\Models\CafeApp\AppCreditCard;
 use Source\Models\CafeApp\AppPlan;
 use Source\Models\CafeApp\AppSubscription;
 use Source\Support\Pager;
+use Source\App\Admin\Admin;
 
 /**
  * Class Control

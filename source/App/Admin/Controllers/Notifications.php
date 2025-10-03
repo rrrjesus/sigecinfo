@@ -1,8 +1,9 @@
 <?php
 
-namespace Source\App\Admin;
+namespace Source\App\Admin\Controllers;
 
 use Source\Domain\Shared\Models\Notification;
+use Source\App\Admin\Admin;
 
 /**
  * Class Notifications

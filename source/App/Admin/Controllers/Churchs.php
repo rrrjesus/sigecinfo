@@ -31,7 +31,7 @@ class Churchs extends Admin
         $head = $this->seo->render("Igrejas - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $churchs = (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true);
         
-        echo $this->view->render("widgets/company/churchs/list", [
+        echo $this->view->render("widgets/churchs/list", [
             "head" => $head,
             "churchs" => $churchs,
             "registers" => (object)["disabled" => (new Church())->find("status = :s", "s=disabled")->count()]
@@ -48,7 +48,7 @@ class Churchs extends Admin
         $head = $this->seo->render("Igrejas Desativadas - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $churchs = (new Church())->find("status = :s", "s=disabled")->order("church_name ASC")->fetch(true);
 
-        echo $this->view->render("widgets/company/churchs/disabledList", [
+        echo $this->view->render("widgets/churchs/disabledList", [
             "head" => $head,
             "churchs" => $churchs
         ]);
@@ -108,7 +108,7 @@ class Churchs extends Admin
         }
 
         $head = $this->seo->render("Cadastrar Igreja - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
-        echo $this->view->render("widgets/company/churchs/church", [
+        echo $this->view->render("widgets/churchs/church", [
             "head" => $head,
             "church" => null
         ]);
@@ -181,7 +181,7 @@ class Churchs extends Admin
         }
 
         $head = $this->seo->render("Editar Igreja: {$churchUpdate->church_name}", CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
-        echo $this->view->render("widgets/company/churchs/church", [
+        echo $this->view->render("widgets/churchs/church", [
             "head" => $head,
             "church" => $churchUpdate
         ]);

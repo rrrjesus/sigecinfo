@@ -27,10 +27,12 @@ class Auth extends Model
      */
     public function __construct(View $view, Email $email)
     {
-        parent::__construct("users", ["id"], ["email", "password"]);
+      parent::__construct("users", ["id"], ["email", "password"]);
 
         $this->view = $view;
         $this->email = $email;
+        
+        $this->view->path("email", __DIR__ . "/../../../../shared/views/email");
     }
 
     /**
@@ -66,8 +68,8 @@ class Auth extends Model
             return false;
         }
 
-        $message = $this->view->render("confirm", [
-            "first_name" => $user->first_name,
+        $message = $this->view->render("email::confirm", [
+            "first_name" => $user->user_name, // Corrigido para user_name
             "confirm_link" => url("/obrigado/" . base64_encode($user->email))
         ]);
 

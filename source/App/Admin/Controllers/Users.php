@@ -39,7 +39,7 @@ class Users extends Admin
             ["title" => "Listar"]
         ];
 
-        echo $this->view->render("widgets/company/users/list", [
+        echo $this->view->render("widgets/users/list", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "registers" => (object)["disabled" => (new User())->find("status = :s", "s=disabled")->count()]
@@ -56,7 +56,7 @@ class Users extends Admin
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários Desativados", CONF_SITE_DESC, url("/painel"), null, false);
         $users = (new User())->find("status = :s", "s=disabled")->order("user_name ASC")->fetch(true);
 
-        echo $this->view->render("widgets/company/users/disabledList", [
+        echo $this->view->render("widgets/users/disabledList", [
             "head" => $head,
             "urls" => "usuarios",
             "namepage" => "Usuários",
@@ -130,7 +130,7 @@ class Users extends Admin
         ];
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Perfil de {$this->user->user_name}", CONF_SITE_DESC, url("/painel"), null, false);
-        echo $this->view->render("widgets/company/users/profile", [
+        echo $this->view->render("widgets/users/profile", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "profile" => $this->user,
@@ -197,7 +197,7 @@ class Users extends Admin
         ];
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Novo Usuário", CONF_SITE_DESC, url("/painel"), "", false);
-        echo $this->view->render("widgets/company/users/user", [
+        echo $this->view->render("widgets/users/user", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => null,
@@ -278,7 +278,7 @@ class Users extends Admin
         ];
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Editar Usuário: {$userEdit->user_name}", CONF_SITE_DESC, url("/painel"), "", false);
-        echo $this->view->render("widgets/company/users/user", [
+        echo $this->view->render("widgets/users/user", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => $userEdit,

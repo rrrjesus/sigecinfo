@@ -1,18 +1,13 @@
 <?php
 
-namespace Source\App\Admin;
+namespace Source\App\Admin\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
-use Source\Models\Patrimony\Brand;
-use Source\Models\Patrimony\Patrimony;
-use Source\Models\Patrimony\Product;
-use Source\Models\Report\Online;
+use Source\Domain\Report\Models\Online;
 use Source\Domain\Church\Models\Church;
 use Source\Domain\User\Models\User;
 use Source\Domain\User\Models\UserPosition;
-use Source\Models\Patrimony\Company;
-use Source\Models\Patrimony\Contract;
-use Source\Models\Patrimony\productType;
+use Source\App\Admin\Admin;
 
 /**
  * Class Dash
@@ -33,7 +28,7 @@ class Dash extends Admin
      */
     public function dash(): void
     {
-        redirect("/painel/usuarios");
+        redirect("/painel/controle/inicial");
     }
 
     /**
@@ -89,31 +84,6 @@ class Dash extends Admin
                 "users" => (new User())->find("level_id < 4")->count(),
                 "admins" => (new User())->find("level_id >= 4")->count(),
                 "totals" => (new User())->find()->count()
-            ],
-            "companies" => (object)[
-                "companies" => (new Company())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Company())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Company())->find()->count()
-            ],
-            "brands" => (object)[
-                "brands" => (new Brand())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Brand())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Brand())->find()->count()
-            ],
-            "products" => (object)[
-                "products" => (new Product())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Product())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Product())->find()->count()
-            ],
-            "productTypes" => (object)[
-                "productTypes" => (new productType())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new productType())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new productType())->find()->count()
-            ],
-            "contracts" => (object)[
-                "contracts" => (new Contract())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Contract())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Contract())->find()->count()
             ],
             "online" => (new Online())->findByActive(),
             "onlineCount" => (new Online())->findByActive(true)

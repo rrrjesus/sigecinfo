@@ -1,10 +1,11 @@
 <?php
 
-namespace Source\App\Admin;
+namespace Source\App\Admin\Controllers;
 
 use Source\Models\Faq\Channel;
 use Source\Models\Faq\Question;
 use Source\Support\Pager;
+use Source\App\Admin\Admin;
 
 /**
  * Class Faq

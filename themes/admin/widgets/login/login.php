@@ -1,6 +1,5 @@
 <?php $this->layout("_login"); ?>
 
-
 <link href="<?=theme("/assets/login/login_style.css", CONF_VIEW_ADMIN)?>" rel="stylesheet" />
 
 <div class="form-signin w-100 m-auto mt-5">
