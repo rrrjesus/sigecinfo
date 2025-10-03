@@ -27,14 +27,13 @@ class Auth extends Model
      */
     public function __construct(View $view, Email $email)
     {
-      parent::__construct("users", ["id"], ["email", "password"]);
+        parent::__construct("users", ["id"], ["email", "password"]);
 
         $this->view = $view;
         $this->email = $email;
         
-        $this->view->path("email", __DIR__ . "/../../../../shared/views/email");
+        $this->view->path("email", dirname(__DIR__, 4) . "/shared/views/email");
     }
-
     /**
      * @return null|User
      */
@@ -61,23 +60,24 @@ class Auth extends Model
      * @param User $user
      * @return bool
      */
-    public function register(User $user): bool
+     public function register(User $user): bool
     {
         if (!$user->save()) {
             $this->message = $user->message;
             return false;
         }
 
+        // Agora a chamada ao render usa o "apelido" 'email::'
         $message = $this->view->render("email::confirm", [
-            "first_name" => $user->user_name, // Corrigido para user_name
+            "first_name" => $user->user_name,
             "confirm_link" => url("/obrigado/" . base64_encode($user->email))
         ]);
 
         $this->email->bootstrap(
-            "Ative sua conta no " . CONF_SITE_NAME,
+            "Ative a sua conta no " . CONF_SITE_NAME,
             $message,
             $user->email,
-            "{$user->first_name} {$user->last_name}"
+            $user->user_name
         )->send();
 
         return true;
