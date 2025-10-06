@@ -23,17 +23,11 @@
                    data-bs-title="Digite seu email !!!">
         </div>
 
-        <label for="inputPassword" class="form-label fw-semibold text-golden"><i class="bi bi-lock pe-2"></i>Senha</label>
-        <div class="form-floating mb-3 mt-1">
+        <label for="password" class="form-label fw-semibold text-golden"><i class="bi bi-lock pe-2"></i>Senha</label>
+        <div class="form-floating mb-3 mt-1 password-wrapper">
             <input type="password" name="password" id="password" class="form-control" placeholder="********"
-                   data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!">
-        </div>
-
-        <div class="form-check text-start my-2">
-            <input class="form-check-input" type="checkbox" id="togglePassword">
-            <label class="form-check-label text-golden" for="togglePassword">
-                Mostrar a Senha <span class="badge rounded-pill text-bg-dark ps-2 text-golden" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"  data-bs-title="Selecione caso queira ver a senha" data-bs-custom-class="custom-tooltip-golden">?</span>
-            </label>
+                data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!" data-bs-custom-class="custom-tooltip-secondary">
+            <i class="bi bi-eye-slash toggle-password" id="togglePasswordIcon"></i>
         </div>
 
         <div class="d-flex justify-content-between align-items-center my-3">
@@ -52,9 +46,6 @@
     </form>
 
     <footer class="pt-3">
-        <div class="d-flex flex-column flex-sm-row justify-content-center pt-2 text-golden">
-            <p>&copy; 2025 Todos os direitos reservados.</p>
-        </div>
         <div class="d-flex flex-column flex-sm-row justify-content-center text-golden">
             <p></p> <a data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-golden" data-bs-title="GitHub do Desenvolvedor" class="text-decoration-none text-golden fw-bold" href="https://github.com/rrrjesus/sigecinfo" target="_blank" rel="noopener"><i class="bi bi-github"></i> @rrrjesus/siegcinfo</a></p>
             <ul class="list-unstyled d-flex">

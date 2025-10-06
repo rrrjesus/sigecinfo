@@ -9,7 +9,6 @@
 
     <form class="needs-validation" novalidate id="reset" action="<?=url("/recuperar/resetar")?>" method="post" enctype="multipart/form-data">
 
-        <h1 class="h3 mb-3 fw-normal text-center text-gray-700">Criar nova senha</h1>
         <p class="text-center fw-bold text-danger">A senha deve ter 8 caracteres, conter número e caracter.</p>
 
         <div class="ajax_response"><?= flash(); ?></div>

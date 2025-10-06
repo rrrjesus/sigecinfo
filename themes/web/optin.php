@@ -1,9 +1,17 @@
 <?php $this->layout("_theme"); ?>
 
-<article class="optin_page">
-    <div class="container content">
-        <div class="optin_page_content">
-            <img alt="<?= $data->title; ?>" title="<?= $data->title; ?>" src="<?= $data->image; ?>"/>
+<div class="row g-5 p-4">
+    <div class="col-8 text-center">
+        <h2 class="pb-4 mb-4 border-bottom">
+            Bem Vindo ao <?=CONF_SITE_NAME?>
+        </h2>
+    </div>
+</div>
+
+
+             <img class="title_image" title="Bem Vindo" alt="Cadastro de Usuários"
+                     src="<?=theme("/assets/images/optin-success.png"); ?>"/>
+
             <h1><?= $data->title; ?></h1>
             <p><?= $data->desc; ?></p>
             <?php if (!empty($data->link)): ?>

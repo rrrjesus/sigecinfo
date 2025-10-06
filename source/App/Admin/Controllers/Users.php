@@ -2,6 +2,7 @@
 
 namespace Source\App\Admin\Controllers;
 
+use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Church\Models\Church;
 use Source\Domain\User\Models\Level;
 use Source\Domain\User\Models\User;
@@ -16,12 +17,18 @@ use Source\App\Admin\Admin;
  */
 class Users extends Admin
 {
+    /** @var Auth */
+    private Auth $auth;
+
     /**
      * Users constructor.
+     * @param Auth $auth
      */
-    public function __construct()
+    
+    public function __construct(Auth $auth)
     {
         parent::__construct();
+        $this->auth = $auth;
     }
 
     /**
@@ -32,7 +39,6 @@ class Users extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários", CONF_SITE_DESC, url("/painel"), null, false);
-        $users = (new User())->find("status != :s", "s=disabled")->order("user_name ASC")->fetch(true);
 
         $breadcrumb = [
             ["title" => "Utilizadores", "link" => url("/painel/usuarios")],
@@ -173,22 +179,20 @@ class Users extends Admin
                 $userCreate->photo = $image;
             }
 
-            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == "" || $data["password"] == ""){
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
                 $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja, nivel e a senha para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
 
-            if (!$userCreate->save()) {
-                $json["message"] = $userCreate->message()->render();
+            if ($this->auth->register($userCreate)) {
+                $this->message->success("Utilizador {$userCreate->user_name} registrado! Um e-mail de confirmação foi enviado para {$userCreate->email}.")->flash();
+                $json["redirect"] = url("/painel/usuarios");
                 echo json_encode($json);
                 return;
+            } else {
+                $json['message'] = $this->auth->message()->before("Ooops! ")->render();
             }
-
-            $this->message->success("Usuário {$userCreate->user_name} cadastrado com sucesso!")->flash();
-            $json["redirect"] = url("/painel/usuarios");
-            echo json_encode($json);
-            return;
         }
 
         $breadcrumb = [
@@ -197,6 +201,7 @@ class Users extends Admin
         ];
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Novo Usuário", CONF_SITE_DESC, url("/painel"), "", false);
+
         echo $this->view->render("widgets/users/user", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
@@ -256,6 +261,12 @@ class Users extends Admin
 
             if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
                 $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja e o nivel para criar o registro !")->icon()->render();
+                echo json_encode($json);
+                return;
+            }
+
+             if ($userEdit->id === $this->user->id) {
+                $json['message'] = $this->message->warning("Para editar seu próprio usuário, acesse o perfil.")->icon()->render();
                 echo json_encode($json);
                 return;
             }

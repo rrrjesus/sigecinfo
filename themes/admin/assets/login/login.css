@@ -47,3 +47,16 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 30px; /* Posição do ícone dentro do campo */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d; /* Cor cinzenta do Bootstrap */
+}

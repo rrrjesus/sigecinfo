@@ -91,15 +91,29 @@ $(function () {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 
+    // Script para o checkbox que já existe
     const togglePasswordCheckbox = document.querySelector('#togglePassword');
     const passwordField = document.querySelector('#password');
 
     if (togglePasswordCheckbox && passwordField) {
         togglePasswordCheckbox.addEventListener('change', function () {
-            // Verifica o tipo atual do campo e alterna para o outro
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
         });
     }
 
+    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
+
+    if (togglePasswordIcon) {
+        togglePasswordIcon.addEventListener('click', function (e) {
+            // Alterna o tipo do campo de senha
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Alterna a classe do ícone entre 'olho aberto' e 'olho fechado'
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    }
+    
 });

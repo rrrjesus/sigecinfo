@@ -14,7 +14,7 @@ FROM users
 LEFT JOIN user_positions ON users.position_id = user_positions.id
 LEFT JOIN churchs ON users.church_id = churchs.id
 LEFT JOIN levels ON users.level_id = levels.id
-WHERE (((users.status) Like "actived")))temp
+WHERE (((users.status) != "disabled")))temp
 EOT;
 
 // Table's primary key

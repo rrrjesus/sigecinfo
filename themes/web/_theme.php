@@ -7,7 +7,7 @@
 
     <?= $head; ?>
 
-    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.png"); ?>"/>
+    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.ico"); ?>"/>
     <link rel="stylesheet" href="<?=theme("/assets/style.css?v=").color_month()."v1.8.0.6"; ?>"/>
     <link rel="stylesheet" href="<?= theme("/assets/login/login.css"); ?>"/>
 </head>

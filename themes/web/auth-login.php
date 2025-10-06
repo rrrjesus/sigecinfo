@@ -2,9 +2,11 @@
 
 <div class="form-signin w-100 m-auto mt-5 p-3 p-md-5">
 
-    <form class="needs-validation" novalidate id="login" action="<?= url("/entrar") ?>" method="post" >
+    <div class="text-center mb-1">
+        <img class="mb-2" src="<?= theme("/assets/images/logo/sigecinfo-logo-v2.png") ?>" alt="Logo SIGECINFO" width="150">
+    </div>
 
-        <h1 class="h3 mb-3 fw-normal text-center">Fazer login</h1>
+    <form class="needs-validation" novalidate id="login" action="<?= url("/entrar") ?>" method="post" >
 
         <div class="ajax_response"><?= flash(); ?></div>
 
@@ -15,20 +17,14 @@
             <div class="form-floating mb-3 mt-1">
             <input class="form-control" type="email" name="email" id="email" value="<?=($cookie ?? null)?>"
                    placeholder="nome@smsub.prefeitura.sp.gov.br" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"
-                   data-bs-title="Digite seu email !!!">
+                   data-bs-title="Digite seu email !!!" data-bs-custom-class="custom-tooltip-secondary">
         </div>
 
-        <label for="inputPassword" class="form-label fw-semibold"><i class="bi bi-lock pe-2"></i>Senha</label>
-        <div class="form-floating mb-3 mt-1">
+        <label for="password" class="form-label fw-semibold"><i class="bi bi-lock pe-2"></i>Senha</label>
+        <div class="form-floating mb-3 mt-1 password-wrapper">
             <input type="password" name="password" id="password" class="form-control" placeholder="********"
-                   data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!">
-        </div>
-
-        <div class="form-check text-start my-2">
-            <input class="form-check-input" type="checkbox" id="togglePassword">
-            <label class="form-check-label text-secondary" for="togglePassword">
-                Mostrar a Senha <span class="badge rounded-pill text-bg-secondary ps-2 text-white" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"  data-bs-title="Selecione caso queira ver a senha" data-bs-custom-class="custom-tooltip-secondary">?</span>
-            </label>
+                data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!" data-bs-custom-class="custom-tooltip-secondary">
+            <i class="bi bi-eye-slash toggle-password" id="togglePasswordIcon"></i>
         </div>
 
         <div class="d-flex justify-content-between align-items-center my-3">
@@ -55,9 +51,24 @@
 
     if (togglePasswordCheckbox && passwordField) {
         togglePasswordCheckbox.addEventListener('change', function () {
-            // Verifica o tipo atual do campo e alterna para o outro
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
+        });
+    }
+
+    // --- NOVO SCRIPT PARA O ÍCONE DE OLHO ---
+    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
+    // A variável passwordField já foi declarada acima
+
+    if (togglePasswordIcon) {
+        togglePasswordIcon.addEventListener('click', function (e) {
+            // Alterna o tipo do campo de senha
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Alterna a classe do ícone entre 'olho aberto' e 'olho fechado'
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
         });
     }
 </script>

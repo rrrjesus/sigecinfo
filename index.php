@@ -32,9 +32,7 @@ $route->group(null);
 // Rotas que não precisam de autenticação
 $route->get("/", function($data) use ($auth) { (new \Source\App\Web($auth))->home($data); });
 $route->get("/sobre", function($data) use ($auth) { (new \Source\App\Web($auth))->about($data); });
-// $route->get("/email", function($data) use ($auth) { (new \Source\App\Web($auth))->creatorCard($data); });
 $route->get("/reunioes", function($data) use ($auth) { (new \Source\App\Web($auth))->meetings($data); });
-// $route->get("/contatos", function($data) use ($auth) { (new \Source\App\Web($auth))->contact($data); });
 
 //optin
 $route->group(null);
@@ -49,20 +47,10 @@ $route->get("/termos", function($data) use ($auth) { (new \Source\App\Web($auth)
 $route->group(null);
 $route->get("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
 $route->post("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
-$route->get("/cadastrar", function($data) use ($auth) { (new \Source\App\Web($auth))->register($data); });
-$route->post("/cadastrar", function($data) use ($auth) { (new \Source\App\Web($auth))->register($data); });
 $route->get("/recuperar", function($data) use ($auth) { (new \Source\App\Web($auth))->forget($data); });
 $route->post("/recuperar", function($data) use ($auth) { (new \Source\App\Web($auth))->forget($data); });
 $route->get("/recuperar/{code}", function($data) use ($auth) { (new \Source\App\Web($auth))->reset($data); });
 $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\App\Web($auth))->reset($data); });
-
-/**
- * VIEWS ROUTES
- */
-// $route->namespace("Source\App");
-// $route->group("/iframes");
-// $route->get("/contatos", "Iframe:contact");
-// $route->get("/email", "Iframe:creatorCard");
 
 /**
  * APP ROUTES
@@ -96,8 +84,8 @@ $route->post("/controle/inicial", "Dash:home");
 $route->get("/logoff", "Dash:logoff");
 
 //Perfil do Usuário Logado
-$route->get("/perfil", "Users:profile");
-$route->post("/perfil", "Users:profile");
+$route->get("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
+$route->post("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 
 //Igrejas
 $route->get("/igrejas", "Churchs:churchs");
@@ -122,18 +110,20 @@ $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
 $route->get("/cargos/status/{userposition_id}", "UsersPositions:toggleStatus");
 $route->post("/cargos/excluir", "UsersPositions:delete");
 
-//Users (Rotas alinhadas com o controller Users.php refatorado)
-$route->get("/usuarios", "Users:users");
-$route->get("/usuarios/cadastrar", "Users:create");
-$route->post("/usuarios/cadastrar", "Users:create");
-$route->get("/usuarios/editar/{user_id}", "Users:edit");
-$route->post("/usuarios/editar/{user_id}", "Users:edit");
-$route->post("/usuarios/excluir", "Users:delete");
-$route->get("/usuarios/desativados", "Users:disabledUsers");
-$route->get("/usuarios/status/{user_id}", "Users:toggleStatus");
+//Users
+
+// No seu index.php
+
+//Users (Rotas agora a usar closures para injetar o $auth)
+$route->get("/usuarios", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->users($data); });
+$route->get("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });
+$route->post("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });
+$route->get("/usuarios/editar/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->edit($data); });
+$route->post("/usuarios/editar/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->edit($data); });
+$route->post("/usuarios/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->delete($data); });
+$route->get("/usuarios/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->disabledUsers($data); });
+$route->get("/usuarios/status/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->toggleStatus($data); });
 $route->get("/usuarios/json", "Users:listJson");
-$route->get("/usuarios/termo/{patrimonys_id}", "Users:term");
-$route->get("/usuarios/historico/termo/{patrimonys_id}", "Users:termHistory");
 
 //Tipos de Eventos
 $route->get("/tipos-de-eventos", "EventTypes:list");

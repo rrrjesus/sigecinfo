@@ -59,7 +59,7 @@
 
                         <div class="col-md-3 mb-1">
                             <label class="col-form-label col-form-label-md" for="password"><strong><i class="bi bi-lock me-1"></i> Senha</strong> <?= (!$user ? '<small>(Obrigatória no registo)</small>' : '<small>(Edite só para alteração)</small>'); ?></label>
-                            <input type="password" id="password" name="password" class="form-control form-control-md" autocomplete="new-password" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Padrão : Mudar12345?!">
+                            <input type="password" id="password" name="password" value="Mudar12345?!" class="form-control form-control-md" autocomplete="new-password" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Padrão : Mudar12345?!">
                         </div>
 
                         <div class="col-md-3 mb-1">

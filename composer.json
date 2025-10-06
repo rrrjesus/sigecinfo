@@ -35,6 +35,7 @@
         "coffeecode/optimizer": "2.*",
         "coffeecode/cropper": "2.*",
         "coffeecode/uploader": "2.*",
-        "twbs/bootstrap": "5.3.*"
+        "twbs/bootstrap": "5.3.*",
+        "sendgrid/sendgrid": "~7"
     }
 }

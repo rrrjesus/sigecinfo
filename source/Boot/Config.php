@@ -27,14 +27,9 @@ define("CONF_ADMIN_COLOR","dark");
 
 /**
  * MAIL
- */ 
-define("CONF_MAIL_HOST", "smtp.hostinger.com.br");
-define("CONF_MAIL_PORT", "587");
-define("CONF_MAIL_OPTION_LANG", "br");
-define("CONF_MAIL_OPTION_HTML", true);
-define("CONF_MAIL_OPTION_AUTH", true);
-define("CONF_MAIL_OPTION_SECURE", "tls");
-define("CONF_MAIL_OPTION_CHARSET", "utf-8");
+ */
+define("CONF_MAIL_SENDER", ["name" => "SIGECINFO", "address" => "rodolfo.romagnollo@gmail.com"]);
+
 
 /**
  * DATABASE
@@ -46,17 +41,15 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_USER", $env["DB_USER"] ?? "");
     define("CONF_DB_PASS", $env["DB_PASS"] ?? "");
     define("CONF_DB_NAME", $env["DB_NAME"] ?? "");
-    define("CONF_MAIL_USER", $env["MAIL_USER"] ?? "");
-    define("CONF_MAIL_PASS", $env["MAIL_PASS"] ?? "");
     define("CONF_MAIL_SUPPORT", $env["MAIL_SUPPORT"] ?? "");
+    define("CONF_SENDGRID_API_KEY", $env["SENDGRID_API_KEY"] ?? "");
 } else {
     define("CONF_DB_HOST", "");
     define("CONF_DB_USER", "");
     define("CONF_DB_PASS", "");
     define("CONF_DB_NAME", "");
-    define("CONF_MAIL_USER", "");
-    define("CONF_MAIL_PASS", "");
     define("CONF_MAIL_SUPPORT", "");
+    define("CONF_SENDGRID_API_KEY", "");
 }
 
 /**

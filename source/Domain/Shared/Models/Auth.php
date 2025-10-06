@@ -174,9 +174,9 @@ class Auth extends Model
 
         $user->forget = md5(uniqid(rand(), true));
         $user->save();
-        
-        $message = $this->view->render("forget", [
-            "first_name" => $user->first_name,
+
+        $message = $this->view->render("email::forget", [
+            "user_name" => $user->user_name,
             "forget_link" => url("/recuperar/{$user->email}|{$user->forget}")
         ]);
 
@@ -184,7 +184,7 @@ class Auth extends Model
             "Recupere sua senha no " . CONF_SITE_NAME,
             $message,
             $user->email,
-            "{$user->first_name} {$user->last_name}"
+            $user->user_name
         )->send();
 
         return true;

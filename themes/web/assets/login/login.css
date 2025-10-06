@@ -11,10 +11,10 @@
 .toggle-password {
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: 30px; /* Posição do ícone dentro do campo */
     transform: translateY(-50%);
     cursor: pointer;
-    color: #6c757d;
+    color: #6c757d; /* Cor cinzenta do Bootstrap */
 }
 
   .form-signin .form-floating:focus-within {
@@ -31,6 +31,10 @@
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+  }
+
+  .password-wrapper {
+    position: relative;
   }
 
 @media (max-width: 576px) {

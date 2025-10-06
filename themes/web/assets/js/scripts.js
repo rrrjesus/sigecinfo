@@ -92,27 +92,23 @@ $(function () {
         rules: {
             password: {
                 required: true,
-                strongPassword: true,
-                email: true
+                strongPassword: true
             },
             password_re: {
                 required: true,
                 strongPassword: true,
-                equalTo: "#password",
-                email: true
+                equalTo: "#password"
             }
         },
         messages: {
             password: {
                 required: "Digite sua senha !!!",
-                strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere",
-                email: "Por favor, digite um endereço de email válido."
+                strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere"
             },
             password_re: {
                 required: "Redigite a sua senha !!!",
                 strongPassword: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere",
-                equalTo: "As senhas não conferem !!!",
-                email: "Por favor, digite um endereço de email válido."
+                equalTo: "As senhas não conferem !!!"
             }
         }
     });

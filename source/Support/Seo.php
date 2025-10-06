@@ -60,7 +60,7 @@ class Seo
     public function render(string $title, string $description, string $url, ?string $image, bool $follow = true): string
     {
         // CORREÇÃO: Verifica se a imagem é nula. Se for, usa uma imagem padrão.
-        $imageUrl = $image ?? theme("/assets/images/avatar.jpg");
+        $imageUrl = $image ?? theme("/assets/images/favicon.ico");
 
         $this->optimizer->optimize($title, $description, $url, $imageUrl, $follow);
         return $this->optimizer->render();

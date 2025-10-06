@@ -39,7 +39,7 @@ class Web extends Controller
             CONF_SITE_NAME . " - " . CONF_SITE_TITLE,
             CONF_SITE_DESC,
             url(),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/share.png")
         );
 
         echo $this->view->render("home", [
@@ -56,7 +56,7 @@ class Web extends Controller
             "Descubra o " . CONF_SITE_NAME . " - " . CONF_SITE_DESC,
             CONF_SITE_DESC,
             url("/sobre"),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/favicon.png")
         );
 
         echo $this->view->render("about", [
@@ -75,7 +75,7 @@ class Web extends Controller
             "Reuniões - " . CONF_SITE_NAME ,
             "Reuniões do SIGECINFO",
             url("/reunioes"),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/share.png")
         );
 
         $meeting = (new Meeting())->find("status = :s", "s=actived")->fetch(true);
@@ -98,7 +98,7 @@ class Web extends Controller
     public function login(?array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta/perfil");
+            redirect("/beta");
         }
 
         if (!empty($data['csrf'])) {
@@ -115,7 +115,7 @@ class Web extends Controller
             }
 
             if (empty($data['email']) || empty($data['password'])) {
-                $json['message'] = $this->message->warning("Informe seu email e senha para entrar")->render();
+                $json['message'] = $this->message->warning("Informe seu email e senha para entrar !!!")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -134,7 +134,7 @@ class Web extends Controller
             return;
         }
 
-        $head = $this->seo->render("Entrar - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/entrar"), theme("/assets/images/share.jpg"));
+        $head = $this->seo->render("Entrar - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/entrar"), theme("/assets/images/share.png"));
         echo $this->view->render("auth-login", [
             "head" => $head,
             "cookie" => filter_input(INPUT_COOKIE, "authEmail")
@@ -181,7 +181,7 @@ class Web extends Controller
             return;
         }
 
-        $head = $this->seo->render("Recuperar Senha - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/recuperar"), theme("/assets/images/share.jpg"));
+        $head = $this->seo->render("Recuperar Senha - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/recuperar"), theme("/assets/images/share.png"));
         echo $this->view->render("auth-forget", ["head" => $head]);
     }
 
@@ -220,7 +220,7 @@ class Web extends Controller
             return;
         }
 
-        $head = $this->seo->render("Crie sua nova senha no " . CONF_SITE_NAME, CONF_SITE_DESC, url("/recuperar"), theme("/assets/images/share.jpg"));
+        $head = $this->seo->render("Crie sua nova senha no " . CONF_SITE_NAME, CONF_SITE_DESC, url("/recuperar"), theme("/assets/images/share.png"));
         echo $this->view->render("auth-reset", ["head" => $head, "code" => $data["code"]]);
     }
 
@@ -260,7 +260,7 @@ class Web extends Controller
             return;
         }
 
-        $head = $this->seo->render("Criar Conta - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/cadastrar"), theme("/assets/images/share.jpg"));
+        $head = $this->seo->render("Criar Conta - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/cadastrar"), theme("/assets/images/share.png"));
         echo $this->view->render("auth-register", ["head" => $head]);
     }
 
@@ -273,15 +273,15 @@ class Web extends Controller
             "Confirme Seu Cadastro - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
             url("/confirma"),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/share.png")
         );
 
         echo $this->view->render("optin", [
             "head" => $head,
             "data" => (object)[
                 "title" => "Falta pouco! Confirme seu cadastro.",
-                "desc" => "Enviamos um link de confirmação para seu e-mail. Acesse e siga as instruções para concluir seu cadastro e comece a controlar com o Siegcinfo",
-                "image" => theme("/assets/images/optin-confirm.jpg")
+                "desc" => "Enviamos um link de confirmação para seu e-mail. Acesse e siga as instruções para concluir seu cadastro e comece a controlar com o ". CONF_SITE_NAME,
+                "image" => theme("/assets/images/optin-confirm.png")
             ]
         ]);
     }
@@ -304,15 +304,15 @@ class Web extends Controller
             "Bem-vindo(a) ao " . CONF_SITE_NAME,
             CONF_SITE_DESC,
             url("/obrigado"),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/share.png")
         );
 
         echo $this->view->render("optin", [
             "head" => $head,
             "data" => (object)[
-                "title" => "Tudo pronto. Você já pode controlar :)",
-                "desc" => "Bem-vindo(a) ao seu controle de contas, vamos tomar um café?",
-                "image" => theme("/assets/images/optin-success.jpg"),
+                "title" => "Tudo pronto. Você já pode utilizar :)",
+                "desc" => "Bem-vindo(a) ao seu ".CONF_SITE_NAME .", vamos utilizar?",
+                "image" => theme("/assets/images/optin-success.png"),
                 "link" => url("/entrar"),
                 "linkTitle" => "Fazer Login"
             ],
@@ -332,7 +332,7 @@ class Web extends Controller
             CONF_SITE_NAME . " - Termos de uso",
             CONF_SITE_DESC,
             url("/termos"),
-            theme("/assets/images/share.jpg")
+            theme("/assets/images/share.png")
         );
 
         echo $this->view->render("terms", [
@@ -378,7 +378,7 @@ class Web extends Controller
             "{$error->code} | {$error->title}",
             $error->message,
             url("/ops/{$error->code}"),
-            theme("/assets/images/share.jpg"),
+            theme("/assets/images/share.png"),
             false
         );
 
