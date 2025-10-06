@@ -1,12 +1,8 @@
 <?= $this->layout("_theme", ["head" => $head]); ?>
 
-<div class="form-signin w-100 m-auto mt-5 p-5">
+<div class="form-signin w-100 m-auto mt-5 p-3 p-md-5">
 
-    <form class="needs-validation" novalidate id="login" action="<?= url("/entrar") ?>" method="post">
-
-        <div class="text-center mb-1">
-            <img class="mb-2" src="<?= theme("/assets/images/logo/sigecinfo-logo-v2.png") ?>" alt="Logo SIGECINFO" width="150">
-        </div>
+    <form class="needs-validation" novalidate id="login" action="<?= url("/entrar") ?>" method="post" >
 
         <h1 class="h3 mb-3 fw-normal text-center">Fazer login</h1>
 
@@ -51,6 +47,19 @@
     </form>
 </div>
 
-<!-- <?php $this->start("scripts"); ?>
-    <script src="<?= theme("/assets/login/login.js", CONF_VIEW_WEB); ?>"></script>
-<?php $this->end(); ?> -->
+<?php $this->start("scripts"); ?>
+
+<script>
+    const togglePasswordCheckbox = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#password');
+
+    if (togglePasswordCheckbox && passwordField) {
+        togglePasswordCheckbox.addEventListener('change', function () {
+            // Verifica o tipo atual do campo e alterna para o outro
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+        });
+    }
+</script>
+
+<?php $this->end(); ?> 

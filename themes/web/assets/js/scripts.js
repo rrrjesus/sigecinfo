@@ -160,17 +160,6 @@ $(function () {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
-
-    const togglePasswordCheckbox = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#password');
-
-    if (togglePasswordCheckbox && passwordField) {
-        togglePasswordCheckbox.addEventListener('change', function () {
-            // Verifica o tipo atual do campo e alterna para o outro
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-        });
-    }
     
     // scroll animate
     $("[data-go]").click(function (e) {
