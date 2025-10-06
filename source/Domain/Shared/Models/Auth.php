@@ -27,13 +27,13 @@ class Auth extends Model
      */
     public function __construct(View $view, Email $email)
     {
-        parent::__construct("users", ["id"], ["email", "password"], false);
+        parent::__construct("users", ["id"], ["email", "password"]);
 
         $this->view = $view;
         $this->email = $email;
         
-        $emailPath = dirname(__DIR__, 4) . "/shared/views/email";
-        $this->view->engine()->addFolder("email", $emailPath, true);
+        $this->view->path("email", dirname(__DIR__, 4) . "/shared/views/email");
+
     }
     /**
      * @return null|User

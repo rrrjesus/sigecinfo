@@ -1,0 +1,8 @@
+[error] [06:39:52] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user 'smsubcoti'@'rodolfo-cs01' (using password: NO)
+[error] [06:40:40] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user 'smsubcoti'@'rodolfo-cs01' (using password: NO)
+[error] [06:40:58] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2006] MySQL server has gone away
+[error] [06:41:24] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente
+[error] [06:42:34] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente
+[error] [06:45:13] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1130] Host 'rodolfo-cs01' is not allowed to connect to this MariaDB server
+[error] [06:45:21] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1130] Host 'rodolfo-cs01' is not allowed to connect to this MariaDB server
+[error] [06:45:21] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1130] Host 'rodolfo-cs01' is not allowed to connect to this MariaDB server
