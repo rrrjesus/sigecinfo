@@ -70,7 +70,7 @@ class Auth extends Model
 
         // Agora a chamada ao render usa o "apelido" 'email::'
         $message = $this->view->render("email::confirm", [
-            "first_name" => $user->user_name,
+            // "user_name" => $user->user_name,
             "confirm_link" => url("/obrigado/" . base64_encode($user->email))
         ]);
 

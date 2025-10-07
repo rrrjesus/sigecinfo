@@ -8,10 +8,10 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <?php if (!$user): // MODO DE CRIAÇÃO ?>
-                <form class="needs-validation" id="user" novalidate action="<?= url("/painel/usuarios/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+                <form class="needs-validation" id="userCreate" novalidate action="<?= url("/painel/usuarios/cadastrar"); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="create"/>
             <?php else: // MODO DE EDIÇÃO ?>
-                <form class="needs-validation" id="user" novalidate action="<?= url("/painel/usuarios/editar/{$user->id}"); ?>" method="post" enctype="multipart/form-data">
+                <form class="needs-validation" id="userUpdate" novalidate action="<?= url("/painel/usuarios/editar/{$user->id}"); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update"/>
             <?php endif; ?>
                     <?= csrf_input(); ?>
@@ -59,7 +59,7 @@
 
                         <div class="col-md-3 mb-1">
                             <label class="col-form-label col-form-label-md" for="password"><strong><i class="bi bi-lock me-1"></i> Senha</strong> <?= (!$user ? '<small>(Obrigatória no registo)</small>' : '<small>(Edite só para alteração)</small>'); ?></label>
-                            <input type="password" id="password" name="password" value="Mudar12345?!" class="form-control form-control-md" autocomplete="new-password" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Padrão : Mudar12345?!">
+                            <input type="password" id="password" name="password" class="form-control form-control-md" autocomplete="new-password" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Padrão : Mudar12345?!">
                         </div>
 
                         <div class="col-md-3 mb-1">
@@ -114,7 +114,7 @@
                     
                     <div class="row justify-content-center mt-4 mb-4">
                         <div class="col-auto">
-                            <?= button(["name" => ($user ? "Gravar" : "Registar"), "icon" => "check-circle", "btncolor" => "success"]); ?>
+                            <?= button(["name" => ($user ? "Gravar" : "Registrar"), "icon" => "check-circle", "btncolor" => "success"]); ?>
                             <?= button(["href" => "/painel/usuarios", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>

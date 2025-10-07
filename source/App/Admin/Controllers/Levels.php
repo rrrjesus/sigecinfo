@@ -34,7 +34,7 @@ class Levels extends Admin
             ["title" => "Listar"]
         ];
         
-        echo $this->view->render("widgets/company/levels/list", [
+        echo $this->view->render("widgets/levels/list", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "levels" => $levels

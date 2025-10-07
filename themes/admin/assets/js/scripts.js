@@ -45,65 +45,45 @@ $(function () {
             && /[a-z]/i.test(value);
     }, 'Sua senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere.');
 
-
-    $("#user").validate({
+    $("#userCreate").validate({
         rules: {
-            login: {
-                required: true
-            },
-            rf: {
-                required: true
-            },
-            user_name: {
-                required: true
-            },
-            position_id: {
-                required: true
-            },
-            category_id: {
-                required: true
-            },
-            church_id: {
-                required: true
-            },
-            email: {
-                required: true
-            },
-            level_id: {
-                required: true
-            },
-            password: {
-                valsenha: true
-            }
+            user_name: { required: true },
+            email: { required: true, email: true },
+            password: { required: true, valsenha: true }, // Senha é obrigatória aqui
+            password_re: { required: true, equalTo: "#password" },
+            church_id: { required: true },
+            position_id: { required: true },
+            level_id: { required: true }
         },
         messages: {
-            login: {
-                required: "Digite o login !!!"
-            },
-            rf: {
-                required: "Digite o RF !!!"
-            },
-            user_name: {
-                required: "Digite o sobrenome !!!"
-            },
-            position_id: {
-                required: "Digite o cargo !!!"
-            },
-            category_id: {
-                required: "Digite o regime !!!"
-            },
-            church_id: {
-                required: "Digite a igreja !!!"
-            },
-            email: {
-                required: "Digite um email !!!"
-            },
-            level_id: {
-                required: "Digite um níve !!!"
-            },
-            password: {
-                valsenha: "Sua nova senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere"
-            }
+            user_name: { required: "O nome é obrigatório." },
+            email: { required: "O e-mail é obrigatório.", email: "Digite um e-mail válido." },
+            password: { required: "A senha é obrigatória." },
+            password_re: { required: "Repita a senha.", equalTo: "As senhas não correspondem." },
+            church_id: { required: "Selecione uma igreja." },
+            position_id: { required: "Selecione um cargo." },
+            level_id: { required: "Selecione um nível de acesso." }
+        }
+    });
+
+    // Validação para o formulário de EDIÇÃO de utilizador
+    $("#userUpdate").validate({
+        rules: {
+            user_name: { required: true },
+            email: { required: true, email: true },
+            password: { valsenha: true },
+            password_re: { equalTo: "#password" },
+            church_id: { required: true },
+            position_id: { required: true },
+            level_id: { required: true }
+        },
+        messages: {
+            user_name: { required: "O nome é obrigatório." },
+            email: { required: "O e-mail é obrigatório.", email: "Digite um e-mail válido." },
+            password_re: { equalTo: "As senhas não correspondem." },
+            church_id: { required: "Selecione uma igreja." },
+            position_id: { required: "Selecione um cargo." },
+            level_id: { required: "Selecione um nível de acesso." }
         }
     });
 

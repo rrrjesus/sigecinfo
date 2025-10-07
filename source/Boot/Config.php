@@ -9,13 +9,13 @@ define("CONF_SITE_DESC", "Sistema de Gestão de Informações");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "sigecinfo.com.br");
 define("CONF_SITE_EMAIL", "informatica.setor11@informaticast11.online");
-define("CONF_SITE_ADDR_STREET", "Rua São Bento, 405 / Rua Líbero Badaró");
-define("CONF_SITE_ADDR_NUMBER", "504");
-define("CONF_SITE_ADDR_COMPLEMENT", "Edifício Martinelli - 23º e 24º andar");
-define("CONF_SITE_ADDR_NEIGHBORHOOD", "Centro");
+define("CONF_SITE_ADDR_STREET", "Rua José Buono");
+define("CONF_SITE_ADDR_NUMBER", "65");
+define("CONF_SITE_ADDR_COMPLEMENT", "Informática Setor 11");
+define("CONF_SITE_ADDR_NEIGHBORHOOD", "Jaçanã");
 define("CONF_SITE_ADDR_CITY", "São Paulo");
 define("CONF_SITE_ADDR_STATE", "São Paulo");
-define("CONF_SITE_ADDR_ZIPCODE", "01011-100");
+define("CONF_SITE_ADDR_ZIPCODE", "02273-120");
 
 /**
  * COLORS

@@ -193,6 +193,17 @@ class Users extends Admin
             } else {
                 $json['message'] = $this->auth->message()->before("Ooops! ")->render();
             }
+
+            // if (!$userCreate->save()) {
+            // $json["message"] = $userCreate->message()->render();
+            // echo json_encode($json);
+            // return;
+            // }
+
+            // $this->message->success("Usuário {$userCreate->user_name} cadastrado com sucesso!")->flash();
+            //     $json["redirect"] = url("/painel/usuarios");
+            //     echo json_encode($json);
+            //     return;
         }
 
         $breadcrumb = [
