@@ -3,11 +3,11 @@
 namespace Source\App\Admin\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
-use Source\Domain\Report\Models\Online;
-use Source\Domain\Church\Models\Church;
-use Source\Domain\User\Models\User;
-use Source\Domain\User\Models\UserPosition;
 use Source\App\Admin\Admin;
+use Source\Domain\Report\Models\Online;
+use Source\Domain\Church\ChurchRepository;
+use Source\Domain\User\UserRepository;
+use Source\Domain\User\UserPositionRepository;
 
 /**
  * Class Dash
@@ -67,24 +67,20 @@ class Dash extends Admin
             false
         );
 
+        // Instancia os Repositories
+        $churchRepo = new ChurchRepository();
+        $userRepo = new UserRepository();
+        $userPositionRepo = new UserPositionRepository();
+
         echo $this->view->render("widgets/dash/home", [
             "app" => "dash",
             "head" => $head,
-            "churchs" => (object) [
-                "churchs" => (new Church())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new Church())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new Church())->find()->count()
-            ],
-            "userspositions" => (object)[
-                "userspositions" => (new UserPosition())->find("status = :s", "s=actived")->count(),
-                "disableds" => (new UserPosition())->find("status = :s", "s=disabled")->count(),
-                "totals" => (new UserPosition())->find()->count()
-            ],
-            "users" => (object)[
-                "users" => (new User())->find("level_id < 4")->count(),
-                "admins" => (new User())->find("level_id >= 4")->count(),
-                "totals" => (new User())->find()->count()
-            ],
+            
+            // AGORA APENAS CHAMA OS MÉTODOS DOS REPOSITÓRIOS
+            "churchs" => $churchRepo->getStatusCounts(),
+            "users" => $userRepo->getLevelCounts(),
+            "userspositions" => $userPositionRepo->getStatusCounts(),
+            
             "online" => (new Online())->findByActive(),
             "onlineCount" => (new Online())->findByActive(true)
         ]);

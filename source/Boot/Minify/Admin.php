@@ -1,6 +1,6 @@
 <?php
 // A condição verifica se o domínio da URL atual NÃO é o seu domínio de produção.
-if (strpos(url(), CONF_SITE_DOMAIN) === false) {
+if (strpos(url(), CONF_URL_BASE) === false) {
     /**
      * CSS
      */

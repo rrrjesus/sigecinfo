@@ -11,23 +11,6 @@ namespace Source\Boot;
  */
 class Password
 {
-    /**
-     * Configurações de senha
-     */
-    public static function config(): void
-    {
-        // Tamanho mínimo da senha (8 caracteres)
-        define("CONF_PASSWD_MIN_LEN", 8);
-        
-        // Tamanho máximo da senha (40 caracteres)
-        define("CONF_PASSWD_MAX_LEN", 40);
-        
-        // Algoritmo de hash (PASSWORD_DEFAULT usa o algoritmo mais forte disponível)
-        define("CONF_PASSWD_ALGO", PASSWORD_DEFAULT);
-        
-        // Opções para o algoritmo de hash
-        define("CONF_PASSWD_OPTION", ["cost" => 10]);
-    }
     
     /**
      * Valida uma senha com regras mais robustas

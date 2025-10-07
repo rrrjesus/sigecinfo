@@ -83,7 +83,7 @@ $route->get("/controle/inicial", "Dash:home");
 $route->post("/controle/inicial", "Dash:home");
 $route->get("/logoff", "Dash:logoff");
 
-//Perfil do Usuário Logado
+//Perfil do Usuário Logado (closures para injetar o $auth)
 $route->get("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 $route->post("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 
@@ -114,7 +114,7 @@ $route->post("/cargos/excluir", "UsersPositions:delete");
 
 // No seu index.php
 
-//Users (Rotas agora a usar closures para injetar o $auth)
+//Users (closures para injetar o $auth)
 $route->get("/usuarios", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->users($data); });
 $route->get("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });
 $route->post("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });

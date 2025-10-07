@@ -1,12 +1,12 @@
 <?php
-namespace Source\Domain\Church;
+namespace Source\Domain\User;
 
-use Source\Domain\Church\Models\Church;
+use Source\Domain\User\Models\UserPosition;
 
-class ChurchRepository
+class UserPositionRepository
 {
     private $model;
-    public function __construct() { $this->model = new Church(); }
+    public function __construct() { $this->model = new UserPosition(); }
 
     public function getStatusCounts(): object
     {

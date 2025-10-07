@@ -122,6 +122,8 @@ abstract class Model
      */
     public function find(?string $terms = null, $params = null, string $columns = "*")
     {
+        $this->params = null;
+        
         if ($terms) {
             $this->query = "SELECT {$columns} FROM {$this->entity} WHERE {$terms}";
             parse_str($params ?? "", $this->params);
