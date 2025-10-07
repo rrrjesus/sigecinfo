@@ -1,5 +1,7 @@
 <?php
-// A condição verifica se o domínio da URL atual NÃO é o seu domínio de produção.
+
+// A condição verifica se o domínio (CONF_SITE_DOMAIN) ou (CONF_URL_BASE)da URL atual NÃO é o seu domínio de produção.
+
 if (strpos(url(), CONF_URL_BASE) === false) {
     /**
      * CSS

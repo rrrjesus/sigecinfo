@@ -114,7 +114,7 @@
                     
                     <div class="row justify-content-center mt-4 mb-4">
                         <div class="col-auto">
-                            <?= button(["name" => ($user ? "Gravar" : "Registar Utilizador"), "icon" => "check-circle", "btncolor" => "success"]); ?>
+                            <?= button(["name" => ($user ? "Gravar" : "Registar"), "icon" => "check-circle", "btncolor" => "success"]); ?>
                             <?= button(["href" => "/painel/usuarios", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>
