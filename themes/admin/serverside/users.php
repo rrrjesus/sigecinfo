@@ -51,12 +51,24 @@ $columns = array(
     array('db' => 'email', 'dt' => 6),
     array('db' => 'status', 'dt' => 7,
         'formatter' => function($d) {
-            if ($d == 'disabled') {
-                return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
-            } else {
-                return '<span class="badge text-bg-success ms-2">ATIVO</span>';
+            switch ($d) {
+                case 'registered':
+                    return '<span class="badge text-bg-warning ms-2">REGISTRADO</span>';
+                    break;
+                case 'confirmed':
+                    return '<span class="badge text-bg-success text-light ms-2">CONFIRMADO</span>';
+                    break;
+                case 'actived':
+                    return '<span class="badge text-bg-success text-light ms-2">ATIVADO</span>';
+                    break;
+                case 'disabled':
+                    return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
+                    break;
+                default:
+                    return '<span class="badge text-bg-secondary ms-2">INDEFINIDO</span>';
+                    break;
+                }
             }
-        }
     ),
     array('db' => 'level_name', 'dt' => 8),
     array('db' => 'id', 'dt' => 9),

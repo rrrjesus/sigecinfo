@@ -40,7 +40,7 @@ class Online extends Model
         return $find->fetch(true);
     }
 
-    /**
+/**
      * @param bool $clear
      * @return Online
      */
@@ -51,10 +51,18 @@ class Online extends Model
         if ($clear) {
             $this->clear();
         }
+        
+        $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRIPPED);
+        $baseUrl = parse_url(url(), PHP_URL_PATH) ?? "";
+        
+        // Remove a base da URL para guardar apenas a rota limpa
+        $cleanUrl = str_replace($baseUrl, "", $requestUri);
+        $url = ($cleanUrl == "" ? "/" : $cleanUrl);
+
 
         if (!$session->has("online")) {
             $this->user = ($session->authUser ?? null);
-            $this->url = (filter_input(INPUT_GET, "route", FILTER_SANITIZE_STRIPPED) ?? "/");
+            $this->url = $url; // Guarda a URL limpa
             $this->ip = filter_input(INPUT_SERVER, "REMOTE_ADDR");
             $this->agent = filter_input(INPUT_SERVER, "HTTP_USER_AGENT");
 
@@ -70,7 +78,7 @@ class Online extends Model
         }
 
         $find->user = ($session->authUser ?? null);
-        $find->url = (filter_input(INPUT_GET, "route", FILTER_SANITIZE_STRIPPED) ?? "/");
+        $find->url = $url; // Guarda a URL limpa
         $find->pages += 1;
         $find->save();
 

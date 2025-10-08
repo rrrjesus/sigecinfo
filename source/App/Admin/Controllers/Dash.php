@@ -6,6 +6,7 @@ use Source\Domain\Shared\Models\Auth;
 use Source\App\Admin\Admin;
 use Source\Domain\Report\Models\Online;
 use Source\Domain\Church\ChurchRepository;
+use Source\Domain\Event\EventRepository;
 use Source\Domain\User\UserRepository;
 use Source\Domain\User\UserPositionRepository;
 
@@ -67,19 +68,19 @@ class Dash extends Admin
             false
         );
 
-        // Instancia os Repositories
+         // Instancia os Repositories
         $churchRepo = new ChurchRepository();
         $userRepo = new UserRepository();
         $userPositionRepo = new UserPositionRepository();
+        $eventRepo = new EventRepository(); // <-- Instancia o novo Repository
 
         echo $this->view->render("widgets/dash/home", [
             "app" => "dash",
             "head" => $head,
-            
-            // AGORA APENAS CHAMA OS MÉTODOS DOS REPOSITÓRIOS
             "churchs" => $churchRepo->getStatusCounts(),
             "users" => $userRepo->getLevelCounts(),
             "userspositions" => $userPositionRepo->getStatusCounts(),
+            "events" => $eventRepo->getDashboardCounts(), 
             
             "online" => (new Online())->findByActive(),
             "onlineCount" => (new Online())->findByActive(true)
