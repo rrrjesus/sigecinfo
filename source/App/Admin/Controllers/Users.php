@@ -62,11 +62,14 @@ class Users extends Admin
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários Desativados", CONF_SITE_DESC, url("/painel"), null, false);
         $users = (new User())->find("status = :s", "s=disabled")->order("user_name ASC")->fetch(true);
 
+         $breadcrumb = [
+            ["title" => "Utilizadores Desativados", "link" => url("/painel/usuarios/desativados")],
+            ["title" => "Listar"]
+        ];
+
         echo $this->view->render("widgets/users/disabledList", [
             "head" => $head,
-            "urls" => "usuarios",
-            "namepage" => "Usuários",
-            "name" => "Listar Desativados",
+            "breadcrumb" => $breadcrumb,
             "users" => $users
         ]);
     }
@@ -338,6 +341,7 @@ class Users extends Admin
 
         $this->message->success("Usuário {$userDelete->user_name} excluído com sucesso.")->flash();
         redirect(url_back());
+        
     }
 
   /**
@@ -363,7 +367,7 @@ class Users extends Admin
 
         // Lógica de status mais robusta
         $currentStatus = $user->status;
-        $newStatus = (in_array($currentStatus, ["actived", "confirmed", "registered"]) ? "disabled" : "actived");
+        $newStatus = (in_array($currentStatus, ["actived", "registered"]) ? "disabled" : "actived");
         $user->status = $newStatus;
         $user->login_updated = $this->user->id;
 

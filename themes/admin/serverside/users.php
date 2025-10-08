@@ -55,9 +55,6 @@ $columns = array(
                 case 'registered':
                     return '<span class="badge text-bg-warning ms-2">REGISTRADO</span>';
                     break;
-                case 'confirmed':
-                    return '<span class="badge text-bg-success text-light ms-2">CONFIRMADO</span>';
-                    break;
                 case 'actived':
                     return '<span class="badge text-bg-success text-light ms-2">ATIVADO</span>';
                     break;

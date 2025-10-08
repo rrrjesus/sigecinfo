@@ -36,6 +36,12 @@ abstract class Model
     /** @var int */
     protected $offset;
 
+    /** @var string */
+    protected $group;
+
+    /** @var string */
+    protected $having;
+
     /** @var string $entity database table */
     protected $entity;
 
@@ -126,7 +132,13 @@ abstract class Model
         
         if ($terms) {
             $this->query = "SELECT {$columns} FROM {$this->entity} WHERE {$terms}";
-            parse_str($params ?? "", $this->params);
+            if($params){
+                if(is_string($params)){
+                    parse_str($params, $this->params);
+                } else {
+                    $this->params = $params;
+                }
+            }
             return $this;
         }
 
@@ -176,17 +188,41 @@ abstract class Model
     }
 
     /**
+     * @param string $columns
+     * @return Model
+     */
+    public function group(string $columns): Model
+    {
+        $this->group = " GROUP BY {$columns}";
+        return $this;
+    }
+
+    /**
+     * @param string $having
+     * @return Model
+     */
+    public function having(string $having): Model
+    {
+        $this->having = " HAVING {$having}";
+        return $this;
+    }
+
+    /**
      * @param bool $all
      * @return null|array|mixed|Model
      */
-    public function fetch(bool $all = false)
+    public function fetch(bool $all = false, bool $object = false)
     {
         try {
-            $stmt = Connect::getInstance()->prepare($this->query . $this->order . $this->limit . $this->offset);
+            $stmt = Connect::getInstance()->prepare($this->query . $this->group . $this->having . $this->order . $this->limit . $this->offset);
             $stmt->execute($this->params);
 
             if (!$stmt->rowCount()) {
                 return null;
+            }
+
+            if ($object) {
+                return $stmt->fetchAll(\PDO::FETCH_OBJ);
             }
 
             if ($all) {
@@ -206,9 +242,21 @@ abstract class Model
      */
     public function count(string $key = "id"): int
     {
-        $stmt = Connect::getInstance()->prepare($this->query);
-        $stmt->execute($this->params);
-        return $stmt->rowCount();
+        $query = $this->query;
+        if (empty($query)) {
+            $query = "SELECT COUNT({$key}) as count FROM {$this->entity}";
+        } else {
+            $query = preg_replace('/^SELECT .* FROM/i', "SELECT COUNT({$key}) as count FROM", $query, 1);
+        }
+
+        try {
+            $stmt = Connect::getInstance()->prepare($query);
+            $stmt->execute($this->params);
+            return (int)($stmt->fetch()->count ?? 0);
+        } catch (\PDOException $exception) {
+            $this->fail = $exception;
+            return 0;
+        }
     }
 
     /**
@@ -294,7 +342,7 @@ abstract class Model
      */
     public function lastId(): int
     {
-        return Connect::getInstance()->query("SELECT MAX(id) as maxId FROM {$this->entity}")->fetch()->maxId + 1;
+        return $this->count() + 1;
     }
 
     /**

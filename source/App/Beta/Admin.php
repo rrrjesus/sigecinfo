@@ -5,6 +5,8 @@ namespace Source\App\Beta;
 use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
 use Source\Core\Session;
+use Source\Domain\Report\Models\Access;
+use Source\Domain\Report\Models\Online;
 
 /**
  * Class Admin
@@ -26,6 +28,9 @@ class Admin extends Controller
     {
         parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_APP);
 
+        (new Access())->report();
+        (new Online())->report();
+
         $this->auth = $auth;
         $this->user = Auth::user();
 
@@ -40,7 +45,7 @@ class Admin extends Controller
         }
 
         //UNCONFIRMED EMAIL
-        if ($this->user->status != "confirmed") {
+        if ($this->user->status != "actived") {
             $session = new Session();
             if (!$session->has("appconfirmed")) {
                 $this->message->info("IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro.")->flash();

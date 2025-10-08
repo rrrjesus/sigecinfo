@@ -23,7 +23,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/igrejas/listar'); ?>" class="text-white text-decoration-none">Igrejas</a></div>
+                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/igrejas'); ?>" class="text-white text-decoration-none">Igrejas</a></div>
                                             <div class="h6 mb-1">Ativas: <span class="badge bg-light text-dark"><?= $churchs->actived; ?></span></div>
                                             <div class="h6 mb-1">Desativadas: <span class="badge bg-light text-dark"><?= $churchs->disabled; ?></span></div>
                                             <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $churchs->total; ?></span></div>
@@ -43,7 +43,7 @@
                                                 <a href="<?= url('/painel/cargos'); ?>" class="text-white text-decoration-none">Cargos</a>
                                             </div>
                                             <div class="h6 mb-1">Ativos: <span class="badge bg-light text-dark"><?= $userspositions->actived; ?></span></div>
-                                            <div class="h6 mb-1">Inativos: <span class="badge bg-light text-dark"><?= $userspositions->disabled; ?></span></div>
+                                            <div class="h6 mb-1">Desativados: <span class="badge bg-light text-dark"><?= $userspositions->disabled; ?></span></div>
                                             <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $userspositions->total; ?></span></div>
                                         </div>
                                         <div class="col-auto">
@@ -59,7 +59,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/usuarios/listar'); ?>" class="text-white text-decoration-none">Utilizadores</a></div>
+                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/usuarios'); ?>" class="text-white text-decoration-none">Utilizadores</a></div>
                                             <div class="h6 mb-1">Utilizadores: <span class="badge bg-light text-dark"><?= $users->users; ?></span></div>
                                             <div class="h6 mb-1">Admins: <span class="badge bg-light text-dark"><?= $users->admins; ?></span></div>
                                             <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $users->total; ?></span></div>
@@ -76,7 +76,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/eventos/listar'); ?>" class="text-white text-decoration-none">Eventos</a></div>
+                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/eventos'); ?>" class="text-white text-decoration-none">Eventos</a></div>
                                             <div class="h6 mb-1">Próximos: <span class="badge bg-light text-dark"><?= $events->upcoming; ?></span></div>
                                             <div class="h6 mb-1">Realizados: <span class="badge bg-light text-dark"><?= $events->past; ?></span></div>
                                             <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $events->total; ?></span></div>
@@ -160,9 +160,11 @@
                     if (response.list && response.list.length > 0) {
                         var newRows = [];
                         $.each(response.list, function (item, data) {
-                        var url = '<?= url();?>' + data.url;
-                        var link = "<a target='_blank' href='" + url + "'>" + data.url + "</a>" +
-                                "<br><small>(" + data.time + ")</small>";
+                        var absoluteUrl = '<?= url();?>' + data.url;
+                        var cleanUrl = data.url; // A URL já vem limpa do PHP
+                        
+                        var link = "<a target='_blank' href='" + absoluteUrl + "'><b><?= strtolower(CONF_SITE_NAME);?></b>" + cleanUrl + "</a>" +
+                                    "<br><small>(" + data.time + ")</small>";
                             
                             newRows.push([
                                 data.user,

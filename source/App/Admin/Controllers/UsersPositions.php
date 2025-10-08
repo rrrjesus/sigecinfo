@@ -67,8 +67,8 @@ class UsersPositions extends Admin
 
         echo $this->view->render("widgets/users/positions/disabledList",
             [
-                "admin" => "cargos",
                 "head" => $head,
+                "breadcrumb" => $breadcrumb,
                 "userspositions" => $userspositions
             ]);
 
@@ -101,8 +101,15 @@ class UsersPositions extends Admin
         }
 
         $head = $this->seo->render("Cadastrar Cargo - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/cargos"), null, false);
+
+        $breadcrumb = [
+            ["title" => "Cargos", "link" => url("/painel/cargos")],
+            ["title" => "Cadastrar"]
+        ];
+
         echo $this->view->render("widgets/users/positions/userposition", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "userposition" => null
         ]);
     }
@@ -141,8 +148,15 @@ class UsersPositions extends Admin
         }
 
         $head = $this->seo->render("Editar Cargo: {$positionUpdate->position_name}", CONF_SITE_DESC, url("/painel/cargos"), null, false);
+
+        $breadcrumb = [
+            ["title" => "Cargos", "link" => url("/painel/cargos")],
+            ["title" => "Editar"]
+        ];
+
         echo $this->view->render("widgets/users/positions/userposition", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "userposition" => $positionUpdate
         ]);
     }

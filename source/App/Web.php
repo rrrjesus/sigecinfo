@@ -295,8 +295,8 @@ class Web extends Controller
         $email = base64_decode($data["email"]);
         $user = (new User())->findByEmail($email);
 
-        if ($user && $user->status != "confirmed") {
-            $user->status = "confirmed";
+        if ($user && $user->status != "actived") {
+            $user->status = "actived";
             $user->save();
         }
 

@@ -46,7 +46,7 @@ class App extends Controller
         (new Online())->report();
 
         //UNCONFIRMED EMAIL
-        if ($this->user->status != "confirmed") {
+        if ($this->user->status != "actived") {
             $session = new Session();
             if (!$session->has("appconfirmed")) {
                 $this->message->info("IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro e ativar todos os recursos.")->flash();

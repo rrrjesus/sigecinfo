@@ -5,6 +5,8 @@ namespace Source\App\Admin;
 use Source\Core\Controller;
 use Source\Core\Session;
 use Source\Domain\Shared\Models\Auth;
+use Source\Domain\Report\Models\Access;
+use Source\Domain\Report\Models\Online;
 
 /**
  * Class Admin
@@ -20,6 +22,9 @@ class Admin extends Controller
      */
     public function __construct()
     {
+        (new Access())->report();
+        (new Online())->report();
+        
         parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN);
 
         $this->user = Auth::user();

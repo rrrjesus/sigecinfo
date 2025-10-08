@@ -550,7 +550,6 @@ function user_status_options(?string $currentStatus): string
 {
     $statuses = [
         'registered' => 'Registrado',
-        'confirmed' => 'Confirmado',
         'actived' => 'Ativado',
         'disabled' => 'Desativado'
     ];
@@ -742,7 +741,6 @@ function status_name(string $status): string
 {
     $names = [
         'registered' => 'REGISTRADO',
-        'confirmed' => 'CONFIRMADO',
         'actived' => 'ATIVADO',
         'disabled' => 'DESATIVADO'
     ];
@@ -761,11 +759,11 @@ function status_name(string $status): string
         return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
                     Registrado</span>';
-    } elseif ($status == "confirmed") {
+    } elseif ($status == "actived") {
         return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
-                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">CONFIRMADO</span>';
+                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">ATIVADO</span>';
     } else {
-        return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">INATIVO</span>';
+        return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">DESATIVADO</span>';
     }
     return null; 
     }

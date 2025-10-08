@@ -110,7 +110,7 @@ $(document).ready(function() {
             $.each(data, function(index, rowData) {
                 if (config.toggleStatus) {
                     var statusConfig = config.toggleStatus;
-                    var isActived = (String(rowData[statusConfig.status_col]).toLowerCase().includes("ativo") || String(rowData[statusConfig.status_col]).toLowerCase().includes("confirmado") || String(rowData[statusConfig.status_col]).toLowerCase().includes("registrado"));
+                    var isActived = (String(rowData[statusConfig.status_col]).toLowerCase().includes("ativado") || String(rowData[statusConfig.status_col]).toLowerCase().includes("registrado"));
                     appendActionModal({
                         action: 'toggleStatus', id: rowData[statusConfig.id_col], name: rowData[statusConfig.name_col],
                         method: 'GET',
@@ -142,10 +142,8 @@ $(document).ready(function() {
      * ===================================================================
      */
 
-   // Table Cargos
-   $('#userspositions').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
+    // Table Cargos
+    $('#userspositions').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Cargos", false), {
         modalConfig: {
             toggleStatus: { id_col: 4, status_col: 3, name_col: 1, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
             delete: { id_col: 5, name_col: 1, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo'}
@@ -163,90 +161,30 @@ $(document).ready(function() {
                     btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Cargos',header: 'Cargos',filename:'Cargos',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            //{extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Cargos',header: 'Cargos',filename:'Cargos',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Cargos',header: 'Cargos',filename:'Cargos',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-                "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-                "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-                "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-        {details:
-            {display: DataTable.Responsive.display.modal({
-                    header: function (row) {
-                        var data = row.data();
-                        return data[0] + ' ' + data[1];
-            },
-            update: true
-        }),
-        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        // dom: "lBftipr",
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
-
+        ]
+    }));
+        
     // Cargos Desativados
-    $('#userspositionsDisabled').DataTable({
-               destroy: true,
-        drawCallback: drawCallbackWithModals,
+    $('#userspositionsDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Cargos Desativados", false), {
         modalConfig: {
-            toggleStatus: { id_col: 4, status_col: 3, name_col: 1, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
-            delete: { id_col: 5, name_col: 1, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo'}
+            toggleStatus: { id_col: 3, status_col: 2, name_col: 0, base_url: '/painel/cargos/status/', item_name: 'o cargo' },
+            delete: { id_col: 4, name_col: 0, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo'}
         },
        "aoColumnDefs": [
-            { "aTargets": [4], "mRender": function(data, type, full) {
+            { "aTargets": [3], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'toggleStatus', id: full[4], tooltip: 'Ativar ' + full[1],
+                    action: 'toggleStatus', id: full[3], tooltip: 'Ativar ' + full[0],
                     btn_class: 'success', icon: 'bi-person-check'
                 });
             }},
-            { "aTargets": [5], "mRender": function(data, type, full) {
+            { "aTargets": [4], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'delete', id: full[5], tooltip: 'Excluir ' + full[1],
+                    action: 'delete', id: full[4], tooltip: 'Excluir ' + full[0],
                     btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Cargos',header: 'Cargos',filename:'Cargos',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            //{extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Cargos',header: 'Cargos',filename:'Cargos',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Cargos',header: 'Cargos',filename:'Cargos',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-        {details:
-            {display: DataTable.Responsive.display.modal({
-                    header: function (row) {
-                        var data = row.data();
-                        return data[0] + ' ' + data[1];
-            },
-            update: true
-        }),
-        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        // dom: "lBftipr",
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc'] /* 'desc' Carregar table decrescente e asc crescente*/
-    });
+        ]
+    }));
 
     // Lista de Usuarios
     var users = $('#users').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuarios"), {
@@ -257,7 +195,7 @@ $(document).ready(function() {
         },
         "aoColumnDefs": [
             { "aTargets": [9], "mRender": function(data, type, full) {
-                var isActived = (String(full[7]).toLowerCase().includes("ativo") || String(full[7]).toLowerCase().includes("confirmado") || String(full[7]).toLowerCase().includes("registrado"));
+                var isActived = (String(full[7]).toLowerCase().includes("ativado") || String(full[7]).toLowerCase().includes("registrado"));
                 return createActionButton({
                     action: 'toggleStatus', id: full[9],
                     tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[2],
@@ -277,9 +215,7 @@ $(document).ready(function() {
     $('div.dt-search input', users.table().container()).focus();
 
     // Usuarios desabilitados
-    $('#usersDisabled').DataTable( {
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
+    $('#usersDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuários Desabilitados", false), {
         modalConfig: {
             toggleStatus: { id_col: 8, status_col: 6, name_col: 1, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
             delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
@@ -297,41 +233,11 @@ $(document).ready(function() {
                     btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Usuario',header: 'Usuario',filename:'Usuario',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Usuario',header: 'Usuario',filename:'Usuario',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:
-                {display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return data[0] + ' ' + data[1];
-                },
-                update: true
-            }),
-            renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        // dom: "lBftipr",
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
-  //Lista de Igrejas
-    $('#churchs').DataTable( {
-         destroy: true,
-        drawCallback: drawCallbackWithModals,
+    //Lista de Igrejas
+    $('#churchs').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Igrejas", false), {
         modalConfig: {
             toggleStatus: { id_col: 11, status_col: 10, name_col: 4, base_url: '/painel/igrejas/status/', item_name: 'a igreja' },
             delete: { id_col: 12, name_col: 4, base_url: '/painel/igrejas/excluir', id_field: 'church_id', item_name: 'a igreja' }
@@ -349,40 +255,11 @@ $(document).ready(function() {
                     tooltip: 'Excluir ' + full[4], btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Igrejas',header: 'Igrejas',filename:'Igrejas',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Igrejas',header: 'Igrejas',filename:'Igrejas',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-        "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:
-                {display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return data[2] + ' ' + data[3] + ' - ' + data[4];
-                },
-                update: true
-            }),
-            renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
-      //Lista de Igrejas
-      $('#churchsDisabled').DataTable( {
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
+    //Lista de Igrejas Desativadas
+    $('#churchsDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Igrejas Desativadas", false), {
         modalConfig: {
             toggleStatus: { id_col: 10, status_col: 9, name_col: 3, base_url: '/painel/igrejas/status/', item_name: 'a igreja' },
             delete: { id_col: 11, name_col: 3, base_url: '/painel/igrejas/excluir', id_field: 'church_id', item_name: 'a igreja' }
@@ -400,124 +277,14 @@ $(document).ready(function() {
                     btn_class: 'danger'
                 });
             }}
-        ],
-        buttons: [
-            {extend:'excel',title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',className: 'btn btn-outline-success btn-sm mb-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            // {extend: 'pdfHtml5',exportOptions: {columns: ':visible'},title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Igrejas Desativadas',header: 'Igrejas Desativadas',filename:'Igrejas Desativadas',orientation: 'portrait',className: 'btn btn-outline-secondary btn-sm mb-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-info btn-sm mb-2',text:'<i class="bi bi-list"></i>'}],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:   
-                {display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return data[1] + ' ' + data[2] + ' - ' + data[3];
-                },
-                update: true
-            }),
-            renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-        // dom: "lBftipr",
-        "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
-    $('#levels').DataTable({
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
+    // Níveis de Acesso
+    $('#levels').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Níveis de Acesso", false), {
         "lengthMenu": [[5, -1], [5, "Todos"]],
-        "aaSorting": [0, 'desc'],
-    });
-
-    $('#historyPatrimonyUser').DataTable({
-        drawCallback: function() {
-            $('body').tooltip({
-                selector: '[data-bs-toggle-tooltip="tooltip"]'
-            });
-        },
-        buttons: [
-            {extend:'excel',title:'Patrimonio',header: 'Patrimonio',filename:'Patrimonio',className: 'btn btn-outline-success mb-2 mt-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            //{extend: 'pdf',exportOptions: {columns: ':visible'},title:'Patrimonio SIGECINFO',header: 'Patrimonio SIGECINFO',filename:'Patrimonio SIGECINFO',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger mb-2 mt-2',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Patrimonio SIGECINFO',header: 'Patrimonio',filename:'Patrimonio',orientation: 'portrait',className: 'btn btn-outline-secondary mb-2 mt-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-smsub mb-2 mt-2',text:'<i class="bi bi-list"></i>'},],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
-
-    $('#patrimonyUser').DataTable({
-        drawCallback: function() {
-            $('body').tooltip({
-                selector: '[data-bs-toggle-tooltip="tooltip"]'
-            });
-        },
-        buttons: [
-            {extend:'excel',title:'Patrimonio',header: 'Patrimonio',filename:'Patrimonio',className: 'btn btn-outline-success mb-2 mt-2',text:'<i class="bi bi-file-earmark-excel"></i>' },
-            //{extend: 'pdf',exportOptions: {columns: ':visible'},title:'Patrimonio SIGECINFO',header: 'Patrimonio SIGECINFO',filename:'Patrimonio SIGECINFO',orientation: 'portrait',pageSize: 'LEGAL',className: 'btn btn-outline-danger mb-2 mt-2',text:'<i class="bi bi-file-earmark-pdf"></i>'},
-            {extend:'print', exportOptions: {columns: ':visible'},title:'Patrimonio SIGECINFO',header: 'Patrimonio',filename:'Patrimonio',orientation: 'portrait',className: 'btn btn-outline-secondary mb-2 mt-2',text:'<i class="bi bi-printer"></i>'},
-            {extend:'colvis',titleAttr: 'Select Colunas',className: 'btn btn-outline-smsub mb-2 mt-2',text:'<i class="bi bi-list"></i>'},],
-            "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
-            "<'row mt-2 justify-content-between dt-layout-table'<'col-sm-12'tr>>" +
-            "<'row mt-2 justify-content-between'<'d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto'i><'d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto'p>>",
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        "aaSorting": [0, 'desc']
+    }));
 
     // Tabela de Eventos
     $('#events').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
@@ -558,11 +325,7 @@ $(document).ready(function() {
     }));
 
     // Tabela de Eventos Desativados
-    $('#disabledEvents').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals, // Usa o callback completo
-        processing: true,
-        serverSide: true,
+    $('#disabledEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Desativados"), {
         ajax: '../../themes/admin/serverside/disabledEvents.php',
         modalConfig: {
             toggleStatus: { id_col: 5, status_col: 3, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
@@ -590,34 +353,11 @@ $(document).ready(function() {
                     });
                 }
             }
-        ],
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
     // Tabela de Tipos de Evento
-    $('#eventTypes').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
+    $('#eventTypes').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Tipos de Evento", false), {
         modalConfig: {
             toggleStatus: { id_col: 4, status_col: 2, name_col: 0, base_url: '/painel/tipos-de-eventos/status/', item_name: 'o tipo de evento' },
             delete: { id_col: 5, name_col: 0, base_url: '/painel/tipos-de-eventos/excluir', id_field: 'type_id', item_name: 'o tipo de evento' }
@@ -638,39 +378,16 @@ $(document).ready(function() {
                     tooltip: 'Excluir ' + full[0], btn_class: 'danger'
                 });
             }}
-        ],
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 
     // Tabela de Tipos de Evento Desativados
-    $('#disabledEventTypes').DataTable({
-        destroy: true,
-        drawCallback: drawCallbackWithModals,
+    $('#disabledEventTypes').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Tipos de Evento Desativados", false), {
         modalConfig: {
             toggleStatus: { id_col: 4, status_col: 2, name_col: 0, base_url: '/painel/tipos-de-eventos/status/', item_name: 'o tipo de evento' },
             delete: { id_col: 5, name_col: 0, base_url: '/painel/tipos-de-eventos/excluir', id_field: 'type_id', item_name: 'o tipo de evento' }
         },
-    "aoColumnDefs": [
+        "aoColumnDefs": [
             { "aTargets": [3], "mRender": function(data, type, full) {
                 return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
             }},
@@ -686,27 +403,6 @@ $(document).ready(function() {
                     btn_class: 'danger'
                 });
             }}
-        ],
-        responsive:
-            {details:
-                    {display: DataTable.Responsive.display.modal({
-                            header: function (row) {
-                                var data = row.data();
-                                return data[0] + ' - ' + data[1] + ' - ' + data[2];
-                            },
-                            update: true
-                        }),
-                        renderer: DataTable.Responsive.renderer.tableAll({})}},
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado","sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros","sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoThousands": ".","sLengthMenu": "_MENU_ Resultados por Página","sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...","sZeroRecords": "Nenhum registro encontrado","sSearch": "Pesquisar",
-            "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
-            "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
-        },
-
-        "lengthMenu": [[7, 25, 50, -1], [7, 25, 50, "Todos"]],
-        "aaSorting": [0, 'asc']
-    });
+        ]
+    }));
 });

@@ -2,9 +2,11 @@
 
 namespace Source\Domain\Report\Models;
 
+use Source\Core\Connect;
 use Source\Core\Model;
 use Source\Core\Session;
 use Source\Domain\User\Models\User;
+use Source\Domain\Report\Models\Page;
 
 /**
  * Class Online
@@ -40,11 +42,7 @@ class Online extends Model
         return $find->fetch(true);
     }
 
-/**
-     * @param bool $clear
-     * @return Online
-     */
-    public function report(bool $clear = true): Online
+public function report(bool $clear = true): Online
     {
         $session = new Session();
 
@@ -54,15 +52,14 @@ class Online extends Model
         
         $requestUri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRIPPED);
         $baseUrl = parse_url(url(), PHP_URL_PATH) ?? "";
-        
-        // Remove a base da URL para guardar apenas a rota limpa
-        $cleanUrl = str_replace($baseUrl, "", $requestUri);
-        $url = ($cleanUrl == "" ? "/" : $cleanUrl);
+        $url = str_replace($baseUrl, "", $requestUri);
+        $url = ($url[0] == "/" ? $url : "/" . $url); // Garante que a URL começa com /
 
+        (new Page())->report($url);
 
         if (!$session->has("online")) {
             $this->user = ($session->authUser ?? null);
-            $this->url = $url; // Guarda a URL limpa
+            $this->url = $url;
             $this->ip = filter_input(INPUT_SERVER, "REMOTE_ADDR");
             $this->agent = filter_input(INPUT_SERVER, "HTTP_USER_AGENT");
 
@@ -78,7 +75,7 @@ class Online extends Model
         }
 
         $find->user = ($session->authUser ?? null);
-        $find->url = $url; // Guarda a URL limpa
+        $find->url = $url;
         $find->pages += 1;
         $find->save();
 
@@ -99,5 +96,30 @@ class Online extends Model
     public function user()
     {
         return (new User())->findById($this->user);
+    }
+
+    /**
+     * @param int $limit
+     * @return array|null
+     */
+    public function getMostAccessedPages(int $limit = 10): ?array
+    {
+        return $this->find(columns: "url, COUNT(url) AS accesses")
+            ->group("url")
+            ->order("accesses DESC")
+            ->limit($limit)
+            ->fetch(true, true);
+    }
+
+    /**
+     * @param int $limit
+     * @return array|null
+     */
+    public function getHistoricalMostAccessedPages(int $limit = 10): ?array
+    {
+        return (new Page())->find(columns: "url, accesses")
+            ->order("accesses DESC")
+            ->limit($limit)
+            ->fetch(true, true);
     }
 }

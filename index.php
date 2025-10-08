@@ -160,9 +160,7 @@ $route->get("/{errcode}", function ($data) use ($auth) {
 /**
  * ROUTE DISPATCH
  */
-$route->dispatch();
-
-if ($route->error()) {
+if (!$route->dispatch()) {
     $route->redirect("/ops/{$route->error()}");
 }
 
