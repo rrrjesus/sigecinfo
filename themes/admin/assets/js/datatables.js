@@ -218,7 +218,7 @@ $(document).ready(function() {
     $('#usersDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuários Desabilitados", false), {
         modalConfig: {
             toggleStatus: { id_col: 8, status_col: 6, name_col: 1, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
-            delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
+            delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/desativados/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
        "aoColumnDefs": [
             { "aTargets": [8], "mRender": function(data, type, full) {

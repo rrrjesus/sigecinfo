@@ -121,6 +121,7 @@ $route->post("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\A
 $route->get("/usuarios/editar/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->edit($data); });
 $route->post("/usuarios/editar/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->edit($data); });
 $route->post("/usuarios/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->delete($data); });
+$route->post("/usuarios/desativados/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->delete($data); });
 $route->get("/usuarios/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->disabledUsers($data); });
 $route->get("/usuarios/status/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->toggleStatus($data); });
 $route->get("/usuarios/json", "Users:listJson");

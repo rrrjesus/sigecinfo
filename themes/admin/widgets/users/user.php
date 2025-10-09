@@ -17,11 +17,11 @@
                     <?= csrf_input(); ?>
 
                     <!-- User Info Card -->
-                    <div class="card mb-3">
+                    <div class="card mb-2">
                         <div class="card-header fw-bold"><i class="bi bi-person-circle me-1"></i> Informações do Usuário</div>
                         <div class="card-body">
                             <div class="row align-items-center">
-                                <div class="col-md-2 text-center mb-3 mb-md-0">
+                                <div class="col-md-2 text-center mb-1 mb-md-0">
                                     <?php
                                     $fullImageLink = ($user && $user->photo())
                                         ? url(CONF_UPLOAD_DIR . "/" . $user->photo())
@@ -33,11 +33,11 @@
                                 </div>
                                 <div class="col-md-10">
                                     <div class="row">
-                                        <div class="col-md-7 mb-3">
+                                        <div class="col-md-7 mb-1">
                                             <label class="col-form-label col-form-label-sm" for="user_name"><strong>Nome Completo</strong></label>
                                             <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" value="<?= $user->user_name ?? ''; ?>" required>
                                         </div>
-                                        <div class="col-md-5 mb-3">
+                                        <div class="col-md-5 mb-1">
                                             <label for="photo" class="col-form-label col-form-label-sm"><strong><i class="bi bi-upload me-1"></i> Nova Foto</strong> (Opcional)</label>
                                             <input class="form-control form-control-sm" data-image=".j_profile_image" type="file" id="photo" name="photo">
                                         </div>
@@ -52,11 +52,11 @@
                     </div>
 
                     <!-- Access and Security Card -->
-                    <div class="card mb-3">
+                    <div class="card mb-2">
                         <div class="card-header fw-bold"><i class="bi bi-shield-lock me-1"></i> Acesso e Segurança</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="level_id"><strong>Nível de Acesso</strong></label>
                                     <select id="level_id" name="level_id" class="form-select form-select-sm" required>
                                         <option value="">Selecione um nível...</option>
@@ -65,13 +65,13 @@
                                         <?php endforeach; endif; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="password"><strong>Senha</strong> <?= (!$user ? '<small>(Padrão)</small>' : '<small>(Preencha para alterar)</small>'); ?></label>
                                     <input type="password" id="password" name="password" class="form-control form-control-sm" autocomplete="new-password"
                                            data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
                                            data-bs-title="Padrão: Mudar123?!" value="<?= (!$user ? 'Mudar123?!' : ''); ?>">
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="password_re"><strong>Repetir Senha</strong></label>
                                     <input type="password" id="password_re" name="password_re" class="form-control form-control-sm" autocomplete="new-password"
                                            data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
@@ -82,11 +82,11 @@
                     </div>
 
                     <!-- Additional Info Card -->
-                    <div class="card mb-4">
+                    <div class="card mb-2">
                         <div class="card-header fw-bold"><i class="bi bi-info-circle me-1"></i> Detalhes Adicionais</div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="church_id"><strong>Igreja</strong></label>
                                     <select id="church_id" name="church_id" class="form-select form-select-sm" required>
                                         <option value="">Selecione uma igreja...</option>
@@ -95,7 +95,7 @@
                                         <?php endforeach; endif; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="position_id"><strong>Cargo/Ministério</strong></label>
                                     <select id="position_id" name="position_id" class="form-select form-select-sm" required>
                                         <option value="">Selecione um cargo...</option>
@@ -104,16 +104,16 @@
                                         <?php endforeach; endif; ?>
                                     </select>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="phone_mobile"><strong>Celular</strong> (Opcional)</label>
                                     <input type="text" id="phone_mobile" name="phone_mobile" class="form-control form-control-sm mask-cell-phone" value="<?= $user->phone_mobile ?? ''; ?>">
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-4 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="phone_landline"><strong>Telefone Fixo</strong> (Opcional)</label>
                                     <input type="text" id="phone_landline" name="phone_landline" class="form-control form-control-sm mask-fixed-phone" value="<?= $user->phone_landline ?? ''; ?>">
                                 </div>
                                 <?php if ($user): ?>
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="status"><strong>Status</strong></label>
                                         <select name="status" id="status" class="form-select form-select-sm">
                                             <?= user_status_options($user->status); ?>

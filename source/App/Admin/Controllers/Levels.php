@@ -31,7 +31,7 @@ class Levels extends Admin
 
         $breadcrumb = [
             ["title" => "Nível", "link" => url("/painel/niveis")],
-            ["title" => "Listar"]
+            ["title" => "Ativos"]
         ];
         
         echo $this->view->render("widgets/levels/list", [

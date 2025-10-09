@@ -42,7 +42,7 @@ class Users extends Admin
 
         $breadcrumb = [
             ["title" => "Utilizadores", "link" => url("/painel/usuarios")],
-            ["title" => "Listar"]
+            ["title" => "Ativos"]
         ];
 
         echo $this->view->render("widgets/users/list", [
