@@ -6,44 +6,42 @@
 <div class="row justify-content-center">
     <div class="col-xl-12">
         <div class="container-fluid">
-            <div class="d-flex justify-content-center">
-                <div class="col-12">
+            <div class="ajax_response"><?= flash(); ?></div>
 
-                    <div class="row justify-content-center">
-                        <div class="col-12 ajax_response">
-                            <?=flash();?>
-                        </div>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold m-0"><i class="bi bi-archive me-2"></i>Cargos e Ministérios Desativados</h6>
+                    <div>
+                        <?= button(["href" => "/painel/cargos", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                     </div>
-
-                    <div class="row justify-content-center mb-4">
-                        <div class="col-12 ml-auto text-center">
-                            <?= button(["href" => "/painel/cargos", "accesskey" => "s" , "btncolor" => "danger", "title" => "Clique para sair", "custom" => "trash", "name" => "Sair", "icon" => "trash"]); ?>
-                        </div>
+                </div>
+                <div class="card-body">
+                    <div class="dt-container dt-bootstrap5">
+                        <table id="userspositionsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th class="text-center">Cargo</th>
+                                    <th class="text-center">Descrição</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Ativar</th>
+                                    <th class="text-center">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
+                                    <tr>
+                                        <td class="text-center fw-semibold"><?= $lista->position_name ?? ''; ?></td>
+                                        <td class="text-center fw-semibold"><?= $lista->description ?? ''; ?></td>
+                                        <td class="text-center fw-semibold"><?= statusBadge($lista->status); ?></td>
+                                        <td class="text-center"><?= $lista->id; ?></td>
+                                        <td class="text-center"><?= $lista->id; ?></td>
+                                    </tr>
+                                <?php endforeach; endif; ?>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <table id="userspositionsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
-                        <thead class="table-danger">
-                            <tr>
-                                <th class="text-center">CARGO</th>
-                                <th class="text-center">DESCRIÇÃO</th>
-                                <th class="text-center">STATUS</th>
-                                <th class="text-center">ATIVAR</th>
-                                <th class="text-center">EXCLUIR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php if(!empty($userspositions)){ ?>
-                        <?php foreach ($userspositions as $lista): ?>
-                        <tr>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->position_name) ? $lista->position_name : "")?></td>
-                            <td class="text-center fw-semibold"><?=(!empty($lista->description) ? $lista->description : "")?></td>
-                            <td class="text-center fw-semibold"><?=statusBadge($lista->status)?></td>
-                            <td class="text-center"><?=$lista->id;?></td>
-                            <td class="text-center"><?=$lista->id;?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                        <?php } ?>
-                    </tbody>
-                </table>
-    </div>     
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

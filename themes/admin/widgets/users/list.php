@@ -3,47 +3,46 @@
 <!-- Breacrumb-->
 <?= $this->insert("views/theme/breadcrumb"); ?>
 
-<div class="container-fluid">
+<div class="row justify-content-center">
+    <div class="col-xl-12">
+        <div class="container-fluid">
+            <div class="ajax_response"><?= flash(); ?></div>
 
-    <div class="row justify-content-center">
-        <div class="col-12 ajax_response">
-            <?=flash();?>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-12 ml-auto text-center">
-            <?= button(["href" => "/painel/usuarios/cadastrar", "accesskey" => "d", "title" => "Clique para cadastrar novo usuário", "name" => "Cadastrar", "icon" => "building-add"]); ?>
-               <?php 
-                    if(!empty($registers->disabled)){ ?>
-                        <?= button(["href" => "/painel/usuarios/desativados", "accesskey" => "d", "title" => "Clique para listar usuários desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
-            <?php } ?>
-        </div>
-    </div>
-    
-
-    <div class="dt-container dt-bootstrap5">
-        <div class="col-12">
-            <table id="users" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
-                <thead class="table-secondary">
-                <tr>
-                    <th class="text-center"><i class="bi bi-person-gear me-1"></i><br>GERENCIAR</th>
-                    <th class="text-center"><i class="bi bi-person-circle me-1"></i><br>FOTO</th>
-                    <th class="text-center"><i class="bi bi-person me-1"></i><br>NOME</th>
-                    <th class="text-center"><i class="bi bi-person me-1"></i><br>CEL</th>
-                    <th class="text-center"><i class="bi bi-building me-1"></i><br>MINISTERIO/CARGO</th>
-                    <th class="text-center"><i class="bi bi-building me-1"></i><br>IGREJA</th>
-                    <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>EMAIL</th>
-                    <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>STATUS</th>
-                    <th class="text-center"><i class="bi bi-person me-1"></i><br>NIVEL</th>
-                    <th class="text-center"><i class="bi bi-person me-1"></i><br>DESATIVAR</th>
-                    <th class="text-center"><i class="bi bi-person me-1"></i><br>EXCLUIR</th>
-                </tr>
-                </thead>
-                 <tbody class="text-center">
-
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0"><i class="bi bi-people me-2"></i>Usuários do Sistema</h6>
+                    <div>
+                        <?= button(["href" => "/painel/usuarios/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                        <?php if (!empty($registers->disabled)) : ?>
+                            <?= button(["href" => "/painel/usuarios/desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="dt-container dt-bootstrap5">
+                        <table id="users" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th class="text-center">Editar</th>
+                                    <th class="text-center">Foto</th>
+                                    <th class="text-center">Nome</th>
+                                    <th class="text-center">Celular</th>
+                                    <th class="text-center">Cargo</th>
+                                    <th class="text-center">Igreja</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Nível</th>
+                                    <th class="text-center">Desativar</th>
+                                    <th class="text-center">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- O conteúdo da tabela será preenchido pelo DataTables via AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

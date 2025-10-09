@@ -93,7 +93,7 @@ class Users extends Admin
             $userProfile->login_updated = $this->user->id;
 
             if (!empty($data["password"])) {
-                if (empty($data["password_re"]) || $data["password"] != $data["password_re"]) {
+                if (empty($data["password_re"]) || $data["password"] !== $data["password_re"]) {
                     $json["message"] = $this->message->warning("Para alterar, informe e repita sua nova senha.")->render();
                     echo json_encode($json);
                     return;
@@ -114,12 +114,6 @@ class Users extends Admin
                     echo json_encode($json);
                     return;
                 }
-            }
-
-            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
-            $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja, e o nivel para criar o registro !")->icon()->render();
-            echo json_encode($json);
-            return;
             }
 
             if (!$userProfile->save()) {
@@ -279,11 +273,11 @@ class Users extends Admin
                 return;
             }
 
-             if ($userEdit->id === $this->user->id) {
-                $json['message'] = $this->message->warning("Para editar seu próprio usuário, acesse o perfil.")->icon()->render();
-                echo json_encode($json);
-                return;
-            }
+            //  if ($userEdit->id === $this->user->id) {
+            //     $json['message'] = $this->message->warning("Para editar seu próprio usuário, acesse o perfil.")->icon()->render();
+            //     echo json_encode($json);
+            //     return;
+            // }
 
             if (!$userEdit->save()) {
                 $json["message"] = $userEdit->message()->render();

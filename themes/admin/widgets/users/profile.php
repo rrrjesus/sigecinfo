@@ -1,139 +1,150 @@
-<?= $this->layout("_admin"); ?>
+<?php $this->layout("_admin"); ?>
 
-  <!-- Breacrumb-->
-  <?= $this->insert("views/theme/breadcrumb"); ?>
+<!-- Breacrumb-->
+<?= $this->insert("views/theme/breadcrumb"); ?>
 
 <div class="row justify-content-center">
     <div class="col-xl-12">
-        <?php if ($profile): ?>
-
         <div class="container-fluid">
-            <div class="ajax_response"><?=flash();?></div>
-                <form class="row gy-2 gx-3 align-items-center needs-validation" novalidate action="<?= url("/painel/perfil"); ?>" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="profile"/>
-                        <?=csrf_input();?>
-                                
-                        <div class="row mb-1 mt-3">
+            <div class="ajax_response"><?= flash(); ?></div>
+            <form class="needs-validation" id="profileUpdate" novalidate action="<?= url("/painel/perfil"); ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="profile" />
+                <?= csrf_input(); ?>
 
-                            <div class="col-md-1 mb-1 app_formbox_photo">
+                <!-- User Info Card -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">
+                        <i class="bi bi-person-circle me-1"></i> Informações do Perfil
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center mb-3 mb-md-0">
                                 <?php
-                                // Lógica para o link <a> que abre a imagem completa
                                 $fullImageLink = ($profile && $profile->photo())
                                     ? url(CONF_UPLOAD_DIR . "/" . $profile->photo())
                                     : theme('/assets/images/avatar.jpg', CONF_VIEW_ADMIN);
                                 ?>
-                                <a href="<?= $fullImageLink; ?>" target="_blank">
-                                    <?= userPhoto($profile->photo ?? null, 100, 100, 'avatar.jpg'); ?>
+                                <a href="<?= $fullImageLink; ?>" target="_blank" title="Ver imagem completa">
+                                    <?= userPhoto($profile->photo ?? null, 120, 120, 'rounded-circle j_profile_image'); ?>
                                 </a>
                             </div>
-
-                            <div class="col-md-4">
-                                <label for="photo" class="col-form-label col-form-label-md"> <strong> .bmp ,.png, .svg, .jpeg e .jpg </strong></label>
-                                <input data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Clique para carregar o arquivo" class="form-control form-control-md" name="photo" id="photo" value="<?=$profile->photo?>" type="file">
-                            </div>
-
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="inputNome"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o nome" class="form-control form-control-md"
-                                    name="user_name" placeholder="NOME" value="<?=$profile->user_name?>">
-                            </div>
-
-                            <div class="col-md-3 mb-1">
-                                <label class="col-form-label col-form-label-md" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Tel Fixo</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o numero do fixo - DDD + 8 dígitos" class="form-control form-control-md mask-fixed-phone" name="phone_landline" 
-                                placeholder="49343000" value="<?=$profile->phone_landline?>">
-                            </div>
-                        </div>
-
-                        <div class="row mb-1">
-
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="inputEmail"><strong><i class="bi bi-envelope-at me-1"></i> E-mail</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o email" class="form-control form-control-md" name="email" value="<?=$profile->email?>">
-                            </div>
-
-                            <div class="col-md-2 mb-1">
-                                <label class="col-form-label col-form-label-md" for="inputCelular"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o numero do celular - DDD + 9 dígitos" class="form-control form-control-md mask-cell-phone" 
-                                name="phone_mobile" placeholder="991065284" value="<?=$profile->phone_mobile?>">
-                            </div>
-
-                                <div class="col-md-2 mb-1">
-                                    <label class="col-form-label col-form-label-md" for="inputCategoria"><strong><i class="bi bi-person-add me-1"></i> Situação</strong></label><select class="form-control form-control-md" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                        data-bs-title="Selecione o status de usuario" name="status"><?=user_status_options($profile->status); ?></select>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-7 mb-3">
+                                        <label for="user_name" class="col-form-label col-form-label-sm"><strong>Nome Completo</strong></label>
+                                        <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" value="<?= $profile->user_name ?>" required>
+                                    </div>
+                                    <div class="col-md-5 mb-3">
+                                        <label for="photo" class="col-form-label col-form-label-sm"><strong><i class="bi bi-upload me-1"></i> Nova Foto</strong> (Opcional)</label>
+                                        <input class="form-control form-control-sm" data-image=".j_profile_image" type="file" id="photo" name="photo">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="email" class="col-form-label col-form-label-sm"><strong>E-mail</strong></label>
+                                        <input type="email" id="email" name="email" class="form-control form-control-sm" value="<?= $profile->email ?>" required>
+                                    </div>
                                 </div>
-
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="church_id"><i class="bi bi-person-add me-1"></i><strong>Igreja</strong></label>
-                                <select id="church_id" name="church_id" class="form-select form-select-md" required>
-                                    <option value="">Selecione uma igreja...</option>
-                                    <?php if (!empty($churches)): foreach ($churches as $church): ?>
-                                        <option value="<?= $church->id; ?>" <?= !empty($profile) && $profile->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
-                                    <?php endforeach; endif; ?>
-                                </select>
                             </div>
-                        </div>
-
-                        <div class="row mb-1">
-
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="position_id"><strong><i class="bi bi-person-add me-1"></i> Cargo/Ministério</strong></label>
-                                <select id="position_id" name="position_id" class="form-select form-select-md" required>
-                                    <option value="">Selecione um cargo...</option>
-                                    <?php if (!empty($positions)): foreach ($positions as $position): ?>
-                                        <option value="<?= $position->id; ?>" <?= !empty($profile) && $profile->position_id == $position->id ? 'selected' : ''; ?>><?= $position->position_name; ?></option>
-                                    <?php endforeach; endif; ?>
-                                </select>
-                            </div>               
-                            
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="level_id"><strong><i class="bi bi-building ms-3 me-1"></i> Nível de Acesso</strong></label>
-                                <select id="level_id" name="level_id" class="form-select form-select-md" required>
-                                    <option value="">Selecione um nível...</option>
-                                    <?php if (!empty($levels)): foreach ($levels as $level): ?>
-                                        <option value="<?= $level->id; ?>" <?= !empty($profile) && $profile->level_id == $level->id ? 'selected' : ''; ?>><?= $level->level_name; ?></option>
-                                    <?php endforeach; endif; ?>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 mb-1">
-                                <label class="col-form-label col-form-label-md" for="inputSenha"><strong><i class="bi bi-lock me-1"></i>Senha</strong></label>
-                                    <input type="password" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                        data-bs-title="Digite a senha, Padrão : smsub12345" class="form-control form-control-md"
-                                        name="password" placeholder="********">
-                            </div>
-
-                        </div>
-
-                        <div class="row mb-1">
-                            
-                            <div class="col-md-12 mb-1 mb-1">
-                                <label for="textareaObservacoes" class="col-form-label col-form-label-md"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                <textarea class="form-control form-control-md" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title=Observações" name="observations" rows="2"><?=$profile->observations?></textarea>
-                            </div>
-                            
-                        </div>
-
-                        <div class="row justify-content-center mt-4 mb-1">
-                            <div class="col-auto">
-                                <?= button([ "name" => "Atualizar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para atualizar", "accesskey" => "a"]); ?>
-                                <?= button([ "name" => "Sair", "icon" => "person", "btncolor" => "danger", "custom" => "dark", "title" => "Clique para sair", "accesskey" => "s", "href" => "/painel/usuarios"]); ?>
                         </div>
                     </div>
-
-                        </form>
-                    <?= $this->insert("views/modalUser"); ?>
                 </div>
-            </div>
+
+                <!-- Contact and Password Card -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">
+                        <i class="bi bi-telephone-plus me-1"></i> Contato & Segurança
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone_mobile" class="col-form-label col-form-label-sm"><strong>Celular</strong></label>
+                                <input type="text" id="phone_mobile" name="phone_mobile" class="form-control form-control-sm mask-cell-phone" placeholder="(00) 00000-0000" value="<?= $profile->phone_mobile ?>">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone_landline" class="col-form-label col-form-label-sm"><strong>Telefone Fixo</strong></label>
+                                <input type="text" id="phone_landline" name="phone_landline" class="form-control form-control-sm mask-fixed-phone" placeholder="(00) 0000-0000" value="<?= $profile->phone_landline ?>">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="col-form-label col-form-label-sm"><strong>Nova Senha</strong> (Deixe em branco para não alterar)</label>
+                                <input type="password" id="password" name="password" class="form-control form-control-sm" autocomplete="new-password" placeholder="********">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password_re" class="col-form-label col-form-label-sm"><strong>Repetir Nova Senha</strong></label>
+                                <input type="password" id="password_re" name="password_re" class="form-control form-control-sm" autocomplete="new-password" placeholder="********">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info Card (Read-Only) -->
+                <div class="card mb-4">
+                    <div class="card-header fw-bold">
+                        <i class="bi bi-info-circle me-1"></i> Informações Adicionais (Apenas Leitura)
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="col-form-label col-form-label-sm"><strong>Cargo/Ministério</strong></label>
+                                <input type="text" class="form-control form-control-sm" value="<?= $profile->position()->position_name ?? 'Não definido'; ?>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="col-form-label col-form-label-sm"><strong>Igreja</strong></label>
+                                <input type="text" class="form-control form-control-sm" value="<?= $profile->church()->church_name ?? 'Não definida'; ?>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="col-form-label col-form-label-sm"><strong>Nível de Acesso</strong></label>
+                                <input type="text" class="form-control form-control-sm" value="<?= $profile->level()->level_name ?? 'Não definido'; ?>" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="col-form-label col-form-label-sm"><strong>Status</strong></label>
+                                <input type="text" class="form-control form-control-sm" value="<?= status_name($profile->status); ?>" readonly>
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label class="col-form-label col-form-label-sm"><strong>Observações</strong></label>
+                                <textarea class="form-control form-control-sm" rows="1" readonly><?= $profile->observations ?? 'Nenhuma observação.'; ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <?= button(["name" => "Atualizar", "icon" => "check-circle", "btncolor" => "primary"]); ?>
+                        <?= button(["href" => "/painel/controle", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <?php  endif; ?>
-
     </div>
 </div>
+
+<?php $this->start("scripts"); ?>
+<script>
+    $(document).ready(function() {
+        // Script para preview da imagem
+        $('body').on('change', 'input[data-image]', function (e) {
+            var input = $(this);
+            var target = $(input.data("image"));
+            var file = e.target.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    target.css("background-image", "url(" + e.target.result + ")");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        $("#profileUpdate").validate({
+            rules: {
+                user_name: { required: true },
+                email: { required: true, email: true },
+                password: { valsenha: true },
+                password_re: { equalTo: "#password" }
+            },
+            messages: {
+                user_name: { required: "O nome é obrigatório." },
+                email: { required: "O e-mail é obrigatório.", email: "Digite um e-mail válido." },
+                password_re: { equalTo: "As senhas não correspondem." }
+            }
+        });
+    });
+</script>
+<?php $this->end(); ?>
