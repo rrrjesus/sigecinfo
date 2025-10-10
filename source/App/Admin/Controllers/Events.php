@@ -110,12 +110,13 @@ class Events extends Admin
         $head = $this->seo->render("Registar Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
 
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/painel/eventos/desabilitados")],
-            ["title" => "Listar Desabilitados"]
+            ["title" => "Eventos", "link" => url("/painel/eventos/cadastrar")],
+            ["title" => "Criar"]
         ];
 
-        echo $this->view->render("widgets/events/form", [
+        echo $this->view->render("widgets/events/event", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "event" => null,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
             "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true)
@@ -177,9 +178,15 @@ class Events extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/eventos")],
+            ["title" => "Editar"]
+        ];
+
         $head = $this->seo->render("Editar Evento: {$event->title}", CONF_SITE_DESC, url("/painel/eventos"), null, false);
-        echo $this->view->render("widgets/events/form", [
+        echo $this->view->render("widgets/events/event", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "event" => $event,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
             "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true)

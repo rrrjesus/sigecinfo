@@ -45,6 +45,14 @@ $(function () {
             && /[a-z]/i.test(value);
     }, 'Sua senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere.');
 
+    $.validator.addMethod("greaterThan", function(value, element, params) {
+        var startDate = $(params).val();
+        if (!value || !startDate) {
+            return true; // Don't validate if either field is empty
+        }
+        return new Date(value) >= new Date(startDate);
+    }, "A data de término deve ser maior ou igual à data de início.");
+
     $("#userCreate").validate({
         rules: {
             user_name: { required: true },
@@ -84,6 +92,64 @@ $(function () {
             church_id: { required: "Selecione uma igreja." },
             position_id: { required: "Selecione um cargo." },
             level_id: { required: "Selecione um nível de acesso." }
+        }
+    });
+
+    // event create
+    $("#eventCreate").validate({
+        rules: {
+            title: {
+                required: true
+            },
+            type_id: {
+                required: true
+            },
+            start_at: {
+                required: true
+            },
+            end_at: {
+                greaterThan: "#start_at"
+            }
+        },
+        messages: {
+            title: {
+                required: "O título do evento é obrigatório."
+            },
+            type_id: {
+                required: "Por favor, selecione um tipo de evento."
+            },
+            start_at: {
+                required: "A data e hora de início são obrigatórias."
+            }
+        }
+    });
+
+    // event update
+    $("#eventUpdate").validate({
+        rules: {
+            title: {
+                required: true
+            },
+            type_id: {
+                required: true
+            },
+            start_at: {
+                required: true
+            },
+            end_at: {
+                greaterThan: "#start_at"
+            }
+        },
+        messages: {
+            title: {
+                required: "O título do evento é obrigatório."
+            },
+            type_id: {
+                required: "Por favor, selecione um tipo de evento."
+            },
+            start_at: {
+                required: "A data e hora de início são obrigatórias."
+            }
         }
     });
 
@@ -193,64 +259,49 @@ $(function () {
         }
     });
 
-   $("#church").validate({
+   $("#churchCreate").validate({
         rules: {
-            church_name: {
-                required: true
-            },
-            country_id: {
-                required: true
-            },
-            code_id: {
-                required: true
-            },
-            address: {
-                required: true
-            },
-            address_number: {
-                required: true
-                // pattern: /^[0-9]+[A-Za-z]?$/ // aceita 123 ou 123A
-            },
-            zip_code: {
-                required: true
-                // pattern: /^[0-9]{5}-?[0-9]{3}$/ // aceita 12345-678 ou 12345678
-            },
-            city: {
-                required: true
-            },
-            state: {
-                required: true
-                // pattern: /^[A-Za-z]{2}$/ // sigla do estado (2 letras)
-            }
+            church_name: { required: true },
+            country_id: { required: true },
+            code_id: { required: true },
+            address: { required: true },
+            address_number: { required: true },
+            zip_code: { required: true },
+            city: { required: true },
+            state: { required: true }
         },
         messages: {
-            church_name: {
-                required: "O nome da igreja é obrigatório."
-            },
-            country_id: {
-                required: "Informe o país (ex.: BR, US)."
-            },
-            code_id: {
-                required: "Informe o código."
-            },
-            address: {
-                required: "O endereço é obrigatório."
-            },
-            address_number: {
-                required: "O número é obrigatório."
-                // pattern: "Digite um número válido (ex.: 123 ou 123A)."
-            },
-            zip_code: {
-                required: "Informe o CEP."
-                // pattern: "Digite um CEP válido (ex.: 12345-678)."
-            },
-            city: {
-                required: "Informe a cidade."
-            },
-            state: {
-                required: "Informe o estado (ex.: SP)."
-                // pattern: "Digite a sigla do estado com 2 letras (ex.: SP, RJ)."
-            }
+            church_name: { required: "O nome da igreja é obrigatório." },
+            country_id: { required: "Informe o país (ex.: BR, US)." },
+            code_id: { required: "Informe o código." },
+            address: { required: "O endereço é obrigatório." },
+            address_number: { required: "O número é obrigatório." },
+            zip_code: { required: "Informe o CEP." },
+            city: { required: "Informe a cidade." },
+            state: { required: "Informe o estado (ex.: SP)." }
+        }
+    });
+
+    $("#churchUpdate").validate({
+        rules: {
+            church_name: { required: true },
+            country_id: { required: true },
+            code_id: { required: true },
+            address: { required: true },
+            address_number: { required: true },
+            zip_code: { required: true },
+            city: { required: true },
+            state: { required: true }
+        },
+        messages: {
+            church_name: { required: "O nome da igreja é obrigatório." },
+            country_id: { required: "Informe o país (ex.: BR, US)." },
+            code_id: { required: "Informe o código." },
+            address: { required: "O endereço é obrigatório." },
+            address_number: { required: "O número é obrigatório." },
+            zip_code: { required: "Informe o CEP." },
+            city: { required: "Informe a cidade." },
+            state: { required: "Informe o estado (ex.: SP)." }
         }
     });
 

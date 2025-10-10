@@ -66,10 +66,10 @@
                     </nav>
                 </div>
 
-                <!-- Sidebar Secretaria -->
+                <!-- Sidebar Igrejas -->
                 <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseInstitutions" aria-expanded="false" aria-controls="collapseInstitutions">
                     <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Secretaria
+                    Igrejas
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseInstitutions" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">

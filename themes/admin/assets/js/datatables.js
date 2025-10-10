@@ -290,20 +290,20 @@ $(document).ready(function() {
     $('#events').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
         ajax: '../themes/admin/serverside/events.php',
         modalConfig: {
-            toggleStatus: { id_col: 7, status_col: 5, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
-            delete: { id_col: 8, name_col: 1, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+            toggleStatus: { id_col: 6, status_col: 4, name_col: 0, base_url: '/painel/eventos/status/', item_name: 'o evento' },
+            delete: { id_col: 7, name_col: 0, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
         },
         "aoColumnDefs": [
             {
-                "aTargets": [6], // Coluna Editar
+                "aTargets": [5], // Coluna Editar
                 "mRender": function(data, type, full) {
                     return '<a href="' + SITE_URL + '/painel/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
                 }
             },
             {
-                "aTargets": [7], // Coluna Status
+                "aTargets": [6], // Coluna Status
                 "mRender": function(data, type, full) {
-                    var isScheduled = String(full[5]).toLowerCase().includes('scheduled');
+                    var isScheduled = String(full[4]).toLowerCase().includes('scheduled');
                     return createActionButton({
                         action: 'toggleStatus', id: data,
                         tooltip: (isScheduled ? 'Cancelar Evento' : 'Reagendar Evento'),
@@ -313,11 +313,11 @@ $(document).ready(function() {
                 }
             },
             {
-                "aTargets": [8], // Coluna Excluir
+                "aTargets": [7], // Coluna Excluir
                 "mRender": function(data, type, full) {
                     return createActionButton({
                         action: 'delete', id: data,
-                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                        tooltip: 'Excluir ' + full[0], btn_class: 'danger'
                     });
                 }
             }
@@ -328,27 +328,38 @@ $(document).ready(function() {
     $('#disabledEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Desativados"), {
         ajax: '../../themes/admin/serverside/disabledEvents.php',
         modalConfig: {
-            toggleStatus: { id_col: 5, status_col: 3, name_col: 1, base_url: '/painel/eventos/status/', item_name: 'o evento' },
-            delete: { id_col: 6, name_col: 1, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+            toggleStatus: { id_col: 4, status_col: 2, name_col: 0, base_url: '/painel/eventos/status/', item_name: 'o evento' },
+            delete: { id_col: 5, name_col: 0, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
         },
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[0] || '') + ' ' + (data[1] || '') + ' - ' + (data[2] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+            },
         "aoColumnDefs": [
             {
-                "aTargets": [4], // Coluna Ativar
+                "aTargets": [3], // Coluna Ativar
                 "mRender": function(data, type, full) {
                     return createActionButton({
                         action: 'toggleStatus', id: data,
-                        tooltip: 'Ativar ' + full[1],
+                        tooltip: 'Ativar ' + full[0],
                         btn_class: 'success',
                         icon: 'bi-check-circle'
                     });
                 }
             },
             {
-                "aTargets": [5], // Coluna Excluir
+                "aTargets": [4], // Coluna Excluir
                 "mRender": function(data, type, full) {
                     return createActionButton({
                         action: 'delete', id: data,
-                        tooltip: 'Excluir ' + full[1],
+                        tooltip: 'Excluir ' + full[0],
                         btn_class: 'danger'
                     });
                 }

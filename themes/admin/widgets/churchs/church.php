@@ -1,255 +1,122 @@
-<?= $this->layout("_admin"); ?>
+<?php $this->layout("_admin"); ?>
 
-  <!-- Breacrumb-->
-  <?= $this->insert("views/theme/breadcrumb"); ?>
+<?= $this->insert("views/theme/breadcrumb"); ?>
 
 <div class="row justify-content-center">
     <div class="col-xl-12">
-        <?php if (!$church): ?>
         <div class="container-fluid">
-            <div class="d-flex justify-content-center">
-                <div class="col-12">
-                    <form class="row gy-2 gx-3 align-items-center needs-validation" id="church" novalidate action="<?= url("/painel/igrejas/cadastrar"); ?>" method="post" enctype="multipart/form-data">
-                    
-                        <input type="hidden" name="action" value="create"/>
+            <div class="ajax_response"><?= flash(); ?></div>
 
-                        <?=csrf_input();?>
-
-                        <div class="ajax_response"><?=flash();?></div>
-                            
-                        <div class="row mb-1">
-
-                            <div class="col-1 app_formbox_photo mb-1">
-                                <div class="rounded-circle j_profile_image thumb" style="background-image: url('<?=url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar-ccb.jpg');?>')"></div>
-                            </div>
-
-                            <div class="col-4 mb-1">
-                                <label for="formFileSm" class="col-form-label col-form-label-sm"> <strong><i class="bi bi-upload me-1"></i>  Extensões aceitas : .bmp ,.png, .svg, .jpeg e .jpg </strong></label>
-                                <input class="form-control form-control-sm" data-image=".j_profile_image" type="file" class="radius" name="photo"/>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-4 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputChurchName"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o nome da igreja" class="form-control form-control-sm"
-                                    name="church_name" placeholder="Jaçanã">
-
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCountry"><strong><i class="bi bi-person-add me-1"></i> País</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o País da Igreja" class="form-control form-control-sm mask-country"
-                                    name="country_id" value="BR" placeholder="BR">
-                            </div>  
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCode"><strong><i class="bi bi-person-add me-1"></i> Código</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o código da igreja" class="form-control form-control-sm mask-code"
-                                    name="code_id" placeholder="21-0765">
-                            </div>
-                            
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputPhoneMobile"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o numero : DDD + dígitos" class="form-control form-control-sm mask-phone" name="phone" placeholder="(11)99106-5284">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputZipeCode"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
-                                name="zip_code" placeholder="02298-098">
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-5 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputAddress"><strong><i class="bi bi-person-add me-1"></i> Endereço</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o endereço da igreja" class="form-control form-control-sm"
-                                    name="address" placeholder="Rua José Buono, 65">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputNumberAddrees"><strong><i class="bi bi-person-add me-1"></i> Número</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o número da Igreja" class="form-control form-control-sm"
-                                name="address_number" placeholder="265A">
-                            </div>
-
-                            <div class="col-3 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCity"><i class="bi bi-person-add me-1"></i><strong>Cidade</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite a Cidade da Igreja" class="form-control form-control-sm"
-                                    name="city" value="São Paulo" placeholder="São Paulo">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputState"><strong><i class="bi bi-person-add me-1"></i> Estado</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o estado" class="form-control form-control-sm mask-state"
-                                    name="state" value="SP" placeholder="SP">
-                            </div>  
-
-                        </div>
-
-                        <div class="row">   
-                            
-                            <div class="mb-3 mb-1">
-                                <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                <textarea class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite as observações" rows="4" name="observations"></textarea>
-                            </div>
-
-                        </div>
-
-                        <div class="row justify-content-center mt-4 mb-3">
-                            <div class="col-auto">
-                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
-                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar as igrejas", "accesskey" => "l", "href" => "/painel/igrejas"]); ?>
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <?php else: ?>
-
-        <div class="container-fluid">
-            <div class="d-flex justify-content-center">
-                <div class="col-12">
-                <form class="row gy-2 gx-3 align-items-center needs-validation" id="church" novalidate action="<?= url("/painel/igrejas/editar/{$church->id}"); ?>" method="post" enctype="multipart/form-data">
-                        
+            <?php if (!$church): // MODO DE CRIAÇÃO ?>
+                <form class="needs-validation" id="churchCreate" novalidate action="<?= url("/painel/igrejas/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="create"/>
+            <?php else: // MODO DE EDIÇÃO ?>
+                <form class="needs-validation" id="churchUpdate" novalidate action="<?= url("/painel/igrejas/editar/{$church->id}"); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update"/>
+            <?php endif; ?>
+                    <?= csrf_input(); ?>
 
-                    <div class="ajax_response"><?=flash();?></div>
-
-                            <?=csrf_input();?>
-                                
-                    <div class="row mb-1">
-
-                        <div class="col-1 mb-1">
-                            <a href="<?php if (file_exists(CONF_UPLOAD_DIR .'/'.$church->photo)) {echo '../../../'.CONF_UPLOAD_DIR .'/'.$church->photo;} 
-                                else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar.jpg');}?>" target="_blank">
-                            <img data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Foto" height="90" width="90" src="<?php if ($church->photo && file_exists(CONF_UPLOAD_DIR .'/'.$church->photo)) 
-                                {echo image($church->photo, 200, 200);}else {echo url('themes/'.CONF_VIEW_ADMIN.'/assets/images/avatar-ccb.jpg');}?>" class="img-thumbnail rounded-circle float-left" id="foto-cliente">
-                            </a>
+                    <!-- Church Info Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-house-door me-1"></i> Informações da Igreja</div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center mb-1 mb-md-0">
+                                    <?php
+                                    $fullImageLink = ($church && $church->photo())
+                                        ? url(CONF_UPLOAD_DIR . "/" . $user->photo())
+                                        : theme('/assets/images/avatar-ccb.jpg', CONF_VIEW_ADMIN);
+                                    ?>
+                                    <a href="<?= $fullImageLink; ?>" target="_blank" title="Ver imagem completa">
+                                        <?= userPhoto($church->photo ?? null, 120, 120, 'avatar-ccb.jpg'); ?>
+                                    </a>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-7 mb-1">
+                                            <label class="col-form-label col-form-label-sm" for="church_name"><strong>Nome da Igreja</strong></label>
+                                            <input type="text" id="church_name" name="church_name" class="form-control form-control-sm" value="<?= $church->church_name ?? ''; ?>" required>
+                                        </div>
+                                        <div class="col-md-5 mb-1">
+                                            <label for="photo" class="col-form-label col-form-label-sm"><strong><i class="bi bi-upload me-1"></i> Nova Foto</strong> (Opcional)</label>
+                                            <input class="form-control form-control-sm" data-image=".j_profile_image" type="file" id="photo" name="photo">
+                                        </div>
+                                        <div class="col-md-6 mb-1">
+                                            <label class="col-form-label col-form-label-sm" for="country_id"><strong>País</strong></label>
+                                            <input type="text" id="country_id" name="country_id" class="form-control form-control-sm mask-country" value="<?= $church->country_id ?? 'BR'; ?>">
+                                        </div>
+                                        <div class="col-md-6 mb-1">
+                                            <label class="col-form-label col-form-label-sm" for="code_id"><strong>Código</strong></label>
+                                            <input type="text" id="code_id" name="code_id" class="form-control form-control-sm mask-code" value="<?= $church->code_id ?? ''; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="col-5 mb-1">
-                            <label for="formFileSm" class="col-form-label col-form-label-sm"> <strong> Extensões aceitas : .bmp ,.png, .svg, .jpeg e .jpg </strong></label>
-                            <input data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Clique para carregar o arquivo" class="form-control form-control-sm" name="photo" id="photo" value="<?=$church->photo?>" type="file">
-                        </div>
-
                     </div>
 
-                    <div class="row">
-
-                            <div class="col-4 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputChurchName"><strong><i class="bi bi-person me-1"></i> Nome</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o nome da igreja" class="form-control form-control-sm"
-                                    name="church_name" placeholder="Jaçanã" value="<?=$church->church_name?>">
-
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCountry"><strong><i class="bi bi-person-add me-1"></i> País</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o País da Igreja" class="form-control form-control-sm mask-country"
-                                    name="country_id" placeholder="BR" value="<?=$church->country_id?>">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCode"><strong><i class="bi bi-person-add me-1"></i> Código</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o Código da Igreja" class="form-control form-control-sm mask-code"
-                                    name="code_id" placeholder="24-3658" value="<?=$church->code_id?>">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputPhoneMobile"><strong><i class="bi bi-phone me-1"></i> Celular</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o numero do telefone - DDD + dígitos" class="form-control form-control-sm mask-phone" 
-                                name="phone" placeholder="(11)99106-5284" value="<?=$church->phone?>">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputZipAddress"><strong><i class="bi bi-person-add me-1"></i> Cep</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o CEP da Igreja" class="form-control form-control-sm mask-zip-code"
-                                name="zip_code" placeholder="02244-35" value="<?=$church->zip_code?>">
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-5 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputAddress"><strong><i class="bi bi-person-add me-1"></i> Endereço</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"     
-                                    data-bs-title="Digite o endereço da Igreja" class="form-control form-control-sm"
-                                    name="address" placeholder="Rua José Buono, 65" value="<?=$church->address?>">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputAddressNumber"><strong><i class="bi bi-person-add me-1"></i> Número</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite o número da Igreja" class="form-control form-control-sm"
-                                name="address_number" placeholder="265A" value="<?=$church->address_number?>">
-                            </div>
-
-                            <div class="col-3 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputCity"><i class="bi bi-person-add me-1"></i><strong>Cidade</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite a cidade" class="form-control form-control-sm"
-                                    name="city" placeholder="São Paulo" value="<?=$church->city?>">
-                            </div>
-
-                            <div class="col-2 mb-1">
-                                <label class="col-form-label col-form-label-sm" for="inputState"><i class="bi bi-person-add me-1"></i><strong>Estado</strong></label>
-                                <input type="text" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                    data-bs-title="Digite o Estado" class="form-control form-control-sm mask-state"
-                                    name="state" placeholder="SP" value="<?=$church->state?>">
+                    <!-- Address and Contact Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-geo-alt me-1"></i> Endereço e Contato</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="zip_code"><strong>CEP</strong></label>
+                                    <input type="text" id="zip_code" name="zip_code" class="form-control form-control-sm mask-zip-code" value="<?= $church->zip_code ?? ''; ?>">
+                                </div>
+                                <div class="col-md-8 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="address"><strong>Endereço</strong></label>
+                                    <input type="text" id="address" name="address" class="form-control form-control-sm" value="<?= $church->address ?? ''; ?>">
+                                </div>
+                                <div class="col-md-2 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="address_number"><strong>Número</strong></label>
+                                    <input type="text" id="address_number" name="address_number" class="form-control form-control-sm" value="<?= $church->address_number ?? ''; ?>">
+                                </div>
+                                <div class="col-md-5 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="city"><strong>Cidade</strong></label>
+                                    <input type="text" id="city" name="city" class="form-control form-control-sm" value="<?= $church->city ?? 'São Paulo'; ?>">
+                                </div>
+                                <div class="col-md-2 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="state"><strong>Estado</strong></label>
+                                    <input type="text" id="state" name="state" class="form-control form-control-sm mask-state" value="<?= $church->state ?? 'SP'; ?>">
+                                </div>
+                                <div class="col-md-5 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="phone"><strong>Celular</strong></label>
+                                    <input type="text" id="phone" name="phone" class="form-control form-control-sm mask-phone" value="<?= $church->phone ?? ''; ?>">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="observations" class="col-form-label col-form-label-sm"><strong>Observações</strong></label>
+                                    <textarea id="observations" name="observations" class="form-control form-control-sm" rows="2"><?= $church->observations ?? ''; ?></textarea>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="row">   
-                            
-                            <div class="mb-3 mb-1">
-                                <label for="textareaObservacoes" class="col-form-label col-form-label-sm"><i class="bi bi-exclamation-diamond me-1"></i><strong>Observações</strong></label>
-                                <textarea class="form-control form-control-sm" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                data-bs-title="Digite as observações" rows="4" name="observations"><?=$church->observations?></textarea>
-                            </div>
-
+                        <div class="card-footer text-center">
+                            <?= button(["name" => ($church ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($church ? "primary" : "success")]); ?>
+                            <?= button(["href" => "/painel/igrejas", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
-
-                        <div class="row justify-content-center mt-4 mb-3">
-                            <div class="col-auto">
-                                <?= button([ "name" => "Gravar", "icon" => "person", "btncolor" => "success", "custom" => "dark", "title" => "Clique para gravar", "accesskey" => "g"]); ?>
-                                <?= button([ "name" => "Listar", "icon" => "person", "btncolor" => "secondary", "custom" => "dark", "title" => "Clique para listar as igrejas", "accesskey" => "l", "href" => "/painel/igrejas"]); ?>
-                            </div>
-                        </div>
-
-                        </form>
-                    <?= $this->insert("views/modalUser"); ?>
-                </div>
-            </div>
+                    </div>
+                </form>
         </div>
-
-        <?php  endif; ?>
-
     </div>
 </div>
+
+<?php $this->start("scripts"); ?>
+<script>
+    $(document).ready(function() {
+        // Script for image preview
+        $('body').on('change', 'input[data-image]', function (e) {
+            var input = $(this);
+            var target = $(input.data("image"));
+            var file = e.target.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    target.css("background-image", "url(" + e.target.result + ")");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+<?php $this->end(); ?>

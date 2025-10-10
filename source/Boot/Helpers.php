@@ -508,6 +508,91 @@ function userPhoto(?string $photoPath, int $width, int $height = null, string $d
     return "<img src=\"{$imageUrl}\" width=\"85\" height=\"85\" class=\"img-thumbnail rounded-circle float-left\" id=\"foto-cliente\">";
 }
 
+/**
+ * Gera o HTML de uma imagem de capa de evento ou uma imagem padrão.
+ * Verifica a existência do ficheiro e retorna a URL correta para a imagem e a sua miniatura.
+ *
+ * @param string|null $coverPath O caminho da capa guardado no banco de dados.
+ * @param int $width A largura da miniatura desejada.
+ * @param int|null $height A altura da miniatura desejada.
+ * @param string $defaultCover O nome do ficheiro de capa padrão.
+ * @return string O HTML completo da tag <img>.
+ */
+function eventCover(?string $coverPath, int $width, int $height = null, string $defaultCover = 'avatar_product.png'): string
+{
+    // Define a URL do avatar padrão
+    $defaultImageUrl = theme("/assets/images/{$defaultCover}", CONF_VIEW_ADMIN);
+
+    // Verifica se um caminho de foto foi fornecido
+    if ($coverPath) {
+        // Constrói o caminho absoluto no disco para verificar se o ficheiro existe
+        $absolutePath = CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$coverPath}";
+        
+        if (file_exists($absolutePath)) {
+            // Se o ficheiro existe, gera a URL da miniatura usando a helper 'image()'
+            $imageUrl = image($coverPath, $width, $height);
+        } else {
+            // Se o ficheiro não existe, usa a imagem padrão
+            $imageUrl = $defaultImageUrl;
+        }
+    } else {
+        // Se nenhum caminho de foto foi fornecido, usa a imagem padrão
+        $imageUrl = $defaultImageUrl;
+    }
+    
+    return "<img src=\"{$imageUrl}\" width=\"{$width}\" height=\"{$height}\" class=\"img-thumbnail float-left j_profile_image\">";
+}
+
+/**
+ * Gera a tag HTML <img> para um avatar (imagem de perfil), com fallback para uma imagem padrão.
+ * A função é flexível para ser usada com qualquer entidade (usuários, clientes, empresas) e em 
+ * diferentes camadas da aplicação (admin, app, web).
+ *
+ * @param string|null $imagePath O caminho da imagem, geralmente vindo do banco de dados.
+ * @param int $width A largura da imagem em pixels.
+ * @param int|null $height A altura da imagem. Se nulo, será igual à largura.
+ * @param string $viewLayer A constante da camada de view (ex: CONF_VIEW_ADMIN).
+ * @param array $attributes Um array associativo de atributos HTML extras para a tag <img>.
+ * @param string $defaultImage O nome do arquivo de imagem padrão.
+ * @return string A tag <img> completa.
+ */
+function avatar(
+    ?string $imagePath,
+    int $width,
+    ?int $height,
+    string $viewLayer,
+    array $attributes = [],
+    string $defaultImage = 'avatar.jpg'
+): string {
+    // 1. Determina a URL da imagem (padrão ou a da entidade)
+    $imageUrl = theme("/assets/images/{$defaultImage}", $viewLayer);
+
+    if ($imagePath) {
+        $absolutePath = CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$imagePath}";
+        if (file_exists($absolutePath) && !is_dir($absolutePath)) {
+            $imageUrl = image($imagePath, $width, $height);
+        }
+    }
+
+    // 2. Monta os atributos HTML da imagem
+    $defaultAttributes = [
+        'src' => $imageUrl,
+        'width' => $width,
+        'height' => $height ?? $width,
+        'alt' => 'Avatar' // Alt mais genérico
+    ];
+    
+    $finalAttributes = array_replace($defaultAttributes, $attributes);
+
+    // 3. Constrói a string de atributos para a tag HTML
+    $attributesString = '';
+    foreach ($finalAttributes as $key => $value) {
+        $attributesString .= ' ' . htmlspecialchars($key, ENT_QUOTES, 'UTF-8') . '="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '"';
+    }
+
+    return "<img{$attributesString}>";
+}
+
 
 /**
  * @param string $status
