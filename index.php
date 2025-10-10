@@ -145,6 +145,8 @@ $route->post("/eventos/editar/{event_id}", "Events:edit");
 $route->post("/eventos/excluir", "Events:delete");
 $route->get("/eventos/desativados", "Events:disabledEvents");
 $route->get("/eventos/status/{event_id}", "Events:toggleStatus");
+$route->get("/eventos/iniciar/{event_id}", "Events:start");
+$route->get("/eventos/finalizar/{event_id}", "Events:finish");
 
 //notification center
 $route->post("/notifications/count", "Notifications:count");

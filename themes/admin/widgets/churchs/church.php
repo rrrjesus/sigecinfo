@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <?= button(["name" => ($church ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($church ? "primary" : "success")]); ?>
+                            <?= button(["type" => "submit", "name" => ($church ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($church ? "primary" : "success")]); ?>
                             <?= button(["href" => "/painel/igrejas", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>

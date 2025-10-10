@@ -57,7 +57,7 @@
                     </div>
                     <div class="row justify-content-center mt-4">
                         <div class="col-auto">
-                            <?= button(["name" => "Atualizar Dados", "icon" => "check-circle", "btncolor" => "primary"]); ?>
+                            <?= button(["type" => "submit", "name" => "Atualizar Dados", "icon" => "check-circle", "btncolor" => "primary"]); ?>
                             <?= button(["href" => "/painel/tipos-de-eventos", "name" => "Listar Todos", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>

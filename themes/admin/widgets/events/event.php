@@ -5,7 +5,26 @@
 <div class="row justify-content-center">
     <div class="col-xl-12">
         <div class="container-fluid">
+
             <div class="ajax_response"><?= flash(); ?></div>
+
+             <?php // NOVO: Bloco de Alerta para Reunião Ao Vivo
+            if (!empty($isLive)): ?>
+                <div class="alert alert-danger text-center fw-bold fs-5 shadow-sm" role="alert">
+                    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                    REUNIÃO AO VIVO
+                    <span class="spinner-grow spinner-grow-sm ms-2" role="status" aria-hidden="true"></span>
+                    
+                    <?php // Botão de acesso (só aparece se o acesso for permitido pelo horário)
+                    if ($canAccess && !empty($event->meeting_url)): ?>
+                        <div class="d-grid gap-2 col-6 mx-auto mt-2">
+                             <a href="<?= $event->meeting_url; ?>" target="_blank" class="btn btn-dark fw-semibold"><i class="bi bi-box-arrow-up-right me-2"></i> ACESSAR REUNIÃO</a>
+                        </div>
+                    <?php elseif ($canAccess): ?>
+                        <p class="small fw-normal mt-2 mb-0">URL da reunião não definida.</p>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <?php if (!$event): // MODO DE CRIAÇÃO ?>
                 <form class="needs-validation" id="eventCreate" novalidate action="<?= url("/painel/eventos/cadastrar"); ?>" method="post" enctype="multipart/form-data">
@@ -14,7 +33,7 @@
                 <form class="needs-validation" id="eventUpdate" novalidate action="<?= url("/painel/eventos/editar/{$event->id}"); ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update"/>
             <?php endif; ?>
-            
+
                     <?= csrf_input(); ?>
 
                     <!-- Event Info Card -->
@@ -79,10 +98,25 @@
                                     <label class="col-form-label col-form-label-sm" for="location_text"><strong>Ou digite um local</strong> (Ex: Salão de Festas)</label>
                                     <input type="text" id="location_text" name="location_text" class="form-control form-control-sm" value="<?= $event->location_text ?? ''; ?>">
                                 </div>
+
+                                <div class="col-md-12 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="meeting_url"><strong>URL da Reunião</strong> (Opcional)</label>
+                                    <input type="url" id="meeting_url" name="meeting_url" class="form-control form-control-sm" placeholder="https://meet.google.com/..." value="<?= $event->meeting_url ?? ''; ?>">
+                                </div>
                             </div>
                         </div>
-                         <div class="card-footer text-center">
-                            <?= button(["name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
+                        
+                        <div class="card-footer text-center">
+                            <?php if (!empty($canStart)): ?>
+                                <?= button(["href" => "/painel/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle", "btncolor" => "success"]); ?>
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($isLive)): ?>
+                                <?=$modalFim?>
+                                <?= button(["name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
+                            <?php endif; ?>
+
+                            <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
                             <?= button(["href" => "/painel/eventos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>

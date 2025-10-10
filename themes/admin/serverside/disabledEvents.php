@@ -8,7 +8,7 @@ $table = <<<EOT
     SELECT 
         events.id, events.title, events.start_at, events.status
     FROM events
-    WHERE events.status = 'canceled'
+    WHERE events.status IN ('done', 'canceled')
  ) temp
 EOT;
 

@@ -16,7 +16,7 @@ $table = <<<EOT
     FROM events
     LEFT JOIN event_types ON events.type_id = event_types.id
     LEFT JOIN churchs ON events.church_id = churchs.id
-    WHERE events.status = 'scheduled'
+    WHERE events.status IN ('scheduled', 'in_progress')
  ) temp
 EOT;
 

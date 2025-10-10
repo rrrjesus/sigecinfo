@@ -293,11 +293,12 @@ $(document).ready(function() {
             toggleStatus: { id_col: 6, status_col: 4, name_col: 0, base_url: '/painel/eventos/status/', item_name: 'o evento' },
             delete: { id_col: 7, name_col: 0, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
         },
+        "aaSorting": [0, 'asc'],
         "aoColumnDefs": [
             {
                 "aTargets": [5], // Coluna Editar
                 "mRender": function(data, type, full) {
-                    return '<a href="' + SITE_URL + '/painel/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
+                    return '<a href="' + SITE_URL + '/painel/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
                 }
             },
             {

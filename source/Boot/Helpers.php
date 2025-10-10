@@ -619,6 +619,8 @@ function eventStatusBadge(string $status): string
             return '<span class="badge fw-semibold text-bg-primary">AGENDADO</span>';
         case 'done':
             return '<span class="badge fw-semibold text-bg-secondary">REALIZADO</span>';
+        case 'in_progress':
+            return '<span class="badge fw-semibold text-bg-danger"><i class="bi bi-broadcast me-1"></i>AO VIVO</span>';
         case 'canceled':
             return '<span class="badge fw-semibold text-bg-danger">CANCELADO</span>';
         default:
@@ -659,7 +661,7 @@ function user_status_options(?string $currentStatus): string
  * @param array $options
  * @return string|null
  */
-function button(array $options): ?string
+function buttonOld(array $options): ?string
 {
     // Valores padrão
     $defaults = [
@@ -667,7 +669,9 @@ function button(array $options): ?string
         "icon" => "person",
         "btncolor" => "success",
         "placement" => "top",
-        "custom" => "success",
+        "custom" => "dark",
+        "data-bs-toggle" => "modal",
+        "data-bs-target" => "#confirmFinishModal",
         "title" => "SIGECINFO",
         "tabindex" => "1",
         "accesskey" => "g",
@@ -688,11 +692,54 @@ function button(array $options): ?string
     
     $class = "btn btn-sm btn-outline-{$attr["btncolor"]} fw-semibold me-3 position-relative" . ($attr["is_circle"] ? " rounded-circle" : " rounded-pill");
 
-    return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-toggle=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
+    return "<{$tag} {$href} {$role} class=\"{$class}\" data-bs-toggle-tooltip=\"tooltip\" data-bs-custom-class=\"custom-tooltip-{$attr["custom"]}\" data-bs-placement=\"{$attr["placement"]}\" data-bs-title=\"{$attr["title"]}\" tabindex=\"{$attr["tabindex"]}\" accesskey=\"{$attr["accesskey"]}\">
     {$iconHtml}
     {$textHtml}
     {$countBadge}
             </{$tag}>";
+}
+
+/**
+ * Gera um botão ou link estilizado com Bootstrap.
+ * (Versão final e segura)
+ *
+ * @param array $params Parâmetros para o botão.
+ * @return string O HTML do botão.
+ */
+function button(array $params): string
+{
+    $href = $params['href'] ?? null;
+    $tag = $href ? 'a' : 'button';
+
+    $type = $params['type'] ?? ($tag === 'button' ? 'button' : null);
+
+    $name = $params['name'] ?? 'Button';
+    $icon = $params['icon'] ?? null;
+    $btnColor = $params['btncolor'] ?? 'primary';
+    $class = $params['class'] ?? '';
+    
+    $attributes = '';
+    $finalClass = "btn btn-outline-{$btnColor} btn-sm fw-semibold " . $class;
+    $attributes .= 'class="' . trim($finalClass) . ' me-3"';
+
+    if ($href) {
+        $attributes .= ' href="' . htmlspecialchars(url($href), ENT_QUOTES, 'UTF-8') . '"';
+    }
+    // Adiciona o atributo 'type' apenas para a tag <button>
+    if ($type && $tag === 'button') {
+        $attributes .= ' type="' . htmlspecialchars($type, ENT_QUOTES, 'UTF-8') . '"';
+    }
+
+    if (isset($params['data-bs-toggle'])) {
+        $attributes .= ' data-bs-toggle="' . htmlspecialchars($params['data-bs-toggle'], ENT_QUOTES, 'UTF-8') . '"';
+    }
+    if (isset($params['data-bs-target'])) {
+        $attributes .= ' data-bs-target="' . htmlspecialchars($params['data-bs-target'], ENT_QUOTES, 'UTF-8') . '"';
+    }
+
+    $iconHtml = $icon ? "<i class='bi bi-{$icon} me-2'></i>" : "";
+
+    return "<{$tag} {$attributes}>{$iconHtml}{$name}</{$tag}>";
 }
  
 

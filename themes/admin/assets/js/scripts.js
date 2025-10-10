@@ -97,165 +97,39 @@ $(function () {
 
     // event create
     $("#eventCreate").validate({
-        rules: {
-            title: {
-                required: true
-            },
-            type_id: {
-                required: true
-            },
-            start_at: {
-                required: true
-            },
-            end_at: {
-                greaterThan: "#start_at"
-            }
+        rules: { title: { required: true },
+            type_id: { required: true },
+            start_at: { required: true },
+            end_at: { greaterThan: "#start_at" }
         },
         messages: {
-            title: {
-                required: "O título do evento é obrigatório."
-            },
-            type_id: {
-                required: "Por favor, selecione um tipo de evento."
-            },
-            start_at: {
-                required: "A data e hora de início são obrigatórias."
-            }
+            title: { required: "O título do evento é obrigatório." },
+            type_id: { required: "Por favor, selecione um tipo de evento." },
+            start_at: { required: "A data e hora de início são obrigatórias." }
         }
     });
 
     // event update
     $("#eventUpdate").validate({
-        rules: {
-            title: {
-                required: true
-            },
-            type_id: {
-                required: true
-            },
-            start_at: {
-                required: true
-            },
-            end_at: {
-                greaterThan: "#start_at"
-            }
+        rules: { 
+            title: {required: true },
+            type_id: { required: true },
+            start_at: { required: true },
+            end_at: { greaterThan: "#start_at" }
         },
         messages: {
-            title: {
-                required: "O título do evento é obrigatório."
-            },
-            type_id: {
-                required: "Por favor, selecione um tipo de evento."
-            },
-            start_at: {
-                required: "A data e hora de início são obrigatórias."
-            }
-        }
-    });
-
-    $("#contract").validate({
-        rules: {
-            sei_process: {
-                required: true
-            },
-            contract_name: {
-                required: true
-            },
-            manager_id: {
-                required: true
-            },
-            inspector_id: {
-                required: true
-            },
-            deputy_inspector_id: {
-                required: true
-            },
-            description: {
-                required: true
-            }
-        }, messages: {
-            sei_process: {
-                required: "Digite o número do Processo SEI !!!"
-            },
-            contract_name: {
-                required: "Digite o nome do Contrato !!!"
-            },
-            manager_id: {
-                required: "Digite o nome do Responsável !!!"
-            },
-            inspector_id: {
-                required: "Digite o nome do Fiscal !!!"
-            },
-            deputy_inspector_id: {
-                required: "Digite o nome do Suplente !!!"
-            },
-            description: {
-                required: "Descreva o contrato !!!"
-            }
-        }
-    });
-
-
-    $("#brand").validate({
-        rules: {
-            brand_name: {
-                required: true
-            },
-            description: {
-                required: true
-            }
-        },
-        messages: {
-            brand_name: {
-                required: "Digite a marca !!!"
-            },
-            description: {
-                required: "Digite a descrição !!!"
-            }
+            title: { required: "O título do evento é obrigatório." },
+            type_id: { required: "Por favor, selecione um tipo de evento." },
+            start_at: { required: "A data e hora de início são obrigatórias." }
         }
     });
 
     $("#userposition").validate({
         rules: {
-            position_name: {
-                required: true
-            }
+            position_name: { required: true }
         },
         messages: {
-            position_name: {
-                required: "Digite o cargo do servidor !!!"
-            }
-        }
-    });
-
-    $("#product").validate({
-        rules: {
-            brand_id: {
-                required: true
-            },
-            product_name: {
-                required: true
-            },
-            type_part_number: {
-                required: true
-            },
-            description: {
-                required: true
-            }
-        },
-        messages: {
-            brand_id: {
-                required: "Digite a marca !!!"
-            },
-            product_name: {
-                required: "Digite o produto !!!"
-            },
-            type_part_number: {
-                required: "Digite o tipo de partnumber !!!"
-            },
-            description: {
-                required: "Digite a descrição !!!"
-            }
+            position_name: { required: "Digite o cargo do servidor !!!" }
         }
     });
 

@@ -12,9 +12,9 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Eventos do Sistema</h6>
                     <div>
-                        <?= button(["href" => "/painel/eventos/cadastrar", "name" => "Registar Novo Evento", "icon" => "calendar-plus"]); ?>
+                        <?= button(["href" => "/painel/eventos/cadastrar", "name" => "Eventos Ativos", "icon" => "calendar-plus"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/painel/eventos/desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                            <?= button(["href" => "/painel/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>
                     </div>
                 </div>
