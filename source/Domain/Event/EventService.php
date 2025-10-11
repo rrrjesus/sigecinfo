@@ -56,4 +56,15 @@ class EventService
 
         return $convokedCount;
     }
+
+    /**
+     * Busca todos os participantes de um evento.
+     * @param int $eventId O ID do evento.
+     * @return array|null Uma lista de objetos EventParticipant.
+     */
+    public function getParticipants(int $eventId): ?array
+    {
+        $participants = (new EventParticipant())->find("event_id = :eid", "eid={$eventId}")->fetch(true);
+        return $participants;
+    }
 }

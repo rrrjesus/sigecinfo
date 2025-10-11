@@ -81,6 +81,47 @@
                             </div>
                     </div>
 
+                    <?php if ($event && !empty($participants)): ?>
+                        <div class="card mb-2">
+                            <div class="card-header fw-bold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
+                            <div class="card-body">
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Foto</th>
+                                            <th>Nome</th>
+                                            <th>Cargo</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($participants as $participant): ?>
+                                            <tr>
+                                                <td class="text-center align-middle">
+                                                    <?= photoList($participant->user()->photo, 'avatar.jpg'); ?>
+                                                </td>
+                                                <td class="align-middle"><?= $participant->user()->user_name; ?></td>
+                                                <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
+                                                <td class="text-center align-middle"><?= statusBadge($participant->status); ?></td>
+                                                <td class="text-center align-middle">
+                                                    <form class="d-inline" action="<?= url("/painel/eventos/remover-participante"); ?>" method="post">
+                                                        <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle-tooltip="tooltip" title="Remover Convocação" onclick="return confirm('Tem a certeza?');">
+                                                            <i class="bi bi-person-x"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+
+
                     <!-- Date and Location Card -->
                     <div class="card mb-2">
                         <div class="card-header fw-bold"><i class="bi bi-geo-alt me-1"></i> Data e Local</div>

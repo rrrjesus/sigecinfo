@@ -198,6 +198,10 @@ class Events extends Admin
             ["title" => "Editar"]
         ];
 
+        // --- BUSCA OS PARTICIPANTES PARA EXIBIR NA VIEW ---
+        $eventService = new EventService();
+        $participants = $eventService->getParticipants($event->id);
+
         $head = $this->seo->render("Editar Evento: {$event->title}", CONF_SITE_DESC, url("/painel/eventos"), null, false);
 
         echo $this->view->render("widgets/events/event", [
@@ -206,6 +210,7 @@ class Events extends Admin
             "event" => $event,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
             "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true),
+            "participants" => $participants, // <-- PASSA OS PARTICIPANTES PARA A VIEW
             "isLive" => $isLive,         // Flag para o alerta "AO VIVO"
             "canAccess" => $canAccess,   // Flag para o botão "Acessar"
             "canStart" => $canStart,      // Flag para o botão "Iniciar"
