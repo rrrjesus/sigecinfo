@@ -24,9 +24,15 @@ class EventTypes extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render("Tipos de Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
+
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/tipos-de-eventos")],
+            ["title" => "Listar"]
+        ];
         
         echo $this->view->render("widgets/events/types/list", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "eventTypes" => (new EventType())->find("status = 'actived'")->order("name ASC")->fetch(true),
             "registers" => (object)["disabled" => (new EventType())->find("status = 'disabled'")->count()]
         ]);
@@ -76,8 +82,17 @@ class EventTypes extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Tipo de Evento", "link" => url("/painel/tipos-de-eventos")],
+            ["title" => "Criar"]
+        ];
+
         $head = $this->seo->render("Registar Tipo de Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
-        echo $this->view->render("widgets/events/types/form", [ "head" => $head, "eventType" => null ]);
+        echo $this->view->render("widgets/events/types/form", [ 
+            "breadcrumb" => $breadcrumb,
+            "head" => $head,
+            "eventType" => null 
+        ]);
     }
 
     /**
@@ -117,8 +132,13 @@ class EventTypes extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Tipo de Evento", "link" => url("/painel/tipos-de-eventos")],
+            ["title" => "Editar"]
+        ];
+
         $head = $this->seo->render("Editar Tipo de Evento: {$eventType->name}", CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
-        echo $this->view->render("widgets/events/types/form", [ "head" => $head, "eventType" => $eventType ]);
+        echo $this->view->render("widgets/events/types/form", [ "head" => $head, "breadcrumb" => $breadcrumb,"eventType" => $eventType ]);
     }
 
     /**

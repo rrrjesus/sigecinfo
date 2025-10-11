@@ -62,22 +62,23 @@ function is_chip(string $chip): string
  */
 
 /**
- * Sanitiza um array de dados, aplicando trim e strip_tags a cada valor.
+ * Sanitiza um array de dados, aplicando trim e strip_tags a cada valor escalar.
+ * Ignora valores que sejam arrays (como os de um select múltiplo).
  * @param array $data O array de dados a ser limpo.
  * @return array O array de dados limpo.
  */
 function sanitize_array(array $data): array
 {
-    // 1. Limpa os espaços em branco do início e do fim de todos os campos.
-    $sanitizedData = array_map('trim', $data);
-
-    // 2. Remove as tags HTML/PHP de cada campo que seja uma string.
-    foreach ($sanitizedData as $key => $value) {
-        if (is_string($value)) {
-            $sanitizedData[$key] = strip_tags($value);
+    $sanitizedData = [];
+    foreach ($data as $key => $value) {
+        // Verifica se o valor é uma string ou um número antes de o limpar
+        if (is_scalar($value)) {
+            $sanitizedData[$key] = strip_tags(trim($value));
+        } else {
+            // Se for um array (ou outro tipo), mantém o valor original
+            $sanitizedData[$key] = $value;
         }
     }
-
     return $sanitizedData;
 }
 
@@ -651,6 +652,42 @@ function user_status_options(?string $currentStatus): string
 }
 
 /**
+ * Gera as opções de <option> para o select de cargos, agrupados por descrição.
+ * @return string
+ */
+function grouped_position_options_select(): string
+{
+    // Busca todos os cargos ativos, ordenados pelo grupo (description) e depois pelo nome
+    $positions = (new \Source\Domain\User\Models\UserPosition())
+        ->find("status = 'actived'")
+        ->order("description ASC, position_name ASC")
+        ->fetch(true);
+
+    if (!$positions) {
+        return "";
+    }
+
+    // Agrupa os cargos pela descrição
+    $groupedPositions = [];
+    foreach ($positions as $position) {
+        $groupName = $position->description ?: 'Outros'; // Agrupa cargos sem descrição em "Outros"
+        $groupedPositions[$groupName][] = $position;
+    }
+
+    // Gera o HTML com <optgroup>
+    $htmlOptions = "";
+    foreach ($groupedPositions as $groupName => $groupPositions) {
+        $htmlOptions .= "<optgroup label='GRUPO: {$groupName}'>";
+        foreach ($groupPositions as $position) {
+            $htmlOptions .= "<option value='{$position->id}'>{$position->position_name}</option>";
+        }
+        $htmlOptions .= "</optgroup>";
+    }
+
+    return $htmlOptions;
+}
+
+/**
  * ################
  * ###  BUTTONS ###
  * ################
@@ -710,6 +747,7 @@ function button(array $params): string
 {
     $href = $params['href'] ?? null;
     $tag = $href ? 'a' : 'button';
+    $countBadge = $params['disabled_count'] ?? null;
 
     $type = $params['type'] ?? ($tag === 'button' ? 'button' : null);
 
@@ -717,6 +755,7 @@ function button(array $params): string
     $icon = $params['icon'] ?? null;
     $btnColor = $params['btncolor'] ?? 'primary';
     $class = $params['class'] ?? '';
+    $badge = $params['disabled_count'] ?? null;
     
     $attributes = '';
     $finalClass = "btn btn-outline-{$btnColor} btn-sm fw-semibold " . $class;
@@ -737,9 +776,11 @@ function button(array $params): string
         $attributes .= ' data-bs-target="' . htmlspecialchars($params['data-bs-target'], ENT_QUOTES, 'UTF-8') . '"';
     }
 
+    $countBadge = $badge ? "<span class=\"position-absolute badge text-bg-danger\">{$badge}</span>" : "";
+
     $iconHtml = $icon ? "<i class='bi bi-{$icon} me-2'></i>" : "";
 
-    return "<{$tag} {$attributes}>{$iconHtml}{$name}</{$tag}>";
+    return "<{$tag} {$attributes}>{$iconHtml}{$name}{$countBadge}</{$tag}>";
 }
  
 

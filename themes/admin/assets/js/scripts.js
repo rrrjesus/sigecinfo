@@ -207,7 +207,12 @@ $(function () {
     });
 
     // Adicione ao seu scripts.js
-    $("#eventTypeForm").validate({
+    $("#eventTypeCreate").validate({
+        rules: { name: { required: true } },
+        messages: { name: { required: "O nome do tipo de evento é obrigatório." } }
+    });
+
+    $("#eventTypeUpdate").validate({
         rules: { name: { required: true } },
         messages: { name: { required: "O nome do tipo de evento é obrigatório." } }
     });

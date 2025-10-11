@@ -56,10 +56,29 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="description" class="col-form-label col-form-label-sm"><strong>Descrição</strong></label>
-                                    <textarea id="description" name="description" class="form-control form-control-sm" rows="3"><?= $event->description ?? ''; ?></textarea>
+                                    <textarea id="description" name="description" class="form-control form-control-sm" rows="1"><?= $event->description ?? ''; ?></textarea>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-people-fill me-1"></i> Convocação de Participantes</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="col-form-label col-form-label-sm" for="positions">
+                                            <strong>Convocar Cargos ou Grupos</strong> (Segure Ctrl para selecionar vários)
+                                        </label>
+                                        <select id="positions" name="positions[]" class="form-select form-select-sm" multiple size="10">
+                                            <?= grouped_position_options_select(); ?>
+                                        </select>
+                                        <div class="form-text">
+                                            Clique no nome de um <b>GRUPO</b> (ex: GRUPO: Ministério) para selecionar todos os cargos dentro dele.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
 
                     <!-- Date and Location Card -->

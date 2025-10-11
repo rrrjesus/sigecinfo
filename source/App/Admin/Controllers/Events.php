@@ -5,6 +5,7 @@ namespace Source\App\Admin\Controllers;
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Church\Models\Church;
+use Source\Domain\Event\EventService;
 use Source\Support\Upload;
 use Source\Support\Thumb;
 use Source\Support\Modal;
@@ -42,7 +43,9 @@ class Events extends Admin
         echo $this->view->render("widgets/events/list", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "registers" => (object)["disabled" => (new Event())->find("status = :s", "s=canceled")->count()]
+            "registers" => (object)["disabled" => (new Event())->find("status IN (:s1, :s2)", "s1=canceled&s2=done")->count()
+]
+
         ]);
     }
 
@@ -62,7 +65,7 @@ class Events extends Admin
 
         echo $this->view->render("widgets/events/disabledList", [
             "head" => $head,
-            "breadcrumb" => $breadcrumb
+            "breadcrumb" => $breadcrumb 
         ]);
     }
 
@@ -86,21 +89,16 @@ class Events extends Admin
             $event->location_text = $data["location_text"];
             $event->created_by = $this->user->id;
 
-            if (!empty($_FILES["cover"])) {
-                $upload = new Upload();
-                $image = $upload->image($_FILES["cover"], str_slug($event->title), 800);
-                if (!$image) {
-                    $json["message"] = $upload->message()->render();
-                    echo json_encode($json);
-                    return;
-                }
-                $event->cover = $image;
-            }
-
             if (!$event->save()) {
                 $json["message"] = $event->message()->render();
                 echo json_encode($json);
                 return;
+            }
+
+            // --- CONVOCAÇÃO POR CARGOS APÓS SALVAR ---
+            if (!empty($data["positions"])) {
+                $eventService = new EventService();
+                $eventService->convokeByPositions($event, $data["positions"]);
             }
 
             $this->message->success("Evento registado com sucesso!")->flash();
@@ -158,6 +156,12 @@ class Events extends Admin
                 $json["message"] = $event->message()->render();
                 echo json_encode($json);
                 return;
+            }
+
+            // --- CONVOCAÇÃO POR CARGOS APÓS ATUALIZAR ---
+            if (!empty($data["positions"])) {
+                $eventService = new EventService();
+                $eventService->convokeByPositions($event, $data["positions"]);
             }
 
             $this->message->success("Evento atualizado com sucesso!")->flash();
