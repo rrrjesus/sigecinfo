@@ -34,6 +34,7 @@ class EventService
         }
 
         $convokedCount = 0;
+        
         foreach ($usersToConvoke as $user) {
             // Verifica se o utilizador já não foi convocado para evitar duplicados
             $existingParticipant = (new EventParticipant())->find(
@@ -55,6 +56,38 @@ class EventService
         }
 
         return $convokedCount;
+    }
+
+    // ... (dentro da classe EventService)
+
+    /**
+     * Convoca um único utilizador para um evento.
+     * @param Event $event O evento para o qual convocar.
+     * @param int $userId O ID do utilizador a ser convocado.
+     * @return bool True se o utilizador foi convocado, false caso contrário.
+     */
+    public function convokeUser(Event $event, int $userId): bool
+    {
+        // Verifica se o utilizador já não está no evento
+        $existing = (new EventParticipant())->find(
+            "event_id = :eid AND user_id = :uid",
+            "eid={$event->id}&uid={$userId}"
+        )->count();
+
+        if ($existing > 0) {
+            return false; // Utilizador já está convocado
+        }
+
+        $participant = new EventParticipant();
+        $participant->event_id = $event->id;
+        $participant->user_id = $userId;
+        
+        if($participant->save()){
+            // Futuramente, envie o e-mail aqui
+            return true;
+        }
+
+        return false;
     }
 
     /**

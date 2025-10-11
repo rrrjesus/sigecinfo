@@ -95,7 +95,13 @@ class Events extends Admin
                 return;
             }
 
-            // --- CONVOCAÇÃO POR CARGOS APÓS SALVAR ---
+            // Convocação de participantes individualmente
+            if (!empty($data["user_id_to_add"])) {
+                $eventService = new EventService();
+                $eventService->convokeUser($event, $data["user_id_to_add"]);
+            }
+
+            // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
                 $eventService = new EventService();
                 $eventService->convokeByPositions($event, $data["positions"]);
@@ -158,7 +164,13 @@ class Events extends Admin
                 return;
             }
 
-            // --- CONVOCAÇÃO POR CARGOS APÓS ATUALIZAR ---
+            // Convocação de participantes individualmente
+            if (!empty($data["user_id_to_add"])) {
+                $eventService = new EventService();
+                $eventService->convokeUser($event, $data["user_id_to_add"]);
+            }
+
+            // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
                 $eventService = new EventService();
                 $eventService->convokeByPositions($event, $data["positions"]);
@@ -170,7 +182,7 @@ class Events extends Admin
             return;
         }
 
-         // --- LÓGICA DE STATUS DA REUNIÃO ---
+         // Lógica para verificar o status da Reunião
         $now = new DateTime();
         $start_at = new DateTime($event->start_at);
         $end_at = !empty($event->end_at) ? new DateTime($event->end_at) : null;
@@ -191,8 +203,6 @@ class Events extends Admin
                         url("/painel/eventos/finalizar/{$event->id}"),
                         'Sim, finalizar');
         
-        // --- FIM DA LÓGICA ---
-
         $breadcrumb = [
             ["title" => "Eventos", "link" => url("/painel/eventos")],
             ["title" => "Editar"]

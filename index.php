@@ -124,7 +124,11 @@ $route->post("/usuarios/excluir", function($data) use ($auth) { (new \Source\App
 $route->post("/usuarios/desativados/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->delete($data); });
 $route->get("/usuarios/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->disabledUsers($data); });
 $route->get("/usuarios/status/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->toggleStatus($data); });
-$route->get("/usuarios/json", "Users:listJson");
+$route->get("/usuarios/search", function($data) use ($auth) {
+    (new \Source\App\Admin\Controllers\Users($auth))->searchJson($data);
+});
+// Dentro do grupo "/painel/usuarios"
+$route->get("/search-typeahead", "Users:searchJsonForTypeahead");
 
 //Tipos de Eventos
 $route->get("/tipos-de-eventos", "EventTypes:list");

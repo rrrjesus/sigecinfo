@@ -307,6 +307,79 @@ class Users extends Admin
         ]);
     }
 
+    // ... (dentro da classe Users)
+
+    /**
+     * Retorna uma lista de utilizadores em formato JSON para autocomplete.
+     * @param array $data
+     */
+public function searchJson(array $data): void
+{
+
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (empty($data)) {
+        $data = $_GET;
+    }
+
+    $searchTerm = filter_var($data['term'] ?? '', FILTER_SANITIZE_STRING);
+
+    file_put_contents('debug.log', "Term: {$searchTerm}\n", FILE_APPEND);
+
+    if (empty($searchTerm)) {
+        echo json_encode([]);
+        return;
+    }
+
+    $users = (new User())
+        ->find("user_name LIKE :term", "term=%{$searchTerm}%")
+        ->limit(10)
+        ->fetch(true);
+
+    $results = [];
+    if ($users) {
+        foreach ($users as $user) {
+            $results[] = [
+                "id" => $user->id,
+                "label" => $user->user_name . " (" . $user->email . ")"
+            ];
+        }
+    }
+
+    echo json_encode($results);
+}
+
+
+/**
+     * Retorna uma lista de utilizadores em formato JSON para o Typeahead.
+     * @param array $data
+     */
+    public function searchJsonForTypeahead(array $data): void
+    {
+        // O Typeahead envia o termo de busca no parâmetro 'query'
+        $searchTerm = filter_var($data['query'], FILTER_SANITIZE_STRING);
+
+        $users = (new \Source\Domain\User\Models\User())
+            ->find("status != 'disabled' AND user_name LIKE :term", "term=%{$searchTerm}%")
+            ->limit(10)
+            ->fetch(true);
+
+        $results = [];
+        if ($users) {
+            foreach ($users as $user) {
+                // O Typeahead espera um objeto com uma propriedade que será usada para a busca
+                $results[] = [
+                    "id" => $user->id,
+                    "name" => $user->user_name
+                ];
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($results);
+        return;
+    }
+
     /**
      * @param array $data
      */

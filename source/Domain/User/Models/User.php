@@ -31,6 +31,23 @@ class User extends Model
         return $find->fetch();
     }
 
+     /**
+     * @return null|User
+     */
+    static function completeUser(): ?User
+    {
+        $stm = (new User())->find("status != :s","s=disabled");
+        $array[] = array();
+
+        if(!empty($stm)):
+            foreach ($stm->fetch(true) as $row):
+                    $array[] = $row->id.' - '.$row->user_name;
+            endforeach;
+            echo json_encode($array); //Return the JSON Array
+        endif;
+        return null;
+    }
+
     /**
      * @return null|Church
      */

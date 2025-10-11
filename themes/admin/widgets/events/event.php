@@ -78,10 +78,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label class="col-form-label col-form-label-sm" for="user_search">
+                                            <strong><i class="bi bi-person-plus-fill me-1"></i> Convocar Participante Individual</strong>
+                                        </label>
+                                        <input type="text" id="user_search" class="form-control form-control-sm user_search" placeholder="Digite o nome do utilizador para pesquisar...">
+                                        <input type="hidden" name="user_id_to_add" id="user_id_to_add">
+                                    </div>
+                                </div>
                             </div>
                     </div>
 
-                    <?php if ($event && !empty($participants)): ?>
+                    <!-- <?php if ($event && !empty($participants)): ?>
                         <div class="card mb-2">
                             <div class="card-header fw-bold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
                             <div class="card-body">
@@ -118,7 +128,7 @@
                                 </table>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
 
 
 
@@ -184,3 +194,57 @@
         </div>
     </div>
 </div>
+
+<?php $this->start("scripts"); ?>
+    <script>
+
+        $(function() {
+
+            let user_search = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace, queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: <?=(new \Source\Domain\User\Models\User())->completeUser()?>
+            });
+            user_search.initialize();
+            $('.user_search').typeahead({hint: true, highlight: true, minLength: 1}, {source: user_search})
+            // Salvar a seleção
+            .on('typeahead:select', function(ev, suggestion) {
+                // O Typeahead devolve a string completa (ex: "1 - Rodolfo").
+                // Vamos extrair apenas o ID.
+                var userId = suggestion.split(' - ')[0];
+                
+                // Guarda o ID no seu campo escondido
+                $("#user_id_to_add").val(userId);
+            });
+
+            // Seleção de itens individuais
+            $('#positions option').on('mousedown', function (e) {
+                e.preventDefault();
+                $(this).prop('selected', !$(this).prop('selected'));
+                $(this).closest('select').trigger('change');
+                return false;
+            });
+
+            // Detectar clique no optgroup (não é suportado diretamente, então usamos "label" e monitoramos o mouse)
+            $('#positions').on('mousemove', function (e) {
+                const target = e.target;
+                if (target.tagName === 'OPTGROUP') {
+                    $(target).css('cursor', 'pointer');
+                }
+            });
+
+            $('#positions').on('click', function (e) {
+                const target = e.target;
+
+                if (target.tagName === 'OPTGROUP') {
+                    const $group = $(target);
+                    const options = $group.children('option');
+                    const allSelected = options.length === options.filter(':selected').length;
+
+                    options.prop('selected', !allSelected);
+                    $(this).trigger('change');
+                }
+            });
+
+        });
+    </script>
+<?php $this->end(); ?>
