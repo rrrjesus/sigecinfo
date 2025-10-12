@@ -72,7 +72,7 @@ $(document).ready(function() {
         var title = config.title || (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
 
         var actionButton = (config.method === 'POST')
-            ? `<form action="${config.url}" method="POST" style="display: inline;">
+            ? `<form action="${config.url}" method="POST" class="ajax_off" style="display: inline;">
                    <input type="hidden" name="${config.id_field}" value="${config.id}">
                    <button type="submit" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</button>
                </form>`
@@ -413,6 +413,21 @@ $(document).ready(function() {
                 return createActionButton({
                     action: 'delete', id: data, tooltip: 'Excluir ' + full[0],
                     btn_class: 'danger'
+                });
+            }}
+        ]
+    }));
+
+     // Tabela de Participantes de Evento
+    $('#eventParticipants').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Participantes de Evento", false), {
+        modalConfig: {
+            delete: { id_col: 4, name_col: 1, base_url: '/painel/eventos/remover-participante', id_field: 'participant_id', item_name: 'o participante de evento' }
+        },
+        "aoColumnDefs": [
+            { "aTargets": [4], "mRender": function (data, type, full) {
+                return createActionButton({
+                    action: 'delete', id: data,
+                    tooltip: 'Excluir ' + full[1], btn_class: 'danger'
                 });
             }}
         ]

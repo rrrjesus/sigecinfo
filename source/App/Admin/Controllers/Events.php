@@ -208,7 +208,7 @@ class Events extends Admin
             ["title" => "Editar"]
         ];
 
-        // --- BUSCA OS PARTICIPANTES PARA EXIBIR NA VIEW ---
+        // Busca os participantes para exibir na view
         $eventService = new EventService();
         $participants = $eventService->getParticipants($event->id);
 
@@ -270,6 +270,45 @@ class Events extends Admin
         }
 
         redirect(url("/painel/eventos/editar/{$event->id}"));
+    }
+
+    /**
+     * Confirma um participante de um evento.
+     * @param array $data
+     */
+    public function checkIn(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+
+        if ($participantId) {
+            $eventService = new EventService();
+            $eventService->checkInParticipant($participantId);
+        }
+        
+        redirect(url_back());
+    }
+
+    /**
+     * Remove um participante de um evento.
+     * @param array $data
+     */
+    public function removeParticipant(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+
+        if ($participantId) {
+            $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+            if ($participant) {
+                $participant->destroy();
+                $this->message->success("Participante removido com sucesso!")->flash();
+            } else {
+                $this->message->error("Não foi possível encontrar a participação para remover.")->flash();
+            }
+        }
+        
+        redirect(url_back());
     }
 
     /**

@@ -100,4 +100,20 @@ class EventService
         $participants = (new EventParticipant())->find("event_id = :eid", "eid={$eventId}")->fetch(true);
         return $participants;
     }
+
+    /**
+     * Realiza o check-in de um participante num evento.
+     * @param int $participantId
+     * @return bool
+     */
+    public function checkInParticipant(int $participantId): bool
+    {
+        $participant = (new EventParticipant())->findById($participantId);
+        if ($participant && $participant->status != 'presente') {
+            $participant->status = 'presente';
+            $participant->checkin_at = date("Y-m-d H:i:s");
+            return $participant->save();
+        }
+        return false;
+    }
 }

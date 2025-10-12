@@ -20,4 +20,14 @@ class EventRepository
             "total" => $this->model->find()->count()
         ];
     }
+
+     // Métodos de busca aqui.
+    public function findUpcomingEvents(int $limit = 5): ?array
+    {
+        return $this->model
+            ->find("status = 'scheduled' AND start_at >= NOW()")
+            ->order("start_at ASC")
+            ->limit($limit)
+            ->fetch(true);
+    }
 }

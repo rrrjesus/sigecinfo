@@ -65,6 +65,9 @@ $route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controll
 $route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
 $route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
+$route->get("/meus-eventos", function($data) use ($auth) {
+    (new \Source\App\Beta\Events($auth))->list($data);
+});
 $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
 
 /**
@@ -97,7 +100,7 @@ $route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
 $route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
 $route->post("/igrejas/excluir", "Churchs:delete");
 
-//N[iveis]
+//Niveis
 $route->get("/niveis", "Levels:levels");
 
 //Cargos (Mantido como original, pois não refatoramos o controller)
@@ -151,6 +154,8 @@ $route->get("/eventos/desativados", "Events:disabledEvents");
 $route->get("/eventos/status/{event_id}", "Events:toggleStatus");
 $route->get("/eventos/iniciar/{event_id}", "Events:start");
 $route->get("/eventos/finalizar/{event_id}", "Events:finish");
+$route->post("/eventos/remover-participante", "Events:removeParticipant");
+$route->post("/eventos/checkin", "Events:checkIn");
 
 //notification center
 $route->post("/notifications/count", "Notifications:count");

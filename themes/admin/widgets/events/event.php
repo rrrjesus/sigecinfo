@@ -91,18 +91,18 @@
                             </div>
                     </div>
 
-                    <!-- <?php if ($event && !empty($participants)): ?>
+                    <?php if ($event && !empty($participants)): ?>
                         <div class="card mb-2">
                             <div class="card-header fw-bold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
                             <div class="card-body">
-                                <table class="table table-sm table-striped table-hover">
-                                    <thead>
-                                        <tr>
+                                <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                                    <thead class="table-secondary">
                                             <th class="text-center">Foto</th>
                                             <th>Nome</th>
                                             <th>Cargo</th>
                                             <th class="text-center">Status</th>
-                                            <th class="text-center">Ações</th>
+                                            <th class="text-center">Excluir</th>
+                                            <th class="text-center">Confirmar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,21 +114,34 @@
                                                 <td class="align-middle"><?= $participant->user()->user_name; ?></td>
                                                 <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
                                                 <td class="text-center align-middle"><?= statusBadge($participant->status); ?></td>
+                                                <td class="text-center align-middle"><?= $participant->id; ?></td>
                                                 <td class="text-center align-middle">
-                                                    <form class="d-inline" action="<?= url("/painel/eventos/remover-participante"); ?>" method="post">
+                                                    <?php if ($participant->status != 'presente'): ?>
+                                                        <form class="ajax_off" style="display: inline;" action="<?= url("/painel/eventos/checkin"); ?>" method="post">
+                                                            <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
+                                                            <button type="submit" class="btn btn-sm btn-success" data-bs-toggle-tooltip="tooltip" title="Confirmar Presença (Check-in)">
+                                                                <i class="bi bi-check-circle-fill"></i> Check-in
+                                                            </button>
+                                                        </form>
+                                                    <?php else: ?>
+                                                        <span class="badge text-bg-success"><i class="bi bi-check-circle-fill"></i> Presente</span>
+                                                    <?php endif; ?>
+
+                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/painel/eventos/remover-participante"); ?>" method="post">
                                                         <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                                         <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle" data-bs-toggle-tooltip="tooltip" title="Remover Convocação" onclick="return confirm('Tem a certeza?');">
                                                             <i class="bi bi-person-x"></i>
                                                         </button>
                                                     </form>
                                                 </td>
+                                               
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    <?php endif; ?> -->
+                    <?php endif; ?>
 
 
 
