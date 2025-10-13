@@ -137,6 +137,7 @@ class Auth extends Model
     public function login(string $email, string $password, bool $save = false, int $level = 1): bool
     {
         $user = $this->attempt($email, $password, $level);
+        
         if (!$user) {
             return false;
         }

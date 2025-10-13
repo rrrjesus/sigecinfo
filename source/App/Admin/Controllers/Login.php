@@ -45,7 +45,8 @@ class Login extends Controller
     public function login(?array $data): void
     {
         $user = Auth::user();
-        if ($user && $user->level_id >= 3) {
+        
+        if ($user && $user->level_id >= 4) {
             redirect("/painel/controle");
         }
 
@@ -56,7 +57,7 @@ class Login extends Controller
                 return;
             }
 
-            $login = $this->auth->login($data["email"], $data["password"], true, 3);
+            $login = $this->auth->login($data["email"], $data["password"], true, 4);
 
             if ($login) {
                 $json["redirect"] = url("/painel/controle");

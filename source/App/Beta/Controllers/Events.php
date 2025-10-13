@@ -1,9 +1,10 @@
 <?php
-namespace Source\App\Beta;
+namespace Source\App\Beta\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Event\EventRepository;
 use Source\Domain\Event\Models\EventParticipant;
+use Source\App\Beta\Admin;
 
 class Events extends Admin
 {
@@ -23,6 +24,24 @@ class Events extends Admin
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
         echo $this->view->render("widgets/events/my-events", [
+            "head" => $head,
+            "events" => $myEvents,
+            "user" => $this->user
+        ]);
+    }
+
+    
+    /**
+     * Lista os eventos para os quais o utilizador foi convocado.
+     */
+    public function disabledEvents(): void
+    {
+        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos-finalizados"), null, false);
+        
+        $eventRepo = new EventRepository();
+        $myEvents = $eventRepo->getEventsForUser($this->user->id);
+
+        echo $this->view->render("widgets/events/disabled", [
             "head" => $head,
             "events" => $myEvents,
             "user" => $this->user

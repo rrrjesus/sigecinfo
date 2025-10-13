@@ -39,11 +39,6 @@ class Admin extends Controller
             redirect("/entrar");
         }
 
-        if ($this->user->level_id < 3) {
-            $this->message->error("Nível de usuário não permitido!")->flash();
-            redirect("/entrar");
-        }
-
         //UNCONFIRMED EMAIL
         if ($this->user->status != "actived") {
             $session = new Session();

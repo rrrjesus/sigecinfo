@@ -120,7 +120,7 @@ class Web extends Controller
                 return;
             }
 
-            $save = (!empty($data['save']));
+            $save = (!empty($data['save']) ? true : false);
             $login = $this->auth->login($data['email'], $data['password'], $save);
 
             if ($login) {
@@ -210,7 +210,7 @@ class Web extends Controller
 
             list($email, $code) = explode("|", $data["code"]);
             if ($this->auth->reset($email, $code, $data["password"], $data["password_re"])) {
-                $this->message->success("Senha alterada com sucesso. Vamos controlar?")->flash();
+                $this->message->success("Senha alterada com sucesso. Vamos utilizar?")->flash();
                 $json["redirect"] = url("/entrar");
             } else {
                 $json["message"] = $this->auth->message()->before("Ooops! ")->render();

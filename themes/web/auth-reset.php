@@ -21,12 +21,14 @@
         <div class="form-floating mb-3 mt-1">
             <input type="password" name="password" id="password" class="form-control" placeholder="********"
                    data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Digite sua senha !!!" data-bs-custom-class="custom-tooltip-secondary" required>
+                   <i class="bi bi-eye-slash toggle-password" id="togglePasswordIcon"></i>
         </div>
 
          <label for="password_re" class="form-label fw-semibold"><i class="bi bi-lock pe-2"></i>Repita a Nova Senha</label>
         <div class="form-floating mb-3 mt-1">
             <input type="password" name="password_re" id="password_re" class="form-control" placeholder="********"
                    data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-title="Redigite sua senha !!!" data-bs-custom-class="custom-tooltip-secondary" required>
+                   <i class="bi bi-eye-slash toggle-passwordRe" id="togglePasswordIconRe"></i>
         </div>
 
         <label for="esqueciForm" class="form-label"><a class="link-primary text-decoration-none fw-semibold text-primary" title="Esqueceu a senha?" href="<?= url("/entrar"); ?>">Voltar e entrar !!! </a><span class="badge rounded-pill text-bg-secondary ps-2 text-white" data-bs-toggle-tooltip="tooltip" data-bs-placement="right"  data-bs-title="Clique para se logar no sistema !!!" data-bs-custom-class="custom-tooltip-secondary">?</span></label>
@@ -37,3 +39,61 @@
     </form>
 
 </div>
+
+<?php $this->start("scripts"); ?>
+
+<script>
+    const togglePasswordCheckbox = document.querySelector('#togglePassword');
+    const passwordField = document.querySelector('#password');
+    const togglePasswordCheckboxRe = document.querySelector('#togglePasswordRe');
+    const passwordFieldRe = document.querySelector('#password_re');
+    
+
+    if (togglePasswordCheckbox && passwordField) {
+        togglePasswordCheckbox.addEventListener('change', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+        });
+    }
+
+    // --- NOVO SCRIPT PARA O ÍCONE DE OLHO ---
+    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
+    // A variável passwordField já foi declarada acima
+
+    if (togglePasswordIcon) {
+        togglePasswordIcon.addEventListener('click', function (e) {
+            // Alterna o tipo do campo de senha
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Alterna a classe do ícone entre 'olho aberto' e 'olho fechado'
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    }
+
+    if (togglePasswordCheckboxRe && passwordFieldRe) {
+        togglePasswordCheckboxRe.addEventListener('change', function () {
+            const type = passwordFieldRe.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordFieldRe.setAttribute('type', type);
+        });
+    }
+
+     // --- NOVO SCRIPT PARA O ÍCONE DE OLHO ---
+    const togglePasswordIconRe = document.querySelector('#togglePasswordIconRe');
+    // A variável passwordField já foi declarada acima
+
+    if (togglePasswordIconRe) {
+        togglePasswordIconRe.addEventListener('click', function (e) {
+            // Alterna o tipo do campo de senha
+            const type = passwordFieldRe.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordFieldRe.setAttribute('type', type);
+            
+            // Alterna a classe do ícone entre 'olho aberto' e 'olho fechado'
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    }
+</script>
+
+<?php $this->end(); ?> 

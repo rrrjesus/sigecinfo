@@ -58,8 +58,6 @@ $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\Ap
 $route->namespace("Source\App\Beta");
 $route->group("/beta");
 
-$route->get("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
-$route->post("/login", function($data) use ($auth) {(new \Source\App\Beta\Login($auth))->login($data);});
 $route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->dash($data);});
 $route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
@@ -67,11 +65,13 @@ $route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Contro
 $route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
 $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
 
-$route->get("/eventos/meus-eventos", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->list($data);});
-$route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->confirm($data);});
-$route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->justify($data);});
+//events
+$route->get("/eventos/meus-eventos", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->list($data);});
+$route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->disabledEvents($data);});
+$route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->confirm($data);});
+$route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->justify($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
-    (new \Source\App\Beta\Events($auth))->changeResponse($data);
+    (new \Source\App\Beta\Controllers\Events($auth))->changeResponse($data);
 });
 
 /**

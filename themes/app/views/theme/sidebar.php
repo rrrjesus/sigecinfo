@@ -36,21 +36,7 @@
                 <div class="collapse" id="collapseEvent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Ativos</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/contatos/cadastrar")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Cadastrar</a>
-                    </nav>
-                </div>
-
-                <!-- Sidebar de setores -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapsePatrimony" aria-expanded="false" aria-controls="collapsePatrimony">
-                    <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Patrimonio
-                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                </a>
-                <div class="collapse" id="collapsePatrimony" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPatrimony">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/patrimonios")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/patrimonios/historico")?>"><i class="bi bi-list bi-2xx me-2"></i> Histórico</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/patrimonio/cadastrar")?>"><i class="bi bi-building-add bi-2xx me-2"></i> Cadastrar</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/eventos-finalizados")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Inativos</a>
                     </nav>
                 </div>
 

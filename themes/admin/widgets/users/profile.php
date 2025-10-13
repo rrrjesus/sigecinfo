@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <?= button(["name" => "Atualizar", "icon" => "check-circle", "btncolor" => "primary"]); ?>
+                        <?= button(["type" => "submit", "name" => "Atualizar", "icon" => "check-circle", "btncolor" => "primary"]); ?>
                         <?= button(["href" => "/painel/controle", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                     </div>
                 </div>

@@ -7,6 +7,8 @@
     <div class="col-xl-12">
         <div class="container-fluid">
 
+        <div class="ajax_response"><?= flash(); ?></div>
+
            
 
         </div>

@@ -14,6 +14,12 @@
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
+                        <?php if (empty($events)): ?>
+                            <div class="alert alert-primary text-center fw-semibold" role="alert">Você ainda não foi convocado para nenhum evento.</div>
+                        <?php else: foreach ($events as $event): 
+                            // Busca os dados da participação uma única vez
+                            $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
+                        ?>
                         <table id="myEvents" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                             <thead class="table-secondary">
                                 <tr>
@@ -27,12 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (empty($events)): ?>
-                                    <td class="text-center text-uppercase">Você ainda não foi convocado para nenhum evento.</td>
-                                <?php else: foreach ($events as $event): 
-                                    // Busca os dados da participação uma única vez
-                                    $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
-                                ?>
+                               
                                  <tr>
                                     <td class="text-center text-uppercase"><small><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></small></td>
                                     <td class="text-center text-uppercase"><?= $event->title; ?></td>

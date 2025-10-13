@@ -77,6 +77,11 @@ class Profile extends Admin
             return;
         }
 
+        $breadcrumb = [
+            ["title" => "Perfil", "link" => url("/beta/perfil")],
+            ["title" => "{$this->user->user_name}"]
+        ];
+
         $head = $this->seo->render(
             "Meu perfil - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
@@ -87,6 +92,7 @@ class Profile extends Admin
 
         echo $this->view->render("widgets/profile/profile", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "user" => $this->user,
             "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) : theme("/assets/images/avatar.jpg", CONF_VIEW_APP))
         ]);

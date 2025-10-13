@@ -17,6 +17,15 @@
     color: #6c757d; /* Cor cinzenta do Bootstrap */
 }
 
+.toggle-passwordRe {
+    position: absolute;
+    top: 50%;
+    right: 30px; /* Posição do ícone dentro do campo */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d; /* Cor cinzenta do Bootstrap */
+}
+
   .form-signin .form-floating:focus-within {
     z-index: 2;
   }
