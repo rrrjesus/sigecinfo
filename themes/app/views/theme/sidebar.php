@@ -28,14 +28,14 @@
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">CADASTROS</div>
 
                 <!-- Sidebar de usuários -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseContact" aria-expanded="false" aria-controls="collapseContact">
+                <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseEvent" aria-expanded="false" aria-controls="collapseEvent">
                     <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
-                    Contatos
+                    Eventos
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseContact" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionContact">
+                <div class="collapse" id="collapseEvent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/contatos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Ativos</a>
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/contatos/cadastrar")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Cadastrar</a>
                     </nav>
                 </div>

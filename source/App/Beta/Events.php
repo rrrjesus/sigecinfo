@@ -2,7 +2,8 @@
 namespace Source\App\Beta;
 
 use Source\Domain\Shared\Models\Auth;
-use Source\Domain\Event\EventRepository; // Usaremos um repositório para as buscas
+use Source\Domain\Event\EventRepository;
+use Source\Domain\Event\Models\EventParticipant;
 
 class Events extends Admin
 {
@@ -23,9 +24,123 @@ class Events extends Admin
 
         echo $this->view->render("widgets/events/my-events", [
             "head" => $head,
-            "events" => $myEvents
+            "events" => $myEvents,
+            "user" => $this->user
         ]);
     }
+
+    /**
+     * Confirma a presença de um utilizador num evento.
+     * @param array $data
+     */
+    public function confirm(array $data): void
+    {
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+        $participant = (new EventParticipant())->findById($participantId);
+
+        // Verificação de segurança: o utilizador só pode confirmar a sua própria participação.
+        if (!$participant || $participant->user_id != $this->user->id) {
+            $this->message->error("Ocorreu um erro ao processar a sua confirmação.")->flash();
+            redirect(url_back());
+            return;
+        }
+
+        $participant->status = "confirmado";
+        $participant->save();
+
+        $this->message->success("Presença confirmada com sucesso!")->flash();
+        redirect(url_back());
+    }
+
+    /**
+     * Reseta a resposta de um participante, voltando o seu status para "convocado".
+     * @param array $data
+     */
+    public function changeResponse(array $data): void
+    {
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+
+        // Verificação de segurança: o utilizador só pode alterar a sua própria participação.
+        if (!$participant || $participant->user_id != $this->user->id) {
+            $this->message->error("Ocorreu um erro ao processar a sua alteração.")->flash();
+            redirect(url_back());
+            return;
+        }
+
+        // Reseta o status e a justificação
+        $participant->status = "convocado";
+        $participant->justification = null;
+        $participant->save();
+
+        $this->message->info("A sua resposta foi redefinida. Por favor, escolha a sua nova opção.")->flash();
+        redirect(url_back());
+    }
+
+    /**
+     * Regista a justificação de falta de um utilizador.
+     * @param array $data
+     */
+   // file: Events.php (coloque dentro da sua classe Events)
+    public function justify(array $data): void
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
+        // Validações básicas
+        $participantId = filter_var($data["participant_id"] ?? null, FILTER_VALIDATE_INT);
+        $justification = isset($data["justification"]) ? trim($data["justification"]) : null;
+
+        if (!$participantId) {
+            $this->message->error("Participante inválido.")->flash();
+            http_response_code(400);
+            echo json_encode([
+                "status" => "error"
+            ]);
+            return;
+        }
+
+        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+
+        // Verificação de segurança: o utilizador só pode justificar a sua própria participação.
+        if (!$participant || $participant->user_id != $this->user->id) {
+            $this->message->error("Você não tem permissão para justificar esta participação.")->flash();
+            http_response_code(403);
+            echo json_encode([
+                "status" => "error"
+            ]);
+            return;
+        }
+
+        if (empty($justification)) {
+            $this->message->warning("Por favor, escreva o motivo da sua ausência.")->flash();
+            http_response_code(422);
+            echo json_encode([
+                "status" => "warning"
+            ]);
+            return;
+        }
+
+        // Salvar justificativa
+        $participant->status = "recusado";
+        $participant->justification = htmlspecialchars($justification, ENT_QUOTES, 'UTF-8');
+
+        if ($participant->save()) {
+            $this->message->success("Justificativa de falta enviada com sucesso.")->flash();
+            echo json_encode([
+                "status" => "success",
+                "close_modal" => true,
+                "reload" => true
+            ]);
+        } else {
+            http_response_code(500);
+            $this->message->error("Ocorreu um erro ao salvar. Tente novamente.")->flash();
+            echo json_encode([
+                "status" => "error"
+            ]);
+        }
+    }
+
+
 
     /**
      * Busca todos os eventos para os quais um utilizador específico foi convocado.

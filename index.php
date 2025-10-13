@@ -65,10 +65,14 @@ $route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controll
 $route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
 $route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
-$route->get("/meus-eventos", function($data) use ($auth) {
-    (new \Source\App\Beta\Events($auth))->list($data);
-});
 $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
+
+$route->get("/eventos/meus-eventos", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->list($data);});
+$route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->confirm($data);});
+$route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\Beta\Events($auth))->justify($data);});
+$route->post("/eventos/alterar-resposta", function($data) use ($auth) {
+    (new \Source\App\Beta\Events($auth))->changeResponse($data);
+});
 
 /**
  * ADMIN ROUTES
@@ -85,8 +89,6 @@ $route->get("/controle", "Dash:dash");
 $route->get("/controle/inicial", "Dash:home");
 $route->post("/controle/inicial", "Dash:home");
 $route->get("/logoff", "Dash:logoff");
-
-//Perfil do Usuário Logado (closures para injetar o $auth)
 $route->get("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 $route->post("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 

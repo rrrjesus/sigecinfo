@@ -32,7 +32,7 @@ class EventType extends Model
         // Regra 2: Validação de duplicidade
         $checkByName = $this->find("name = :name AND id != :id", "name={$this->name}&id={$this->id}");
         if ($checkByName->count()) {
-            $this->message->warning("Este tipo de evento já está registado.");
+            $this->message->warning("Este tipo de evento já está registrado.");
             return false;
         }
 
