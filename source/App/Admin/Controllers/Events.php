@@ -6,6 +6,7 @@ use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Church\Models\Church;
 use Source\Domain\Event\EventService;
+use Source\Domain\Event\Models\EventParticipant;
 use Source\Support\Upload;
 use Source\Support\Thumb;
 use Source\Support\Modal;
@@ -281,12 +282,18 @@ class Events extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
 
-        if ($participantId) {
-            $eventService = new EventService();
-            $eventService->checkInParticipant($participantId);
+        $participant = (new EventParticipant())->findById($participantId);
+        if ($participant && $participant->status != 'presente') {
+            $participant->status = 'presente';
+            $participant->login_updated = $this->user->id;
+            $participant->checkin_at = date("Y-m-d H:i:s");
+            $participant->save();
+            $this->message->success("Participante {$participant->user()->user_name} confirmado com sucesso!")->flash();
+        } else {
+            $this->message->error("Não foi possível encontrar a participação para confirmar.")->flash();
         }
         
-        redirect(url_back());
+        redirect("painel/eventos/editar/{$participant->event_id}?tab=guests");
     }
 
     /**
@@ -299,16 +306,16 @@ class Events extends Admin
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
 
         if ($participantId) {
-            $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+            $participant = (new EventParticipant())->findById($participantId);
             if ($participant) {
                 $participant->destroy();
-                $this->message->success("Participante removido com sucesso!")->flash();
+                $this->message->success("Participante {$participant->user()->user_name} removido com sucesso!")->flash();
             } else {
                 $this->message->error("Não foi possível encontrar a participação para remover.")->flash();
             }
         }
-        
-        redirect(url_back());
+
+        redirect("painel/eventos/editar/{$participant->event_id}?tab=guests");
     }
 
     /**
