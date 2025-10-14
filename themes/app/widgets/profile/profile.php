@@ -1,16 +1,23 @@
 <?php $this->layout("_beta"); ?>
 
-<?= $this->insert("views/theme/breadcrumb"); ?>
+  <!-- Breacrumb-->
+  <?= $this->insert("views/theme/breadcrumb"); ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <form class="form-horizontal" id="form-profile" action="<?= url("app/profile"); ?>" method="post"
-                          enctype="multipart/form-data" data-id="<?= $user->id ?>">
-                        <div class="row">
-                            <div class="col-12 col-sm-6 col-md-3">
+<div class="row justify-content-center">
+    <div class="col-xl-12">
+        <div class="container-fluid">
+            <div class="ajax_response"><?= flash(); ?></div>
+
+                <form class="needs-validation" id="profile" novalidate action="<?= url("/beta/perfil");?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="update" value="true"/>
+
+                <?=csrf_input();?>
+                    
+                    <!-- Profile Info Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-person-circle me-1"></i> Informações do Usuário</div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
                                 <div class="col-md-2 text-center mb-1 mb-md-0">
                                     <?php
                                     $fullImageLink = ($user && $user->photo())
@@ -21,57 +28,91 @@
                                         <?= userPhoto($user->photo ?? null, 120, 120, 'avatar.jpg'); ?>
                                     </a>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-md-9">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="first_name" class="form-label">Nome</label>
-                                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                                   value="<?= $user->user_name ?>" disabled>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-7 mb-1">
+                                            <label class="col-form-label col-form-label-sm" for="user_name"><strong>Nome Completo</strong></label>
+                                            <input type="text" id="user_name" name="user_name" class="form-control form-control-sm" value="<?= $user->user_name ?? ''; ?>" disabled readonly>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="last_name" class="form-label">Sobrenome</label>
-                                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                                   value="<?= $user->last_name ?>">
+                                        <div class="col-md-5 mb-1">
+                                            <label for="photo" class="col-form-label col-form-label-sm"><strong><i class="bi bi-upload me-1"></i> Nova Foto</strong> (Opcional)</label>
+                                            <input class="form-control form-control-sm" data-image=".j_profile_image" type="file" id="photo" name="photo">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                           value="<?= $user->email ?>" disabled>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="password" class="form-label">Nova Senha</label>
-                                            <input type="password" class="form-control" id="password" name="password"
-                                                   placeholder="Nova senha">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="password_re" class="form-label">Repita a Nova Senha</label>
-                                            <input type="password" class="form-control" id="password_re"
-                                                   name="password_re" placeholder="Repita a nova senha">
+                                        <div class="col-md-12">
+                                            <label class="col-form-label col-form-label-sm" for="email"><strong>E-mail</strong></label>
+                                            <input type="email" id="email" name="email" class="form-control form-control-sm" value="<?= $user->email ?? ''; ?>" disabled readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    </div>
+
+                    <!-- Access and Security Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-shield-lock me-1"></i> Acesso e Segurança</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="level_id"><strong>Nível de Acesso</strong></label>
+                                   <input class="form-control form-control-sm" value="<?=$user->level()->level_name ?? '';?>" disabled readonly>
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="password"><strong>Senha</strong> <?= (!$user ? '<small>(Padrão)</small>' : '<small>(Preencha para alterar)</small>'); ?></label>
+                                    <input type="password" id="password" name="password" class="form-control form-control-sm" autocomplete="new-password"
+                                           data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
+                                           data-bs-title="Padrão: Mudar123?!" value="<?= (!$user ? 'Mudar123?!' : ''); ?>">
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="password_re"><strong>Repetir Senha</strong></label>
+                                    <input type="password" id="password_re" name="password_re" class="form-control form-control-sm" autocomplete="new-password"
+                                           data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark"
+                                           data-bs-title="Repita a senha" value="<?= (!$user ? 'Mudar123?!' : ''); ?>">
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </div>
+
+                    <!-- Additional Info Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-info-circle me-1"></i> Detalhes Adicionais</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="church_id"><strong>Igreja</strong></label>
+                                    <input class="form-control form-control-sm" value="<?=$user->church()->church_name ?? '';?>" disabled readonly>
+                                </div>
+                                <div class="col-md-6 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="position_id"><strong>Cargo/Ministério</strong></label>
+                                    <input class="form-control form-control-sm" value="<?=$user->position()->position_name ?? '';?>" disabled readonly>
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="phone_mobile"><strong>Celular</strong> (Opcional)</label>
+                                    <input type="text" id="phone_mobile" name="phone_mobile" class="form-control form-control-sm mask-cell-phone" value="<?= $user->phone_mobile ?? ''; ?>">
+                                </div>
+                                <div class="col-md-4 mb-1">
+                                    <label class="col-form-label col-form-label-sm" for="phone_landline"><strong>Telefone Fixo</strong> (Opcional)</label>
+                                    <input type="text" id="phone_landline" name="phone_landline" class="form-control form-control-sm mask-fixed-phone" value="<?= $user->phone_landline ?? ''; ?>">
+                                </div>
+                                <?php if ($user): ?>
+                                    <div class="col-md-4 mb-1">
+                                        <label class="col-form-label col-form-label-sm" for="status"><strong>Status</strong></label>
+                                        <input name="status" id="status" value="<?= status_name($user->status) ?? ''; ?>" class="form-control form-control-sm" disabled readonly>
+                                            
+                                        </input>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="col-md-12">
+                                    <label for="observations" class="col-form-label col-form-label-sm"><strong>Observações</strong></label>
+                                    <textarea id="observations" name="observations" class="form-control form-control-sm" rows="2" disabled readonly><?= $user->observations ?? ''; ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <?= button(["type" => "submit", "name" => "Atualizar", "title" => "Clique para atualizar o Perfil", "icon" => "disc-fill", "btncolor" => "success"]); ?>
+                        </div>
+                    </div>
+                </form>
         </div>
     </div>
 </div>

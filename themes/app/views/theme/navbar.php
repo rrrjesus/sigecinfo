@@ -50,13 +50,13 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php if (user()->photo()): ?>
-                <img class="rounded-circle m-2" width="32" height="32" alt="<?= user()->user_name; ?>" title="<?= user()->user_name; ?>"
-                        src="<?= image(user()->photo, 260, 260); ?>"/>
-            <?php else: ?>
-                <img class="rounded-circle m-2" width="32" height="32" alt="<?= user()->user_name; ?>" title="<?= user()->user_name; ?>"
-                        src="<?= theme("/assets/images/avatar.jpg", CONF_VIEW_APP); ?>"/>
-            <?php endif; ?></i></a>
+             <?php
+            $fullImageLink = ($user && $user->photo())
+                ? url(CONF_UPLOAD_DIR . "/" . $user->photo())
+                : theme('/assets/images/avatar.jpg', CONF_VIEW_ADMIN);
+            ?>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="<?=$fullImageLink; ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <?= userPhoto($user->photo ?? null, 45, 45, 'avatar.jpg'); ?></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="<?=url("/beta/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>
             </ul>
