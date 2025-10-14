@@ -254,7 +254,7 @@
                     <!-- Relatório Quantitativo por Cargo -->
                     <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header fw-bold"><i class="bi bi-bar-chart-line-fill me-1"></i> Quantitativo por Cargo</div>
+                            <div class="card-header fw-bold"><i class="bi bi-bar-chart-line-fill me-1"></i> Quantitativo de Pessoas Presentes por Ministério / Encargo</div>
                             <div class="card-body">
                                 <?php if (!empty($reportData)): ?>
                                     <table class="table table-sm table-striped table-hover">
