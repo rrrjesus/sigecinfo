@@ -285,7 +285,7 @@ class Events extends Admin
         $participant = (new EventParticipant())->findById($participantId);
         if ($participant && $participant->status != 'presente') {
             $participant->status = 'presente';
-            $participant->login_updated = $this->user->id;
+            // $participant->login_updated = user()->id;
             $participant->checkin_at = date("Y-m-d H:i:s");
             $participant->save();
             $this->message->success("Participante {$participant->user()->user_name} confirmado com sucesso!")->flash();
