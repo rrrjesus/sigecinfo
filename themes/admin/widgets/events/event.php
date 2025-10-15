@@ -122,9 +122,9 @@
                                         <div class="col-md-4 mb-1">
                                             <label class="col-form-label col-form-label-sm" for="status"><strong>Status</strong></label>
                                             <select id="status" name="status" class="form-select form-select-sm">
-                                                <option value="scheduled" <?= $event->status == 'scheduled' ? 'selected' : ''; ?>>Agendado</option>
-                                                <option value="done" <?= $event->status == 'done' ? 'selected' : ''; ?>>Realizado</option>
-                                                <option value="canceled" <?= $event->status == 'canceled' ? 'selected' : ''; ?>>Cancelado</option>
+                                                <option value="agendado" <?= $event->status == 'agendado' ? 'selected' : ''; ?>>Agendado</option>
+                                                <option value="realizado" <?= $event->status == 'realizado' ? 'selected' : ''; ?>>Realizado</option>
+                                                <option value="cancelado" <?= $event->status == 'cancelado' ? 'selected' : ''; ?>>Cancelado</option>
                                             </select>
                                         </div>
                                     <?php endif; ?>

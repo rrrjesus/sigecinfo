@@ -5,7 +5,7 @@
  *
  * The static functions in this class are just helper functions to help build
  * the SQL used in the DataTables demo server-side processing scripts. These
- * functions obviously do not represent all that can be done with server-side
+ * functions obviously do not represent all that can be realizado with server-side
  * processing, they are intentionally simple to show how it works. More complex
  * server-side processing operations will likely require a custom script.
  *

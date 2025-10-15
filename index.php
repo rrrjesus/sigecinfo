@@ -67,7 +67,8 @@ $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Contro
 
 //events
 $route->get("/eventos/meus-eventos", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->list($data);});
-$route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->disabledEvents($data);});
+$route->get("/eventos/eventos", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEvents($data);});
+$route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEventsDisableds($data);});
 $route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->confirm($data);});
 $route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->justify($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {

@@ -44,9 +44,7 @@ class Events extends Admin
         echo $this->view->render("widgets/events/list", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "registers" => (object)["disabled" => (new Event())->find("status IN (:s1, :s2)", "s1=canceled&s2=done")->count()
-]
-
+            "registers" => (object)["disabled" => (new Event())->find("status IN (:s1, :s2)", "s1=cancelado&s2=realizado")->count()]
         ]);
     }
 
@@ -189,13 +187,13 @@ class Events extends Admin
         $end_at = !empty($event->end_at) ? new DateTime($event->end_at) : null;
         
         // A reunião está acontecendo agora?
-        $isLive = ($event->status == 'in_progress');
+        $isLive = ($event->status == 'ao vivo');
 
         // O botão "Acessar" deve ser mostrado? (Somente se estiver ao vivo e dentro do horário)
         $canAccess = ($isLive && $now >= $start_at && (empty($end_at) || $now <= $end_at));
 
         // O botão "Iniciar" deve ser mostrado? (Agendado e até 15 min antes do início)
-        $canStart = ($event->status == 'scheduled' && $now >= (clone $start_at)->modify('-15 minutes'));
+        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-15 minutes'));
 
        $modalFim = Modal::render(
                         'confirmFinishModal',
@@ -230,7 +228,7 @@ class Events extends Admin
     }
 
      /**
-     * Inicia uma reunião mudando o status para 'in_progress'.
+     * Inicia uma reunião mudando o status para 'ao vivo'.
      * @param array $data
      */
     public function start(array $data): void
@@ -239,8 +237,8 @@ class Events extends Admin
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
-        if ($event && $event->status == "scheduled") {
-            $event->status = "in_progress";
+        if ($event && $event->status == "agendado") {
+            $event->status = "ao vivo";
             $event->updated_by = $this->user->id;
             $event->save();
             $this->message->info("A reunião foi iniciada.")->flash();
@@ -252,7 +250,7 @@ class Events extends Admin
     }
 
     /**
-     * Finaliza uma reunião mudando o status para 'done'.
+     * Finaliza uma reunião mudando o status para 'realizado'.
      * @param array $data
      */
     public function finish(array $data): void
@@ -261,8 +259,8 @@ class Events extends Admin
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
-        if ($event && $event->status == "in_progress") {
-            $event->status = "done";
+        if ($event && $event->status == "ao vivo") {
+            $event->status = "realizado";
             $event->updated_by = $this->user->id;
             $event->save();
             $this->message->success("A reunião foi finalizada com sucesso.")->flash();
@@ -350,13 +348,13 @@ class Events extends Admin
         $event = (new Event())->findById($eventId);
 
         if ($event) {
-            // Lógica para alternar entre 'scheduled' (agendado) e 'canceled' (cancelado)
-            $event->status = ($event->status == "scheduled" ? "canceled" : "scheduled");
+            // Lógica para alternar entre 'agendado' (agendado) e 'cancelado' (cancelado)
+            $event->status = ($event->status == "agendado" ? "cancelado" : "agendado");
             $event->updated_by = $this->user->id;
             $event->save();
         }
         
-        $actionText = ($event->status == "scheduled" ? "reagendado" : "cancelado");
+        $actionText = ($event->status == "agendado" ? "reagendado" : "cancelado");
         $this->message->success("O evento foi {$actionText} com sucesso!")->flash();
         redirect(url_back());
     }

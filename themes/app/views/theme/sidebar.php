@@ -10,11 +10,6 @@
                     Monitoramento
                 </a>
 
-                <a class="nav-link text-light fw-semibold fs-6" href="https://drive.google.com/file/d/1Te1TGuCZHPy6qEJO-cPaSmJV01of9Xrt/view?usp=drive_link">
-                    <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
-                    Manual
-                </a>
-
                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/")?>">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Site
@@ -35,8 +30,8 @@
                 </a>
                 <div class="collapse" id="collapseEvent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Ativos</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/eventos-finalizados")?>"><i class="bi bi-person-add bi-2xx me-2"></i> Inativos</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Meus Eventos</a>
                     </nav>
                 </div>
 

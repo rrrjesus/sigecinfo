@@ -58,9 +58,9 @@
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div>
                                                     <?php if ($participant->status === 'confirmado'): ?>
-                                                        <p class="mb-0"><strong>Sua resposta:</strong> <span class="badge text-bg-success p-2">Presença Confirmada</span></p>
+                                                        <p class="mb-0"><span class="badge text-bg-success p-2">Presença Confirmada</span></p>
                                                     <?php elseif ($participant->status === 'recusado'): ?>
-                                                        <p class="mb-0"><strong>Sua resposta:</strong> <span class="badge text-bg-warning p-2">Falta Justificada</span></p>
+                                                        <p class="mb-0"><span class="badge text-bg-warning p-2">Falta Justificada</span></p>
                                                         <small class="text-muted fst-italic">Motivo: <?= $participant->justification; ?></small>
                                                     <?php else: ?>
                                                         <p class="mb-0"><strong>Status:</strong> <span class="badge text-bg-secondary"><?= ucfirst($participant->status); ?></span></p>

@@ -2,6 +2,7 @@
 namespace Source\App\Beta\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
+use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\EventRepository;
 use Source\Domain\Event\Models\EventParticipant;
 use Source\App\Beta\Admin;
@@ -14,6 +15,45 @@ class Events extends Admin
     }
 
     /**
+     * Lista os eventos
+     */
+    public function listEvents(): void
+    {
+
+        $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos"), null, false);
+        
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/beta/eventos")],
+            ["title" => "Listar"]
+        ];
+
+        echo $this->view->render("widgets/events/list-events", [
+            "head" => $head,
+            "breadcrumb" => $breadcrumb,
+            "registers" => (object)["disabled" => (new Event())->find("status IN (:s1, :s2)", "s1=cancelado&s2=realizado")->count()]
+        ]);
+    }
+
+    /**
+     * Lista os eventos
+     */
+    public function listEventsDisableds(): void
+    {
+
+        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/finalizados"), null, false);
+        
+        $breadcrumb = [
+            ["title" => "Eventos Finalizados", "link" => url("/beta/eventos/finalizados")],
+            ["title" => "Listar"]
+        ];
+
+        echo $this->view->render("widgets/events/disabled-list-events", [
+            "head" => $head,
+            "breadcrumb" => $breadcrumb
+        ]);
+    }
+
+    /**
      * Lista os eventos para os quais o utilizador foi convocado.
      */
     public function list(): void
@@ -23,8 +63,14 @@ class Events extends Admin
         $eventRepo = new EventRepository();
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/beta/eventos/meus-eventos")],
+            ["title" => "Meus Eventos"]
+        ];
+
         echo $this->view->render("widgets/events/my-events", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "events" => $myEvents,
             "user" => $this->user
         ]);

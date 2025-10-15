@@ -145,4 +145,37 @@ $(function () {
          // Tabela de Participantes de Evento
     $('#myEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
     }));
+
+        // Tabela de Eventos Desativados
+    $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Ativos"), {
+        ajax: '../../themes/app/serverside/list-events.php',
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[0] || '') + ' ' + (data[1] || '') + ' - ' + (data[2] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+        }
+    }));
+
+    // Tabela de Eventos Desativados
+    $('#listEventsDisableds').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Finalizados"), {
+        ajax: '../../themes/app/serverside/disabled-list-events.php',
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[0] || '') + ' ' + (data[1] || '') + ' - ' + (data[2] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+        }
+    }));
+    
 });

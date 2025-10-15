@@ -278,7 +278,7 @@ class App extends Controller
 
             //PREMIUM RESOURCE
             $subscribe = (new AppSubscription())->find("user_id = :user AND status != :status",
-                "user={$this->user->id}&status=canceled");
+                "user={$this->user->id}&status=cancelado");
 
             if (!$subscribe->count()) {
                 $this->message->error("Desculpe {$this->user->user_name}, para criar novas carteiras é preciso ser PRO. Confira abaixo...")->flash();
@@ -364,7 +364,7 @@ class App extends Controller
 
         //PREMIUM RESOURCE
         $subscribe = (new AppSubscription())->find("user_id = :user AND status != :status",
-            "user={$this->user->id}&status=canceled");
+            "user={$this->user->id}&status=cancelado");
 
         if (!$wallet->free && !$subscribe->count()) {
             $this->message->error("Sua carteira {$wallet->wallet} é PRO {$this->user->user_name}. Para controla-la é preciso ser PRO. Assine abaixo...")->flash();
@@ -725,7 +725,7 @@ class App extends Controller
         echo $this->view->render("signature", [
             "head" => $head,
             "subscription" => (new AppSubscription())
-                ->find("user_id = :user AND status != :status", "user={$this->user->id}&status=canceled")
+                ->find("user_id = :user AND status != :status", "user={$this->user->id}&status=cancelado")
                 ->fetch(),
             "orders" => (new AppOrder())
                 ->find("user_id = :user", "user={$this->user->id}")

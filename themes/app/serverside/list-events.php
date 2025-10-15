@@ -23,21 +23,15 @@ EOT;
 $primaryKey = 'id';
  
 $columns = [
-    ['db' => 'title', 'dt' => 0],
-    ['db' => 'start_at', 'dt' => 1, 'formatter' => function($d) {
-        return date_fmt($d, "d/m/Y H:i");
-    }],
+    ['db' => 'start_at', 'dt' => 0, 'formatter' => function($d) {
+    return date_fmt($d, "d/m/Y H:i");}],
+    ['db' => 'title', 'dt' => 1],
     ['db' => 'type_name', 'dt' => 2],
-    ['db' => 'church_name', 'dt' => 3, 'formatter' => function($d, $row) {
-        return $d ?? $row['location_text'] ?? 'N/A';
-    }],
-    ['db' => 'status', 'dt' => 4, 'formatter' => function($d) {
+    ['db' => 'church_name', 'dt' => 3],
+    ['db' => 'location_text', 'dt' => 4],
+    ['db' => 'status', 'dt' => 5, 'formatter' => function($d) {
         return eventStatusBadge($d);
-    }],
-    // Colunas para os IDs das ações
-    ['db' => 'id', 'dt' => 5], // Editar
-    ['db' => 'id', 'dt' => 6], // Status
-    ['db' => 'id', 'dt' => 7]  // Excluir
+    }]
 ];
 
 $sql_details = [

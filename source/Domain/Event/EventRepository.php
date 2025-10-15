@@ -15,8 +15,8 @@ class EventRepository
     public function getDashboardCounts(): object
     {
         return (object)[
-            "upcoming" => $this->model->find("status = 'scheduled' AND start_at >= NOW()")->count(),
-            "past" => $this->model->find("status = 'done'")->count(),
+            "upcoming" => $this->model->find("status = 'agendado' AND start_at >= NOW()")->count(),
+            "past" => $this->model->find("status = 'realizado'")->count(),
             "total" => $this->model->find()->count()
         ];
     }
@@ -25,7 +25,7 @@ class EventRepository
     public function findUpcomingEvents(int $limit = 5): ?array
     {
         return $this->model
-            ->find("status = 'scheduled' AND start_at >= NOW()")
+            ->find("status = 'agendado' AND start_at >= NOW()")
             ->order("start_at ASC")
             ->limit($limit)
             ->fetch(true);

@@ -616,13 +616,13 @@ function statusBadge(string $status): string
 function eventStatusBadge(string $status): string
 {
     switch ($status) {
-        case 'scheduled':
+        case 'agendado':
             return '<span class="badge fw-semibold text-bg-primary">AGENDADO</span>';
-        case 'done':
-            return '<span class="badge fw-semibold text-bg-secondary">REALIZADO</span>';
-        case 'in_progress':
+        case 'realizado':
+            return '<span class="badge fw-semibold text-bg-success text-white">REALIZADO</span>';
+        case 'ao vivo':
             return '<span class="badge fw-semibold text-bg-danger"><i class="bi bi-broadcast me-1"></i>AO VIVO</span>';
-        case 'canceled':
+        case 'cancelado':
             return '<span class="badge fw-semibold text-bg-danger">CANCELADO</span>';
         default:
             return '<span class="badge fw-semibold text-bg-dark">INDEFINIDO</span>';
