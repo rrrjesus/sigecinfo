@@ -56,7 +56,7 @@ class Events extends Admin
     /**
      * Lista os eventos para os quais o utilizador foi convocado.
      */
-    public function list(): void
+    public function listMyEvents(): void
     {
         $head = $this->seo->render("Meus Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/meus-eventos"), null, false);
         

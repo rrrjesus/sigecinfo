@@ -617,15 +617,15 @@ function eventStatusBadge(string $status): string
 {
     switch ($status) {
         case 'agendado':
-            return '<span class="badge fw-semibold text-bg-primary">AGENDADO</span>';
+            return '<h5><span class="badge fw-semibold text-bg-primary p-2">Agendado</span></h5>';
         case 'realizado':
-            return '<span class="badge fw-semibold text-bg-success text-white">REALIZADO</span>';
+            return '<h5><span class="badge fw-semibold text-bg-success text-white p-2">Realizado</span></h5>';
         case 'ao vivo':
-            return '<span class="badge fw-semibold text-bg-danger"><i class="bi bi-broadcast me-1"></i>AO VIVO</span>';
+            return '<h5><span class="badge fw-semibold text-bg-danger p-2"><i class="bi bi-broadcast me-1"></i>Ao Vivo</span></h5>';
         case 'cancelado':
-            return '<span class="badge fw-semibold text-bg-danger">CANCELADO</span>';
+            return '<h5><span class="badge fw-semibold text-bg-danger p-2">Cancelado</span></h5>';
         default:
-            return '<span class="badge fw-semibold text-bg-dark">INDEFINIDO</span>';
+            return '<h5><span class="badge fw-semibold text-bg-dark p-2">Indefinido</span></h5>';
     }
 }
 
@@ -758,7 +758,7 @@ function button(array $params): string
     $badge = $params['disabled_count'] ?? null;
     
     $attributes = '';
-    $finalClass = "btn btn-outline-{$btnColor} btn-sm fw-semibold " . $class;
+    $finalClass = "btn btn-outline-{$btnColor} btn-sm fw-semibold rounded-pill " . $class;
     $attributes .= 'class="' . trim($finalClass) . ' me-3"';
 
     if ($href) {
@@ -776,7 +776,7 @@ function button(array $params): string
         $attributes .= ' data-bs-target="' . htmlspecialchars($params['data-bs-target'], ENT_QUOTES, 'UTF-8') . '"';
     }
 
-    $countBadge = $badge ? "<span class=\"position-absolute badge text-bg-danger\">{$badge}</span>" : "";
+    $countBadge = $badge ? "<span class=\"position-absolute rounded-pill badge text-bg-danger\">{$badge}</span>" : "";
 
     $iconHtml = $icon ? "<i class='bi bi-{$icon} me-2'></i>" : "";
 

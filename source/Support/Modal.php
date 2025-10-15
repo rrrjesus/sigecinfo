@@ -30,4 +30,33 @@ class Modal
             </div>
         HTML;
     }
+
+    /**
+     * Gera o HTML para um modal com um formulário.
+     * @return string
+     */
+    public static function renderForm(string $id, string $title, string $formAction, string $formContent, string $submitText = 'Enviar'): string
+    {
+        return <<<HTML
+            <div class="modal fade" id="{$id}" tabindex="-1">
+                <div class="modal-dialog">
+                    <form action="{$formAction}" method="post">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{$title}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                {$formContent}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">{$submitText}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        HTML;
+    }
 }

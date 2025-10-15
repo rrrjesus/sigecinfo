@@ -24,6 +24,17 @@ class Church extends Model
     }
 
     /**
+     * @return null|Church
+     */
+    public function church(): ?Church
+    {
+        if ($this->church_id) {
+            return (new Church())->findById($this->church_id);
+        }
+        return null;
+    }
+
+    /**
      * @return string|null
      */
     public function photo(): ?string
