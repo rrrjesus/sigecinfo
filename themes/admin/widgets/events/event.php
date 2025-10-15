@@ -216,7 +216,108 @@
         <?php endif; ?>
     </div>
     <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-reports-tab">
-        <p>Relatórios do evento.</p>
+        <?php
+        if ($event && !empty($participants)):
+            // 1. Contar participantes por cargo
+            $reportData = [];
+            foreach ($participants as $participant) {
+                $positionName = $participant->user()->position()->position_name ?? 'Sem cargo';
+                if (!isset($reportData[$positionName])) {
+                    $reportData[$positionName] = 0;
+                }
+                $reportData[$positionName]++;
+            }
+            ksort($reportData); // Ordenar por nome do cargo
+
+            // 2. Contar status (presente, ausente, justificado)
+            $statusCounts = [
+                'presente' => 0,
+                'ausente' => 0,
+                'justificado' => 0,
+                'convocado' => 0
+            ];
+            foreach ($participants as $participant) {
+                if (isset($statusCounts[$participant->status])) {
+                    $statusCounts[$participant->status]++;
+                }
+            }
+
+            $totalParticipants = count($participants);
+            ?>
+
+            <div class="text-end mb-3">
+                <button id="printReport" class="btn btn-sm btn-secondary"><i class="bi bi-printer me-1"></i> Imprimir Relatório</button>
+            </div>
+
+            <div id="reportContent">
+                <div class="row">
+                    <!-- Relatório Quantitativo por Cargo -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header fw-bold"><i class="bi bi-bar-chart-line-fill me-1"></i> Quantitativo de Pessoas Presentes por Ministério / Encargo</div>
+                            <div class="card-body">
+                                <?php if (!empty($reportData)): ?>
+                                    <table class="table table-sm table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Ministérios / Encargos</th>
+                                                <th class="text-center">Presentes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($reportData as $position => $count): ?>
+                                                <tr>
+                                                    <td><?= $position; ?></td>
+                                                    <td class="text-center"><?= $count; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                        <tfoot class="table-light fw-bold">
+                                            <tr>
+                                                <td>TOTAL</td>
+                                                <td class="text-center"><?= $totalParticipants; ?></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                <?php else: ?>
+                                    <p class="text-center">Nenhum participante para exibir.</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resumo do Evento -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header fw-bold"><i class="bi bi-info-circle-fill me-1"></i> Resumo do Evento</div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Total de Convocados
+                                        <span class="badge bg-primary rounded-pill"><?= $totalParticipants; ?></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Presentes
+                                        <span class="badge bg-success rounded-pill"><?= $statusCounts['presente']; ?></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Ausentes
+                                        <span class="badge bg-danger rounded-pill"><?= $statusCounts['ausente'] + $statusCounts['convocado']; ?></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Justificados
+                                        <span class="badge bg-warning text-dark rounded-pill"><?= $statusCounts['justificado']; ?></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php else: ?>
+            <div class="alert alert-info">Nenhum relatório disponível. O evento pode não ter participantes.</div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -275,17 +376,42 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-        // Captura o parâmetro da URL
-        const params = new URLSearchParams(window.location.search);
-        const tab = params.get("tab");
+            // Captura o parâmetro da URL
+            const params = new URLSearchParams(window.location.search);
+            const tab = params.get("tab");
 
-        if (tab) {
-            const tabTrigger = document.querySelector(`#pills-${tab}-tab`);
-            if (tabTrigger) {
-            const tabInstance = new bootstrap.Tab(tabTrigger);
-            tabInstance.show();
+            if (tab) {
+                const tabTrigger = document.querySelector(`#pills-${tab}-tab`);
+                if (tabTrigger) {
+                const tabInstance = new bootstrap.Tab(tabTrigger);
+                tabInstance.show();
+                }
             }
-        }
+
+            const printButton = document.getElementById('printReport');
+            if (printButton) {
+                printButton.addEventListener('click', function() {
+                    const reportContent = document.getElementById('reportContent').innerHTML;
+                    const eventTitle = "<?= addslashes($event->title ?? 'Relatório de Evento') ?>";
+                    const printWindow = window.open('', '', 'height=600,width=800');
+
+                    printWindow.document.write('<html><head><title>' + eventTitle + '</title>');
+                    printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">');
+                    printWindow.document.write('<style>body { padding: 20px; font-size: 12px; } .card { border: 1px solid #dee2e6 !important; } h1 { font-size: 20px; margin-bottom: 20px; } .table { font-size: 11px; } .badge { font-size: 10px; } </style>');
+                    printWindow.document.write('</head><body>');
+                    printWindow.document.write('<h1>' + eventTitle + '</h1>');
+                    printWindow.document.write(reportContent);
+                    printWindow.document.write('</body></html>');
+
+                    printWindow.document.close();
+                    printWindow.focus();
+                    
+                    setTimeout(() => {
+                        printWindow.print();
+                        printWindow.close();
+                    }, 250);
+                });
+            }
         });
     </script>
 <?php $this->end(); ?>
