@@ -5,6 +5,11 @@
   background:linear-gradient(rgb(27, 27, 27),rgb(23, 24, 23)) left/10px 100% no-repeat;
   }
 
+  .nav-pills .nav-link.active {
+  background-color: #6c757d; /* Bootstrap's 'secondary' gray */
+  color: #fff;               /* Deixa o texto branco */
+  }
+  
   .sb-sidenav-menu a:hover {
         background: #424242;
         color: #ffffff;

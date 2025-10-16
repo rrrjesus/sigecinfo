@@ -22,7 +22,7 @@ $(document).ready(function() {
                     display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return (data[2] || '') + ' ' + (data[3] || '') + ' - ' + (data[4] || '');
+                            return (data[0] || '') + ' - ' + (data[1] || '') + ' - ' + (data[2] || '');
                         }
                     }),
                     renderer: DataTable.Responsive.renderer.tableAll({})
@@ -36,7 +36,7 @@ $(document).ready(function() {
             "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
             "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
             },
-            "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
             "aaSorting": [0, 'asc']
         };
 
@@ -290,9 +290,19 @@ $(document).ready(function() {
     $('#events').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
         ajax: '../themes/admin/serverside/events.php',
         modalConfig: {
-            toggleStatus: { id_col: 6, status_col: 4, name_col: 0, base_url: '/painel/eventos/status/', item_name: 'o evento' },
-            delete: { id_col: 7, name_col: 0, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+            delete: { id_col: 6, name_col: 1, base_url: '/painel/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
         },
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[2] || '') + ' - ' + (data[1] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+            },
         "aaSorting": [0, 'asc'],
         "aoColumnDefs": [
             {
@@ -302,23 +312,11 @@ $(document).ready(function() {
                 }
             },
             {
-                "aTargets": [6], // Coluna Status
-                "mRender": function(data, type, full) {
-                    var isScheduled = String(full[4]).toLowerCase().includes('scheduled');
-                    return createActionButton({
-                        action: 'toggleStatus', id: data,
-                        tooltip: (isScheduled ? 'Cancelar Evento' : 'Reagendar Evento'),
-                        btn_class: (isScheduled ? 'warning' : 'success'),
-                        icon: (isScheduled ? 'bi-calendar-x' : 'bi-calendar-check')
-                    });
-                }
-            },
-            {
-                "aTargets": [7], // Coluna Excluir
+                "aTargets": [6], // Coluna Excluir
                 "mRender": function(data, type, full) {
                     return createActionButton({
                         action: 'delete', id: data,
-                        tooltip: 'Excluir ' + full[0], btn_class: 'danger'
+                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
                     });
                 }
             }
@@ -415,10 +413,10 @@ $(document).ready(function() {
      // Tabela de Participantes de Evento
     $('#eventParticipants').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Participantes de Evento", false), {
         modalConfig: {
-            delete: { id_col: 5, name_col: 1, base_url: '/painel/eventos/remover-participante', id_field: 'participant_id', item_name: 'o participante de evento' }
+            delete: { id_col: 6, name_col: 1, base_url: '/painel/eventos/remover-participante', id_field: 'participant_id', item_name: 'o participante de evento' }
         },
         "aoColumnDefs": [
-            { "aTargets": [5], "mRender": function (data, type, full) {
+            { "aTargets": [6], "mRender": function (data, type, full) {
                 return createActionButton({
                     action: 'delete', id: data,
                     tooltip: 'Excluir ' + full[1], btn_class: 'danger'

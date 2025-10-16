@@ -36,7 +36,7 @@ $(function () {
             "oPaginate": {"sNext": "Próximo","sPrevious": "Anterior","sFirst": "Primeiro","sLast": "Último"},
             "oAria": {"sSortAscending": "Ordenar colunas de forma ascendente","sPrevious": "Ordenar colunas de forma descendente"}
             },
-            "lengthMenu": [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]],
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
             "aaSorting": [0, 'asc']
         };
 
@@ -142,8 +142,20 @@ $(function () {
      * ===================================================================
      */
     
+    
          // Tabela de Participantes de Evento
     $('#myEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
+            responsive: {
+            details: {
+                display: DataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return (data[1] || '') + ' ' + (data[2] || '');
+                    }
+                }),
+                renderer: DataTable.Responsive.renderer.tableAll({})
+            }
+        }
     }));
 
         // Tabela de Eventos Desativados
@@ -154,7 +166,7 @@ $(function () {
                     display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return (data[0] || '') + ' ' + (data[1] || '') + ' - ' + (data[2] || '');
+                            return (data[1] || '') + ' ' + (data[2] || '');
                         }
                     }),
                     renderer: DataTable.Responsive.renderer.tableAll({})

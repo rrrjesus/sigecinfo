@@ -17,17 +17,17 @@
                         <?php if (empty($events)): ?>
                             <div class="alert alert-primary text-center fw-semibold" role="alert">Você ainda não foi convocado para nenhum evento.</div>
                         <?php else: ?>
-                        <table id="myEvents" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                        <table id="myEvents" class="table table-bordered table-hover align-middle text-center mb-0" style="width:100%">
                             <thead class="table-secondary">
                                 <tr>
+                                    <th class="text-center"><i class="bi bi-person-check me-2"></i>Presença</th>
                                     <th class="text-center"><i class="bi bi-calendar-event me-2"></i>Data</th>
                                     <th class="text-center"><i class="bi bi-bookmark-star me-2"></i>Evento</th>
                                     <th class="text-center"><i class="bi bi-card-text me-2"></i>Descrição</th>
                                     <th class="text-center"><i class="bi bi-tag me-2"></i>Tipo</th>
                                     <th class="text-center"><i class="bi bi-pin-map me-2"></i>Local</th>
-                                    <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Parte Local</th>
+                                    <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Comp</th>
                                     <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
-                                    <th class="text-center"><i class="bi bi-person-check me-2"></i>Presença</th>
                                     <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 </tr>
                             </thead>
@@ -37,13 +37,6 @@
                                 $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
                             ?>
                                 <tr>
-                                    <td class="text-center"><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
-                                    <td class="text-center"><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
-                                    <td class="text-center"><?= eventStatusBadge($event->status); ?></td>
                                     <td class="text-center">
                                     <?php if ($participant && $participant->status === 'convocado'): ?>
                                         <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/confirmar"); ?>" method="post">
@@ -53,7 +46,7 @@
                                                 "name" => "Confirmar",
                                                 "icon" => "check-circle",
                                                 "btncolor" => "success",
-                                                "class" => "me-2 p-1",
+                                                "class" => "m-1 p-1",
                                                 "type" => "submit"
                                             ]); ?>
                                         </form>
@@ -81,6 +74,13 @@
 
                                         <?php endif; ?>
                                     </td>
+                                    <td class="text-center"><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
+                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
+                                    <td class="text-center"><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
+                                    <td class="text-center"><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
+                                    <td class="text-center"><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
+                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
+                                    <td class="text-center"><?= eventStatusBadge($event->status); ?></td>
                                     <td class="text-center">
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>
                                                 <div class="d-flex justify-content-between align-items-center">
@@ -91,7 +91,7 @@
                                                             "name" => "",
                                                             "icon" => "pencil",
                                                             "btncolor" => "warning",
-                                                            "class" => "rounded-circle text-dark",
+                                                            "class" => "rounded-circle text-warning-emphasis",
                                                             "type" => "submit"
                                                         ]); ?>
                                                     </form>

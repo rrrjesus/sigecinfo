@@ -7,13 +7,13 @@
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
+        <button class="nav-link link-body-emphasis active text-o" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-guests-tab" data-bs-toggle="pill" data-bs-target="#pills-guests" type="button" role="tab" aria-controls="pills-guests" aria-selected="false">Lista de convidados</button>
+        <button class="nav-link link-body-emphasis" id="pills-guests-tab" data-bs-toggle="pill" data-bs-target="#pills-guests" type="button" role="tab" aria-controls="pills-guests" aria-selected="false">Lista de convidados</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-reports-tab" data-bs-toggle="pill" data-bs-target="#pills-reports" type="button" role="tab" aria-controls="pills-reports" aria-selected="false">Relatórios</button>
+        <button class="nav-link link-body-emphasis" id="pills-reports-tab" data-bs-toggle="pill" data-bs-target="#pills-reports" type="button" role="tab" aria-controls="pills-reports" aria-selected="false">Relatórios</button>
     </li>
 </ul>
 
@@ -178,7 +178,8 @@
                                 <th>Nome</th>
                                 <th>Cargo</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Confirmar</th>
+                                <th class="text-center">Checkin</th>
+                                <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 <th class="text-center">Excluir</th>
                             </tr>
                         </thead>
@@ -190,18 +191,57 @@
                                     </td>
                                     <td class="align-middle"><?= $participant->user()->user_name; ?></td>
                                     <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
-                                    <td class="text-center align-middle"><?= statusBadge($participant->status); ?></td>
+                                     <td class="text-center">
+                                    <?php if ($participant): ?>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <?php if ($participant->status === 'convocado'): ?>
+                                                        <h5><span class="badge text-bg-primary text-white m-1 p-2 fw-semibold">Convocado</span></h5>
+                                                    <?php elseif ($participant->status === 'confirmado'): ?>
+                                                        <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
+                                                    <?php elseif ($participant->status === 'recusado'): ?>
+                                                        <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
+                                                        <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
+                                                   <?php elseif ($participant->status === 'presente'): ?> 
+                                                     <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
+                                                        <?php else: ?>
+                                                        <h5>< class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
+                                                    <?php endif; ?>
+                                            </div>
+
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-center align-middle">
                                         <?php if ($participant->status != 'presente'): ?>
                                             <form class="ajax_off" style="display: inline;" action="<?= url("/painel/eventos/checkin"); ?>" method="post">
                                                 <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
-                                                <button type="submit" class="btn btn-sm btn-success" data-bs-toggle-tooltip="tooltip" title="Confirmar Presença (Check-in)">
-                                                    <i class="bi bi-check-circle-fill"></i> Check-in
-                                                </button>
+                                                 <?= button([
+                                                "name" => "Check-in",
+                                                "icon" => "check-circle-fill",
+                                                "btncolor" => "success",
+                                                "class" => "m-1 p-1",
+                                                "type" => "submit"
+                                            ]); ?>
                                             </form>
                                         <?php else: ?>
-                                            <span class="badge text-bg-success p-2"><i class="bi bi-check-circle-fill"></i> Presente</span>
+                                            <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Checado</span></h5>
                                         <?php endif; ?>
+                                    </td>
+                                     <td class="text-center">
+                                            <?php if ($participant && $participant->status !== 'convocado'): ?>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/alterar-resposta"); ?>" method="post">
+                                                        <?= csrf_input(); ?>
+                                                        <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
+                                                        <?= button([
+                                                            "name" => "",
+                                                            "icon" => "pencil",
+                                                            "btncolor" => "warning",
+                                                            "class" => "rounded-circle text-warning-emphasis",
+                                                            "type" => "submit"
+                                                        ]); ?>
+                                                    </form>
+                                                </div>
+                                            <?php endif; ?>
                                     </td>
                                     <td class="text-center align-middle"><?= $participant->id; ?></td>
                                    
