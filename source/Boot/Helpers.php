@@ -776,9 +776,17 @@ function button(array $params): string
         $attributes .= ' data-bs-target="' . htmlspecialchars($params['data-bs-target'], ENT_QUOTES, 'UTF-8') . '"';
     }
 
+    // Add tooltip attributes if a title is provided
+    if (isset($params['title'])) {
+        $attributes .= ' data-bs-toggle-tooltip="tooltip"';
+        $attributes .= ' data-bs-placement="' . ($params['placement'] ?? 'top') . '"';
+        $attributes .= ' data-bs-custom-class="' . ($params['custom'] ?? 'custom-tooltip-dark') . '"';
+        $attributes .= ' data-bs-title="' . htmlspecialchars($params['title'], ENT_QUOTES, 'UTF-8') . '"';
+    }
+
     $countBadge = $badge ? "<span class=\"position-absolute rounded-pill badge text-bg-danger\">{$badge}</span>" : "";
 
-    $iconHtml = $icon ? "<i class='bi bi-{$icon} me-2'></i>" : "";
+    $iconHtml = $icon ? "<i class='bi bi-{$icon}'></i>" : "";
 
     return "<{$tag} {$attributes}>{$iconHtml}{$name}{$countBadge}</{$tag}>";
 }

@@ -152,6 +152,8 @@ $route->get("/eventos/cadastrar", "Events:create");
 $route->post("/eventos/cadastrar", "Events:create");
 $route->get("/eventos/editar/{event_id}", "Events:edit");
 $route->post("/eventos/editar/{event_id}", "Events:edit");
+$route->get("/eventos/portaria/{event_id}", "Events:report");
+$route->post("/eventos/portaria/{event_id}", "Events:report");
 $route->post("/eventos/excluir", "Events:delete");
 $route->get("/eventos/desativados", "Events:disabledEvents");
 $route->get("/eventos/status/{event_id}", "Events:toggleStatus");
@@ -159,6 +161,9 @@ $route->get("/eventos/iniciar/{event_id}", "Events:start");
 $route->get("/eventos/finalizar/{event_id}", "Events:finish");
 $route->post("/eventos/remover-participante", "Events:removeParticipant");
 $route->post("/eventos/checkin", "Events:checkIn");
+$route->post("/eventos/alterar-resposta", function($data) use ($auth) {
+    (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
+});
 
 //notification center
 $route->post("/notifications/count", "Notifications:count");

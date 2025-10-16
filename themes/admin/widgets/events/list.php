@@ -28,7 +28,7 @@
                                     <th class="text-center"><i class="bi bi-calendar-check me-2"></i>Data de Início</th>
                                     <th class="text-center"><i class="bi bi-bookmark-star me-2"></i>Tipo</th>
                                     <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Local</th>
-                                    <th class="text-center"><i class="bi bi-pencil-square me-2"></i>Editar</th>
+                                    <th class="text-center"><i class="bi bi-pencil-square me-2"></i>Detalhes</th>
                                     <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
                                 </tr>
                             </thead>

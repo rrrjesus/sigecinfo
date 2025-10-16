@@ -10,10 +10,7 @@
         <button class="nav-link link-body-emphasis active text-o" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link link-body-emphasis" id="pills-guests-tab" data-bs-toggle="pill" data-bs-target="#pills-guests" type="button" role="tab" aria-controls="pills-guests" aria-selected="false">Lista de convidados</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link link-body-emphasis" id="pills-reports-tab" data-bs-toggle="pill" data-bs-target="#pills-reports" type="button" role="tab" aria-controls="pills-reports" aria-selected="false">Relatórios</button>
+        <a href="<?= url("/painel/eventos/portaria/{$event->id}"); ?>" class="nav-link link-body-emphasis">Relatórios e Portaria</a>
     </li>
 </ul>
 
@@ -57,14 +54,14 @@
                                 <div class="row">
                                     <div class="col-md-8 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="title"><strong>Título do Evento</strong></label>
-                                        <input type="text" id="title" name="title" class="form-control form-control-sm" value="<?= $event->title ?? ''; ?>" required>
+                                        <input type="text" id="title" name="title" class="form-control form-control-sm" value="<?= $event->title ?? ''; ?>'" required>
                                     </div>
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="type_id"><strong>Tipo de Evento</strong></label>
                                         <select id="type_id" name="type_id" class="form-select form-select-sm" required>
                                             <option value="">Selecione...</option>
                                             <?php if (!empty($eventTypes)): foreach ($eventTypes as $type): ?>
-                                                <option value="<?= $type->id; ?>" <?= !empty($event) && $event->type_id == $type->id ? 'selected' : ''; ?>><?= $type->name; ?></option>
+                                                <option value="<?= $type->id; ?>'" <?= !empty($event) && $event->type_id == $type->id ? 'selected' : ''; ?>><?= $type->name; ?></option>
                                             <?php endforeach; endif; ?>
                                         </select>
                                     </div>
@@ -112,7 +109,7 @@
                                 <div class="row align-items-end">
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="start_at"><strong>Data e Hora de Início</strong></label>
-                                        <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>" required>
+                                        <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>'" required>
                                     </div>
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="end_at"><strong>Data e Hora de Término</strong> (Opcional)</label>
@@ -133,7 +130,7 @@
                                         <select id="church_id" name="church_id" class="form-select form-select-sm">
                                             <option value="">Selecione uma igreja...</option>
                                             <?php if (!empty($churches)): foreach ($churches as $church): ?>
-                                                <option value="<?= $church->id; ?>" <?= !empty($event) && $event->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
+                                                <option value="<?= $church->id; ?>'" <?= !empty($event) && $event->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
                                             <?php endforeach; endif; ?>
                                         </select>
                                     </div>
@@ -160,204 +157,12 @@
                                 <?php endif; ?>
 
                                 <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
-                                <?= button(["href" => "/painel/eventos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                                <?= button(["href" => "/painel/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                             </div>
                         </div>
                     </form>
             </div>
         </div>
-    </div>
-    <div class="tab-pane fade" id="pills-guests" role="tabpanel" aria-labelledby="pills-guests-tab">
-        <?php if ($event && !empty($participants)): ?>
-            <div class="card mb-2">
-                <div class="card-header fw-bold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
-                <div class="card-body">
-                    <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
-                        <thead class="table-secondary">
-                                <th class="text-center">Foto</th>
-                                <th>Nome</th>
-                                <th>Cargo</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Checkin</th>
-                                <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
-                                <th class="text-center">Excluir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($participants as $participant): ?>
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        <?= photoList($participant->user()->photo, 'avatar.jpg'); ?>
-                                    </td>
-                                    <td class="align-middle"><?= $participant->user()->user_name; ?></td>
-                                    <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
-                                     <td class="text-center">
-                                    <?php if ($participant): ?>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <?php if ($participant->status === 'convocado'): ?>
-                                                        <h5><span class="badge text-bg-primary text-white m-1 p-2 fw-semibold">Convocado</span></h5>
-                                                    <?php elseif ($participant->status === 'confirmado'): ?>
-                                                        <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
-                                                    <?php elseif ($participant->status === 'recusado'): ?>
-                                                        <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
-                                                        <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
-                                                   <?php elseif ($participant->status === 'presente'): ?> 
-                                                     <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
-                                                        <?php else: ?>
-                                                        <h5>< class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
-                                                    <?php endif; ?>
-                                            </div>
-
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <?php if ($participant->status != 'presente'): ?>
-                                            <form class="ajax_off" style="display: inline;" action="<?= url("/painel/eventos/checkin"); ?>" method="post">
-                                                <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
-                                                 <?= button([
-                                                "name" => "Check-in",
-                                                "icon" => "check-circle-fill",
-                                                "btncolor" => "success",
-                                                "class" => "m-1 p-1",
-                                                "type" => "submit"
-                                            ]); ?>
-                                            </form>
-                                        <?php else: ?>
-                                            <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Checado</span></h5>
-                                        <?php endif; ?>
-                                    </td>
-                                     <td class="text-center">
-                                            <?php if ($participant && $participant->status !== 'convocado'): ?>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/alterar-resposta"); ?>" method="post">
-                                                        <?= csrf_input(); ?>
-                                                        <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
-                                                        <?= button([
-                                                            "name" => "",
-                                                            "icon" => "pencil",
-                                                            "btncolor" => "warning",
-                                                            "class" => "rounded-circle text-warning-emphasis",
-                                                            "type" => "submit"
-                                                        ]); ?>
-                                                    </form>
-                                                </div>
-                                            <?php endif; ?>
-                                    </td>
-                                    <td class="text-center align-middle"><?= $participant->id; ?></td>
-                                   
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-info">Nenhum participante convocado para este evento.</div>
-        <?php endif; ?>
-    </div>
-    <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-reports-tab">
-        <?php
-        if ($event && !empty($participants)):
-            // 1. Contar participantes por cargo
-            $reportData = [];
-            foreach ($participants as $participant) {
-                $positionName = $participant->user()->position()->position_name ?? 'Sem cargo';
-                if (!isset($reportData[$positionName])) {
-                    $reportData[$positionName] = 0;
-                }
-                $reportData[$positionName]++;
-            }
-            ksort($reportData); // Ordenar por nome do cargo
-
-            // 2. Contar status (presente, ausente, justificado)
-            $statusCounts = [
-                'presente' => 0,
-                'ausente' => 0,
-                'justificado' => 0,
-                'convocado' => 0
-            ];
-            foreach ($participants as $participant) {
-                if (isset($statusCounts[$participant->status])) {
-                    $statusCounts[$participant->status]++;
-                }
-            }
-
-            $totalParticipants = count($participants);
-            ?>
-
-            <div class="text-end mb-3">
-                <button id="printReport" class="btn btn-sm btn-secondary"><i class="bi bi-printer me-1"></i> Imprimir Relatório</button>
-            </div>
-
-            <div id="reportContent">
-                <div class="row">
-                    <!-- Relatório Quantitativo por Cargo -->
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header fw-bold"><i class="bi bi-bar-chart-line-fill me-1"></i> Quantitativo de Pessoas Presentes por Ministério / Encargo</div>
-                            <div class="card-body">
-                                <?php if (!empty($reportData)): ?>
-                                    <table class="table table-sm table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Ministérios / Encargos</th>
-                                                <th class="text-center">Presentes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($reportData as $position => $count): ?>
-                                                <tr>
-                                                    <td><?= $position; ?></td>
-                                                    <td class="text-center"><?= $count; ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                        <tfoot class="table-light fw-bold">
-                                            <tr>
-                                                <td>TOTAL</td>
-                                                <td class="text-center"><?= $totalParticipants; ?></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                <?php else: ?>
-                                    <p class="text-center">Nenhum participante para exibir.</p>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resumo do Evento -->
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header fw-bold"><i class="bi bi-info-circle-fill me-1"></i> Resumo do Evento</div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Total de Convocados
-                                        <span class="badge bg-primary rounded-pill"><?= $totalParticipants; ?></span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Presentes
-                                        <span class="badge bg-success rounded-pill"><?= $statusCounts['presente']; ?></span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Ausentes
-                                        <span class="badge bg-danger rounded-pill"><?= $statusCounts['ausente'] + $statusCounts['convocado']; ?></span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        Justificados
-                                        <span class="badge bg-warning text-dark rounded-pill"><?= $statusCounts['justificado']; ?></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        <?php else: ?>
-            <div class="alert alert-info">Nenhum relatório disponível. O evento pode não ter participantes.</div>
-        <?php endif; ?>
     </div>
 </div>
 
@@ -427,31 +232,7 @@
                 tabInstance.show();
                 }
             }
-
-            const printButton = document.getElementById('printReport');
-            if (printButton) {
-                printButton.addEventListener('click', function() {
-                    const reportContent = document.getElementById('reportContent').innerHTML;
-                    const eventTitle = "<?= addslashes($event->title ?? 'Relatório de Evento') ?>";
-                    const printWindow = window.open('', '', 'height=600,width=800');
-
-                    printWindow.document.write('<html><head><title>' + eventTitle + '</title>');
-                    printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">');
-                    printWindow.document.write('<style>body { padding: 20px; font-size: 12px; } .card { border: 1px solid #dee2e6 !important; } h1 { font-size: 20px; margin-bottom: 20px; } .table { font-size: 11px; } .badge { font-size: 10px; } </style>');
-                    printWindow.document.write('</head><body>');
-                    printWindow.document.write('<h1>' + eventTitle + '</h1>');
-                    printWindow.document.write(reportContent);
-                    printWindow.document.write('</body></html>');
-
-                    printWindow.document.close();
-                    printWindow.focus();
-                    
-                    setTimeout(() => {
-                        printWindow.print();
-                        printWindow.close();
-                    }, 250);
-                });
-            }
         });
     </script>
+
 <?php $this->end(); ?>

@@ -59,4 +59,27 @@ class Modal
             </div>
         HTML;
     }
+
+    /**
+     * Gera o HTML para um modal que exibe uma imagem.
+     * @return string
+     */
+    public static function renderImage(string $id, string $title, string $imageUrl, string $altText): string
+    {
+        return <<<HTML
+            <div class="modal fade" id="{$id}" tabindex="-1" aria-labelledby="{$id}Label" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="{$id}Label">{$title}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <img src="{$imageUrl}" class="img-fluid" alt="{$altText}">
+                  </div>
+                </div>
+              </div>
+            </div>
+        HTML;
+    }
 }

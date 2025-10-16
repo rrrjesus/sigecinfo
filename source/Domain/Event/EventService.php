@@ -116,4 +116,73 @@ class EventService
         }
         return false;
     }
+
+    /**
+     * Gera uma matriz de comparecimento por igreja e por cargo.
+     * @param array|null $participants A lista de participantes do evento.
+     * @return object|null Um objeto contendo a matriz de dados, listas de cabeçalhos e totais.
+     */
+    public function generateAttendanceMatrix(?array $participants): ?object
+    {
+        if (empty($participants)) {
+            return null;
+        }
+
+        $matrix = [];
+        $allPositions = [];
+        $columnTotals = [];
+        $grandTotal = 0;
+
+        // 1. Processa apenas os participantes com status 'presente'
+        foreach ($participants as $participant) {
+            if ($participant->status === 'presente') {
+                $churchName = $participant->user()->church()->church_name ?? 'Outra Localidade';
+                $positionName = $participant->user()->position()->position_name ?? 'Sem Cargo';
+
+                // Adiciona a posição à lista de cabeçalhos
+                if (!in_array($positionName, $allPositions)) {
+                    $allPositions[] = $positionName;
+                    $columnTotals[$positionName] = 0;
+                }
+
+                // Inicializa a linha da igreja se for a primeira vez
+                if (!isset($matrix[$churchName])) {
+                    $matrix[$churchName] = ['_row_total' => 0];
+                }
+                
+                // Inicializa e incrementa a contagem para a célula [igreja][cargo]
+                if (!isset($matrix[$churchName][$positionName])) {
+                    $matrix[$churchName][$positionName] = 0;
+                }
+                $matrix[$churchName][$positionName]++;
+            }
+        }
+
+        if (empty($matrix)) return null;
+
+        // 2. Ordena os cabeçalhos e calcula os totais
+        sort($allPositions);
+        foreach ($matrix as $churchName => &$positionsData) {
+            $rowTotal = 0;
+            foreach ($allPositions as $positionName) {
+                if (isset($positionsData[$positionName])) {
+                    $count = $positionsData[$positionName];
+                    $rowTotal += $count;
+                    $columnTotals[$positionName] += $count;
+                }
+            }
+            $positionsData['_row_total'] = $rowTotal;
+            $grandTotal += $rowTotal;
+        }
+        
+        // Ordena a matriz pelo nome da igreja
+        ksort($matrix);
+
+        return (object)[
+            'headerPositions' => $allPositions,
+            'matrixData' => $matrix,
+            'columnTotals' => $columnTotals,
+            'grandTotal' => $grandTotal
+        ];
+    }
 }

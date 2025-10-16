@@ -94,15 +94,15 @@ class Events extends Admin
                 return;
             }
 
+            $eventService = new EventService();
+
             // Convocação de participantes individualmente
             if (!empty($data["user_id_to_add"])) {
-                $eventService = new EventService();
                 $eventService->convokeUser($event, $data["user_id_to_add"]);
             }
 
             // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
-                $eventService = new EventService();
                 $eventService->convokeByPositions($event, $data["positions"]);
             }
 
@@ -137,6 +137,7 @@ class Events extends Admin
         
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
+        $eventService = new EventService();
 
         if (!$event) {
             $this->message->error("Você tentou editar um evento que não existe.")->flash();
@@ -165,13 +166,11 @@ class Events extends Admin
 
             // Convocação de participantes individualmente
             if (!empty($data["user_id_to_add"])) {
-                $eventService = new EventService();
                 $eventService->convokeUser($event, $data["user_id_to_add"]);
             }
 
             // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
-                $eventService = new EventService();
                 $eventService->convokeByPositions($event, $data["positions"]);
             }
 
@@ -207,10 +206,6 @@ class Events extends Admin
             ["title" => "Editar"]
         ];
 
-        // Busca os participantes para exibir na view
-        $eventService = new EventService();
-        $participants = $eventService->getParticipants($event->id);
-
         $head = $this->seo->render("Editar Evento: {$event->title}", CONF_SITE_DESC, url("/painel/eventos"), null, false);
 
         echo $this->view->render("widgets/events/event", [
@@ -219,13 +214,56 @@ class Events extends Admin
             "event" => $event,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
             "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true),
-            "participants" => $participants, // <-- PASSA OS PARTICIPANTES PARA A VIEW
-            "isLive" => $isLive,         // Flag para o alerta "AO VIVO"
-            "canAccess" => $canAccess,   // Flag para o botão "Acessar"
-            "canStart" => $canStart,      // Flag para o botão "Iniciar"
-            "modalFim" => $modalFim       // Modal de confirmação de finalização
+            "isLive" => $isLive,
+            "canAccess" => $canAccess,
+            "canStart" => $canStart,
+            "modalFim" => $modalFim
         ]);
     }
+
+     /**
+     * @param array $data
+     */
+    public function report(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        
+        $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
+        $event = (new Event())->findById($eventId);
+        $eventService = new EventService();
+
+        if (!$event) {
+            $this->message->error("Você tentou aceder a um evento que não existe.")->flash();
+            redirect("/painel/eventos");
+        }
+
+        $participants = $eventService->getParticipants($event->id);
+
+        if ($participants) {
+            usort($participants, function($a, $b) {
+                return strcmp($a->user()->user_name, $b->user()->user_name);
+            });
+        }
+        
+        // --- GERA OS DADOS PARA O NOVO RELATÓRIO ---
+        $attendanceReport = $eventService->generateAttendanceMatrix($participants);
+        
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/painel/eventos")],
+            ["title" => "Relatórios e Portaria"]
+        ];
+
+        $head = $this->seo->render("Relatórios e Portaria: {$event->title}", CONF_SITE_DESC, url("/painel/eventos"), null, false);
+
+        echo $this->view->render("widgets/events/report", [
+            "head" => $head,
+            "breadcrumb" => $breadcrumb,
+            "event" => $event,
+            "attendanceReport" => $attendanceReport,
+            "participants" => $participants
+        ]);
+    }
+
 
      /**
      * Inicia uma reunião mudando o status para 'ao vivo'.
@@ -291,7 +329,7 @@ class Events extends Admin
             $this->message->error("Não foi possível encontrar a participação para confirmar.")->flash();
         }
         
-        redirect("painel/eventos/editar/{$participant->event_id}?tab=guests");
+        redirect("painel/eventos/portaria/{$participant->event_id}");
     }
 
     /**
@@ -313,7 +351,26 @@ class Events extends Admin
             }
         }
 
-        redirect("painel/eventos/editar/{$participant->event_id}?tab=guests");
+        redirect("painel/eventos/portaria/{$participant->event_id}");
+    }
+
+    /**
+     * Reseta a resposta de um participante, voltando o seu status para "convocado".
+     * @param array $data
+     */
+    public function changeResponse(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+
+        // Reseta o status e a justificação
+        $participant->status = "convocado";
+        $participant->justification = null;
+        $participant->save();
+
+        $this->message->info("A sua resposta foi redefinida. Por favor, escolha a sua nova opção.")->flash();
+        redirect(url_back());
     }
 
     /**
