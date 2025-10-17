@@ -30,8 +30,8 @@
                 </a>
                 <div class="collapse" id="collapseEvent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Meus Eventos</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos Ativos</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos-finalizados")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos Finalizados</a>
                     </nav>
                 </div>
 

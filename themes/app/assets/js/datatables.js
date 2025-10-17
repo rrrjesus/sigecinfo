@@ -11,7 +11,7 @@ $(function () {
             drawCallback: drawCallbackWithModals, // Callback padrão para os modais
             buttons: [
                 { extend: 'excel', title: tableName, header: tableName, filename: tableName, className: 'btn btn-outline-success btn-sm mb-2', text: '<i class="bi bi-file-earmark-excel"></i>' },
-                { extend: 'print', exportOptions: { columns: ':visible' }, title: tableName, header: tableName, filename: tableName, orientation: 'portrait', className: 'btn btn-outline-secondary btn-sm mb-2', text: '<i class="bi bi-printer"></i>' },
+                { extend: 'print', exportOptions: { columns: ':visible' }, title: tableName, header: tableName, filename:tableName, orientation: 'portrait', className: 'btn btn-outline-secondary btn-sm mb-2', text: '<i class="bi bi-printer"></i>' },
                 { extend: 'colvis', titleAttr: 'Select Colunas', className: 'btn btn-outline-info btn-sm mb-2', text: '<i class="bi bi-list"></i>' }
             ],
             "dom": "<'row mt-2 justify-content-between'<'col-lg-5 col-sm-5 col-md-5 numporpag'l><'col-lg-2 col-sm-2 col-md-2 text-center'B><'col-lg-5 col-sm-5 col-md-5 searchbar'f>>" +
@@ -143,9 +143,11 @@ $(function () {
      */
     
     
-         // Tabela de Participantes de Evento
-    $('#myEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
-            responsive: {
+    // Tabela de Participantes de Evento
+    $('#myEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Ativos"), {
+        ajax: '../../themes/app/serverside/meus-eventos-server.php',
+        order: [[1, 'desc']], // <-- ALTERAÇÃO: Adicionado para ordenar pela coluna de data (índice 1)
+        responsive: {
             details: {
                 display: DataTable.Responsive.display.modal({
                     header: function (row) {
@@ -158,35 +160,18 @@ $(function () {
         }
     }));
 
-        // Tabela de Eventos Desativados
-    $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Ativos"), {
-        ajax: '../../themes/app/serverside/list-events.php',
-        responsive: {
-                details: {
-                    display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return (data[1] || '') + ' ' + (data[2] || '');
-                        }
-                    }),
-                    renderer: DataTable.Responsive.renderer.tableAll({})
-                }
-        }
-    }));
-
-    // Tabela de Eventos Desativados
-    $('#listEventsDisableds').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Finalizados"), {
-        ajax: '../../themes/app/serverside/disabled-list-events.php',
-        responsive: {
-                details: {
-                    display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            var data = row.data();
-                            return (data[0] || '') + ' ' + (data[1] || '') + ' - ' + (data[2] || '');
-                        }
-                    }),
-                    renderer: DataTable.Responsive.renderer.tableAll({})
-                }
+    // Tabela de Participantes de Evento
+    $('#myEventsFinish').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Finalizados", false), {
+            responsive: {
+            details: {
+                display: DataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return (data[1] || '') + ' ' + (data[2] || '');
+                    }
+                }),
+                renderer: DataTable.Responsive.renderer.tableAll({})
+            }
         }
     }));
     

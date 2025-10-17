@@ -1,6 +1,6 @@
 <?= $this->layout("_theme", ["head" => $head]); ?>
 
-<div class="form-signin w-100 m-auto mt-5 p-3 p-md-5">
+<div class="form-signin w-100 m-auto mt-3 p-1 p-md-3">
 
     <div class="text-center mb-1">
         <img class="mb-2" src="<?= theme("/assets/images/logo/sigecinfo-logo-v2.png") ?>" alt="Logo SIGECINFO" width="150">
@@ -44,33 +44,17 @@
 </div>
 
 <?php $this->start("scripts"); ?>
-
 <script>
-    const togglePasswordCheckbox = document.querySelector('#togglePassword');
+    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
     const passwordField = document.querySelector('#password');
 
-    if (togglePasswordCheckbox && passwordField) {
-        togglePasswordCheckbox.addEventListener('change', function () {
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-        });
-    }
-
-    // --- NOVO SCRIPT PARA O ÍCONE DE OLHO ---
-    const togglePasswordIcon = document.querySelector('#togglePasswordIcon');
-    // A variável passwordField já foi declarada acima
-
     if (togglePasswordIcon) {
-        togglePasswordIcon.addEventListener('click', function (e) {
-            // Alterna o tipo do campo de senha
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            
-            // Alterna a classe do ícone entre 'olho aberto' e 'olho fechado'
-            this.classList.toggle('bi-eye');
-            this.classList.toggle('bi-eye-slash');
+        togglePasswordIcon.addEventListener('click', () => {
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            togglePasswordIcon.classList.toggle('bi-eye');
+            togglePasswordIcon.classList.toggle('bi-eye-slash');
         });
     }
 </script>
-
-<?php $this->end(); ?> 
+<?php $this->end(); ?>

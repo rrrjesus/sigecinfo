@@ -15,45 +15,6 @@ class Events extends Admin
     }
 
     /**
-     * Lista os eventos
-     */
-    public function listEvents(): void
-    {
-
-        $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos"), null, false);
-        
-        $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos")],
-            ["title" => "Listar"]
-        ];
-
-        echo $this->view->render("widgets/events/list-events", [
-            "head" => $head,
-            "breadcrumb" => $breadcrumb,
-            "registers" => (object)["disabled" => (new Event())->find("status IN (:s1, :s2)", "s1=cancelado&s2=realizado")->count()]
-        ]);
-    }
-
-    /**
-     * Lista os eventos
-     */
-    public function listEventsDisableds(): void
-    {
-
-        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/finalizados"), null, false);
-        
-        $breadcrumb = [
-            ["title" => "Eventos Finalizados", "link" => url("/beta/eventos/finalizados")],
-            ["title" => "Listar"]
-        ];
-
-        echo $this->view->render("widgets/events/disabled-list-events", [
-            "head" => $head,
-            "breadcrumb" => $breadcrumb
-        ]);
-    }
-
-    /**
      * Lista os eventos para os quais o utilizador foi convocado.
      */
     public function listMyEvents(): void
@@ -76,23 +37,30 @@ class Events extends Admin
         ]);
     }
 
-    
     /**
      * Lista os eventos para os quais o utilizador foi convocado.
      */
-    public function disabledEvents(): void
+    public function listMyEventsFinish(): void
     {
-        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos-finalizados"), null, false);
+        $head = $this->seo->render("Meus Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/meus-eventos"), null, false);
         
         $eventRepo = new EventRepository();
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
-        echo $this->view->render("widgets/events/disabled", [
+        $breadcrumb = [
+            ["title" => "Eventos", "link" => url("/beta/eventos/meus-eventos")],
+            ["title" => "Meus Eventos"]
+        ];
+
+        echo $this->view->render("widgets/events/my-events", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "events" => $myEvents,
             "user" => $this->user
         ]);
     }
+
+
 
     /**
      * Confirma a presença de um utilizador num evento.
