@@ -67,6 +67,10 @@
                                                     <?php elseif ($participant->status === 'recusado'): ?>
                                                         <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
                                                         <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
+                                                    <?php elseif ($participant->status === 'convocado'): ?>
+                                                        <h5><span class="badge text-bg-primary fw-semibold p-2">Convocado</span></h5>
+                                                    <?php elseif ($participant->status === 'presente'): ?>
+                                                        <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
                                                     <?php else: ?>
                                                         <p class="mb-0"><strong>Status:</strong> <span class="badge text-bg-secondary"><?= ucfirst($participant->status); ?></span></p>
                                                     <?php endif; ?>
@@ -81,7 +85,9 @@
                                     <td class="text-center"><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
                                     <td class="text-center"><h6><?= $event->title; ?></h6></td>
                                     <td class="text-center"><?= eventStatusBadge($event->status); ?></td>
+                                    
                                     <td class="text-center">
+                                        <?php if ($participant->status !== 'presente'): ?>
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/alterar-resposta"); ?>" method="post">
@@ -97,6 +103,7 @@
                                                     </form>
                                                 </div>
                                             <?php endif; ?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
 

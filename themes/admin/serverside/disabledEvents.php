@@ -16,7 +16,7 @@ $primaryKey = 'id';
 $columns = [
     // CORREÇÃO: Usando a função helper photoList para consistência
     ['db' => 'id', 'dt' => 0, 'formatter' => function($d) {
-     return "<h6>" . htmlspecialchars($d) . "</h6>";
+     return htmlspecialchars($d);
     }],
     ['db' => 'title', 'dt' => 1, 'formatter' => function($d) {
      return "<h6>" . htmlspecialchars($d) . "</h6>";
