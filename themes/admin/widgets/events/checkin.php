@@ -89,10 +89,13 @@
 
         $('#checkin-form').on('submit', function(e) {
             if (signaturePad.isEmpty()) {
-                alert("Por favor, forneça a assinatura para continuar.");
                 e.preventDefault();
+                var message = "<div class='bd-callout bd-callout-danger fade show text-center fw-semibold'><i class='bi bi-exclamation-octagon me-2'></i> Por favor, forneça a assinatura para continuar.</div>";
+                $('.ajax_response').html(message);
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
                 return;
             }
+            $('.ajax_response').html('');
             // Passa os dados da assinatura para o input hidden
             $('#signature').val(signaturePad.toDataURL('image/png'));
         });
