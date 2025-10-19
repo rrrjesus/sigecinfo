@@ -45,7 +45,7 @@
                                     <td class="text-center align-middle">
                                         <?php if ($participant->status != 'presente'): ?>
                                                  <?= button([
-                                                        "href" => "/painel/eventos/check-in/{$participant->id}",
+                                                        "href" => "/painel/eventos/checkin/{$participant->id}",
                                                         "name" => "Check-in",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "success",

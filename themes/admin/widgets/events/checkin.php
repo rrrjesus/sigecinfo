@@ -1,155 +1,86 @@
- <?php $this->layout("_admin"); ?>
+<?php $this->layout("_admin"); ?>
 
-<div class="ajax_response"><?= flash(); ?></div><!-- Inclua onde for apropriado no checkin.php -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
- 
- <style>
-    #signatureCanvas {
-      border: 2px dashed #6c757d;
-      border-radius: 8px;
-      width: 100%;
-      height: 200px;
-      cursor: crosshair;
-      background-color: #f8f9fa;
-    }
-    #signatureCanvas.is-empty {
-      border-color: #dc3545;
-    }
-</style>
-
-<div class="container">
+<div class="container mt-4">
     <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="card shadow-sm">
-          <div class="card-header bg-primary text-white">
-            <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Confirmação de Dados e Assinatura</h5>
-          </div>
-          <div class="card-body">
-            
-        <form class="needs-validation ajax_off" id="checkin-user" novalidate action="<?= url("/painel/eventos/check-in"); ?>" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="participant_id" value="<?= $eventParticipant->id; ?>">
-            <input type="hidden" name="event_id" value="<?= $eventParticipant->event_id; ?>">
-              
-              <div class="mb-3">
-                <label for="nome" class="form-label">Nome Completo</label>
-                <input type="text" id="nome" name="nome" class="form-control" value="<?=$user->user_name?>" readonly>
-              </div>
+        <div class="col-lg-8">
+            <div class="ajax_response"><?= flash(); ?></div>
 
-              <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" id="email" name="email" class="form-control" value="<?=$user->email?>" readonly>
-              </div>
-
-              <div class="mb-3">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="text" id="cpf" name="cpf" class="form-control" value="<?= $eventParticipant->id; ?>" readonly>
-              </div>
-
-              <div class="mb-3" id="signature-wrapper" style="border:1px solid #ccc;padding:8px;border-radius:6px;max-width:420px;">
-                    <p>Assine abaixo (toque/caneta/mouse):</p>
-                    <canvas id="signature-pad" style="width:100%;height:200px;background:#fff;"></canvas>
-                    <input type="hidden" name="signature" id="signatureInput">
-                    <div style="margin-top:6px;">
-                        <!-- <button type="button" id="clear-signature">Limpar</button>
-                        <button type="button" id="save-signature">Confirmar Dados</button> -->
-                        <span id="sig-status" style="margin-left:12px"></span>
-                    </div>
+            <div class="card">
+                <div class="card-header fw-bold">
+                    <i class="bi bi-check-circle me-2"></i>Check-in do Evento: <?= $participant->event()->title; ?>
                 </div>
+                <div class="card-body">
+                    <form class="needs-validation ajax_off" id="checkin-form" action="<?= url("/painel/eventos/checkin-page") ?>" method="POST">
+                        <?= csrf_input(); ?>
+                        <input type="hidden" id="participant_id" name="participant_id" value="<?= $participant->id; ?>">
+                        <input type="hidden" id="signature" name="signature">
 
-                 <div class="card-footer text-center">
+                        <div class="row align-items-center mb-4">
+                            <div class="col-md-4 text-center">
+                                <img src="<?= $participant->user()->photo() ?? url("/storage/images/avatar.jpg"); ?>" class="img-fluid rounded-circle shadow-sm" alt="Foto do Participante" style="max-width: 150px;">
+                            </div>
+                            <div class="col-md-8">
+                                <h4 class="card-title"><?= $participant->user()->user_name; ?></h4>
+                                <p class="card-text mb-1"><i class="bi bi-envelope me-2"></i><?= $participant->user()->email; ?></p>
+                                <p class="card-text"><i class="bi bi-telephone me-2"></i><?= implode(" / ", array_filter([$participant->user()->phone1, $participant->user()->phone2])); ?></p>
+                            </div>
+                        </div>
 
-                    <?= button([
-                        "id" => "save-signature",
-                        "name" => "Check-in",
-                        "icon" => "check-circle-fill me-1",
-                        "btncolor" => "success",
-                        "class" => "m-1 p-1",
-                        "title" => "Checar usuário",
-                        "type" => "submit"
-                    ]); ?>
-                    <?= button([
-                        "id" => "clear-signature",
-                        "name" => "Limpar",
-                        "icon" => "check-circle-fill me-1",
-                        "btncolor" => "secondary",
-                        "class" => "m-1 p-1",
-                        "title" => "Limpar assinatura",
-                        "type" => "button"
-                    ]); ?>
-                    <?= button(["id" => "exit", "href" => "/painel/eventos/portaria/{$eventParticipant->event_id}", "title" => "Voltar","name" => "Sair", "icon" => "list", "btncolor" => "danger"]); ?>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Por favor, assine abaixo:</label>
+                            <div class="canvas-container border rounded bg-light">
+                                <canvas id="signature-canvas" style="width: 100%; height: 200px;"></canvas>
+                            </div>
+                            <div class="text-end mt-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="clear-signature">Limpar Assinatura</button>
+                            </div>
+                        </div>
 
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-check-all me-2"></i>Confirmar Check-in</button>
+                        </div>
+                    </form>
                 </div>
-
-            </form>
-
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <?php $this->start("scripts"); ?>
-
-<!-- SignaturePad -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.1.4/signature_pad.umd.min.js"></script>
+<!-- Signature Pad JS -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <script>
-const canvas = document.getElementById('signature-pad');
-const signaturePad = new SignaturePad(canvas);
-
-// Ajustar tamanho do canvas
-function resizeCanvas() {
-    const ratio = Math.max(window.devicePixelRatio || 1, 1);
-    canvas.width = canvas.offsetWidth * ratio;
-    canvas.height = canvas.offsetHeight * ratio;
-    canvas.getContext("2d").scale(ratio, ratio);
-    signaturePad.clear();
-}
-window.onresize = resizeCanvas;
-resizeCanvas();
-
-// Limpar
-document.getElementById('clear').addEventListener('click', () => {
-    signaturePad.clear();
-    document.getElementById('signature-error').style.display = 'none';
-});
-
-// Sair
-document.getElementById('exit').addEventListener('click', () => {
-    window.location.href = '<?= url("/beta/eventos"); ?>';
-});
-
-// Check-in
-document.getElementById('checkin').addEventListener('click', async () => {
-    if (signaturePad.isEmpty()) {
-        alert("Por favor, assine antes de continuar.");
-        return;
-    }
-
-    const dataURL = signaturePad.toDataURL('image/png');
-    const fd = new FormData();
-    fd.append('participant_id', document.getElementById('participant_id').value);
-    fd.append('event_id', document.getElementById('event_id').value);
-    fd.append('signature_base64', dataURL);
-
-    try {
-        const response = await fetch('<?= url("/eventos/checkin"); ?>', {
-            method: 'POST',
-            body: fd
+    $(document).ready(function() {
+        var canvas = document.getElementById('signature-canvas');
+        var signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgb(248, 249, 250)' // bg-light
         });
 
-        const result = await response.json();
-        if (result.success) {
-            alert('Check-in realizado com sucesso!');
-            window.location.reload();
-        } else {
-            alert('Erro: ' + result.message);
+        function resizeCanvas() {
+            var ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear(); // Clear signature after resize
         }
-    } catch (err) {
-        console.error(err);
-        document.getElementById('signature-error').style.display = 'block';
-    }
-});
 
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        $('#clear-signature').on('click', function() {
+            signaturePad.clear();
+        });
+
+        $('#checkin-form').on('submit', function(e) {
+            if (signaturePad.isEmpty()) {
+                alert("Por favor, forneça a assinatura para continuar.");
+                e.preventDefault();
+                return;
+            }
+            // Pass the signature data to the hidden input field
+            $('#signature').val(signaturePad.toDataURL('image/png'));
+        });
+    });
 </script>
 <?php $this->end(); ?>

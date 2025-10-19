@@ -162,6 +162,8 @@ $route->get("/eventos/finalizar/{event_id}", "Events:finish");
 $route->post("/eventos/remover-participante", "Events:removeParticipant");
 $route->post("/eventos/check-in", "Events:checkIn");
 $route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails");
+$route->get("/eventos/checkin/{participant_id}", "Events:showCheckInPage");
+$route->post("/eventos/checkin-page", "Events:processCheckInFromPage");
 // $route->post("/eventos/checkin", "Events:processCheckIn");
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
     (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
