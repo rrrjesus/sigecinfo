@@ -34,22 +34,45 @@ class Upload
     }
 
     /**
-     * @param array $image
+     * @param array|string $image
      * @param string $name
      * @param int $width
-     * @return null|string
-     * @throws \Exception
+     * @param string|null $dir
+     * @param bool $pathByDate
+     * @return string|null
      */
-    public function image(array $image, string $name, int $width = CONF_IMAGE_SIZE): ?string
+    public function image($image, string $name, int $width = CONF_IMAGE_SIZE, string $dir = null, bool $pathByDate = true): ?string
     {
-        $upload = new Image(CONF_UPLOAD_DIR, CONF_UPLOAD_IMAGE_DIR);
-        
+        $dir = $dir ?? CONF_UPLOAD_IMAGE_DIR;
+        $upload = new Image(CONF_UPLOAD_DIR, $dir, $pathByDate);
+
+        if (is_string($image)) {
+            if (!file_exists($image)) {
+                $this->message->error("Arquivo de imagem não encontrado.");
+                return null;
+            }
+            $fileInfo = pathinfo($image);
+            $fileData = [
+                'name' => $name . '.' . ($fileInfo['extension'] ?? 'png'),
+                'type' => mime_content_type($image),
+                'tmp_name' => $image,
+                'error' => 0,
+                'size' => filesize($image)
+            ];
+            $image = $fileData;
+        }
+
         if (empty($image['type']) || !in_array($image['type'], $upload::isAllowed())) {
-            $this->message->error("Você não selecionou uma imagem válida");
+            $this->message->error("Você não selecionou uma imagem válida ou tipo de arquivo inválido.");
             return null;
         }
 
-        return str_replace(CONF_UPLOAD_DIR . "/", "", $upload->upload($image, $name, $width, CONF_IMAGE_QUALITY));
+        try {
+            return str_replace(CONF_UPLOAD_DIR . "/", "", $upload->upload($image, $name, $width, CONF_IMAGE_QUALITY));
+        } catch (\Exception $e) {
+            $this->message->error($e->getMessage());
+            return null;
+        }
     }
 
     /**

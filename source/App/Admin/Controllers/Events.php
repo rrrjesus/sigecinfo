@@ -339,10 +339,10 @@ class Events extends Admin
     public function processCheckInFromPage(array $data): void
     {
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
-        $signature = $data['signature'] ?? null;
+        $signatureBase64 = $data['signature'] ?? null;
 
-        if (!$participantId || !$signature) {
-            $this->message->error("Assinatura ou ID do participante ausente.")->flash();
+        if (!$participantId || !$signatureBase64) {
+            $this->message->error("Por favor, forneça a assinatura para continuar.")->flash();
             redirect(url_back());
             return;
         }
@@ -354,30 +354,55 @@ class Events extends Admin
             return;
         }
 
-        // Decode and save signature
-        $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature));
-        $uploadDir = "signatures";
-        if (!is_dir(CONF_UPLOAD_DIR . "/{$uploadDir}")) {
-            mkdir(CONF_UPLOAD_DIR . "/{$uploadDir}", 0755, true);
-        }
-        
-        $filename = $uploadDir . "/" . uniqid("sig_", true) . ".png";
-        file_put_contents(CONF_UPLOAD_DIR . "/{$filename}", $signatureData);
+        try {
+            // Decode base64 and create a temporary file
+            $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureBase64));
+            if ($signatureData === false) {
+                throw new \Exception("Falha ao decodificar a assinatura.");
+            }
 
-        // Update participant record
-        $participant->status = "presente";
-        $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
-        $participant->signature = $filename;
-        $participant->save();
+            $tempFile = tmpfile();
+            fwrite($tempFile, $signatureData);
+            $tempFilePath = stream_get_meta_data($tempFile)['uri'];
 
-        if ($participant->fail()) {
-            $this->message->error($participant->fail()->getMessage())->flash();
+            // Use Upload and Thumb classes
+            $upload = new \Source\Support\Upload();
+            $thumb = new \Source\Support\Thumb();
+
+            // Remove old signature if it exists
+            if ($participant->signature) {
+                $thumb->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
+            }
+
+            // Upload the new signature
+            $signatureName = "sig-{$participant->id}-" . time();
+            $newSignature = $upload->image($tempFilePath, $signatureName, 600, 'signatures', true);
+
+            // Close and delete the temporary file
+            fclose($tempFile);
+
+            if (!$newSignature) {
+                throw new \Exception($upload->message()->getText());
+            }
+
+            // Update participant record
+            $participant->status = "presente";
+            $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
+            $participant->signature = $newSignature;
+            $participant->save();
+
+            if ($participant->fail()) {
+                throw new \Exception($participant->fail()->getMessage());
+            }
+
+            $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
+            redirect("/painel/eventos/portaria/{$participant->event_id}");
+
+        } catch (\Exception $e) {
+            $this->message->error("Erro ao processar assinatura: " . $e->getMessage())->flash();
             redirect(url_back());
-            return;
         }
-
-        $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
-        redirect("/painel/eventos/portaria/{$participant->event_id}");
     }
 
   /**
@@ -414,13 +439,13 @@ public function checkIn(array $data): void
 
                 // Remove assinatura anterior se existir
                 if ($participant->signature) {
-                    (new Thumb())->flush("storage/signatures/{$participant->signature}");
-                    $upload->remove("storage/signatures/{$participant->signature}");
+                    (new Thumb())->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                    $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
                 }
 
                 // Faz upload usando a classe padrão
                 $signatureName = "signature-" . $participant->user_name . "-" . time();
-                $newSignature = $upload->image($tmpFile, $signatureName, 360, "signatures");
+                $newSignature = $upload->image($tmpFile, $signatureName, 360, "signatures", true);
 
                 // Remove arquivo temporário
                 @unlink($tmpFile);
@@ -443,11 +468,11 @@ public function checkIn(array $data): void
         elseif (!empty($_FILES["signature"])) {
             $upload = new Upload();
             if ($participant->signature) {
-                (new Thumb())->flush("storage/signatures/{$participant->signature}");
-                $upload->remove("storage/signatures/{$participant->signature}");
+                (new Thumb())->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
             }
 
-            if (!$participant->signature = $upload->image($_FILES["signature"], "signature-{$participant->user_name}-" . time(), 360, "signatures")) {
+            if (!$participant->signature = $upload->image($_FILES["signature"], "signature-{$participant->user_name}-" . time(), 360, "signatures", true)) {
                 $json["message"] = $upload->message()->render();
                 echo json_encode($json);
                 return;
@@ -616,44 +641,59 @@ public function checkIn(array $data): void
      */
     public function processCheckIn(array $data): void
     {
-        $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
-        $signature = $data['signature'] ?? null;
+        try {
+            $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
+            $signatureBase64 = $data['signature'] ?? null;
 
-        if (!$participantId || !$signature) {
-            $this->message->error("Dados inválidos para o check-in.")->flash();
+            if (!$participantId || !$signatureBase64) {
+                throw new \Exception("Dados inválidos para o check-in.");
+            }
+
+            $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+            if (!$participant) {
+                throw new \Exception("Participante não encontrado.");
+            }
+
+            $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureBase64));
+            if ($signatureData === false) {
+                throw new \Exception("Falha ao decodificar a assinatura.");
+            }
+
+            $tempFile = tmpfile();
+            fwrite($tempFile, $signatureData);
+            $tempFilePath = stream_get_meta_data($tempFile)['uri'];
+
+            $upload = new Upload();
+            $thumb = new Thumb();
+
+            if ($participant->signature) {
+                $thumb->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
+            }
+
+            $signatureName = "sig-{$participant->id}-" . time();
+            $newSignature = $upload->image($tempFilePath, $signatureName, 600, 'signatures', true);
+
+            fclose($tempFile);
+
+            if (!$newSignature) {
+                throw new \Exception($upload->message()->getText());
+            }
+
+            $participant->status = "presente";
+            $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
+            $participant->signature = $newSignature;
+            
+            if (!$participant->save()) {
+                throw new \Exception($participant->fail()->getMessage());
+            }
+
+            $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
             echo json_encode(["reload" => true]);
-            return;
-        }
 
-        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
-        if (!$participant) {
-            $this->message->error("Participante não encontrado.")->flash();
+        } catch (\Exception $e) {
+            $this->message->error("Erro ao processar assinatura: " . $e->getMessage())->flash();
             echo json_encode(["reload" => true]);
-            return;
         }
-
-        // Decode the signature
-        $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature));
-        $uploadDir = "storage/images/signatures";
-        if (!is_dir(CONF_UPLOAD_DIR . "/{$uploadDir}")) {
-            mkdir(CONF_UPLOAD_DIR . "/{$uploadDir}", 0755, true);
-        }
-        
-        $filename = $uploadDir . "/" . uniqid("sig_", true) . ".png";
-        file_put_contents(CONF_UPLOAD_DIR . "/{$filename}", $signatureData);
-
-        // Update participant
-        $participant->status = "presente";
-        $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
-        $participant->signature = $filename;
-        
-        if (!$participant->save()) {
-            $this->message->error($participant->fail()->getMessage())->flash();
-            echo json_encode(["reload" => true]);
-            return;
-        }
-
-        $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
-        echo json_encode(["reload" => true]);
     }
 }

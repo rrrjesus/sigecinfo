@@ -1,48 +1,63 @@
 <?php $this->layout("_admin"); ?>
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <form class="needs-validation ajax_off" id="checkin-form" action="<?= url("/painel/eventos/checkin-page") ?>" method="POST">
             <div class="ajax_response"><?= flash(); ?></div>
+            <?= csrf_input(); ?>
+            <input type="hidden" id="participant_id" name="participant_id" value="<?= $participant->id; ?>">
+            <input type="hidden" id="signature" name="signature">
 
-            <div class="card">
+            <!-- Participant Info Card -->
+            <div class="card m-3">
                 <div class="card-header fw-bold">
-                    <i class="bi bi-check-circle me-2"></i>Check-in do Evento: <?= $participant->event()->title; ?>
+                    <i class="bi bi-calendar-event me-2"></i><?= $participant->event()->title; ?>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation ajax_off" id="checkin-form" action="<?= url("/painel/eventos/checkin-page") ?>" method="POST">
-                        <?= csrf_input(); ?>
-                        <input type="hidden" id="participant_id" name="participant_id" value="<?= $participant->id; ?>">
-                        <input type="hidden" id="signature" name="signature">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 text-center">
+                            <img src="<?=($participant->user()->photo) ? url(CONF_UPLOAD_DIR . "/" . $participant->user()->photo) : theme('/assets/images/avatar.jpg', CONF_VIEW_ADMIN); ?>" class="img-fluid rounded-circle shadow-sm mb-2" alt="Foto do Participante" style="max-width: 120px;">
 
-                        <div class="row align-items-center mb-4">
-                            <div class="col-md-4 text-center">
-                                <img src="<?= $participant->user()->photo() ?? url("/storage/images/avatar.jpg"); ?>" class="img-fluid rounded-circle shadow-sm" alt="Foto do Participante" style="max-width: 150px;">
-                            </div>
-                            <div class="col-md-8">
-                                <h4 class="card-title"><?= $participant->user()->user_name; ?></h4>
-                                <p class="card-text mb-1"><i class="bi bi-envelope me-2"></i><?= $participant->user()->email; ?></p>
-                                <p class="card-text"><i class="bi bi-telephone me-2"></i><?= implode(" / ", array_filter([$participant->user()->phone1, $participant->user()->phone2])); ?></p>
-                            </div>
                         </div>
+                        <div class="col-md-9">
+                            <h5 class="card-title"><?= $participant->user()->user_name.' - '.$participant->user()->position()->position_name; ?></h5>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Por favor, assine abaixo:</label>
+                            <dl class="row">
+                                <dt class="col-sm-3"><i class="bi bi-envelope me-2"></i>Email:</dt>
+                                <dd class="col-sm-9"><?= $participant->user()->email; ?></dd>
+
+                                <dt class="col-sm-3"><i class="bi bi-telephone me-2"></i>Telefone:</dt>
+                                <dd class="col-sm-9"><?= implode(" / ", array_filter([$participant->user()->phone1, $participant->user()->phone2])) ?: 'Não informado'; ?></dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <label class="form-label">Por favor, assine no campo abaixo:</label>
                             <div class="canvas-container border rounded bg-light">
                                 <canvas id="signature-canvas" style="width: 100%; height: 200px;"></canvas>
                             </div>
-                            <div class="text-end mt-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" id="clear-signature">Limpar Assinatura</button>
-                            </div>
                         </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-check-all me-2"></i>Confirmar Check-in</button>
-                        </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <?= button([
+                        "type" => "button",
+                        "id" => "clear-signature",
+                        "name" => "Limpar",
+                        "icon" => "eraser",
+                        "btncolor" => "secondary"
+                    ]); ?>
+                    <?= button([
+                        "type" => "submit",
+                        "name" => "Confirmar Check-in",
+                        "icon" => "check-lg",
+                        "btncolor" => "success"
+                    ]); ?>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -54,7 +69,7 @@
     $(document).ready(function() {
         var canvas = document.getElementById('signature-canvas');
         var signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(248, 249, 250)' // bg-light
+            backgroundColor: 'rgb(248, 249, 250)' // Cor de fundo do canvas
         });
 
         function resizeCanvas() {
@@ -62,7 +77,7 @@
             canvas.width = canvas.offsetWidth * ratio;
             canvas.height = canvas.offsetHeight * ratio;
             canvas.getContext("2d").scale(ratio, ratio);
-            signaturePad.clear(); // Clear signature after resize
+            signaturePad.clear(); // Limpa a assinatura ao redimensionar
         }
 
         window.addEventListener("resize", resizeCanvas);
@@ -78,7 +93,7 @@
                 e.preventDefault();
                 return;
             }
-            // Pass the signature data to the hidden input field
+            // Passa os dados da assinatura para o input hidden
             $('#signature').val(signaturePad.toDataURL('image/png'));
         });
     });
