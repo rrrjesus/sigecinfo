@@ -160,7 +160,9 @@ $route->get("/eventos/status/{event_id}", "Events:toggleStatus");
 $route->get("/eventos/iniciar/{event_id}", "Events:start");
 $route->get("/eventos/finalizar/{event_id}", "Events:finish");
 $route->post("/eventos/remover-participante", "Events:removeParticipant");
-$route->post("/eventos/checkin", "Events:checkIn");
+$route->post("/eventos/check-in", "Events:checkIn");
+$route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails");
+// $route->post("/eventos/checkin", "Events:processCheckIn");
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
     (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
 });
@@ -169,9 +171,11 @@ $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
 $route->post("/notifications/count", "Notifications:count");
 $route->post("/notifications/list", "Notifications:list");
 
-/**
- * ERROR ROUTES
- */
+
+
+    /**
+     * LOGOUT
+     */
 $route->group("/ops");
 $route->get("/{errcode}", function ($data) use ($auth) {
     (new \Source\App\Web($auth))->error($data);
