@@ -764,9 +764,14 @@ function button(array $params): string
     if ($href) {
         $attributes .= ' href="' . htmlspecialchars(url($href), ENT_QUOTES, 'UTF-8') . '"';
     }
+
     // Adiciona o atributo 'type' apenas para a tag <button>
     if ($type && $tag === 'button') {
         $attributes .= ' type="' . htmlspecialchars($type, ENT_QUOTES, 'UTF-8') . '"';
+    }
+
+    if (isset($params['id'])) {
+        $attributes .= ' id="' . htmlspecialchars($params['id'], ENT_QUOTES, 'UTF-8') . '"';
     }
 
     if (isset($params['data-bs-toggle'])) {

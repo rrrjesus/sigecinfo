@@ -44,16 +44,13 @@
                                 <tr>
                                     <td class="text-center align-middle">
                                         <?php if ($participant->status != 'presente'): ?>
-                                            <form class="ajax_off" style="display: inline;" action="<?= url("/painel/eventos/checkin"); ?>" method="post">
-                                                <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                                  <?= button([
-                                                "name" => "Check-in",
-                                                "icon" => "check-circle-fill me-1",
-                                                "btncolor" => "success",
-                                                "class" => "m-1 p-1",
-                                                "type" => "submit"
-                                            ]); ?>
-                                            </form>
+                                                        "href" => "/painel/eventos/check-in/{$participant->id}",
+                                                        "name" => "Check-in",
+                                                        "icon" => "check-circle-fill me-1",
+                                                        "btncolor" => "success",
+                                                        "class" => "m-1 p-1"
+                                                    ]); ?>
                                         <?php else: ?>
                                             <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Checado</span></h5>
                                         <?php endif; ?>
