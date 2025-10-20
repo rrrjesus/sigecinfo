@@ -43,16 +43,23 @@
                             <?php foreach ($participants as $participant): ?>
                                 <tr>
                                     <td class="text-center align-middle">
-                                        <?php if ($participant->status != 'presente'): ?>
-                                                 <?= button([
+                                        <?php if ($participant->status === 'presente'): ?>
+                                            <?= button([
                                                         "href" => "/painel/eventos/checkin/{$participant->id}",
-                                                        "name" => "Check-in",
+                                                        "name" => "Assinado",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "success",
                                                         "class" => "m-1 p-1"
                                                     ]); ?>
+                                                 
                                         <?php else: ?>
-                                            <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Checado</span></h5>
+                                                    <?= button([
+                                                        "href" => "/painel/eventos/checkin/{$participant->id}",
+                                                        "name" => "Check-in",
+                                                        "icon" => "check-circle-fill me-1",
+                                                        "btncolor" => "primary",
+                                                        "class" => "m-1 p-1"
+                                                    ]); ?>
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center align-middle">
@@ -76,7 +83,7 @@
                                         </a>
                                         <?= \Source\Support\Modal::renderImage(
                                             "photoModal{$participant->id}",
-                                            $participant->user()->user_name,
+                                            $participant->user()->user_name.' - '.$participant->user()->position()->position_name,
                                             $largeImageUrl,
                                             $participant->user()->user_name
                                         ) ?>
