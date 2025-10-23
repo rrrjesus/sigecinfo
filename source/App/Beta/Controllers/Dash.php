@@ -37,7 +37,7 @@ class Dash extends Admin
         $head = $this->seo->render(
             CONF_SITE_NAME . " | Aplicativo",
             CONF_SITE_DESC,
-            url("/beta"),
+            url("/beta/home"),
             theme("/assets/images/image.jpg", CONF_VIEW_APP),
             false
         );

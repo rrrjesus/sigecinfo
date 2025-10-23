@@ -58,14 +58,14 @@
                                 <div class="row">
                                     <div class="col-md-8 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="title"><strong>Título do Evento</strong></label>
-                                        <input type="text" id="title" name="title" class="form-control form-control-sm" value="<?= $event->title ?? ''; ?>'" required>
+                                        <input type="text" id="title" name="title" class="form-control form-control-sm" value="<?= $event->title ?? ''; ?>" required>
                                     </div>
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="type_id"><strong>Tipo de Evento</strong></label>
                                         <select id="type_id" name="type_id" class="form-select form-select-sm" required>
                                             <option value="">Selecione...</option>
                                             <?php if (!empty($eventTypes)): foreach ($eventTypes as $type): ?>
-                                                <option value="<?= $type->id; ?>'" <?= !empty($event) && $event->type_id == $type->id ? 'selected' : ''; ?>><?= $type->name; ?></option>
+                                                <option value="<?= $type->id; ?>" <?= !empty($event) && $event->type_id == $type->id ? 'selected' : ''; ?>><?= $type->name; ?></option>
                                             <?php endforeach; endif; ?>
                                         </select>
                                     </div>
@@ -113,7 +113,7 @@
                                 <div class="row align-items-end">
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="start_at"><strong>Data e Hora de Início</strong></label>
-                                        <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>'" required>
+                                        <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>" required>
                                     </div>
                                     <div class="col-md-4 mb-1">
                                         <label class="col-form-label col-form-label-sm" for="end_at"><strong>Data e Hora de Término</strong> (Opcional)</label>
@@ -134,7 +134,7 @@
                                         <select id="church_id" name="church_id" class="form-select form-select-sm">
                                             <option value="">Selecione uma igreja...</option>
                                             <?php if (!empty($churches)): foreach ($churches as $church): ?>
-                                                <option value="<?= $church->id; ?>'" <?= !empty($event) && $event->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
+                                                <option value="<?= $church->id; ?>" <?= !empty($event) && $event->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
                                             <?php endforeach; endif; ?>
                                         </select>
                                     </div>

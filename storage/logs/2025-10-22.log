@@ -1,0 +1,5 @@
+[error] [11:57:27] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Uma tentativa de conexão falhou porque o componente conectado não respondeu
+corretamente após um período de tempo ou a conexão estabelecida falhou
+porque o host conectado não respondeu
+[error] [11:59:17] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente
+[error] [11:59:19] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente

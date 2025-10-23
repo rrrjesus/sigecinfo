@@ -58,7 +58,7 @@ $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\Ap
 $route->namespace("Source\App\Beta");
 $route->group("/beta");
 
-$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->dash($data);});
+$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
 $route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
