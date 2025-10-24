@@ -214,6 +214,7 @@
                 <h2 class="text-center h4" style="text-transform: uppercase;"><?= $event->title ?></h2>
                 <h3 class="text-center h6 text-muted mb-4">Lista de Presença - <?= date_fmt($event->start_at, "d/m/Y") ?></h3>
 
+                <div class="row table-responsive">
                 <table class="table table-bordered table-sm">
                     <thead class="table-light">
                         <tr>
@@ -229,11 +230,15 @@
                                 <td><?= $participant->user()->user_name; ?></td>
                                 <td><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
                                 <td><?= $participant->user()->church()->church_name ?? 'N/A'; ?></td>
-                                <td></td>
+                                 <td>
+                                       
+                                    <img src="<?=(!empty($participant->signature)) ? url(CONF_UPLOAD_DIR . "/" . $participant->signature) : 'a'  ?>" height="50" width="120">
+                                    </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
             </div>
 
         <?php else: ?>

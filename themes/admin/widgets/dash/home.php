@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 fw-bold text-primary"><i class="bi bi-bar-chart-line-fill"></i> Estatísticas da Secretaria</h6>
+                    <h6 class="m-0 fw-bold text-tertiary"><i class="bi bi-bar-chart-line-fill"></i> Estatísticas da Secretaria</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -95,12 +95,12 @@
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 fw-bold text-primary"><i class="bi bi-broadcast"></i> Online Agora</h6>
+                    <h6 class="m-0 fw-bold text-tertiary"><i class="bi bi-broadcast"></i> Online Agora</h6>
                     <span class="badge bg-primary rounded-pill trafic_count"><?= $onlineCount; ?></span>
                 </div>
                 <div class="card-body">
-                    <div class="app_dash_home_trafic_list">
-                        <table id="online" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                    <div class="row table-responsive">
+                        <table id="online" class="table table-bordered table-sm border-secondary table-hover">
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center"><i class="bi bi-person-fill"></i> Usuário</th>
