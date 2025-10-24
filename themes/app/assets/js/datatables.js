@@ -143,7 +143,7 @@ $(function () {
      */
     
     
-         // Tabela de Participantes de Evento
+    // Tabela de Participantes de Evento
     $('#myEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
             responsive: {
             details: {
@@ -158,7 +158,22 @@ $(function () {
         }
     }));
 
-        // Tabela de Eventos Desativados
+    // Tabela de Participantes de Evento
+    $('#myCompletedEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
+            responsive: {
+            details: {
+                display: DataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return (data[1] || '') + ' ' + (data[2] || '');
+                    }
+                }),
+                renderer: DataTable.Responsive.renderer.tableAll({})
+            }
+        }
+    }));
+
+    // Tabela de Eventos Desativados
     $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Ativos"), {
         ajax: '../../themes/app/serverside/list-events.php',
         responsive: {

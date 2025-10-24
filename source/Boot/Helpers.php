@@ -615,6 +615,8 @@ function statusBadge(string $status): string
  */
 function eventStatusBadge(string $status): string
 {
+    $status = strtolower($status);
+    
     switch ($status) {
         case 'agendado':
             return '<h5><span class="badge fw-semibold text-bg-primary p-2">Agendado</span></h5>';

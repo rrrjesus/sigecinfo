@@ -16,7 +16,7 @@ class Event extends Model
      */
     public function __construct()
     {
-        parent::__construct("events", ["id"], ["title", "start_at", "type_id"]);
+        parent::__construct("events", ["id"], ["title", "start_at", "type_id", "status"]);
     }
 
     /**

@@ -205,8 +205,6 @@ class Events extends Admin
         }
     }
 
-
-
     /**
      * Busca todos os eventos para os quais um utilizador específico foi convocado.
      * @param int $userId
@@ -220,5 +218,22 @@ class Events extends Admin
         )->order("start_at DESC")->fetch(true);
 
         return $events;
+    }
+
+    /**
+     * Lista o histórico de eventos realizados que o utilizador participou.
+     */
+    public function completedEvents(): void
+    {
+        $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/meus-eventos-realizados"), null, false);
+        
+        $eventRepo = new EventRepository();
+        $completedEvents = $eventRepo->getCompletedEventsForUser($this->user->id);
+
+        echo $this->view->render("widgets/events/my-completed-events", [
+            "head" => $head,
+            "events" => $completedEvents,
+            "user" => $this->user
+        ]);
     }
 }

@@ -22,30 +22,31 @@ class Dash extends Admin
     /**
      *
      */
-    public function dash(): void
-    {
-        redirect("/beta/home");
-    }
+    // public function dash(): void
+    // {
+    //     redirect("/beta/home");
+    // }
 
-    /**
-     * @param array|null $data
-     * @throws \Exception
-     */
     public function home(?array $data): void
     {
-
         $head = $this->seo->render(
-            CONF_SITE_NAME . " | Aplicativo",
+            "Dashboard - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
             url("/beta/home"),
-            theme("/assets/images/image.jpg", CONF_VIEW_APP),
+            null,
             false
         );
         
+        // Busca os dados para a dashboard do utilizador
+        $eventRepo = new \Source\Domain\Event\EventRepository();
+        $nextEvent = $eventRepo->findNextEventForUser($this->user->id);
+        $eventCounts = $eventRepo->getUserEventCounts($this->user->id);
 
         echo $this->view->render("widgets/dash/home", [
-            "app" => "dash",
-            "head" => $head
+            "head" => $head,
+            "user" => $this->user,
+            "nextEvent" => $nextEvent,
+            "eventCounts" => $eventCounts
         ]);
     }
 

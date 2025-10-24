@@ -45,4 +45,47 @@ class EventRepository
 
         return $events;
     }
+
+    /**
+     * Busca o próximo evento agendado para um utilizador específico.
+     * @param int $userId
+     * @return null|Event
+     */
+    public function findNextEventForUser(int $userId): ?\Source\Domain\Event\Models\Event
+    {
+        return (new \Source\Domain\Event\Models\Event())->find(
+            "status = 'agendado' AND start_at >= NOW() AND id IN (SELECT event_id FROM event_participants WHERE user_id = :uid)",
+            "uid={$userId}"
+        )->order("start_at ASC")->limit(1)->fetch();
+    }
+
+    /**
+     * Retorna as contagens de eventos para a dashboard de um utilizador.
+     * @param int $userId
+     * @return object
+     */
+    public function getUserEventCounts(int $userId): object
+    {
+        $baseQuery = "id IN (SELECT event_id FROM event_participants WHERE user_id = :uid)";
+
+        return (object)[
+            "active" => (new \Source\Domain\Event\Models\Event())->find("status = 'agendado' AND {$baseQuery}", "uid={$userId}")->count(),
+            "completed" => (new \Source\Domain\Event\Models\Event())->find("status = 'realizado' AND {$baseQuery}", "uid={$userId}")->count()
+        ];
+    }
+
+    /**
+     * Busca o histórico de eventos que um utilizador participou (status 'realizado' e 'presente').
+     * @param int $userId
+     * @return array|null
+     */
+    public function getCompletedEventsForUser(int $userId): ?array
+    {
+        $events = (new \Source\Domain\Event\Models\Event())->find(
+            "status = 'realizado' AND id IN (SELECT event_id FROM event_participants WHERE user_id = :uid AND status = 'presente')",
+            "uid={$userId}"
+        )->order("start_at DESC")->fetch(true);
+
+        return $events;
+    }
 }
