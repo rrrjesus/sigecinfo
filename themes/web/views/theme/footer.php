@@ -10,7 +10,7 @@
                 <ul class="list-unstyled small">
                     <li class="mb-2">Desenvolvido com todo amor pela equipe de <strong>SIGECINFO - Sistema de Gerenciamento e Controle de Informações</strong>.</li>
                     <li class="mb-2">Código licenciado <a data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary"
-                                                          data-bs-title="Liçenca de Software" class="text-decoration-none text-secondary fw-bold" href="https://github.com/rrrjesus/siegcinfo/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a></li>
+                                                          data-bs-title="Liçenca de Software" class="text-decoration-none text-secondary fw-bold" href="https://github.com/rrrjesus/sigecinfo/blob/main/LICENSE" target="_blank" rel="license noopener">MIT</a></li>
                     <li class="mb-2">Versão Atual v2.0.2.</li>
                     <li class="mb-2">Código Fonte <a data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" data-bs-title="GitHub do Desenvolvedor" class="text-decoration-none text-secondary fw-bold" href="https://github.com/rrrjesus/sigecinfo" target="_blank" rel="noopener"><i class="bi bi-github"></i> @rrrjesus/siegcinfo</a>.</li>
                 </ul>

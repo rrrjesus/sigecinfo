@@ -59,6 +59,10 @@ class Dash extends Admin
             ]);
             return;
         }
+        $breadcrumb = [
+            ["title" => "Painel de Controle", "link" => url("/painel/controle/inicial")],
+            ["title" => "Monitoramento"]
+        ];
 
         $head = $this->seo->render(
             CONF_SITE_NAME . " | Dashboard",
@@ -75,8 +79,8 @@ class Dash extends Admin
         $eventRepo = new EventRepository(); // <-- Instancia o novo Repository
 
         echo $this->view->render("widgets/dash/home", [
-            "app" => "dash",
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "churchs" => $churchRepo->getStatusCounts(),
             "users" => $userRepo->getLevelCounts(),
             "userspositions" => $userPositionRepo->getStatusCounts(),

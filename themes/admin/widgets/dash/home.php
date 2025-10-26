@@ -1,12 +1,14 @@
 <?php $this->layout("_admin"); ?>
 
+  <!-- Breacrumb-->
+  <?= $this->insert("views/theme/breadcrumb"); ?>
+
 <div class="container-fluid">
-    <div class="col-12 ml-auto mt-3"> <!-- https://getbootstrap.com/docs/4.0/layout/grid/#mix-and-match -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb breadcrumb-chevron p-2 bg-body-tertiary rounded-3">
-                <li class="breadcrumb-item fw-semibold active" aria-current="page"><i class="bi bi-house-door"></i> Monitoramento</li>
-            </ol>
-        </nav>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="ajax_response"><?= flash(); ?></div>
+        </div>
     </div>
 
     <div class="row justify-content-center">
