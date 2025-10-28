@@ -24,7 +24,7 @@ $primaryKey = 'id';
 
 $columns = [
     ['db' => 'status', 'dt' => 0, 'formatter' => function($d) {
-        return "<h6>" . eventStatusBadge($d) . "</h6>";
+        return eventStatusBadge($d);
     }],
     ['db' => 'title', 'dt' => 1, 'formatter' => function($d) {
         return "<h6>" . htmlspecialchars($d) . "</h6>";

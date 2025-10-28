@@ -242,21 +242,9 @@ abstract class Model
      */
     public function count(string $key = "id"): int
     {
-        $query = $this->query;
-        if (empty($query)) {
-            $query = "SELECT COUNT({$key}) as count FROM {$this->entity}";
-        } else {
-            $query = preg_replace('/^SELECT .* FROM/i', "SELECT COUNT({$key}) as count FROM", $query, 1);
-        }
-
-        try {
-            $stmt = Connect::getInstance()->prepare($query);
-            $stmt->execute($this->params);
-            return (int)($stmt->fetch()->count ?? 0);
-        } catch (\PDOException $exception) {
-            $this->fail = $exception;
-            return 0;
-        }
+        $stmt = Connect::getInstance()->prepare($this->query);
+        $stmt->execute($this->params);
+        return $stmt->rowCount();
     }
 
     /**

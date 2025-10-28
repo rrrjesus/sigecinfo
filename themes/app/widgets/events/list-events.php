@@ -36,7 +36,7 @@
                             <th class="text-center"><i class="bi bi-building me-2"></i>Dependências</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <!-- Dados serão inseridos via JS/DataTables -->
                     </tbody>
                 </table>

@@ -47,8 +47,8 @@
                                 Você tem <strong><?= $eventCounts->active; ?></strong> evento(s) agendado(s) e um histórico de 
                                 <strong><?= $eventCounts->completed; ?></strong> evento(s) já realizado(s).
                             </p>
-                             <a href="<?= url("/beta/eventos/meus-eventos"); ?>" class="btn btn-outline-secondary me-2">Ver Eventos Agendados</a>
-                             <a href="<?= url("/beta/eventos/meus-eventos-realizados"); ?>" class="btn btn-outline-secondary">Ver Histórico</a>
+                             <a href="<?= url("/beta/eventos/meus-eventos"); ?>" class="btn btn-outline-secondary me-2">Ver Agendados</a>
+                             <a href="<?= url("/beta/eventos/meus-eventos-finalizados"); ?>" class="btn btn-outline-secondary">Ver Histórico</a>
                         </div>
                     </div>
                 </div>

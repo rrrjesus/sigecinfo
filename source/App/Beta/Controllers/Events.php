@@ -225,7 +225,7 @@ class Events extends Admin
      */
     public function completedEvents(): void
     {
-        $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/meus-eventos-realizados"), null, false);
+        $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/meus-eventos-finalizados"), null, false);
         
         $eventRepo = new EventRepository();
         $completedEvents = $eventRepo->getCompletedEventsForUser($this->user->id);

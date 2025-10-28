@@ -31,7 +31,7 @@
                                     <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
     
                                 <?php if (empty($events)): ?>
                                     <div class="alert alert-info">Você ainda não participou de nenhum evento concluído.</div>
@@ -41,7 +41,7 @@
                                         $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
                                     ?>
                                 <tr>
-                                    <td class="text-center">
+                                    <td>
                                         
                                         <?php if ($participant->status === 'confirmado'): ?>
                                             <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
@@ -57,13 +57,13 @@
                                         <?php endif; ?>
 
                                     </td>
-                                    <td class="text-center"><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
-                                    <td class="text-center"><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $participant->justification; ?></h6></td>
-                                    <td class="text-center"><?= eventStatusBadge($event->status); ?></td>
+                                    <td><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
+                                    <td><h6><?= $event->title; ?></h6></td>
+                                    <td><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
+                                    <td><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
+                                    <td><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
+                                    <td><h6><?= $participant->justification; ?></h6></td>
+                                    <td><?= eventStatusBadge($event->status); ?></td>
                                 </tr>
                                 
                             <?php endforeach; ?>

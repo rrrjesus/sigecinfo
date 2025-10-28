@@ -31,13 +31,13 @@
                                     <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                             <?php foreach ($events as $event): 
                                 // Busca os dados da participação uma única vez
                                 $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
                             ?>
                                 <tr>
-                                    <td class="text-center">
+                                    <td>
                                     <?php if ($participant && $participant->status === 'convocado'): ?>
                                         <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/confirmar"); ?>" method="post">
                                             <?= csrf_input(); ?>
@@ -61,7 +61,7 @@
 
                                         <?php elseif ($participant): ?>
 
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            
                                                     <?php if ($participant->status === 'confirmado'): ?>
                                                         <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
                                                     <?php elseif ($participant->status === 'recusado'): ?>
@@ -74,19 +74,19 @@
                                                     <?php else: ?>
                                                         <p class="mb-0"><strong>Status:</strong> <span class="badge text-bg-secondary"><?= ucfirst($participant->status); ?></span></p>
                                                     <?php endif; ?>
-                                            </div>
+                                            
 
                                         <?php endif; ?>
                                     </td>
-                                    <td class="text-center"><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
-                                    <td class="text-center"><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
-                                    <td class="text-center"><h6><?= $event->title; ?></h6></td>
-                                    <td class="text-center"><?= eventStatusBadge($event->status); ?></td>
+                                    <td><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
+                                    <td><h6><?= $event->title; ?></h6></td>
+                                    <td><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
+                                    <td><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
+                                    <td><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
+                                    <td><h6><?= $event->title; ?></h6></td>
+                                    <td><?= eventStatusBadge($event->status); ?></td>
                                     
-                                    <td class="text-center">
+                                    <td>
                                         <?php if ($participant->status !== 'presente'): ?>
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>
                                                 <div class="d-flex justify-content-between align-items-center">
