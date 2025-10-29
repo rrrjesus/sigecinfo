@@ -418,6 +418,23 @@ class Web extends Controller
         ]);
     }
 
+    /**
+     * SITE PRIVACY
+     */
+    public function privacy(): void
+    {
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " - Política de Privacidade",
+            CONF_SITE_DESC,
+            url("/privacidade"),
+            theme("/assets/images/share.png")
+        );
+
+        echo $this->view->render("privacy", [
+            "head" => $head
+        ]);
+    }
+
         /**
      * SITE NAV ERROR
      * @param array $data

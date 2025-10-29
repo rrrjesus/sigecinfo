@@ -42,6 +42,7 @@ $route->get("/obrigado/{email}", function($data) use ($auth) { (new \Source\App\
 //services
 $route->group(null);
 $route->get("/termos", function($data) use ($auth) { (new \Source\App\Web($auth))->terms($data); });
+$route->get("/privacidade", function($data) use ($auth) { (new \Source\App\Web($auth))->privacy($data); });
 
 //auth
 $route->group(null);
