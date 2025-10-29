@@ -60,6 +60,7 @@ class Login extends Controller
             $login = $this->auth->login($data["email"], $data["password"], true, 4);
 
             if ($login) {
+                 $this->message->success("Seja bem-vindo(a) de volta " . Auth::user()->user_name . "!")->flash();
                 $json["redirect"] = url("/painel/controle");
             } else {
                 $json["message"] = $this->auth->message()->render();

@@ -273,11 +273,11 @@ class Users extends Admin
                 return;
             }
 
-            //  if ($userEdit->id === $this->user->id) {
-            //     $json['message'] = $this->message->warning("Para editar seu próprio usuário, acesse o perfil.")->icon()->render();
-            //     echo json_encode($json);
-            //     return;
-            // }
+            if ($userEdit->id === $this->user->id) {
+                $json['message'] = $this->message->warning("Para editar seu próprio usuário, acesse o perfil.")->icon()->render();
+                echo json_encode($json);
+                return;
+            }
 
             if (!$userEdit->save()) {
                 $json["message"] = $userEdit->message()->render();
