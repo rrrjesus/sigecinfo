@@ -45,6 +45,16 @@
         </div>
     </form>
 
+        <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OU</p>
+        </div>
+
+        <div class="d-grid">
+            <a class="btn btn-danger fw-semibold mt-1" href="<?= url("/auth/google"); ?>">
+                <i class="bi bi-google"></i> Entrar com Google
+            </a>
+        </div>
+
     <footer class="pt-3">
         <div class="d-flex flex-column flex-sm-row justify-content-center text-golden">
             <p></p> <a data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-golden" data-bs-title="GitHub do Desenvolvedor" class="text-decoration-none text-golden fw-bold" href="https://github.com/rrrjesus/sigecinfo" target="_blank" rel="noopener"><i class="bi bi-github"></i> @rrrjesus/siegcinfo</a></p>

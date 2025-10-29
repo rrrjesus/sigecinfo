@@ -45,6 +45,8 @@ $route->get("/termos", function($data) use ($auth) { (new \Source\App\Web($auth)
 
 //auth
 $route->group(null);
+$route->get("/auth/google", function($data) use ($auth) { (new \Source\App\Web($auth))->google($data); });
+$route->get("/auth/google/callback", function($data) use ($auth) { (new \Source\App\Web($auth))->googleCallback($data); });
 $route->get("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
 $route->post("/entrar", function($data) use ($auth) { (new \Source\App\Web($auth))->login($data); });
 $route->get("/recuperar", function($data) use ($auth) { (new \Source\App\Web($auth))->forget($data); });

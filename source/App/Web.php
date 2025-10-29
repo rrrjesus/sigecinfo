@@ -6,6 +6,7 @@ use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Report\Models\Access;
 use Source\Domain\Report\Models\Online;
+use League\OAuth2\Client\Provider\Google;
 use Source\Domain\User\Models\User;
 
 /**
@@ -139,6 +140,83 @@ class Web extends Controller
             "head" => $head,
             "cookie" => filter_input(INPUT_COOKIE, "authEmail")
         ]);
+    }
+
+    /**
+     * Google Auth
+     */
+    public function google(): void
+    {
+        $google = new Google([
+            'clientId'     => CONF_GOOGLE_CLIENT_ID,
+            'clientSecret' => CONF_GOOGLE_CLIENT_SECRET,
+            'redirectUri'  => url('/auth/google/callback'),
+            'hostedDomain' => null, // optional
+        ]);
+
+        $authUrl = $google->getAuthorizationUrl();
+        header('Location: ' . $authUrl);
+        exit();
+    }
+
+    /**
+     * Google Auth Callback
+     */
+    public function googleCallback(): void
+    {
+        $google = new Google([
+            'clientId'     => CONF_GOOGLE_CLIENT_ID,
+            'clientSecret' => CONF_GOOGLE_CLIENT_SECRET,
+            'redirectUri'  => url('/auth/google/callback'),
+        ]);
+
+        $error = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_STRING);
+        $code = filter_input(INPUT_GET, 'code', FILTER_SANITIZE_STRING);
+
+        if ($error) {
+            $this->message->error("Não foi possível fazer login com o Google.")->flash();
+            redirect("/entrar");
+            return;
+        }
+
+        try {
+            $token = $google->getAccessToken('authorization_code', [
+                'code' => $code
+            ]);
+
+            $googleUser = $google->getResourceOwner($token);
+            $user = (new User())->findByEmail($googleUser->getEmail());
+
+            // LOGIN IF USER EXISTS
+            if ($user) {
+                (new \Source\Core\Session())->set("authUser", $user->id);
+                $this->message->success("Seja bem-vindo(a) de volta " . $user->user_name . "!")->flash();
+                redirect("/beta/home");
+                return;
+            }
+
+            // REGISTER IF USER DOES NOT EXIST
+            $user = new User();
+            $user->user_name = $googleUser->getFirstName();
+            $user->email = $googleUser->getEmail();
+            $user->password = password_hash(uniqid(), PASSWORD_DEFAULT);
+            $user->status = "actived"; // Automatically activate user
+            $user->church_id = 1;
+            $user->level_id = 1;
+            
+            if ($user->save()) {
+                 (new \Source\Core\Session())->set("authUser", $user->id);
+                $this->message->success("Cadastro realizado com sucesso! Seja bem-vindo(a), " . $user->user_name . "!")->flash();
+                redirect("/beta/home");
+            } else {
+                $this->message->error($user->fail()->getMessage())->flash();
+                redirect("/entrar");
+            }
+
+        } catch (\Exception $e) {
+            $this->message->error("Erro ao processar login com o Google.")->flash();
+            redirect("/entrar");
+        }
     }
 
     /**

@@ -40,6 +40,16 @@
         <div class="d-grid">
             <button class="btn btn-secondary fw-semibold mt-3" type="submit" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" data-bs-title="Clique para fazer o login">Entrar</button>
         </div>
+
+        <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OU</p>
+        </div>
+
+        <div class="d-grid">
+            <a class="btn btn-danger fw-semibold mt-1" href="<?= url("/auth/google"); ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-danger" data-bs-title="Clique para fazer o login com o Google">
+                <i class="bi bi-google"></i> Entrar com Google
+            </a>
+        </div>
     </form>
 </div>
 

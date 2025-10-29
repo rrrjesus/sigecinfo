@@ -41,6 +41,8 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_USER", $env["DB_USER"] ?? "");
     define("CONF_DB_PASS", $env["DB_PASS"] ?? "");
     define("CONF_DB_NAME", $env["DB_NAME"] ?? "");
+    define("CONF_GOOGLE_CLIENT_ID", $env["GOOGLE_CLIENT_ID"] ?? "");
+    define("CONF_GOOGLE_CLIENT_SECRET", $env["GOOGLE_CLIENT_SECRET"] ?? "");
     define("CONF_MAIL_SUPPORT", $env["MAIL_SUPPORT"] ?? "");
     define("CONF_SENDGRID_API_KEY", $env["SENDGRID_API_KEY"] ?? "");
 } else {
@@ -48,6 +50,8 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_USER", "");
     define("CONF_DB_PASS", "");
     define("CONF_DB_NAME", "");
+    define("CONF_GOOGLE_CLIENT_ID", "");
+    define("CONF_GOOGLE_CLIENT_SECRET", "");
     define("CONF_MAIL_SUPPORT", "");
     define("CONF_SENDGRID_API_KEY", "");
 }

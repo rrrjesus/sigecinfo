@@ -1,0 +1,6 @@
+[error] [00:32:16] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[error] [00:32:16] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[error] [00:33:21] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[error] [00:33:48] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[error] [00:33:57] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)
+[error] [00:34:23] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO)

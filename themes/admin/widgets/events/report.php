@@ -231,8 +231,9 @@
                                 <td><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
                                 <td><?= $participant->user()->church()->church_name ?? 'N/A'; ?></td>
                                  <td>
-                                       
-                                    <img src="<?=(!empty($participant->signature)) ? url(CONF_UPLOAD_DIR . "/" . $participant->signature) : 'a'  ?>" height="50" width="120">
+                                    <?php if (!empty($participant->signature)): ?>
+                                        <img src="<?= url(CONF_UPLOAD_DIR . "/" . $participant->signature) ?>" height="30" width="120">
+                                    <?php endif; ?>
                                     </td>
                             </tr>
                         <?php endforeach; ?>
