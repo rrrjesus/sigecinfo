@@ -93,7 +93,6 @@ $(function () {
 </script>
 <?php $this->end(); ?>
 
-<?php $this->start("styles"); ?>
 <style>
     /* Estilização para o datepicker se assemelhar ao Bootstrap */
     .ui-datepicker {
@@ -160,4 +159,3 @@ $(function () {
         border-radius: 0.25rem;
     }
 </style>
-<?php $this->end(); ?>

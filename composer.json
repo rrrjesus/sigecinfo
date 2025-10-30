@@ -37,6 +37,7 @@
         "coffeecode/uploader": "2.*",
         "twbs/bootstrap": "5.3.*",
         "sendgrid/sendgrid": "~7",
-        "league/oauth2-google": "^4.0"
+        "league/oauth2-google": "^4.0",
+        "bacon/bacon-qr-code": "^3.0"
     }
 }

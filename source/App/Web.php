@@ -189,7 +189,15 @@ class Web extends Controller
 
             // LOGIN IF USER EXISTS
             if ($user) {
-                (new \Source\Core\Session())->set("authUser", $user->id);
+                $session = new \Source\Core\Session();
+                $session->set("authUser", $user->id);
+
+                $userLevel = $user->level(); 
+                if ($userLevel) {
+                    $session->set("user_level_id", $userLevel->id);
+                    $session->set("user_level_name", $userLevel->level_name);
+                }
+
                 $this->message->success("Seja bem-vindo(a) de volta " . $user->user_name . "!")->flash();
                 redirect("/beta/home");
                 return;
@@ -205,7 +213,15 @@ class Web extends Controller
             $user->level_id = 1;
             
             if ($user->save()) {
-                 (new \Source\Core\Session())->set("authUser", $user->id);
+                $session = new \Source\Core\Session();
+                $session->set("authUser", $user->id);
+
+                $userLevel = $user->level(); 
+                if ($userLevel) {
+                    $session->set("user_level_id", $userLevel->id);
+                    $session->set("user_level_name", $userLevel->level_name);
+                }
+
                 $this->message->success("Cadastro realizado com sucesso! Seja bem-vindo(a), " . $user->user_name . "!")->flash();
                 redirect("/beta/home");
             } else {

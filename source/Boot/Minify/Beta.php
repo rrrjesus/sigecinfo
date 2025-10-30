@@ -2,7 +2,7 @@
 
 // A condição verifica se o domínio (CONF_SITE_DOMAIN) ou (CONF_URL_BASE)da URL atual NÃO é o seu domínio de produção.
 
-if (strpos(url(), CONF_URL_BASE) === false) {
+// if (strpos(url(), CONF_URL_BASE) === false) {
     /**
      * CSS
      */
@@ -10,6 +10,7 @@ if (strpos(url(), CONF_URL_BASE) === false) {
     $minCSS->add(__DIR__ . "/../../../shared/styles/boot.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/bootstrap.min.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/docs.min.css");
+    $minCSS->add(__DIR__ . "/../../../shared/styles/jquery-ui.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/datatables/dataTables.bootstrap5.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/datatables/buttons.bootstrap5.min.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/datatables/responsive.bootstrap5.min.css");
@@ -32,27 +33,31 @@ if (strpos(url(), CONF_URL_BASE) === false) {
      * JS
      */
     $minJS = new MatthiasMullie\Minify\JS();
-    $minJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
-    $minJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
+
+    // jQuery sempre primeiro
     $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.min.js");
-    $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery-ui.js");
+    $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.mask.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.validate.min.js");
+
+    // Depois o Bootstrap e outros
+    $minJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
+    $minJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
+
     $minJS->add(__DIR__ . "/../../../shared/scripts/typeahead.bundle.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.bootstrap5.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.buttons.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.bootstrap5.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/jszip.min.js");
-//  $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/vfs_fonts.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.html5.min.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.print.min.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.colVis.min.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.responsive.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/responsive.bootstrap5.js");
 
-    //theme CSS
+    // Por último os JS do tema
     $jsDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/js");
     foreach ($jsDir as $js) {
         $jsFile = __DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/js/{$js}";
@@ -61,6 +66,7 @@ if (strpos(url(), CONF_URL_BASE) === false) {
         }
     }
 
-    //Minify JS
+    // Minify JS
     $minJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/scripts.js");
-}
+
+// }
