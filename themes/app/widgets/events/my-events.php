@@ -10,7 +10,7 @@
 
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Meus Eventos</h6>
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Eventos Agendados</h6>
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">

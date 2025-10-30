@@ -39,7 +39,7 @@ class EventRepository
     public function getEventsForUser(int $userId): ?array
     {
         $events = (new \Source\Domain\Event\Models\Event())->find(
-            "id IN (SELECT event_id FROM event_participants WHERE user_id = :uid)",
+            "id IN (SELECT event_id FROM event_participants WHERE user_id = :uid AND status = 'convocado')",
             "uid={$userId}"
         )->order("start_at DESC")->fetch(true);
 

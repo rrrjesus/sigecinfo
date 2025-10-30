@@ -58,14 +58,14 @@ class Events extends Admin
      */
     public function listMyEvents(): void
     {
-        $head = $this->seo->render("Meus Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/meus-eventos"), null, false);
+        $head = $this->seo->render("Eventos Agendados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/meus-eventos"), null, false);
         
         $eventRepo = new EventRepository();
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos/meus-eventos")],
-            ["title" => "Meus Eventos"]
+            ["title" => "Eventos", "link" => url("/beta/eventos/meus-eventos-agendados")],
+            ["title" => "Eventos Agendados"]
         ];
 
         echo $this->view->render("widgets/events/my-events", [

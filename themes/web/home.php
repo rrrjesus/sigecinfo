@@ -44,35 +44,31 @@
 
     <!-- CARDS -->
     <div class="container px-4 py-5" id="featured-3">
-        <h2 class="pb-2 border-bottom">Os 3 pilares do Suporte de TI na Informática do Setor 11</h2>
+        <h2 class="pb-2 border-bottom">Os pilares do Suporte de TI na Informática do Setor 11</h2>
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
             <div class="feature col">
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient fs-2 mb-3">
                     <i class="bi bi-wrench-adjustable-circle mb-3"></i>
                 </div>
                 <h3 class="fs-2 text-body-emphasis">Abertura de Chamado - TI</h3>
-                <p>Para solicitação de suporte técnico é necessário a abertura de chamado no.
-                    Basta enviar e-mail para <strong>informatica.setor11@gmail.com</strong>. Ao enviar o e-mail o sistema abre automaticamente um chamado. É possivel acompanhar as tratativas nas respostas de e-mail.</p>
+                <p>Para solicitar suporte técnico, envie um e-mail para <strong>informatica.setor11@gmail.com</strong>. Seu e-mail se tornará um ticket automaticamente em nosso sistema. Para agilizar o atendimento, forneça o máximo de detalhes possível, incluindo seu nome, localidade e uma descrição clara do problema.</p>
                 <!-- <a href="<?=url("/blog/servicedesk")?>" class="btn btn-primary" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="bottom" 
                     data-bs-title="Saiba Mais">Saiba Mais</a> -->
             </div>
             <div class="feature col">
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-2 mb-3">
-                    <i class="bi bi-envelope-at mb-3 text-light"></i>
+                    <i class="bi bi-book-half mb-3 text-light"></i>
                 </div>
-                <h3 class="fs-2 text-body-emphasis">E-mail TI do Setor 11</h3>
-                <p>Existe um e-mail de contato para <strong>Informática do Setor 11</strong> caso necessário : <a class="text-decoration-none fw-bold" href="mailto:<?=CONF_SITE_EMAIL?>"><?=CONF_SITE_EMAIL?></a>,
-                    os chamados de suporte técnico também devem ser realizados através do envio de e-mail para que sejam devidamente tratados e solucionados.</p>
+                <h3 class="fs-2 text-body-emphasis">Base de Conhecimento</h3>
+                <p>Antes de abrir um chamado, que tal consultar nossa base de conhecimento? Aqui você encontra guias, tutoriais e respostas para as dúvidas mais comuns. O autoatendimento agiliza a solução de problemas simples.</p>
                     <!-- <a href="<?=url("/#")?>" class="btn btn-primary">Saiba Mais</a> -->
             </div>
             <div class="feature col">
-                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-danger bg-gradient fs-2 mb-3">
-                    <i class="bi bi-telephone-forward mb-3 text-light"></i>
+                <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                    <i class="bi bi-calendar-event mb-3 text-light"></i>
                 </div>
-                <h3 class="fs-2 text-body-emphasis">Telefones de Contato</h3>
-                <p>Por fim e não menos importante, os telefones de atendimento da <strong>Informática do Setor 11</strong> na
-                    <a href="<?=url("/contatos")?>" class="text-decoration-none fw-bold">agenda</a> da <strong>Informática do Setor 11</strong>. É só acessar e pesquisar na agenda por
-                    <strong>COTI</strong> e aparecerão os telefones de contato com os nomes dos colaboradores que atenderão os mesmos.</p>
+                <h3 class="fs-2 text-body-emphasis">Eventos do Setor</h3>
+                <p>Consulte a agenda de eventos, reuniões e outras atividades do setor. Mantenha-se informado sobre os próximos acontecimentos e participe.</p>
                 <!--                <a href="--><?php //=url("/blog/ramais-coti")?><!--" class="btn btn-primary">Saiba Mais</a>-->
             </div>
         </div>

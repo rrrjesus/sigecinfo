@@ -8,7 +8,7 @@ define("CONF_SITE_TITLE", "Sistema de Gestão de Informações");
 define("CONF_SITE_DESC", "Sistema de Gestão de Informações");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "sigecinfo.com.br");
-define("CONF_SITE_EMAIL", "informatica.setor11@informaticast11.online");
+define("CONF_SITE_EMAIL", "informatica.setor11@gmail.com");
 define("CONF_SITE_ADDR_STREET", "Rua José Buono");
 define("CONF_SITE_ADDR_NUMBER", "65");
 define("CONF_SITE_ADDR_COMPLEMENT", "Informática Setor 11");
@@ -28,7 +28,7 @@ define("CONF_ADMIN_COLOR","dark");
 /**
  * MAIL
  */
-define("CONF_MAIL_SENDER", ["name" => "SIGECINFO", "address" => "rodolfo.romagnollo@gmail.com"]);
+define("CONF_MAIL_SENDER", ["name" => "SIGECINFO", "address" => "suporte@sigecinfo.online"]);
 
 
 /**
@@ -43,7 +43,6 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_NAME", $env["DB_NAME"] ?? "");
     define("CONF_GOOGLE_CLIENT_ID", $env["GOOGLE_CLIENT_ID"] ?? "");
     define("CONF_GOOGLE_CLIENT_SECRET", $env["GOOGLE_CLIENT_SECRET"] ?? "");
-    define("CONF_MAIL_SUPPORT", $env["MAIL_SUPPORT"] ?? "");
     define("CONF_SENDGRID_API_KEY", $env["SENDGRID_API_KEY"] ?? "");
 } else {
     define("CONF_DB_HOST", "");
@@ -52,7 +51,6 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_NAME", "");
     define("CONF_GOOGLE_CLIENT_ID", "");
     define("CONF_GOOGLE_CLIENT_SECRET", "");
-    define("CONF_MAIL_SUPPORT", "");
     define("CONF_SENDGRID_API_KEY", "");
 }
 
