@@ -38,6 +38,7 @@
         "twbs/bootstrap": "5.3.*",
         "sendgrid/sendgrid": "~7",
         "league/oauth2-google": "^4.0",
-        "bacon/bacon-qr-code": "^3.0"
+        "bacon/bacon-qr-code": "^3.0",
+        "google/apiclient": "2.15"
     }
 }
