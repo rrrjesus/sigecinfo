@@ -111,13 +111,22 @@
                             <div class="card-header fw-bold"><i class="bi bi-geo-alt me-1"></i> Data e Local</div>
                             <div class="card-body">
                                 <div class="row align-items-end">
-                                    <div class="col-md-4 mb-1">
-                                        <label class="col-form-label col-form-label-sm" for="start_at"><strong>Data e Hora de Início</strong></label>
-                                        <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>" required>
-                                    </div>
-                                    <div class="col-md-4 mb-1">
-                                        <label class="col-form-label col-form-label-sm" for="end_at"><strong>Data e Hora de Término</strong> (Opcional)</label>
-                                        <input type="datetime-local" id="end_at" name="end_at" class="form-control form-control-sm" value="<?= !empty($event->end_at) ? (new DateTime($event->end_at))->format('Y-m-d\TH:i') : ''; ?>">
+                                    <div class="col-md-8 mb-1">
+                                        <label class="col-form-label col-form-label-sm"><strong>Data e Hora</strong></label>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="add_to_google_calendar" name="add_to_google_calendar" value="1">
+                                            <label class="form-check-label" for="add_to_google_calendar">Adicionar ao Google Calendar</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-1">
+                                                <label class="col-form-label col-form-label-sm" for="start_at">Início</label>
+                                                <input type="datetime-local" id="start_at" name="start_at" class="form-control form-control-sm" value="<?= !empty($event->start_at) ? (new DateTime($event->start_at))->format('Y-m-d\TH:i') : ''; ?>" required>
+                                            </div>
+                                            <div class="col-md-6 mb-1">
+                                                <label class="col-form-label col-form-label-sm" for="end_at">Fim</label>
+                                                <input type="datetime-local" id="end_at" name="end_at" class="form-control form-control-sm" value="<?= !empty($event->end_at) ? (new DateTime($event->end_at))->format('Y-m-d\TH:i') : ''; ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                     <?php if ($event): ?>
                                         <div class="col-md-4 mb-1">
@@ -158,6 +167,10 @@
                                 <?php if (!empty($isLive)): ?>
                                     <?=$modalFim?>
                                     <?= button(["type" => "submit", "name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
+                                <?php endif; ?>
+
+                                <?php if ($event && empty($event->google_calendar_event_id)): ?>
+                                    <?= button(["href" => url("/painel/eventos/google-calendar-sync/{$event->id}"), "name" => "Sincronizar com Google Calendar", "icon" => "google", "btncolor" => "info"]); ?>
                                 <?php endif; ?>
 
                                 <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
@@ -238,5 +251,6 @@
             }
         });
     </script>
+
 
 <?php $this->end(); ?>

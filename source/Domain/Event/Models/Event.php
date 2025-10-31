@@ -16,7 +16,7 @@ class Event extends Model
      */
     public function __construct()
     {
-        parent::__construct("events", ["id"], ["title", "start_at", "type_id", "status"]);
+        parent::__construct("events", ["id"], ["title"]);
     }
 
     /**
@@ -61,8 +61,8 @@ class Event extends Model
         }
 
         // Localização Exclusiva (ou igreja, ou texto, não ambos)
-        if (!empty($this->church_id) && !empty($this->location_text)) {
-            $this->message->info("Por favor, escolha uma igreja no campo de seleção ou digite um local, mas não ambos.");
+        if (empty($this->church_id) && !empty($this->location_text)) {
+            $this->message->info("Por favor, escolha uma igreja no campo de seleção para digitar um local nas dependências.");
             return false;
         }
 
