@@ -15,61 +15,6 @@ class Events extends Admin
     }
 
     /**
-     * Formulário para criar um novo evento.
-     * @param array|null $data
-     */
-    public function create(?array $data): void
-    {
-        // POST
-        if (!empty($data) && !empty($data['csrf'])) {
-            if (!csrf_verify($data)) {
-                $this->message->error("Erro ao enviar, favor use o formulário")->flash();
-                redirect("/beta/eventos/novo");
-                return;
-            }
-
-            $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
-
-            $event = new Event();
-            $event->title = $data["title"];
-            $event->description = $data["description"];
-            $event->start_at = str_replace("T", " ", $data["start_at"]);
-            $event->end_at = str_replace("T", " ", $data["end_at"]);
-            $event->created_by = $this->user->id;
-            $event->status = "agendado";
-
-            if (!$event->save()) {
-                $json["message"] = $event->message()->render();
-                echo json_encode($json);
-                return;
-            }
-
-            // TODO: Google Calendar Integration
-            // 1. Check for Google Auth Token for this user
-            // 2. If no token, redirect to Google Auth flow, saving event id in session
-            // 3. If token, create Google Calendar event and save the google_calendar_event_id
-
-            $this->message->success("Evento criado com sucesso!")->flash();
-                $json["redirect"] = url("/beta/eventos/eventos");
-                echo json_encode($json);
-            return;
-        }
-
-        // GET
-        $head = $this->seo->render("Novo Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/novo"), null, false);
-        
-        $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos/eventos")],
-            ["title" => "Novo Evento"]
-        ];
-
-        echo $this->view->render("widgets/events/create", [
-            "head" => $head,
-            "breadcrumb" => $breadcrumb
-        ]);
-    }
-
-    /**
      * Lista os eventos
      */
     public function listEvents(): void
@@ -119,7 +64,7 @@ class Events extends Admin
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos/eventos")],
+            ["title" => "Eventos", "link" => url("/beta/eventos/meus-eventos-agendados")],
             ["title" => "Eventos Agendados"]
         ];
 

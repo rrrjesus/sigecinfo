@@ -2,9 +2,6 @@
 
 namespace Source\App\Admin\Controllers;
 
-use Google_Client;
-use Google_Service_Calendar;
-use Google_Service_Calendar_Event;
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Church\Models\Church;
@@ -107,11 +104,6 @@ class Events extends Admin
             // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
                 $eventService->convokeByPositions($event, $data["positions"]);
-            }
-
-            if (!empty($data["add_to_google_calendar"])) {
-                $this->createGoogleCalendarEvent(array_merge($data, ["event_id" => $event->id]));
-                return;
             }
 
             $this->message->success("Evento registado com sucesso!")->flash();
@@ -640,65 +632,40 @@ public function checkIn(array $data): void
         redirect(url_back());
     }
 
-        /**
-         * @param array $data
-         */
-        public function toggleStatus(array $data): void
-        {
-            $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
-            $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
-            $event = (new Event())->findById($eventId);
-    
-            if ($event) {
-                // Lógica para alternar entre 'agendado' (agendado) e 'cancelado' (cancelado)
-                $event->status = ($event->status == "agendado" ? "cancelado" : "agendado");
-                $event->updated_by = $this->user->id;
-                $event->save();
-            }
-            
-            $actionText = ($event->status == "agendado" ? "reagendado" : "cancelado");
-            $this->message->success("O evento foi {$actionText} com sucesso!")->flash();
-            redirect(url_back());
+    /**
+     * @param array $data
+     */
+    public function toggleStatus(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
+        $event = (new Event())->findById($eventId);
+
+        if ($event) {
+            // Lógica para alternar entre 'agendado' (agendado) e 'cancelado' (cancelado)
+            $event->status = ($event->status == "agendado" ? "cancelado" : "agendado");
+            $event->updated_by = $this->user->id;
+            $event->save();
         }
-    
-        public function googleCalendarSync(array $data): void
-        {
-            $eventId = filter_var($data['event_id'], FILTER_VALIDATE_INT);
-            $event = (new Event())->findById($eventId);
-    
-            if (!$event) {
-                $this->message->error("Evento não encontrado para sincronizar.")->flash();
-                redirect("/painel/eventos");
-                return;
-            }
-    
-            $_SESSION['google_calendar_event_id'] = $event->id;
-    
-            $client = new Google_Client();
-            $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
-            $client->addScope(Google_Service_Calendar::CALENDAR_EVENTS);
-            $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
-            $client->setAccessType('offline');
-            $client->setPrompt('select_account consent');
-    
-            $authUrl = $client->createAuthUrl();
-            header('Location: ' . $authUrl);
-            exit();
-        }
-    
-        /**
-         * @param array $data
-         */
-        public function getParticipantDetails(array $data): void
-        {
-            $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
-            
-            $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
-            $eventParticipant = (new EventParticipant())->findById($participantId);
-            $user = $eventParticipant->user();
-    
-            if (!$eventParticipant) {
-                $this->message->error("Você tentou editar um participante que não existe.")->flash();
+        
+        $actionText = ($event->status == "agendado" ? "reagendado" : "cancelado");
+        $this->message->success("O evento foi {$actionText} com sucesso!")->flash();
+        redirect(url_back());
+    }
+
+    /**
+     * @param array $data
+     */
+    public function getParticipantDetails(array $data): void
+    {
+        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        
+        $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
+        $eventParticipant = (new EventParticipant())->findById($participantId);
+        $user = $eventParticipant->user();
+
+        if (!$eventParticipant) {
+            $this->message->error("Você tentou editar um participante que não existe.")->flash();
             redirect("/painel/eventos/portaria");
         }
 

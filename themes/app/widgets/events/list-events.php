@@ -11,14 +11,16 @@
             <h5 class="mb-0">
                 <i class="bi bi-calendar-event me-2"></i>Eventos
             </h5>
-
-
-                <div>
-                    <?= button(["href" => "/beta/eventos/meus-eventos-agendados", "name" => "Agendados", "icon" => "calendar-plus", "class" => "m-2"]); ?>
-                    <?php if (!empty($registers->disabled)) : ?>
-                        <?= button(["href" => "/beta/eventos/meus-eventos-finalizados", "name" => "Finalizados", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
-                    <?php endif; ?>
-                </div>
+            
+            <?php if (!empty($registers->disabled)) : ?>
+                <?= button([
+                    "href" => "/beta/eventos/eventos-finalizados",
+                    "name" => "Eventos Finalizados",
+                    "icon" => "calendar-plus",
+                    "btncolor" => "secondary",
+                    "disabled_count" => $registers->disabled
+                ]); ?>
+            <?php endif; ?>
         </div>
 
         <div class="card-body">

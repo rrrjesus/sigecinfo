@@ -43,7 +43,6 @@ if (file_exists(__DIR__ . "/../../.env")) {
     define("CONF_DB_NAME", $env["DB_NAME"] ?? "");
     define("CONF_GOOGLE_CLIENT_ID", $env["GOOGLE_CLIENT_ID"] ?? "");
     define("CONF_GOOGLE_CLIENT_SECRET", $env["GOOGLE_CLIENT_SECRET"] ?? "");
-    define("CONF_GOOGLE_CALENDAR_ID", $env["GOOGLE_CALENDAR_ID"] ?? "");
     define("CONF_SENDGRID_API_KEY", $env["SENDGRID_API_KEY"] ?? "");
 } else {
     define("CONF_DB_HOST", "");
