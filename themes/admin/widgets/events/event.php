@@ -160,6 +160,11 @@
                                     <?= button(["type" => "submit", "name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
                                 <?php endif; ?>
 
+
+                                <?php if ($event && empty($event->google_calendar_event_id)): ?>
+                                    <?= button(["href" => "/painel/eventos/google-calendar-sync/{$event->id}", "name" => "Sincronizar com Google Calendar", "icon" => "google", "btncolor" => "info"]); ?>
+                                <?php endif; ?>
+
                                 <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
                                 <?= button(["href" => "/painel/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                             </div>

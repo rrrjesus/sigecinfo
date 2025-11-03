@@ -21,6 +21,26 @@
                     <i class="bi bi-calendar-event me-2"></i> O Seu Próximo Evento
                 </div>
                 <div class="card-body">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=rodolfo.romaioli%40gmail.com&ctz=America%2FSao_Paulo" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+                    <?php if (in_array($user->level_id, [4, 5])): ?>
+                        <a href="<?= url("/beta/eventos/novo"); ?>" class="btn btn-outline-secondary mt-2"><i class="bi bi-plus-circle me-2"></i> Adicionar Evento</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                 <div class="card-header bg-secondary text-white fw-bold">
+                    <i class="bi bi-calendar-week me-2"></i> Próximo Evento
+                </div>
+                <div class="card-body">
+                   <?php if ($nextEvent): ?>
+                            <h5 class="card-title"><?= $nextEvent->title; ?></h5>
+                            <p class="card-text">
+                                <strong>Data:</strong> <?= date_fmt($nextEvent->start_at, "d/m/Y \à\s H:i"); ?><br>
+                                <strong>Local:</strong> <?= $nextEvent->church()->church_name ?? $nextEvent->location_text ?? 'A definir'; ?>
+                            </p>
+                            <a href="<?= url("/beta/eventos/meus-eventos-agendados"); ?>" class="btn btn-outline-secondary mt-auto">Ver detalhes</a>
                     <div class="row">
                         <div class="col-md-7">
                             <div id="datepicker-container"></div>
