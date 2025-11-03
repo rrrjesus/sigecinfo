@@ -6,6 +6,7 @@ use Google_Client;
 use Google_Service_Calendar;
 use Google_Service_Calendar_Event;
 use Source\Domain\Event\Models\Event;
+use Source\Domain\Shared\Models\GoogleToken;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Church\Models\Church;
 use Source\Domain\Event\EventService;
@@ -97,6 +98,8 @@ class Events extends Admin
                 return;
             }
 
+            $this->message->success("Evento registado com sucesso!")->flash();
+
             $eventService = new EventService();
 
             // Convocação de participantes individualmente
@@ -114,7 +117,6 @@ class Events extends Admin
                 return;
             }
 
-            $this->message->success("Evento registado com sucesso!")->flash();
             $json["redirect"] = url("/painel/eventos");
             echo json_encode($json);
             return;
@@ -546,35 +548,38 @@ public function checkIn(array $data): void
     {
         $_SESSION['google_calendar_event_id'] = $data['event_id'];
 
-        $client = new Google_Client();
-        $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
-        $client->addScope(Google_Service_Calendar::CALENDAR_EVENTS);
-        $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
-        $client->setAccessType('offline');
-        $client->setPrompt('select_account consent');
-
-        $authUrl = $client->createAuthUrl();
+        $googleCalendar = new \Source\Support\GoogleCalendar();
+        $authUrl = $googleCalendar->getAuthUrl();
         header('Location: ' . $authUrl);
         exit();
     }
 
     public function googleCalendarCallback(array $data): void
     {
-        $client = new Google_Client();
-        $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
-        $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
-
         if (isset($_GET['code'])) {
-            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-            $client->setAccessToken($token);
+            $googleCalendar = new \Source\Support\GoogleCalendar();
+            $token = $googleCalendar->fetchAccessTokenWithAuthCode($_GET['code']);
+            $googleCalendar->setAccessToken($token);
+
+            // Save the token to the database
+            $googleToken = (new GoogleToken())->findByUserId($this->user->id);
+            if (!$googleToken) {
+                $googleToken = new GoogleToken();
+                $googleToken->user_id = $this->user->id;
+            }
+            $googleToken->access_token = $token['access_token'];
+            $googleToken->expires_in = $token['expires_in'];
+            if (isset($token['refresh_token'])) {
+                $googleToken->refresh_token = $token['refresh_token'];
+            }
+            $googleToken->save();
 
             // Store the access token in the session
             $_SESSION['google_calendar_access_token'] = $token;
 
             $event = (new Event())->findById($_SESSION['google_calendar_event_id']);
 
-            $googleCalendar = new \Source\Support\GoogleCalendar();
-            $googleCalendar->setAccessToken($token);
+            $endTime = $event->end_at ? $event->end_at : $event->start_at;
 
             $googleEvent = $googleCalendar->createEvent('primary', [
                 'summary' => $event->title,
@@ -584,7 +589,7 @@ public function checkIn(array $data): void
                     'timeZone' => 'America/Sao_Paulo',
                 ],
                 'end' => [
-                    'dateTime' => (new DateTime($event->end_at))->format(DateTime::RFC3339),
+                    'dateTime' => (new DateTime($endTime))->format(DateTime::RFC3339),
                     'timeZone' => 'America/Sao_Paulo',
                 ],
             ]);
@@ -595,6 +600,10 @@ public function checkIn(array $data): void
             unset($_SESSION['google_calendar_event_id']);
 
             $this->message->success("Evento registado com sucesso no Google Calendar!")->flash();
+            redirect("/painel/eventos");
+        } else {
+            // Trata o caso em que o código não está presente (ex: usuário negou permissão)
+            $this->message->error("Não foi possível obter a autorização do Google Calendar. Por favor, tente novamente.")->flash();
             redirect("/painel/eventos");
         }
     }
@@ -655,14 +664,8 @@ public function checkIn(array $data): void
     
             $_SESSION['google_calendar_event_id'] = $event->id;
     
-            $client = new Google_Client();
-            $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
-            $client->addScope(Google_Service_Calendar::CALENDAR_EVENTS);
-            $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
-            $client->setAccessType('offline');
-            $client->setPrompt('select_account consent');
-    
-            $authUrl = $client->createAuthUrl();
+            $googleCalendar = new \Source\Support\GoogleCalendar();
+            $authUrl = $googleCalendar->getAuthUrl();
             header('Location: ' . $authUrl);
             exit();
         }

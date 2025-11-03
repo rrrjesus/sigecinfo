@@ -21,7 +21,7 @@
                     <i class="bi bi-calendar-week me-2"></i> Agenda
                 </div>
                 <div class="card-body">
-                    <iframe src="https://calendar.google.com/calendar/embed?src=<?= urlencode('informatica.setor11@gmail.com') ?>&ctz=America/Sao_Paulo&mode=WEEK" style="border: 0" width="100%" height="100" frameborder="0" scrolling="no"></iframe>
+                    <iframe src="https://calendar.google.com/calendar/embed?src=<?= urlencode('rodolfo.romaioli@gmail.com') ?>&ctz=America/Sao_Paulo&mode=WEEK" style="border: 0" width="100%" height="100" frameborder="0" scrolling="no"></iframe>
 
                     <?php if (in_array($user->level_id, [4, 5])): ?>
                         <a href="<?= url("/beta/eventos/novo"); ?>" class="btn btn-outline-secondary mt-2"><i class="bi bi-plus-circle me-2"></i> Adicionar Evento</a>

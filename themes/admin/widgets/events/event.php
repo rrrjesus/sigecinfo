@@ -42,7 +42,7 @@
                 <?php endif; ?>
 
                 <?php if (!$event): // MODO DE CRIAÇÃO ?>
-                    <form class="needs-validation" id="eventCreate" novalidate action="<?= url("/painel/eventos/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+                    <form class="needs-validation ajax_off" id="eventCreate" novalidate action="<?= url("/painel/eventos/cadastrar"); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="create"/>
                 <?php else: // MODO DE EDIÇÃO ?>
                     <form class="needs-validation" id="eventUpdate" novalidate action="<?= url("/painel/eventos/editar/{$event->id}"); ?>" method="post" enctype="multipart/form-data">

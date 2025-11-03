@@ -15,8 +15,8 @@ class GoogleCalendar
     {
         $this->client = new GoogleClient();
         $this->client->setAuthConfig(CONF_PROJECT_ROOT . "/client_secret.json");
-        $this->client->setRedirectUri(url("/auth/google/callback"));
-        $this->client->addScope(GoogleCalendarService::CALENDAR);
+        $this->client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
+        $this->client->addScope(GoogleCalendarService::CALENDAR_EVENTS);
         $this->client->setAccessType('offline');
         $this->client->setPrompt('select_account consent');
     }
