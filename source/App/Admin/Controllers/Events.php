@@ -534,6 +534,85 @@ public function checkIn(array $data): void
     /**
      * @param array $data
      */
+    public function createGoogleCalendarEvent(array $data): void
+    {
+        $_SESSION['google_calendar_event_id'] = $data['event_id'];
+
+        $client = new Google_Client();
+        $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
+        $client->addScope(Google_Service_Calendar::CALENDAR_EVENTS);
+        $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
+        $client->setAccessType('offline');
+        $client->setPrompt('select_account consent');
+
+        $authUrl = $client->createAuthUrl();
+        header('Location: ' . $authUrl);
+        exit();
+    }
+
+    public function googleCalendarCallback(array $data): void
+    {
+        $client = new Google_Client();
+        $client->setAuthConfig(__DIR__ . '/../../../../client_secret.json');
+        $client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
+
+        if (isset($_GET['code'])) {
+            $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+            $client->setAccessToken($token);
+
+            // Store the access token in the session
+            $_SESSION['google_calendar_access_token'] = $token;
+
+            // Save the token to the database for future use
+            if ($this->user) {
+                $googleToken = (new \Source\Domain\Shared\Models\GoogleToken())->findByUserId($this->user->id);
+                if (!$googleToken) {
+                    $googleToken = new \Source\Domain\Shared\Models\GoogleToken();
+                    $googleToken->user_id = $this->user->id;
+                }
+
+                $googleToken->access_token = json_encode($token);
+                if (!empty($token['refresh_token'])) {
+                    $googleToken->refresh_token = $token['refresh_token'];
+                }
+                $googleToken->expires_in = $token['expires_in'];
+
+                if (!$googleToken->save()) {
+                    (new \Source\Support\Log("google_token"))->error($googleToken->message()->getText());
+                }
+            }
+
+            $event = (new Event())->findById($_SESSION['google_calendar_event_id']);
+
+            $googleCalendar = new \Source\Support\GoogleCalendar();
+            $googleCalendar->setAccessToken($token);
+
+            $googleEvent = $googleCalendar->createEvent('primary', [
+                'summary' => $event->title,
+                'description' => $event->description,
+                'start' => [
+                    'dateTime' => (new DateTime($event->start_at))->format(DateTime::RFC3339),
+                    'timeZone' => 'America/Sao_Paulo',
+                ],
+                'end' => [
+                    'dateTime' => (new DateTime($event->end_at))->format(DateTime::RFC3339),
+                    'timeZone' => 'America/Sao_Paulo',
+                ],
+            ]);
+
+            $event->google_calendar_event_id = $googleEvent->getId();
+            $event->save();
+
+            unset($_SESSION['google_calendar_event_id']);
+
+            $this->message->success("Evento registado com sucesso no Google Calendar!")->flash();
+            redirect("/painel/eventos");
+        }
+    }
+
+    /**
+     * @param array $data
+     */
     public function delete(array $data): void
     {
         $this->authorize(['Administrador do Sistema']);
