@@ -69,6 +69,8 @@ $route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Contr
 $route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
 
 //events
+$route->get("/eventos/novo", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->create($data);});
+$route->post("/eventos/novo", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->create($data);});
 $route->get("/eventos/meus-eventos-agendados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listMyEvents($data);});
 $route->get("/eventos/eventos", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEvents($data);});
 $route->get("/eventos/meus-eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEventsDisableds($data);});
@@ -169,6 +171,8 @@ $route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails"
 $route->get("/eventos/checkin/{participant_id}", "Events:showCheckInPage");
 $route->post("/eventos/checkin-page", "Events:processCheckInFromPage");
 // $route->post("/eventos/checkin", "Events:processCheckIn");
+$route->get("/eventos/google-calendar-callback", "Events:googleCalendarCallback");
+$route->post("/eventos/google-calendar", "Events:createGoogleCalendarEvent");
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
     (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
 });
