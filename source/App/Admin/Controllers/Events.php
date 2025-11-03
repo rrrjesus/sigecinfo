@@ -571,6 +571,25 @@ public function checkIn(array $data): void
             // Store the access token in the session
             $_SESSION['google_calendar_access_token'] = $token;
 
+            // Save the token to the database for future use
+            if ($this->user) {
+                $googleToken = (new \Source\Domain\Shared\Models\GoogleToken())->findByUserId($this->user->id);
+                if (!$googleToken) {
+                    $googleToken = new \Source\Domain\Shared\Models\GoogleToken();
+                    $googleToken->user_id = $this->user->id;
+                }
+
+                $googleToken->access_token = json_encode($token);
+                if (!empty($token['refresh_token'])) {
+                    $googleToken->refresh_token = $token['refresh_token'];
+                }
+                $googleToken->expires_in = $token['expires_in'];
+
+                if (!$googleToken->save()) {
+                    (new \Source\Support\Log("google_token"))->error($googleToken->message()->getText());
+                }
+            }
+
             $event = (new Event())->findById($_SESSION['google_calendar_event_id']);
 
             $googleCalendar = new \Source\Support\GoogleCalendar();

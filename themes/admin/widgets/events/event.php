@@ -170,7 +170,7 @@
                                 <?php endif; ?>
 
                                 <?php if ($event && empty($event->google_calendar_event_id)): ?>
-                                    <?= button(["href" => url("/painel/eventos/google-calendar-sync/{$event->id}"), "name" => "Sincronizar com Google Calendar", "icon" => "google", "btncolor" => "info"]); ?>
+                                    <?= button(["href" => "/painel/eventos/google-calendar-sync/{$event->id}", "name" => "Sincronizar com Google Calendar", "icon" => "google", "btncolor" => "info"]); ?>
                                 <?php endif; ?>
 
                                 <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
