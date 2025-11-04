@@ -44,6 +44,9 @@ $columns = [
     }],
     ['db' => 'id', 'dt' => 6, 'formatter' => function($d) {
         return $d;
+    }],
+    ['db' => 'id', 'dt' => 7, 'formatter' => function($d) {
+        return $d;
     }]
 ];
 

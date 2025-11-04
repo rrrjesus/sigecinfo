@@ -1,4 +1,4 @@
-<?php $this->layout("_beta"); ?>
+<?php $this->layout("_app"); ?>
 
 <!-- Breadcrumb -->
 <?= $this->insert("views/theme/breadcrumb"); ?>

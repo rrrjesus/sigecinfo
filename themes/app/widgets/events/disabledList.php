@@ -1,43 +1,37 @@
-<?php $this->layout("_beta"); ?>
+<?php $this->layout("_app"); ?>
 
-<!-- Breadcrumb -->
+<!-- Breacrumb-->
 <?= $this->insert("views/theme/breadcrumb"); ?>
 
-<div class="container-fluid">
-    <div class="ajax_response mb-3"><?= flash(); ?></div>
+<div class="row justify-content-center">
+    <div class="col-xl-12">
+        <div class="container-fluid">
+            <div class="ajax_response"><?= flash(); ?></div>
 
-    <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">
-                <i class="bi bi-calendar-event me-2"></i>Eventos Finalizados
-            </h5>
-            
-            <?= button([
-                "href" => "/app/eventos",
-                "name" => "Voltar para Eventos",
-                "icon" => "arrow-left",
-                "btncolor" => "secondary"
-            ]); ?>
-        </div>
-
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="listEventsDisableds" class="table table-bordered table-hover align-middle text-center mb-0">
-                    <thead class="table-danger">
-                        <tr>
-                            <th scope="col"><i class="bi bi-calendar-check me-2"></i>Data de Início</th>
-                            <th scope="col"><i class="bi bi-calendar-check me-2"></i>Data de Fim</th>
-                            <th scope="col"><i class="bi bi-card-heading me-2"></i>Título do Evento</th>
-                            <th scope="col"><i class="bi bi-star me-2"></i>Tipo</th>
-                            <th scope="col"><i class="bi bi-geo-alt me-2"></i>Local</th>
-                            <th scope="col"><i class="bi bi-building me-2"></i>Dependências</th>
-                            <th scope="col"><i class="bi bi-check-circle me-2"></i>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Dados serão inseridos via JS/DataTables -->
-                    </tbody>
-                </table>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event-fill me-2"></i>Eventos Desativados</h6>
+                    <div>
+                        <?= button(["href" => url("/app/eventos"), "name" => "Voltar para Eventos", "icon" => "calendar", "btncolor" => "secondary"]); ?>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="dt-container dt-bootstrap5">
+                        <table id="disabledEvents" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th class="text-center"><i class="bi bi-card-heading me-2"></i>Ver</th>
+                                    <th class="text-center"><i class="bi bi-card-heading me-2"></i>Título do Evento</th>
+                                    <th class="text-center"><i class="bi bi-calendar-check me-2"></i>Data de Início</th>
+                                    <th class="text-center"><i class="bi bi-calendar-check me-2"></i>Data de Término</th>
+                                    <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
+                                    <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

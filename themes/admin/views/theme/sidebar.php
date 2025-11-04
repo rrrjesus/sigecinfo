@@ -21,48 +21,7 @@
 
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">GERENCIAMENTO</div>  
 
-                 <!-- Sidebar Eventos -->
-                <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEvents" aria-expanded="false" aria-controls="collapseEvents">
-                    <div class="sb-nav-link-icon"><i class="bi bi-journal-text bi-2xx"></i></div>
-                    Eventos
-                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseEvents" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
-                        <!-- Sidebar de Empresas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseAppointments" aria-expanded="false" aria-controls="pagesCollapseAppointments">
-                            Agendamento
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseAppointments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionAppointments">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/eventos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-
-                    </nav>
-                </div>
-
-                 <div class="collapse" id="collapseEvents" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-
-                        <!-- Sidebar de Empresas -->
-                        <a class="nav-link text-light collapsed fw-semibold fs-6" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseTypes" aria-expanded="false" aria-controls="pagesCollapseTypes">
-                            Tipo de Eventos
-                            <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                        </a>
-                        <div class="collapse" id="patrimonyCollapseTypes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionTypes">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/tipos-de-eventos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/painel/tipos-de-eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
-                            </nav>
-                        </div>
-                        
-
-                    </nav>
-                </div>
                 
                 <!-- Sidebar Igrejas -->
                   <a class="nav-link text-light collapsed fw-semibold fs-6" href="" data-bs-toggle="collapse" data-bs-target="#collapseChurchs" aria-expanded="false" aria-controls="collapseChurchs">

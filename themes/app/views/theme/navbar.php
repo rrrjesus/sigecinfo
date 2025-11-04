@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-<?=CONF_APP_COLOR;?>">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="<?=url("/")?>">
+    <a class="navbar-brand ps-3" href="<?=url("/app")?>">
         <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v1.png", CONF_VIEW_APP)?>">
     </a>
 
@@ -50,12 +50,7 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-             <?php
-            $fullImageLink = (user() && user()->photo())
-                ? url(CONF_UPLOAD_DIR . "/" . user()->photo())
-                : theme('/assets/images/avatar.jpg', CONF_VIEW_APP);
-            ?>
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="<?=$fullImageLink; ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= userPhoto(user()->photo ?? null, 45, 45, 'avatar.jpg'); ?></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="<?=url("/app/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>

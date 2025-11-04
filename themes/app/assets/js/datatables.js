@@ -1,6 +1,6 @@
-$(function () {
+$(document).ready(function() {
 
-     /**
+    /**
      * ===================================================================
      * FUNÇÃO HELPER PARA CONFIGURAÇÃO PADRÃO DO DATATABLES
      * ===================================================================
@@ -22,7 +22,7 @@ $(function () {
                     display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return (data[2] || '') + ' ' + (data[3] || '') + ' - ' + (data[4] || '');
+                            return (data[0] || '') + ' - ' + (data[1] || '') + ' - ' + (data[2] || '');
                         }
                     }),
                     renderer: DataTable.Responsive.renderer.tableAll({})
@@ -157,36 +157,42 @@ $(function () {
             }
         }
     }));
-
-    // Tabela de Participantes de Evento
-    $('#myCompletedEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos", false), {
-            responsive: {
-            details: {
-                display: DataTable.Responsive.display.modal({
-                    header: function (row) {
-                        var data = row.data();
-                        return (data[1] || '') + ' ' + (data[2] || '');
-                    }
-                }),
-                renderer: DataTable.Responsive.renderer.tableAll({})
-            }
-        }
-    }));
-
-    // Tabela de Eventos Desativados
-    $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Ativos"), {
-        ajax: '../../themes/app/serverside/list-events.php',
+    
+        // Tabela de Eventos
+    $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
+        ajax: '../themes/app/serverside/list-events.php',
+        modalConfig: {
+            delete: { id_col: 6, name_col: 1, base_url: '/app/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+        },
         responsive: {
                 details: {
                     display: DataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return (data[1] || '') + ' ' + (data[2] || '');
+                            return (data[2] || '') + ' - ' + (data[1] || '');
                         }
                     }),
                     renderer: DataTable.Responsive.renderer.tableAll({})
                 }
-        }
+            },
+        "aaSorting": [0, 'asc'],
+        "aoColumnDefs": [
+            {
+                "aTargets": [5], // Coluna Editar
+                "mRender": function(data, type, full) {
+                    return '<a href="' + SITE_URL + '/app/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
+                }
+            },
+            {
+                "aTargets": [6], // Coluna Excluir
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'delete', id: data,
+                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                    });
+                }
+            }
+        ]
     }));
 
     // Tabela de Eventos Desativados

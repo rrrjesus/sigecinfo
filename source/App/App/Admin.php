@@ -4,23 +4,16 @@ namespace Source\App\App;
 
 use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
-use Source\Core\Session;
-use Source\Domain\Report\Models\Access;
-use Source\Domain\Report\Models\Online;
-use Source\Domain\User\User;
+use Source\Domain\User\Models\User;
 
 /**
  * Class Admin
- * @author Elton Quero <elton.quero@gmail.com>
  * @package Source\App\App
- **/
-class Admin extends Controller
+ */
+abstract class Admin extends Controller
 {
-    /** @var \Source\Domain\User\Models\User|null */
+    /** @var User */
     protected $user;
-
-    /** @var Auth */
-    protected Auth $auth;
 
     /**
      * Admin constructor.
@@ -28,29 +21,22 @@ class Admin extends Controller
      */
     public function __construct(Auth $auth)
     {
-        parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_APP);
+        parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/");
 
-        (new Access())->report();
-        (new Online())->report();
-
-        $this->auth = $auth;
-        $this->user = Auth::user();
-
-        if (!$this->user) {
-            $this->message->warning("Efetue login para acessar!")->flash();
+        if (!$this->user = $auth->user()) {
+            $this->message->warning("Efetue login para acessar o APP.")->flash();
             redirect("/entrar");
         }
+    }
 
-        //UNCONFIRMED EMAIL
-        if ($this->user->status != "actived") {
-            $session = new Session();
-            if (!$session->has("appconfirmed")) {
-                $this->message->info("IMPORTANTE: Acesse seu e-mail para confirmar seu cadastro.")->flash();
-                $session->set("appconfirmed", true);
-                
-                // AGORA USA A DEPENDÊNCIA INJETADA
-                $this->auth->register($this->user);
-            }
+    /**
+     * @param array $roles
+     */
+    protected function authorize(array $roles): void
+    {
+        if (!in_array($this->user->level()->level_name, $roles)) {
+            $this->message->error("Você não tem permissão para acessar esta área.")->flash();
+            redirect("/app/home");
         }
     }
 }
