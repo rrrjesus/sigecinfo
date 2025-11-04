@@ -5,56 +5,35 @@ namespace Source\Support;
 use Google\Client as GoogleClient;
 use Google\Service\Calendar as GoogleCalendarService;
 use Google_Service_Calendar_Event;
-use Source\Domain\Shared\Models\GoogleToken;
 
 class GoogleCalendar
 {
     private GoogleClient $client;
+    private GoogleCalendarService $service;
 
     public function __construct()
     {
         $this->client = new GoogleClient();
-        $this->client->setAuthConfig(CONF_PROJECT_ROOT . "/client_secret.json");
-        $this->client->setRedirectUri(url("/painel/eventos/google-calendar-callback"));
+        $this->client->setAuthConfig(CONF_PROJECT_ROOT . "/config/secret/service-account.json");
         $this->client->addScope(GoogleCalendarService::CALENDAR_EVENTS);
-        $this->client->setAccessType('offline');
-        $this->client->setPrompt('select_account consent');
+
+        $this->service = new GoogleCalendarService($this->client);
     }
 
-    public function getClient(): GoogleClient
+    public function createEvent(array $eventData): Google_Service_Calendar_Event
     {
-        return $this->client;
-    }
-
-    public function getAuthUrl(): string
-    {
-        return $this->client->createAuthUrl();
-    }
-
-    public function fetchAccessTokenWithAuthCode(string $authCode): array
-    {
-        return $this->client->fetchAccessTokenWithAuthCode($authCode);
-    }
-
-    public function setAccessToken(array $token)
-    {
-        $this->client->setAccessToken($token);
-    }
-
-    public function createEvent(string $calendarId, array $eventData): Google_Service_Calendar_Event
-    {
-        $service = new GoogleCalendarService($this->client);
         $event = new Google_Service_Calendar_Event($eventData);
-        return $service->events->insert($calendarId, $event);
+        return $this->service->events->insert(CONF_GOOGLE_CALENDAR_ID, $event);
     }
 
-    public function isTokenExpired(): bool
+    public function updateEvent(string $eventId, array $eventData): Google_Service_Calendar_Event
     {
-        return $this->client->isAccessTokenExpired();
+        $event = new Google_Service_Calendar_Event($eventData);
+        return $this->service->events->update(CONF_GOOGLE_CALENDAR_ID, $eventId, $event);
     }
 
-    public function fetchAccessTokenWithRefreshToken(string $refreshToken)
+    public function deleteEvent(string $eventId)
     {
-        return $this->client->fetchAccessTokenWithRefreshToken($refreshToken);
+        return $this->service->events->delete(CONF_GOOGLE_CALENDAR_ID, $eventId);
     }
 }

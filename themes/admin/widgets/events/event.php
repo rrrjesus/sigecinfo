@@ -113,10 +113,7 @@
                                 <div class="row align-items-end">
                                     <div class="col-md-8 mb-1">
                                         <label class="col-form-label col-form-label-sm"><strong>Data e Hora</strong></label>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input" type="checkbox" id="add_to_google_calendar" name="add_to_google_calendar" value="1">
-                                            <label class="form-check-label" for="add_to_google_calendar">Adicionar ao Google Calendar</label>
-                                        </div>
+
                                         <div class="row">
                                             <div class="col-md-6 mb-1">
                                                 <label class="col-form-label col-form-label-sm" for="start_at">Início</label>
@@ -169,9 +166,6 @@
                                     <?= button(["type" => "submit", "name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
                                 <?php endif; ?>
 
-                                <?php if ($event && empty($event->google_calendar_event_id)): ?>
-                                    <?= button(["href" => url("/painel/eventos/google-calendar-sync/{$event->id}"), "name" => "Sincronizar com Google Calendar", "icon" => "google", "btncolor" => "info"]); ?>
-                                <?php endif; ?>
 
                                 <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
                                 <?= button(["href" => "/painel/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>

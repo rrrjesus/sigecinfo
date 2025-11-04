@@ -2,11 +2,7 @@
 
 namespace Source\App\Admin\Controllers;
 
-use Google_Client;
-use Google_Service_Calendar;
-use Google_Service_Calendar_Event;
 use Source\Domain\Event\Models\Event;
-use Source\Domain\Shared\Models\GoogleToken;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Church\Models\Church;
 use Source\Domain\Event\EventService;
@@ -112,11 +108,31 @@ class Events extends Admin
                 $eventService->convokeByPositions($event, $data["positions"]);
             }
 
-            if (!empty($data["add_to_google_calendar"])) {
-                $this->createGoogleCalendarEvent(array_merge($data, ["event_id" => $event->id]));
-                return;
+            try {
+                $googleCalendar = new \Source\Support\GoogleCalendar();
+                $endTime = $event->end_at ? $event->end_at : $event->start_at;
+
+                $googleEvent = $googleCalendar->createEvent([
+                    'summary' => $event->title,
+                    'description' => $event->description,
+                    'start' => [
+                        'dateTime' => (new DateTime($event->start_at))->format(DateTime::RFC3339),
+                        'timeZone' => 'America/Sao_Paulo',
+                    ],
+                    'end' => [
+                        'dateTime' => (new DateTime($endTime))->format(DateTime::RFC3339),
+                        'timeZone' => 'America/Sao_Paulo',
+                    ],
+                ]);
+
+                $event->google_calendar_event_id = $googleEvent->getId();
+                $event->save();
+            } catch (\Exception $e) {
+                // Log the error or handle it as needed
+                $this->message->error("Evento salvo, mas falha ao sincronizar com Google Calendar: " . $e->getMessage())->flash();
             }
 
+            $this->message->success("Evento registado com sucesso e sincronizado com o Google Calendar!")->flash();
             $json["redirect"] = url("/painel/eventos");
             echo json_encode($json);
             return;
@@ -182,6 +198,34 @@ class Events extends Admin
             // Convocação de cargos/grupos
             if (!empty($data["positions"])) {
                 $eventService->convokeByPositions($event, $data["positions"]);
+            }
+
+            try {
+                $googleCalendar = new \Source\Support\GoogleCalendar();
+                $endTime = $event->end_at ? $event->end_at : $event->start_at;
+
+                $eventData = [
+                    'summary' => $event->title,
+                    'description' => $event->description,
+                    'start' => [
+                        'dateTime' => (new DateTime($event->start_at))->format(DateTime::RFC3339),
+                        'timeZone' => 'America/Sao_Paulo',
+                    ],
+                    'end' => [
+                        'dateTime' => (new DateTime($endTime))->format(DateTime::RFC3339),
+                        'timeZone' => 'America/Sao_Paulo',
+                    ],
+                ];
+
+                if ($event->google_calendar_event_id) {
+                    $googleCalendar->updateEvent($event->google_calendar_event_id, $eventData);
+                } else {
+                    $googleEvent = $googleCalendar->createEvent($eventData);
+                    $event->google_calendar_event_id = $googleEvent->getId();
+                    $event->save();
+                }
+            } catch (\Exception $e) {
+                $this->message->error("Evento atualizado, mas falha ao sincronizar com Google Calendar: " . $e->getMessage())->flash();
             }
 
             $this->message->success("Evento atualizado com sucesso!")->flash();
@@ -541,72 +585,7 @@ public function checkIn(array $data): void
         redirect(url_back());
     }
 
-    /**
-     * @param array $data
-     */
-    public function createGoogleCalendarEvent(array $data): void
-    {
-        $_SESSION['google_calendar_event_id'] = $data['event_id'];
 
-        $googleCalendar = new \Source\Support\GoogleCalendar();
-        $authUrl = $googleCalendar->getAuthUrl();
-        header('Location: ' . $authUrl);
-        exit();
-    }
-
-    public function googleCalendarCallback(array $data): void
-    {
-        if (isset($_GET['code'])) {
-            $googleCalendar = new \Source\Support\GoogleCalendar();
-            $token = $googleCalendar->fetchAccessTokenWithAuthCode($_GET['code']);
-            $googleCalendar->setAccessToken($token);
-
-            // Save the token to the database
-            $googleToken = (new GoogleToken())->findByUserId($this->user->id);
-            if (!$googleToken) {
-                $googleToken = new GoogleToken();
-                $googleToken->user_id = $this->user->id;
-            }
-            $googleToken->access_token = $token['access_token'];
-            $googleToken->expires_in = $token['expires_in'];
-            if (isset($token['refresh_token'])) {
-                $googleToken->refresh_token = $token['refresh_token'];
-            }
-            $googleToken->save();
-
-            // Store the access token in the session
-            $_SESSION['google_calendar_access_token'] = $token;
-
-            $event = (new Event())->findById($_SESSION['google_calendar_event_id']);
-
-            $endTime = $event->end_at ? $event->end_at : $event->start_at;
-
-            $googleEvent = $googleCalendar->createEvent('primary', [
-                'summary' => $event->title,
-                'description' => $event->description,
-                'start' => [
-                    'dateTime' => (new DateTime($event->start_at))->format(DateTime::RFC3339),
-                    'timeZone' => 'America/Sao_Paulo',
-                ],
-                'end' => [
-                    'dateTime' => (new DateTime($endTime))->format(DateTime::RFC3339),
-                    'timeZone' => 'America/Sao_Paulo',
-                ],
-            ]);
-
-            $event->google_calendar_event_id = $googleEvent->getId();
-            $event->save();
-
-            unset($_SESSION['google_calendar_event_id']);
-
-            $this->message->success("Evento registado com sucesso no Google Calendar!")->flash();
-            redirect("/painel/eventos");
-        } else {
-            // Trata o caso em que o código não está presente (ex: usuário negou permissão)
-            $this->message->error("Não foi possível obter a autorização do Google Calendar. Por favor, tente novamente.")->flash();
-            redirect("/painel/eventos");
-        }
-    }
 
     /**
      * @param array $data
@@ -619,6 +598,15 @@ public function checkIn(array $data): void
         $event = (new Event())->findById($eventId);
 
         if ($event) {
+            try {
+                if ($event->google_calendar_event_id) {
+                    $googleCalendar = new \Source\Support\GoogleCalendar();
+                    $googleCalendar->deleteEvent($event->google_calendar_event_id);
+                }
+            } catch (\Exception $e) {
+                $this->message->error("Falha ao remover evento do Google Calendar: " . $e->getMessage())->flash();
+            }
+
             if ($event->cover && file_exists(CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$event->cover}")) {
                 unlink(CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$event->cover}");
                 (new Thumb())->flush(CONF_UPLOAD_DIR . "/{$event->cover}");
@@ -651,24 +639,7 @@ public function checkIn(array $data): void
             redirect(url_back());
         }
     
-        public function googleCalendarSync(array $data): void
-        {
-            $eventId = filter_var($data['event_id'], FILTER_VALIDATE_INT);
-            $event = (new Event())->findById($eventId);
-    
-            if (!$event) {
-                $this->message->error("Evento não encontrado para sincronizar.")->flash();
-                redirect("/painel/eventos");
-                return;
-            }
-    
-            $_SESSION['google_calendar_event_id'] = $event->id;
-    
-            $googleCalendar = new \Source\Support\GoogleCalendar();
-            $authUrl = $googleCalendar->getAuthUrl();
-            header('Location: ' . $authUrl);
-            exit();
-        }
+
     
         /**
          * @param array $data
