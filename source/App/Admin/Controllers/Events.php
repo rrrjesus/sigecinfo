@@ -127,15 +127,13 @@ class Events extends Admin
 
                 $event->google_calendar_event_id = $googleEvent->getId();
                 $event->save();
+
+                $this->message->success("Evento registado com sucesso e sincronizado com o Google Calendar!")->flash();
             } catch (\Exception $e) {
-                // Log the error or handle it as needed
                 $this->message->error("Evento salvo, mas falha ao sincronizar com Google Calendar: " . $e->getMessage())->flash();
             }
 
-            $this->message->success("Evento registado com sucesso e sincronizado com o Google Calendar!")->flash();
-            $json["redirect"] = url("/painel/eventos");
-            echo json_encode($json);
-            return;
+            redirect("/painel/eventos");
         }
 
         $head = $this->seo->render("Registar Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
@@ -224,11 +222,11 @@ class Events extends Admin
                     $event->google_calendar_event_id = $googleEvent->getId();
                     $event->save();
                 }
+
+                $this->message->success("Evento atualizado com sucesso e sincronizado com o Google Calendar!")->flash();
             } catch (\Exception $e) {
                 $this->message->error("Evento atualizado, mas falha ao sincronizar com Google Calendar: " . $e->getMessage())->flash();
             }
-
-            $this->message->success("Evento atualizado com sucesso!")->flash();
             $json["redirect"] = url("/painel/eventos/editar/{$event->id}");
             echo json_encode($json);
             return;

@@ -14,7 +14,7 @@ class GoogleCalendar
     public function __construct()
     {
         $this->client = new GoogleClient();
-        $this->client->setAuthConfig(CONF_PROJECT_ROOT . "/config/secret/service-account.json");
+        $this->client->setAuthConfig(CONF_PROJECT_ROOT . "/config/secrets/service-account.json");
         $this->client->addScope(GoogleCalendarService::CALENDAR_EVENTS);
 
         $this->service = new GoogleCalendarService($this->client);
