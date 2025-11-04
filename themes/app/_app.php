@@ -15,7 +15,6 @@
     
     <meta name="theme-color" content="#ffffff">
     <link href="<?=theme("/assets/style.css", CONF_VIEW_APP)?>" rel="stylesheet" />
-    <script>const SITE_URL = "<?= url(); ?>";</script>
 
 </head>
 

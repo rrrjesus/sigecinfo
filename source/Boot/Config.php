@@ -108,6 +108,11 @@ define("CONF_SOCIAL_INSTAGRAM_PAGE", "sigecinfo");
 define("CONF_SOCIAL_YOUTUBE_PAGE", "sigecinfo");
 
 /**
+ * SECURITY
+ */
+define("CONF_SITE_SALT", "your-super-secret-salt-here");
+
+/**
  * URL
  */
 if (file_exists(__DIR__ . "/../../.env")) {

@@ -614,6 +614,91 @@ class Events extends Admin
         echo json_encode($userData);
     }
 
+    public function qrCodeCheckIn(array $data): void
+    {
+        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+
+        $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
+        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+
+        if (!$participant) {
+            $this->message->error("Participante não encontrado.")->flash();
+            redirect("/app/eventos");
+            return;
+        }
+
+        // Generate a secure token for the QR code. This token should be stored and validated on scan.
+        // For simplicity, let's use a hash of participant ID and a secret key for now.
+        // In a real application, this should be a more robust, time-limited token stored in the database.
+        $secureToken = md5($participant->id . CONF_SITE_SALT . $participant->event_id);
+
+        // The URL that the QR code will encode. This URL will be used by the scanner.
+        $qrCodeUrl = url("/app/eventos/checkin-qr-scan/{$participant->id}/{$participant->event_id}/{$secureToken}");
+
+        $qrCode = new \Source\Support\QrCode();
+        $qrCodeSvg = $qrCode->svg($qrCodeUrl);
+
+        $head = $this->seo->render("QR Code Check-in: " . $participant->user()->user_name, CONF_SITE_DESC, url("/app"), null, false);
+
+        echo $this->view->render("widgets/events/qrcode-checkin", [
+            "head" => $head,
+            "participant" => $participant,
+            "qrCodeSvg" => $qrCodeSvg,
+            "user" => $this->user
+        ]);
+    }
+
+    public function checkinQrScan(array $data): void
+    {
+        $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
+        $eventId = filter_var($data['event_id'], FILTER_VALIDATE_INT);
+        $secureToken = filter_var($data['secure_token'], FILTER_SANITIZE_STRING);
+
+        if (!$participantId || !$eventId || !$secureToken) {
+            $this->message->error("Dados de QR Code inválidos.")->flash();
+            redirect("/app/eventos");
+            return;
+        }
+
+        $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
+
+        if (!$participant || $participant->event_id != $eventId) {
+            $this->message->error("Participante ou evento não encontrado.")->flash();
+            redirect("/app/eventos");
+            return;
+        }
+
+        // Validate the secure token
+        $expectedToken = md5($participant->id . CONF_SITE_SALT . $participant->event_id);
+        if ($secureToken !== $expectedToken) {
+            $this->message->error("Token de segurança inválido.")->flash();
+            redirect("/app/eventos");
+            return;
+        }
+
+        if ($participant->status == "presente") {
+            $this->message->info("Participante {$participant->user()->user_name} já realizou o check-in.")->flash();
+            redirect(url("/app/eventos/portaria/{$participant->event_id}"));
+            return;
+        }
+
+        try {
+            $participant->status = "presente";
+            $participant->checkin_at = (new \DateTime())->format("Y-m-d H:i:s");
+            
+            if (!$participant->save()) {
+                throw new \Exception($participant->fail()->getMessage());
+            }
+
+            $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso via QR Code!")->flash();
+            redirect(url("/app/eventos/portaria/{$participant->event_id}"));
+
+        } catch (\Exception $e) {
+            $this->message->error("Erro ao realizar check-in via QR Code: " . $e->getMessage())->flash();
+            redirect(url("/app/eventos/portaria/{$participant->event_id}"));
+        }
+    }
+
     public function processCheckIn(array $data): void
     {
         try {
@@ -714,7 +799,7 @@ class Events extends Admin
         $head = $this->seo->render("Eventos Agendados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/meus-eventos"), null, false);
         
         $eventRepo = new EventRepository();
-        $myEvents = $eventRepo->getEventsForUser($this->user->id);
+        $myParticipants = (new \Source\Domain\Event\Models\EventParticipant())->find("user_id = :uid", "uid={$this->user->id}")->order("checkin_at DESC, created_at DESC")->fetch(true) ?? [];
 
         $breadcrumb = [
             ["title" => "Eventos", "link" => url("/app/eventos/eventos")],
@@ -724,7 +809,7 @@ class Events extends Admin
         echo $this->view->render("widgets/events/my-events", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "events" => $myEvents,
+            "participants" => $myParticipants,
             "user" => $this->user
         ]);
     }
