@@ -27,12 +27,12 @@
         <?php if ($invoice->status == 'unpaid'): ?>
             <span class="check <?= $invoice->type; ?> icon-thumbs-o-down transition"
                   data-toggleclass="active icon-thumbs-o-down icon-thumbs-o-up"
-                  data-onpaid="<?= url("/beta/onpaid"); ?>"
+                  data-onpaid="<?= url("/app/onpaid"); ?>"
                   data-invoice="<?= $invoice->id; ?>"></span>
         <?php else: ?>
             <span class="check <?= $invoice->type; ?> icon-thumbs-o-up transition"
                   data-toggleclass="active icon-thumbs-o-down icon-thumbs-o-up"
-                  data-onpaid="<?= url("/beta/onpaid"); ?>"
+                  data-onpaid="<?= url("/app/onpaid"); ?>"
                   data-invoice="<?= $invoice->id; ?>"></span>
         <?php endif; ?>
     </p>

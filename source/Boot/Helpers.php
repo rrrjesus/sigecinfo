@@ -975,7 +975,7 @@ function breadcrumb(array $crumbs = [], string $homeIcon = '<i class="bi bi-hous
     $html = '<div class="container-fluid my-3"><nav aria-label="breadcrumb"><ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">';
 
     // Adiciona o link "Início" automaticamente
-    $base_url = (strpos($_GET['route'] ?? '/', 'painel') === 1 ? url('/painel/controle') : url('/beta/home'));
+    $base_url = (strpos($_GET['route'] ?? '/', 'painel') === 1 ? url('/painel/controle') : url('/app/home'));
     $html .= '<li class="breadcrumb-item"><a class="link-body-emphasis fw-semibold text-decoration-none" href="' . $base_url . '">' . $homeIcon . ' Início</a></li>';
 
     // Itera sobre as migalhas passadas

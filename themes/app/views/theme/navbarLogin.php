@@ -92,12 +92,12 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><h6 class="dropdown-header">Aplicativo</h6></li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/beta")?>">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/app")?>">
                                         Home
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/beta/perfil")?>">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/app/perfil")?>">
                                         Perfil
                                     </a>
                                 </li>

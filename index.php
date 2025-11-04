@@ -58,28 +58,28 @@ $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\Ap
 /**
  * APP ROUTES
  */
-$route->namespace("Source\App\Beta");
-$route->group("/beta");
+$route->namespace("Source\App\App");
+$route->group("/app");
 
-$route->get("/", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
-$route->get("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
-$route->post("/home", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->home($data);});
-$route->get("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
-$route->post("/perfil", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Profile($auth))->profile($data);});
-$route->get("/logoff", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Dash($auth))->logoff($data);});
+$route->get("/", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
+$route->get("/home", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
+$route->post("/home", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
+$route->get("/perfil", function($data) use ($auth) {(new \Source\App\App\Controllers\Profile($auth))->profile($data);});
+$route->post("/perfil", function($data) use ($auth) {(new \Source\App\App\Controllers\Profile($auth))->profile($data);});
+$route->get("/logoff", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->logoff($data);});
 
-//events
-$route->get("/eventos/novo", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->create($data);});
-$route->post("/eventos/novo", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->create($data);});
-$route->get("/eventos/meus-eventos-agendados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listMyEvents($data);});
-$route->get("/eventos/eventos", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEvents($data);});
-$route->get("/eventos/meus-eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->listEventsDisableds($data);});
-$route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->completedEvents($data);});
-$route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->confirm($data);});
-$route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\Beta\Controllers\Events($auth))->justify($data);});
+//eventos
+$route->get("/eventos/novo", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->create($data);});
+$route->post("/eventos/novo", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->create($data);});
+$route->get("/eventos/meus-eventos-agendados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listMyEvents($data);});
+$route->get("/eventos/eventos", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listEvents($data);});
+$route->get("/eventos/meus-eventos-finalizados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listEventsDisableds($data);});
+$route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->completedEvents($data);});
+$route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->confirm($data);});
+$route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->justify($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
-    (new \Source\App\Beta\Controllers\Events($auth))->changeResponse($data);
-});
+    (new \Source\App\App\Controllers\Events($auth))->changeResponse($data);});
+
 
 /**
  * ADMIN ROUTES

@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Eventos Finalizados</h6>
                     <div>
-                        <?= button(["href" => "/beta/eventos/eventos", "name" => "Voltar", "icon" => "calendar-plus", "btncolor" => "danger"]); ?>
+                        <?= button(["href" => "/app/eventos/eventos", "name" => "Voltar", "icon" => "calendar-plus", "btncolor" => "danger"]); ?>
                     </div>
                 </div>
                 <div class="card-body">

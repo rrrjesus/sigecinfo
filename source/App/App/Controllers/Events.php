@@ -1,11 +1,11 @@
 <?php
-namespace Source\App\Beta\Controllers;
+namespace Source\App\App\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\EventRepository;
 use Source\Domain\Event\Models\EventParticipant;
-use Source\App\Beta\Admin;
+use Source\App\App\Admin;
 
 class Events extends Admin
 {
@@ -24,7 +24,7 @@ class Events extends Admin
         if (!empty($data) && !empty($data['csrf'])) {
             if (!csrf_verify($data)) {
                 $this->message->error("Erro ao enviar, favor use o formulário")->flash();
-                redirect("/beta/eventos/novo");
+                redirect("/app/eventos/novo");
                 return;
             }
 
@@ -50,16 +50,16 @@ class Events extends Admin
             // 3. If token, create Google Calendar event and save the google_calendar_event_id
 
             $this->message->success("Evento criado com sucesso!")->flash();
-                $json["redirect"] = url("/beta/eventos/eventos");
+                $json["redirect"] = url("/app/eventos/eventos");
                 echo json_encode($json);
             return;
         }
 
         // GET
-        $head = $this->seo->render("Novo Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/novo"), null, false);
+        $head = $this->seo->render("Novo Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/novo"), null, false);
         
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos/eventos")],
+            ["title" => "Eventos", "link" => url("/app/eventos/eventos")],
             ["title" => "Novo Evento"]
         ];
 
@@ -75,10 +75,10 @@ class Events extends Admin
     public function listEvents(): void
     {
 
-        $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos"), null, false);
+        $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos"), null, false);
         
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos")],
+            ["title" => "Eventos", "link" => url("/app/eventos")],
             ["title" => "Listar"]
         ];
 
@@ -95,10 +95,10 @@ class Events extends Admin
     public function listEventsDisableds(): void
     {
 
-        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/finalizados"), null, false);
+        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/finalizados"), null, false);
         
         $breadcrumb = [
-            ["title" => "Eventos Finalizados", "link" => url("/beta/eventos/finalizados")],
+            ["title" => "Eventos Finalizados", "link" => url("/app/eventos/finalizados")],
             ["title" => "Listar"]
         ];
 
@@ -113,13 +113,13 @@ class Events extends Admin
      */
     public function listMyEvents(): void
     {
-        $head = $this->seo->render("Eventos Agendados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/meus-eventos"), null, false);
+        $head = $this->seo->render("Eventos Agendados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/meus-eventos"), null, false);
         
         $eventRepo = new EventRepository();
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
 
         $breadcrumb = [
-            ["title" => "Eventos", "link" => url("/beta/eventos/eventos")],
+            ["title" => "Eventos", "link" => url("/app/eventos/eventos")],
             ["title" => "Eventos Agendados"]
         ];
 
@@ -137,7 +137,7 @@ class Events extends Admin
      */
     public function disabledEvents(): void
     {
-        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos-finalizados"), null, false);
+        $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos-finalizados"), null, false);
         
         $eventRepo = new EventRepository();
         $myEvents = $eventRepo->getEventsForUser($this->user->id);
@@ -280,7 +280,7 @@ class Events extends Admin
      */
     public function completedEvents(): void
     {
-        $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/beta/eventos/meus-eventos-finalizados"), null, false);
+        $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/meus-eventos-finalizados"), null, false);
         
         $eventRepo = new EventRepository();
         $completedEvents = $eventRepo->getCompletedEventsForUser($this->user->id);

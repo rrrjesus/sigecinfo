@@ -99,7 +99,7 @@ class Web extends Controller
     public function login(?array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta/home");
+            redirect("/app/home");
         }
 
         if (!empty($data['csrf'])) {
@@ -126,7 +126,7 @@ class Web extends Controller
 
             if ($login) {
                 $this->message->success("Seja bem-vindo(a) de volta " . Auth::user()->user_name . "!")->flash();
-                $json['redirect'] = url("/beta/home");
+                $json['redirect'] = url("/app/home");
             } else {
                 $json['message'] = $this->auth->message()->before("Ooops! ")->render();
             }
@@ -199,7 +199,7 @@ class Web extends Controller
                 }
 
                 $this->message->success("Seja bem-vindo(a) de volta " . $user->user_name . "!")->flash();
-                redirect("/beta/home");
+                redirect("/app/home");
                 return;
             }
 
@@ -223,7 +223,7 @@ class Web extends Controller
                 }
 
                 $this->message->success("Cadastro realizado com sucesso! Seja bem-vindo(a), " . $user->user_name . "!")->flash();
-                redirect("/beta/home");
+                redirect("/app/home");
             } else {
                 $this->message->error($user->fail()->getMessage())->flash();
                 redirect("/entrar");
@@ -242,7 +242,7 @@ class Web extends Controller
     public function forget(?array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta/home");
+            redirect("/app/home");
         }
 
         if (!empty($data['csrf'])) {
@@ -286,7 +286,7 @@ class Web extends Controller
     public function reset(array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta/home");
+            redirect("/app/home");
         }
 
         if (!empty($data['csrf'])) {
@@ -325,7 +325,7 @@ class Web extends Controller
     public function register(?array $data): void
     {
         if (Auth::user()) {
-            redirect("/beta/home");
+            redirect("/app/home");
         }
 
         if (!empty($data['csrf'])) {

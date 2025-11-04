@@ -13,7 +13,7 @@
             </h5>
             
             <?= button([
-                "href" => "/beta/eventos",
+                "href" => "/app/eventos",
                 "name" => "Voltar para Eventos",
                 "icon" => "arrow-left",
                 "btncolor" => "secondary"

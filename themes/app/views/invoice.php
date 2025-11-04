@@ -1,6 +1,6 @@
 <div class="app_modal_box app_modal_<?= $type; ?>">
     <p class="title icon-calendar-check-o">Nova <?= ($type == 'income' ? "Receita" : "Despesa"); ?>:</p>
-    <form class="app_form" action="<?= url("/beta/launch"); ?>" method="post">
+    <form class="app_form" action="<?= url("/app/launch"); ?>" method="post">
         <input type="hidden" name="currency" value="BRL"/>
         <input type="hidden" name="type" value="<?= $type; ?>"/>
 

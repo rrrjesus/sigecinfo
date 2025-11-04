@@ -45,7 +45,7 @@ $columns = array(
     array(
         'db'        => 'id', 'dt'        => 0,
         'formatter' => function($d) {
-            return '<a href="../beta/patrimonio/detalhe/'.$d.'" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
+            return '<a href="../app/patrimonio/detalhe/'.$d.'" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
         }
     ),
     array('db'        => 'created_at', 'dt'        => 1,
@@ -67,7 +67,7 @@ $columns = array(
     array( 'db' => 'observations', 'dt' => 13),
     array( 'db' => 'id', 'dt' => 14,
         'formatter' => function($d) {
-            return '<a href="../beta/patrimonio/termo/'.$d.'" role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-secondary"
+            return '<a href="../app/patrimonio/termo/'.$d.'" role="button" aria-disabled="true" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-secondary"
                         data-bs-title="Clique para editar" target="_blank" class="btn btn-sm btn-outline-primary rounded-circle fw-bold me-2"><i class="bi bi-file-earmark-word"></i></a>';
                     }
     ),

@@ -11,7 +11,7 @@
                     <h5 class="card-title mb-0"><i class="bi bi-calendar-plus me-2"></i> Novo Evento</h5>
                 </div>
                 <div class="card-body">
-                    <form class="ajax_form" action="<?= url("/beta/eventos/novo"); ?>" method="post">
+                    <form class="ajax_form" action="<?= url("/app/eventos/novo"); ?>" method="post">
                         <div class="ajax_response"><?= flash(); ?></div>
                         <?= csrf_input(); ?>
 

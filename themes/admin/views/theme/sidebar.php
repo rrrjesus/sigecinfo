@@ -14,7 +14,7 @@
                     Ver Site
                 </a>
                     
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta")?>">
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app")?>">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Ver Aplicativo
                 </a>

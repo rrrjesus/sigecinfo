@@ -133,7 +133,9 @@ class Events extends Admin
                 $this->message->error("Evento salvo, mas falha ao sincronizar com Google Calendar: " . $e->getMessage())->flash();
             }
 
-            redirect("/painel/eventos");
+            $json["redirect"] = url("/painel/eventos");
+            echo json_encode($json);
+            return;
         }
 
         $head = $this->seo->render("Registar Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);

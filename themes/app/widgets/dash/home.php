@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <iframe src="https://calendar.google.com/calendar/embed?src=<?=CONF_GOOGLE_CALENDAR_ID?>&ctz=America%2FSao_Paulo" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
                     <?php if (in_array($user->level_id, [4, 5])): ?>
-                        <a href="<?= url("/beta/eventos/novo"); ?>" class="btn btn-outline-secondary mt-2"><i class="bi bi-plus-circle me-2"></i> Adicionar Evento</a>
+                        <a href="<?= url("/app/eventos/novo"); ?>" class="btn btn-outline-secondary mt-2"><i class="bi bi-plus-circle me-2"></i> Adicionar Evento</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                                 <strong>Data:</strong> <?= date_fmt($nextEvent->start_at, "d/m/Y \à\s H:i"); ?><br>
                                 <strong>Local:</strong> <?= $nextEvent->church()->church_name ?? $nextEvent->location_text ?? 'A definir'; ?>
                             </p>
-                            <a href="<?= url("/beta/eventos/meus-eventos-agendados"); ?>" class="btn btn-outline-secondary mt-auto">Ver detalhes</a>
+                            <a href="<?= url("/app/eventos/meus-eventos-agendados"); ?>" class="btn btn-outline-secondary mt-auto">Ver detalhes</a>
                             <?php else: ?>
                                 <p class="card-text text-muted my-auto text-center">Você não tem nenhum evento agendado no momento.</p>
                             <?php endif; ?>
@@ -61,8 +61,8 @@
                                 <strong><?= $eventCounts->completed; ?></strong> evento(s) já realizado(s).
                             </p>
                              <div class="mt-auto">
-                                 <a href="<?= url("/beta/eventos/meus-eventos-agendados"); ?>" class="btn btn-outline-secondary me-2">Ver Agendados</a>
-                                 <a href="<?= url("/beta/eventos/meus-eventos-finalizados"); ?>" class="btn btn-outline-secondary">Ver Histórico</a>
+                                 <a href="<?= url("/app/eventos/meus-eventos-agendados"); ?>" class="btn btn-outline-secondary me-2">Ver Agendados</a>
+                                 <a href="<?= url("/app/eventos/meus-eventos-finalizados"); ?>" class="btn btn-outline-secondary">Ver Histórico</a>
                              </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         <div class="card-body d-flex flex-column">
                            <p class="card-text">Mantenha os seus dados de contacto e senha sempre atualizados.</p>
                            <div class="mt-auto">
-                                <a href="<?= url('/beta/perfil'); ?>" class="btn btn-outline-secondary">Editar Perfil</a>
+                                <a href="<?= url('/app/perfil'); ?>" class="btn btn-outline-secondary">Editar Perfil</a>
                            </div>
                         </div>
                     </div>

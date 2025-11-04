@@ -1,15 +1,16 @@
 <?php
 
-namespace Source\App\Beta\Controllers;
+namespace Source\App\App\Controllers;
 
+use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
-use Source\App\Beta\Admin;
+use Source\App\App\Admin;
 
 /**
  * Class Dash
- * @package Source\App\Beta
- */
-class Dash extends Admin
+ * @author Elton Quero <elton.quero@gmail.com>
+ * @package Source\App\App
+ */class Dash extends Admin
 {
     /**
      * Dash constructor.
@@ -24,7 +25,7 @@ class Dash extends Admin
      */
     // public function dash(): void
     // {
-    //     redirect("/beta/home");
+    //     redirect("/app/home");
     // }
 
     public function home(?array $data): void
@@ -32,7 +33,7 @@ class Dash extends Admin
         $head = $this->seo->render(
             "Dashboard - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
-            url("/beta/home"),
+            url("/app/home"),
             null,
             false
         );

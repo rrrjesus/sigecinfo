@@ -58,7 +58,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="<?=$fullImageLink; ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= userPhoto(user()->photo ?? null, 45, 45, 'avatar.jpg'); ?></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="<?=url("/beta/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>
+                <li><a class="dropdown-item" href="<?=url("/app/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>
             </ul>
         </li>
     </ul>

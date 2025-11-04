@@ -12,7 +12,7 @@
             <div>
                 <p>Insira o nome da sua nova carteira, como <b>Minha Casa</b>, <b>Minha Empresa</b>, <b>Cartão 5546</b>...
                     e tudo pronto!</p>
-                <form action="<?= url("/beta/wallets/new"); ?>" method="post" autocomplete="off">
+                <form action="<?= url("/app/wallets/new"); ?>" method="post" autocomplete="off">
                     <input type="text" name="wallet_name" placeholder="Ex: Casa, Empresa, Cartão 5546" required/>
                     <button class="form_btn icon-check gradient radius transition gradient-blue gradient-hover">Abrir
                         Carteira
@@ -36,7 +36,7 @@
         <article class="wallet radius <?= ($balance->balance == "positive" ? "gradient-green" : "gradient-red"); ?>">
             <span class="wallet_remove wallet_action icon-times-circle icon-notext"></span>
             <h2 class="icon-briefcase icon-notext"></h2>
-            <input data-walletedit="<?= url("/beta/wallets/{$wallet->id}"); ?>" type="text" name="wallet"
+            <input data-walletedit="<?= url("/app/wallets/{$wallet->id}"); ?>" type="text" name="wallet"
                    value="<?= $wallet->wallet; ?>">
             <p class="wallet_balance">R$ <?= str_price($balance->wallet); ?></p>
             <p class="wallet_income">Receitas: R$ <?= str_price($balance->income); ?></p>
@@ -47,7 +47,7 @@
                     <h3 class="icon-warning">ATENÇÃO:</h3>
                     <p>Ao deletar uma carteira todos as contas lançadas nesta serão perdidas. Tem certeza que deseja
                         deletar a carteira?</p>
-                    <span data-walletremove="<?= url("/beta/wallets/{$wallet->id}"); ?>"
+                    <span data-walletremove="<?= url("/app/wallets/{$wallet->id}"); ?>"
                           data-wallet="<?= $wallet->id; ?>"
                           class="btn radius transition icon-warning">Sim, DELETAR!</span>
 

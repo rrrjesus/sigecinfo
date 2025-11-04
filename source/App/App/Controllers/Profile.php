@@ -1,17 +1,17 @@
 <?php
 
-namespace Source\App\Beta\Controllers;
+namespace Source\App\App\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\User\Models\User;
 use Source\Support\Thumb;
 use Source\Support\Upload;
-use Source\App\Beta\Admin;
+use Source\App\App\Admin;
 
 
 /**
  * Class Profile
- * @package Source\App\Beta
+ * @package Source\App\App
  */
 class Profile extends Admin
 {
@@ -76,7 +76,7 @@ class Profile extends Admin
         }
 
         $breadcrumb = [
-            ["title" => "Perfil", "link" => url("/beta/perfil")],
+            ["title" => "Perfil", "link" => url("/app/perfil")],
             ["title" => "{$this->user->user_name}"]
         ];
 

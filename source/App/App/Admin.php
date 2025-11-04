@@ -1,17 +1,19 @@
 <?php
 
-namespace Source\App\Beta;
+namespace Source\App\App;
 
 use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
 use Source\Core\Session;
 use Source\Domain\Report\Models\Access;
 use Source\Domain\Report\Models\Online;
+use Source\Domain\User\User;
 
 /**
  * Class Admin
- * @package Source\App\Beta
- */
+ * @author Elton Quero <elton.quero@gmail.com>
+ * @package Source\App\App
+ **/
 class Admin extends Controller
 {
     /** @var \Source\Domain\User\Models\User|null */

@@ -14,7 +14,7 @@
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">MEU ESPAÇO</div>
 
                 <!-- Sidebar de usuários -->
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/home")?>">
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/home")?>">
                     <div class="sb-nav-link-icon"><i class="bi bi-speedometer bi-2xx"></i></div>
                     Início
                 </a>
@@ -25,15 +25,15 @@
                 </a>
                 <div class="collapse" id="collapseEvent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos-agendados")?>"><i class="bi bi-list bi-2xx me-2"></i> Agendados</a>
-                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/eventos/meus-eventos-finalizados")?>"><i class="bi bi-list bi-2xx me-2"></i> Finalizados</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Eventos</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/meus-eventos-agendados")?>"><i class="bi bi-list bi-2xx me-2"></i> Agendados</a>
+                        <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/meus-eventos-finalizados")?>"><i class="bi bi-list bi-2xx me-2"></i> Finalizados</a>
                     </nav>
                 </div>
 
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">UTILIDADES</div>
 
-                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/beta/logoff")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" 
+                <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/logoff")?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" 
                     data-bs-title="Clique para sair do sistema" data-bs-toggle="modal" data-bs-target="#modalSair">
                     <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>
                     Sair

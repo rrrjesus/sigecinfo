@@ -64,12 +64,12 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><h6 class="dropdown-header">Aplicativo</h6></li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/beta/home")?>">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/app/home")?>">
                                         Início
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/beta/perfil")?>">
+                                    <a class="dropdown-item d-flex align-items-center justify-content-between" aria-current="true" href="<?=url("/app/perfil")?>">
                                         Perfil
                                     </a>
                                 </li>
@@ -87,7 +87,7 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item d-flex align-items-center" aria-current="true" href="<?=url("/beta/logoff")?>"><i class="bi bi-power me-2 mb-2"></i>Sair</a>
+                                    <a class="dropdown-item d-flex align-items-center" aria-current="true" href="<?=url("/app/logoff")?>"><i class="bi bi-power me-2 mb-2"></i>Sair</a>
                                 </li>
                             </ul>
                             <?php else:?>

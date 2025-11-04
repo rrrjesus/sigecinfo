@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="ajax_response"><?= flash(); ?></div>
 
-                <form class="needs-validation" id="profile" novalidate action="<?= url("/beta/perfil");?>" method="post" enctype="multipart/form-data">
+                <form class="needs-validation" id="profile" novalidate action="<?= url("/app/perfil");?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="update" value="true"/>
 
                 <?=csrf_input();?>

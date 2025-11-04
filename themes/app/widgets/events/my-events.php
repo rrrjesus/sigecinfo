@@ -39,7 +39,7 @@
                                 <tr>
                                     <td>
                                     <?php if ($participant && $participant->status === 'convocado'): ?>
-                                        <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/confirmar"); ?>" method="post">
+                                        <form class="ajax_off" style="display: inline;" action="<?= url("/app/eventos/confirmar"); ?>" method="post">
                                             <?= csrf_input(); ?>
                                             <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                             <?= button([
@@ -90,7 +90,7 @@
                                         <?php if ($participant->status !== 'presente'): ?>
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/beta/eventos/alterar-resposta"); ?>" method="post">
+                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/app/eventos/alterar-resposta"); ?>" method="post">
                                                         <?= csrf_input(); ?>
                                                         <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                                         <?= button([
@@ -117,7 +117,7 @@
                                 echo \Source\Support\Modal::renderForm(
                                     "justifyModal{$participant->id}",
                                     "Justificar Falta",
-                                    url("/beta/eventos/justificar"),
+                                    url("/app/eventos/justificar"),
                                     $formContent,
                                     "Enviar Justificativa"
                                 );
