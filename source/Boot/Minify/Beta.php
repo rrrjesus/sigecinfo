@@ -69,4 +69,4 @@
     // Minify JS
     $minJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/scripts.js");
 
-// }
+//}

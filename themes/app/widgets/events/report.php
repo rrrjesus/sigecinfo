@@ -45,7 +45,7 @@
                                     <td class="text-center align-middle">
                                         <?php if ($participant->status === 'presente'): ?>
                                             <?= button([
-                                                        "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                        "href" => "/app/eventos/checkin/{$participant->id}",
                                                         "name" => "Assinado",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "success",
@@ -54,7 +54,7 @@
                                                  
                                         <?php else: ?>
                                                     <?= button([
-                                                        "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                        "href" => "/app/eventos/checkin/{$participant->id}",
                                                         "name" => "Check-in",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "primary",

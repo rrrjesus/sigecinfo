@@ -1,5 +1,10 @@
 /* Styles do Painel de Administração */
 
+.nav-pills .nav-link.active {
+  background-color: #6c757d; /* Bootstrap's 'secondary' gray */
+  color: #fff;               /* Deixa o texto branco */
+  }
+
 /* Button Left */
 .btn-label {
   position: relative;

@@ -116,6 +116,41 @@ $route->get("/logoff", "Dash:logoff");
 $route->get("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 $route->post("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 
+// Eventos
+$route->get("/eventos", "Events:list");
+$route->get("/eventos/cadastrar", "Events:create");
+$route->post("/eventos/cadastrar", "Events:create");
+$route->get("/eventos/editar/{event_id}", "Events:edit");
+$route->post("/eventos/editar/{event_id}", "Events:edit");
+$route->get("/eventos/portaria/{event_id}", "Events:report");
+$route->post("/eventos/portaria/{event_id}", "Events:report");
+$route->post("/eventos/excluir", "Events:delete");
+$route->get("/eventos/desativados", "Events:disabledEvents");
+$route->get("/eventos/status/{event_id}", "Events:toggleStatus");
+$route->get("/eventos/iniciar/{event_id}", "Events:start");
+$route->get("/eventos/finalizar/{event_id}", "Events:finish");
+$route->post("/eventos/remover-participante", "Events:removeParticipant");
+$route->post("/eventos/check-in", "Events:checkIn");
+$route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails");
+$route->get("/eventos/checkin/{participant_id}", "Events:showCheckInPage");
+$route->post("/eventos/checkin-page", "Events:processCheckInFromPage");
+// $route->post("/eventos/checkin", "Events:processCheckIn");
+$route->get("/eventos/google-calendar-callback", "Events:googleCalendarCallback");
+$route->post("/eventos/google-calendar", "Events:createGoogleCalendarEvent");
+$route->post("/eventos/alterar-resposta", function($data) use ($auth) {
+    (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
+});
+
+//Tipos de Eventos
+$route->get("/tipos-de-eventos", "EventTypes:list");
+$route->get("/tipos-de-eventos/desativados", "EventTypes:disabledList");
+$route->get("/tipos-de-eventos/cadastrar", "EventTypes:create");
+$route->post("/tipos-de-eventos/cadastrar", "EventTypes:create");
+$route->get("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
+$route->post("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
+$route->get("/tipos-de-eventos/status/{type_id}", "EventTypes:toggleStatus");
+$route->post("/tipos-de-eventos/excluir", "EventTypes:delete");
+
 //Igrejas
 $route->get("/igrejas", "Churchs:churchs");
 $route->get("/igrejas/cadastrar", "Churchs:create");

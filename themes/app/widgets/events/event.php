@@ -11,6 +11,9 @@
     <li class="nav-item" role="presentation">
         <button class="nav-link link-body-emphasis active text-o" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
     </li>
+    <li class="nav-item" role="presentation">
+        <a href="<?= url("/app/eventos/portaria/{$event->id}"); ?>" class="nav-link link-body-emphasis">Relatórios e Portaria</a>
+    </li>
 </ul>
 
 <?php endif; ?>
@@ -155,7 +158,7 @@
                             
                             <div class="card-footer text-center">
                                 <?php if (!empty($canStart)): ?>
-                                    <?= button(["href" => url("/app/eventos/iniciar/{$event->id}"), "name" => "Iniciar", "icon" => "play-circle", "btncolor" => "success"]); ?>
+                                    <?= button(["href" => "/app/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle", "btncolor" => "success"]); ?>
                                 <?php endif; ?>
                                 
                                 <?php if (!empty($isLive)): ?>

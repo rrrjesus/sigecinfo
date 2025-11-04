@@ -24,8 +24,10 @@
                 </a>
                 <div class="collapse" id="collapseEvents" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
+                        <?php if (in_array(user()->level()->level_name, ["Administrador do Sistema", "Editor Administrador", "Editor"])): ?>
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/cadastrar")?>"><i class="bi bi-plus-circle bi-2xx me-2"></i> Cadastrar</a>
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                        <?php endif; ?>
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/meus-eventos-agendados")?>"><i class="bi bi-list bi-2xx me-2"></i> Meus Eventos</a>
                         <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/eventos/meus-eventos-finalizados")?>"><i class="bi bi-list bi-2xx me-2"></i> Histórico</a>
                     </nav>
