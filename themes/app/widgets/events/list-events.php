@@ -7,7 +7,7 @@
     <div class="ajax_response mb-3"><?= flash(); ?></div>
 
     <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
             <h5 class="mb-0">
                 <i class="bi bi-calendar-event me-2"></i>Eventos
             </h5>
@@ -17,15 +17,19 @@
                     <?= button([
                         "href" => "/app/eventos/meus-eventos-agendados", 
                         "name" => "Agendados", 
-                        "icon" => "calendar-plus me-1", 
-                        "class" => "m-2"
+                        "icon" => "calendar-plus me-1",
+                        "class" => "m-2",
+                        "title" => "Ver meus eventos agendados",
+                        "custom" => "custom-tooltip-secondary"
                     ]); ?>
                     <?php if (!empty($registers->disabled)) : ?>
                         <?= button([
                             "href" => "/app/eventos/meus-eventos-finalizados", 
                             "name" => "Finalizados", 
                             "icon" => "calendar-plus me-1", 
-                            "btncolor" => "secondary", 
+                            "btncolor" => "secondary",
+                            "title" => "Ver meus eventos finalizados",
+                            "custom" => "custom-tooltip-secondary",
                             "disabled_count" => $registers->disabled
                         ]); ?>
                     <?php endif; ?>

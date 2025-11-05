@@ -9,12 +9,13 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Eventos do Sistema</h6>
                     <div>
-                        <?= button(["href" => "/app/eventos/cadastrar", "name" => "Cadastrar Eventos", "icon" => "calendar-plus", "class" => "m-2"]); ?>
-                        <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/app/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                        <?= button(
+                            ["href" => "/app/eventos/cadastrar", "title" => "Cadastrar Eventos", "custom" => "custom-tooltip-secondary", "name" => "Cadastrar Eventos", "icon" => "calendar-plus me-2", "class" => "","btncolor" => "light"]); ?>
+                        <?php if (!empty($registers->disabled)) : ?> 
+                            <?= button(["href" => "/app/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled, "title" => "Ver eventos desativados", "custom" => "custom-tooltip-secondary"]); ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                                     <th class="text-center"><i class="bi bi-bookmark-star me-2"></i>Tipo</th>
                                     <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Local</th>
                                     <th class="text-center"><i class="bi bi-pencil-square me-2"></i>Detalhes</th>
-                                    <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
+                                    <th class="text-center"><i class="bi bi-trash me-2"></i>Ações</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

@@ -42,7 +42,9 @@
                         "href" => "/app/eventos/meus-eventos-agendados",
                         "name" => " Voltar para Meus Eventos",
                         "icon" => "arrow-left",
-                        "btncolor" => "secondary"
+                        "btncolor" => "secondary",
+                        "title" => "Voltar para a lista dos seus eventos",
+                        "custom" => "custom-tooltip-secondary"
                     ]); ?>
 
                 </div>

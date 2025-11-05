@@ -10,7 +10,7 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Meus Eventos</h6>
                 </div>
                 <div class="card-body">

@@ -22,8 +22,8 @@ class Modal
                             {$body}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
-                            <a href="{$confirmUrl}" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check-circle"></i> {$confirmText}</a>
+                            <button type="button" class="btn btn-sm btn-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i> Cancelar</button>
+                            <a href="{$confirmUrl}" class="btn btn-sm btn-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check-circle me-1"></i> {$confirmText}</a>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@ class Modal
                                 {$formContent}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-outline-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar</button>
-                                <button type="submit" class="btn btn-sm btn-outline-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check-circle"></i> {$submitText}</button>
+                                <button type="button" class="btn btn-sm btn-danger fw-semibold me-3 position-relative rounded-pill" data-bs-dismiss="modal"><i class="bi bi-x-circle me-1"></i> Cancelar</button>
+                                <button type="submit" class="btn btn-sm btn-success fw-semibold me-3 position-relative rounded-pill"><i class="bi bi-check-circle me-1"></i> {$submitText}</button>
                             </div>
                         </div>
                     </form>

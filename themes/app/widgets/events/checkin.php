@@ -10,7 +10,7 @@
 
             <!-- Participant Info Card -->
             <div class="card m-3">
-                <div class="card-header fw-bold">
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold">
                     <i class="bi bi-calendar-event me-2"></i><?= $participant->event()->title; ?>
                 </div>
                 <div class="card-body">
@@ -67,13 +67,17 @@
                             "id" => "clear-signature",
                             "name" => "Limpar",
                             "icon" => "eraser me-1",
-                            "btncolor" => "secondary"
+                            "btncolor" => "secondary",
+                            "title" => "Limpar a área de assinatura",
+                            "custom" => "custom-tooltip-secondary"
                         ]); ?>
                         <?= button([ // Este já estava padronizado, mas ajustei para consistência
                             "type" => "submit",
                             "name" => "Confirmar Check-in",
                             "icon" => "check-lg me-1",
-                            "btncolor" => "success"
+                            "btncolor" => "success",
+                            "title" => "Confirmar o check-in do participante",
+                            "custom" => "custom-tooltip-secondary"
                         ]); ?>
                     </div>
                 <?php endif; ?>

@@ -10,12 +10,7 @@
         border: none;
         border-radius: 6px;
     }
-    .card-header {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
+    
   </style>
 
 <div class="container mt-4">
@@ -31,8 +26,8 @@
     <div class="row mb-4">
         <div class="col-md-7 col-lg-8 mb-3 mb-sm-0">
             <div class="card h-auto ">
-                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-bold">
-                    <i class="bi bi-calendar-week me-1"></i> Agenda
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex align-items-start fw-semibold">
+                    <i class="bi bi-calendar-week me-2"></i> Agenda
                 </div>
                 <div class="card-body">
                    
@@ -49,7 +44,9 @@
                             "href" => "/app/eventos/cadastrar",
                             "name" => "Adicionar Evento",
                             "icon" => "plus-circle me-1",
-                            "btncolor" => "success mt-3"
+                            "btncolor" => "success mt-3",
+                            "title" => "Cadastrar um novo evento",
+                            "custom" => "custom-tooltip-secondary"
                         ]); ?>
                     <?php endif; ?>
                 </div>
@@ -58,8 +55,8 @@
         <div class="col-md-5 col-lg-4">
             <div class="col-md-4 col-lg-12 mb-3 mb-sm-4">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-bold">
-                        <i class="bi bi-calendar-week me-1"></i> Próximo Evento
+                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex align-items-start fw-semibold">
+                        <i class="bi bi-calendar-week me-2"></i> Próximo Evento
                     </div>
                 
                     <div class="card-body d-flex flex-column">
@@ -72,8 +69,10 @@
                                     <?= button([
                                         "href" => "/app/eventos/meus-eventos-agendados",
                                         "name" => "Ver detalhes",
-                                        "icon" => "eye me-1",
-                                        "btncolor" => "<?=CONF_APP_COLOR?>"
+                                        "icon" => "eye me-1", // Corrigido para um ícone válido
+                                        "btncolor" => "primary", // Corrigido para uma cor válida do Bootstrap
+                                        "title" => "Ver detalhes do próximo evento",
+                                        "custom" => "custom-tooltip-secondary"
                                     ]); ?>
                         <?php else: ?>
                             <p class="card-text text-muted my-auto text-center">Você não tem nenhum evento agendado no momento.</p>
@@ -84,8 +83,8 @@
 
             <div class="col-md-4 col-lg-12 mb-3 mb-sm-4">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-bold">
-                        <i class="bi bi-list-check me-1"></i> Os Seus Eventos
+                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex align-items-start fw-semibold">
+                        <i class="bi bi-list-check me-2"></i> Os Seus Eventos
                     </div>
                     <div class="card-body d-flex flex-column">
                         <p class="card-text">
@@ -96,14 +95,18 @@
                             <?= button([
                                 "href" => "/app/eventos/meus-eventos-agendados",
                                 "name" => "Ver Agendados",
-                                "icon" => "calendar-check me-1",
-                                "btncolor" => "info"
+                                "icon" => "calendar-check me-1", // Corrigido para um ícone válido
+                                "btncolor" => "info",
+                                "title" => "Ver seus eventos agendados",
+                                "custom" => "custom-tooltip-secondary"
                             ]); ?>
                             <?= button([
                                 "href" => "/app/eventos/meus-eventos-finalizados",
                                 "name" => "Ver Histórico",
-                                "icon" => "clock-history me-1",
-                                "btncolor" => "dark"
+                                "icon" => "clock-history me-1", // Corrigido para um ícone válido
+                                "btncolor" => "dark",
+                                "title" => "Ver o histórico dos seus eventos",
+                                "custom" => "custom-tooltip-secondary"
                             ]); ?>
                         </div>
                     </div>
@@ -112,8 +115,8 @@
             
             <div class="col-md-4 col-lg-12 mb-3 mb-sm-5">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-bold">
-                    <i class="bi bi-person-circle me-1"></i> O Seu Perfil
+                    <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex align-items-start fw-semibold">
+                    <i class="bi bi-person-circle me-2"></i> O Seu Perfil
                     </div>
                 <div class="card-body d-flex flex-column">
                     <p class="card-text">Mantenha os seus dados de contacto e senha sempre atualizados.</p>
@@ -121,8 +124,10 @@
                         <?= button([
                             "href" => "/app/perfil",
                             "name" => "Editar Perfil",
-                            "icon" => "pencil-square me-1",
-                            "btncolor" => "warning"
+                            "icon" => "pencil-square me-1", // Corrigido para um ícone válido
+                            "btncolor" => "warning",
+                            "title" => "Acessar e editar seu perfil",
+                            "custom" => "custom-tooltip-secondary"
                         ]); ?>
                     </div>
                 </div>

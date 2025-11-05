@@ -26,7 +26,7 @@
     <div class="tab-pane fade show active" id="pills-guests" role="tabpanel" aria-labelledby="pills-guests-tab">
         <?php if ($event && !empty($participants)): ?>
             <div class="card mb-2">
-                <div class="card-header fw-bold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
                 <div class="card-body">
                     <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                         <thead class="table-secondary">
@@ -49,7 +49,9 @@
                                                         "name" => "Assinado",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "success",
-                                                        "class" => "m-1 p-1"
+                                                        "class" => "m-1 p-1",
+                                                        "title" => "Ver detalhes do check-in",
+                                                        "custom" => "custom-tooltip-secondary"
                                                     ]); ?>
                                                  
                                         <?php else: ?>
@@ -58,7 +60,9 @@
                                                         "name" => "Check-in",
                                                         "icon" => "check-circle-fill me-1",
                                                         "btncolor" => "primary",
-                                                        "class" => "m-1 p-1"
+                                                        "class" => "m-1 p-1",
+                                                        "title" => "Realizar check-in do participante",
+                                                        "custom" => "custom-tooltip-secondary"
                                                     ]); ?>
                                         <?php endif; ?>
                                     </td>
@@ -117,6 +121,8 @@
                                                         "icon" => "pencil",
                                                         "btncolor" => "warning",
                                                         "class" => "rounded-circle text-warning-emphasis",
+                                                        "title" => "Alterar status do participante",
+                                                        "custom" => "custom-tooltip-secondary",
                                                         "type" => "submit"
                                                     ]); ?>
                                                 </form>
@@ -230,9 +236,13 @@
                                 <td><?= $participant->user()->user_name; ?></td>
                                 <td><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
                                 <td><?= $participant->user()->church()->church_name ?? 'N/A'; ?></td>
-                                 <td>
+                                 <td class="text-center align-middle">
                                     <?php if (!empty($participant->signature)): ?>
-                                        <img src="<?= url(CONF_UPLOAD_DIR . "/" . $participant->signature) ?>" height="30" width="120">
+                                        <img src="<?= url(CONF_UPLOAD_DIR . "/" . $participant->signature) ?>" alt="Assinatura" style="max-height: 35px; width: auto;">
+                                    <?php elseif ($participant->status === 'presente'): ?>
+                                        <span class="badge text-bg-info fw-semibold p-2">
+                                            <i class="bi bi-qr-code-scan me-1"></i> Verificado via QRCODE
+                                        </span>
                                     <?php endif; ?>
                                     </td>
                             </tr>

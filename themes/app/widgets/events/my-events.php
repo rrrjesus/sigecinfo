@@ -9,7 +9,7 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Eventos Agendados</h6>
                 </div>
                 <div class="card-body">
@@ -48,6 +48,8 @@
                                                 "icon" => "check-circle",
                                                 "btncolor" => "success",
                                                 "class" => "m-1 p-1",
+                                                "title" => "Confirmar presença no evento",
+                                                "custom" => "custom-tooltip-secondary",
                                                 "type" => "submit"
                                             ]); ?>
                                         </form>
@@ -57,6 +59,8 @@
                                             "btncolor" => "warning",
                                             "data-bs-toggle" => "modal",
                                             "data-bs-target" => "#justifyModal{$participant->id}",
+                                            "title" => "Justificar ausência no evento",
+                                            "custom" => "custom-tooltip-secondary",
                                             "class" => "p-1"
                                         ]); ?>
 
@@ -93,7 +97,9 @@
                                                 "icon" => "qr-code",
                                                 "btncolor" => "info",
                                                 "class" => "rounded-circle text-info-emphasis",
-                                                "href" => "/app/eventos/qrcode-checkin/{$participant->id}"
+                                                "href" => "/app/eventos/qrcode-checkin/{$participant->id}",
+                                                "title" => "Gerar QR Code para check-in",
+                                                "custom" => "custom-tooltip-secondary"
                                             ]); ?>
                                         <?php endif; ?>
                                     </td>
@@ -109,6 +115,8 @@
                                                             "icon" => "pencil",
                                                             "btncolor" => "warning",
                                                             "class" => "rounded-circle text-warning-emphasis",
+                                                            "title" => "Alterar sua resposta de presença",
+                                                            "custom" => "custom-tooltip-secondary",
                                                             "type" => "submit"
                                                         ]); ?>
                                                     </form>

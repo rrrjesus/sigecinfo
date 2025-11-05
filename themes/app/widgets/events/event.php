@@ -9,10 +9,10 @@
 
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link link-body-emphasis active text-o" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
+        <button class="nav-link link-body-emphasis active fw-semibold text-white" id="pills-edit-tab" data-bs-toggle="pill" data-bs-target="#pills-edit" type="button" role="tab" aria-controls="pills-edit" aria-selected="true">Edição</button>
     </li>
     <li class="nav-item" role="presentation">
-        <a href="<?= url("/app/eventos/portaria/{$event->id}"); ?>" class="nav-link link-body-emphasis">Relatórios e Portaria</a>
+        <a href="<?= url("/app/eventos/portaria/{$event->id}"); ?>" class="nav-link link-body-emphasis fw-semibold">Relatórios e Portaria</a>
     </li>
 </ul>
 
@@ -87,7 +87,7 @@
 
                         <!-- Event Info Card -->
                         <div class="card mb-2">
-                            <div class="card-header fw-bold"><i class="bi bi-calendar-event me-1"></i> Informações do Evento</div>
+                            <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold"><i class="bi bi-calendar-event me-1"></i> Informações do Evento</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8 mb-1">
@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="card mb-2">
-                            <div class="card-header fw-bold"><i class="bi bi-people-fill me-1"></i> Convocação de Participantes</div>
+                            <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold"><i class="bi bi-people-fill me-1"></i> Convocação de Participantes</div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -142,7 +142,7 @@
 
                         <!-- Date and Location Card -->
                         <div class="card mb-2">
-                            <div class="card-header fw-bold"><i class="bi bi-geo-alt me-1"></i> Data e Local</div>
+                            <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold"><i class="bi bi-geo-alt me-1"></i> Data e Local</div>
                             <div class="card-body">
                                 <div class="row align-items-end">
                                     <div class="col-md-8 mb-1">
@@ -212,13 +212,16 @@
                                     "type" => "submit", 
                                     "name" => ($event ? "Atualizar" : "Registrar"), 
                                     "icon" => "check-circle me-1", 
+                                    "custom" => "custom-tooltip-secondary", 
+                                    "title" => ($event ? "Atualizar Evento" : "Registrar Evento"),
                                     "btncolor" => ($event ? "primary" : "success")
                                 ]); ?>
                                 <?= button([
                                     "href" => "/app/eventos", 
                                     "title" => "Listar Eventos",
                                     "name" => "Listar", 
-                                    "icon" => "list me-1", 
+                                    "icon" => "list me-1",
+                                    "custom" => "custom-tooltip-secondary",
                                     "btncolor" => "secondary"
                                 ]); ?>
                             </div>
