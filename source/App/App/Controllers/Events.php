@@ -799,7 +799,7 @@ class Events extends Admin
         $head = $this->seo->render("Eventos Agendados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/meus-eventos"), null, false);
         
         $eventRepo = new EventRepository();
-        $myParticipants = (new \Source\Domain\Event\Models\EventParticipant())->find("user_id = :uid", "uid={$this->user->id}")->order("checkin_at DESC, created_at DESC")->fetch(true) ?? [];
+        $myEvents = $eventRepo->getEventsForUser($this->user->id) ?? [];
 
         $breadcrumb = [
             ["title" => "Eventos", "link" => url("/app/eventos/eventos")],
@@ -809,7 +809,7 @@ class Events extends Admin
         echo $this->view->render("widgets/events/my-events", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "participants" => $myParticipants,
+            "events" => $myEvents,
             "user" => $this->user
         ]);
     }

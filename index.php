@@ -86,8 +86,6 @@ $route->post("/eventos/check-in", function($data) use ($auth) {(new \Source\App\
 $route->get("/eventos/check-in/{participant_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->getParticipantDetails($data);});
 $route->get("/eventos/checkin/{participant_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->showCheckInPage($data);});
 $route->post("/eventos/checkin-page", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->processCheckInFromPage($data);});
-// $route->get("/eventos/google-calendar-callback", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->googleCalendarCallback($data);});
-// $route->post("/eventos/google-calendar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->createGoogleCalendarEvent($data);});
 $route->get("/eventos/meus-eventos-agendados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listMyEvents($data);});
 $route->get("/eventos/eventos", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listEvents($data);});
 $route->get("/eventos/meus-eventos-finalizados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->listEventsDisableds($data);});
