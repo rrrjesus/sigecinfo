@@ -1077,3 +1077,23 @@ function request_repeat(string $field, string $value): bool
     $session->set($field, $value);
     return false;
 }
+
+/**
+ * Garante que uma URL tenha um esquema (http:// ou https://).
+ * Se não tiver, adiciona "https://".
+ *
+ * @param string|null $url A URL a ser verificada.
+ * @return string|null A URL com o esquema garantido, ou null se a entrada for nula.
+ */
+function ensure_url_scheme(?string $url): ?string
+{
+    if ($url === null || $url === '') {
+        return null;
+    }
+
+    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+        return "https://" . $url;
+    }
+
+    return $url;
+}

@@ -14,9 +14,20 @@
 
 
                 <div>
-                    <?= button(["href" => "/app/eventos/meus-eventos-agendados", "name" => "Agendados", "icon" => "calendar-plus", "class" => "m-2"]); ?>
+                    <?= button([
+                        "href" => "/app/eventos/meus-eventos-agendados", 
+                        "name" => "Agendados", 
+                        "icon" => "calendar-plus me-1", 
+                        "class" => "m-2"
+                    ]); ?>
                     <?php if (!empty($registers->disabled)) : ?>
-                        <?= button(["href" => "/app/eventos/meus-eventos-finalizados", "name" => "Finalizados", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                        <?= button([
+                            "href" => "/app/eventos/meus-eventos-finalizados", 
+                            "name" => "Finalizados", 
+                            "icon" => "calendar-plus me-1", 
+                            "btncolor" => "secondary", 
+                            "disabled_count" => $registers->disabled
+                        ]); ?>
                     <?php endif; ?>
                 </div>
         </div>

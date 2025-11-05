@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door-fill me-2"></i>Igrejas Desativadas</h6>
                     <div>
-                        <?= button(["href" => "/painel/igrejas", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "danger"]); ?>
+                        <?= button(["href" => "/painel/igrejas", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                     </div>
                 </div>
                 <div class="card-body">

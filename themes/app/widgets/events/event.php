@@ -23,28 +23,62 @@
         <div class="row justify-content-center">
             <div class="col-xl-12">
 
-                <?php // NOVO: Bloco de Alerta para Reunião Ao Vivo
-                if (!empty($isLive)): ?>
-                    <div class="alert alert-danger text-center fw-bold fs-5 shadow-sm" role="alert">
-                        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
-                        REUNIÃO AO VIVO
-                        <span class="spinner-grow spinner-grow-sm ms-2" role="status" aria-hidden="true"></span>
-                        
-                        <?php // Botão de acesso (só aparece se o acesso for permitido pelo horário)
-                        if ($canAccess && !empty($event->meeting_url)): ?>
-                            <div class="d-grid gap-2 col-6 mx-auto mt-2">
-                                 <a href="<?= $event->meeting_url; ?>" target="_blank" class="btn btn-dark fw-semibold"><i class="bi bi-box-arrow-up-right me-2"></i> ACESSAR REUNIÃO</a>
-                            </div>
-                        <?php elseif ($canAccess): ?>
-                            <p class="small fw-normal mt-2 mb-0">URL da reunião não definida.</p>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-
                 <?php if (!$event): // MODO DE CRIAÇÃO ?>
                     <form class="needs-validation" id="eventCreate" novalidate action="<?= url("/app/eventos/cadastrar"); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="create"/>
                 <?php else: // MODO DE EDIÇÃO ?>
+
+                <!-- ALERTA DE STATUS DA REUNIÃO -->
+                <?php if (!empty($isLive)): ?>
+                    <div class="alert alert-danger border-0 shadow-lg text-center py-3 rounded-4 mb-3" role="alert">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="mb-2 d-flex align-items-center justify-content-center">
+                                <span class="spinner-grow spinner-grow-sm ms-2 me-2" role="status" aria-hidden="true"></span>
+                                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                                <h5 class="fw-bold text-uppercase mb-0">
+                                    <i class="bi bi-broadcast-pin me-2"></i>Reunião ao vivo em andamento
+                                </h5>
+                                <span class="spinner-grow spinner-grow-sm ms-2" role="status" aria-hidden="true"></span>
+                                <span class="spinner-grow spinner-grow-sm ms-2" role="status" aria-hidden="true"></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                <?php elseif (!empty($isUpcoming)): ?>
+                    <div class="alert alert-primary border-0 shadow-sm text-center py-2 rounded-4 mb-3" role="alert">
+                        <h6 class="fw-semibold mb-1">
+                            <i class="bi bi-clock-history me-2"></i>Reunião prestes a começar
+                        </h6>
+                        <p class="text-dark small mb-0">Faltam poucos minutos para o início da transmissão.</p>
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- ALERTA DO BOTÃO DE ACESSO À REUNIÃO -->
+                <?php if ($canAccess): ?>
+                    <div class="alert alert-warning border-0 shadow-lg text-center py-2 rounded-4 mb-3 pt-3" role="alert">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="mb-2 d-flex align-items-center justify-content-center">
+                                <h6 class="fw-semibold mb-1 me-2">
+                                    <i class="bi bi-broadcast-pin me-2"></i>A transmissão está ativa
+                                </h6>
+                             
+                                <?php if (!empty($event->meeting_url)): ?>
+                                    <a href="<?= ensure_url_scheme($event->meeting_url); ?>" 
+                                    target="_blank" 
+                                    class="btn btn-outline-dark fw-semibold px-4 rounded-pill shadow-sm">
+                                        <i class="bi bi-box-arrow-up-right me-2"></i> Acessar Reunião
+                                    </a>
+                                <?php else: ?>
+                                    <p class="small text-muted mb-0">URL da reunião não definida.</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    
+                <?php endif; ?>
+
                     <form class="needs-validation" id="eventUpdate" novalidate action="<?= url("/app/eventos/editar/{$event->id}"); ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="action" value="update"/>
                 <?php endif; ?>
@@ -145,7 +179,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6 mb-1">
-                                        <label class="col-form-label col-form-label-sm" for="location_text"><strong>Ou digite um local</strong> (Ex: Salão de Festas)</label>
+                                        <label class="col-form-label col-form-label-sm" for="location_text"><strong>Local Interno</strong> (Ex: Salão de Festas)</label>
                                         <input type="text" id="location_text" name="location_text" class="form-control form-control-sm" value="<?= $event->location_text ?? ''; ?>">
                                     </div>
 
@@ -158,17 +192,35 @@
                             
                             <div class="card-footer text-center">
                                 <?php if (!empty($canStart)): ?>
-                                    <?= button(["href" => "/app/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle", "btncolor" => "success"]); ?>
+                                    <?= button(["href" => "/app/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle me-1", "btncolor" => "success"]); ?>
                                 <?php endif; ?>
                                 
                                 <?php if (!empty($isLive)): ?>
                                     <?=$modalFim?>
-                                    <?= button(["type" => "submit", "name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
+                                    <?= button([
+                                        "name" => "Finalizar Reunião", 
+                                        "icon" => "stop-circle me-1", 
+                                        "btncolor" => "danger", 
+                                        "type" => "button", 
+                                        "data-bs-toggle" => "modal", 
+                                        "data-bs-target" => "#confirmFinishModal"
+                                    ]); ?>
                                 <?php endif; ?>
 
 
-                                <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
-                                <?= button(["href" => "/app/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                                <?= button([
+                                    "type" => "submit", 
+                                    "name" => ($event ? "Atualizar" : "Registrar"), 
+                                    "icon" => "check-circle me-1", 
+                                    "btncolor" => ($event ? "primary" : "success")
+                                ]); ?>
+                                <?= button([
+                                    "href" => "/app/eventos", 
+                                    "title" => "Listar Eventos",
+                                    "name" => "Listar", 
+                                    "icon" => "list me-1", 
+                                    "btncolor" => "secondary"
+                                ]); ?>
                             </div>
                         </div>
                     </form>

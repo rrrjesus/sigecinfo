@@ -158,17 +158,17 @@
                             
                             <div class="card-footer text-center">
                                 <?php if (!empty($canStart)): ?>
-                                    <?= button(["href" => "/painel/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle", "btncolor" => "success"]); ?>
+                                    <?= button(["href" => "/painel/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle me-1", "btncolor" => "success"]); ?>
                                 <?php endif; ?>
                                 
                                 <?php if (!empty($isLive)): ?>
                                     <?=$modalFim?>
-                                    <?= button(["type" => "submit", "name" => "Finalizar Reunião", "icon" => "stop-circle", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
+                                    <?= button(["name" => "Finalizar Reunião", "icon" => "stop-circle me-1", "btncolor" => "danger", "type" => "button", "data-bs-toggle" => "modal", "data-bs-target" => "#confirmFinishModal"]); ?>
                                 <?php endif; ?>
 
 
-                                <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($event ? "primary" : "success")]); ?>
-                                <?= button(["href" => "/painel/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                                <?= button(["type" => "submit", "name" => ($event ? "Atualizar" : "Registrar"), "icon" => "check-circle me-1", "btncolor" => ($event ? "primary" : "success")]); ?>
+                                <?= button(["href" => "/painel/eventos", "title" => "Listar Eventos","name" => "Listar", "icon" => "list me-1", "btncolor" => "secondary"]); ?>
                             </div>
                         </div>
                     </form>

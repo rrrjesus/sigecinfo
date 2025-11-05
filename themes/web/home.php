@@ -52,8 +52,11 @@
                 </div>
                 <h3 class="fs-2 text-body-emphasis">Abertura de Chamado - TI</h3>
                 <p>Para solicitar suporte técnico, envie um e-mail para <strong>informatica.setor11@gmail.com</strong>. Seu e-mail se tornará um ticket automaticamente em nosso sistema. Para agilizar o atendimento, forneça o máximo de detalhes possível, incluindo seu nome, localidade e uma descrição clara do problema.</p>
-                <!-- <a href="<?=url("/blog/servicedesk")?>" class="btn btn-primary" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="bottom" 
-                    data-bs-title="Saiba Mais">Saiba Mais</a> -->
+                <!-- <?= button([
+                    "href" => "/blog/servicedesk",
+                    "name" => "Saiba Mais",
+                    "title" => "Saiba Mais"
+                ]); ?> -->
             </div>
             <div class="feature col">
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-2 mb-3">
@@ -61,7 +64,10 @@
                 </div>
                 <h3 class="fs-2 text-body-emphasis">Base de Conhecimento</h3>
                 <p>Antes de abrir um chamado, que tal consultar nossa base de conhecimento? Aqui você encontra guias, tutoriais e respostas para as dúvidas mais comuns. O autoatendimento agiliza a solução de problemas simples.</p>
-                    <!-- <a href="<?=url("/#")?>" class="btn btn-primary">Saiba Mais</a> -->
+                    <!-- <?= button([
+                        "href" => "/#",
+                        "name" => "Saiba Mais"
+                    ]); ?> -->
             </div>
             <div class="feature col">
                 <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
@@ -69,7 +75,10 @@
                 </div>
                 <h3 class="fs-2 text-body-emphasis">Eventos do Setor</h3>
                 <p>Consulte a agenda de eventos, reuniões e outras atividades do setor. Mantenha-se informado sobre os próximos acontecimentos e participe.</p>
-                <!--                <a href="--><?php //=url("/blog/ramais-coti")?><!--" class="btn btn-primary">Saiba Mais</a>-->
+                <!-- <?= button([
+                    "href" => "/blog/ramais-coti",
+                    "name" => "Saiba Mais"
+                ]); ?> -->
             </div>
         </div>
     </div>

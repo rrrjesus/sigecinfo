@@ -62,17 +62,17 @@
                     </div>
                 <?php else: ?>
                     <div class="card-footer d-flex justify-content-between">
-                        <?= button([
+                        <?= button([ // Este já estava padronizado, mas ajustei para consistência
                             "type" => "button",
                             "id" => "clear-signature",
                             "name" => "Limpar",
-                            "icon" => "eraser",
+                            "icon" => "eraser me-1",
                             "btncolor" => "secondary"
                         ]); ?>
-                        <?= button([
+                        <?= button([ // Este já estava padronizado, mas ajustei para consistência
                             "type" => "submit",
                             "name" => "Confirmar Check-in",
-                            "icon" => "check-lg",
+                            "icon" => "check-lg me-1",
                             "btncolor" => "success"
                         ]); ?>
                     </div>

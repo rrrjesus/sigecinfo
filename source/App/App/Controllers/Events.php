@@ -221,8 +221,9 @@ class Events extends Admin
         $end_at = !empty($event->end_at) ? new DateTime($event->end_at) : null;
         
         $isLive = ($event->status == 'ao vivo');
-        $canAccess = ($isLive && $now >= $start_at && (empty($end_at) || $now <= $end_at));
-        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-90 minutes') && $start_at >= $now);
+        $canAccess = ($isLive && $now >= (clone $start_at)->modify('-1 day') && (empty($end_at) || $now <= $end_at));
+        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-1 day') && $start_at >= $now);
+        $isUpcoming = !$isLive && (strtotime($event->start_at) - time() <= 600 && strtotime($event->start_at) - time() > 0);
 
        $modalFim = Modal::render(
                         'confirmFinishModal',
@@ -248,6 +249,7 @@ class Events extends Admin
             "isLive" => $isLive,
             "canAccess" => $canAccess,
             "canStart" => $canStart,
+            "isUpcoming" => $isUpcoming,
             "modalFim" => $modalFim
         ]);
     }
@@ -627,6 +629,14 @@ class Events extends Admin
             return;
         }
 
+        $event = $participant->event();
+
+        $breadcrumb = [
+            ["title" => "Meus Eventos", "link" => url("/app/eventos/meus-eventos-agendados")],
+            ["title" => $event->title],
+            ["title" => "QR Code para Check-in"]
+        ];
+
         // Generate a secure token for the QR code. This token should be stored and validated on scan.
         // For simplicity, let's use a hash of participant ID and a secret key for now.
         // In a real application, this should be a more robust, time-limited token stored in the database.
@@ -642,7 +652,9 @@ class Events extends Admin
 
         echo $this->view->render("widgets/events/qrcode-checkin", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "participant" => $participant,
+            "event" => $event,
             "qrCodeSvg" => $qrCodeSvg,
             "user" => $this->user
         ]);

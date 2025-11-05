@@ -58,5 +58,14 @@
         </li>
     </ul>
 </nav>
-
-<?= $this->insert("views/modals/modalSystem"); ?>
+<?php
+    // Modal de Logout
+    echo \Source\Support\Modal::render(
+        "modalSair",
+        CONF_SITE_NAME,
+        "Deseja realmente sair do sistema?",
+        url("/app/logoff"),
+        "Sim, Sair!",
+        "bg-" . CONF_APP_COLOR . " text-white"
+    );
+?>
