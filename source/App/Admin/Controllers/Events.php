@@ -239,14 +239,9 @@ class Events extends Admin
         $start_at = new DateTime($event->start_at);
         $end_at = !empty($event->end_at) ? new DateTime($event->end_at) : null;
         
-        // A reunião está acontecendo agora?
         $isLive = ($event->status == 'ao vivo');
-
-        // O botão "Acessar" deve ser mostrado? (Somente se estiver ao vivo e dentro do horário)
         $canAccess = ($isLive && $now >= $start_at && (empty($end_at) || $now <= $end_at));
-
-        // O botão "Iniciar" deve ser mostrado? (Agendado e até 15 min antes do início)
-        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-15 minutes'));
+        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-90 minutes') && $start_at >= $now);
 
        $modalFim = Modal::render(
                         'confirmFinishModal',

@@ -211,10 +211,47 @@ $(document).ready(function() {
         }
     }));
 
+    // Tabela de Eventos Desativados
+    $('#disabledEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos Desativados"), {
+        ajax: '../../themes/admin/serverside/disabledEvents.php',
+        modalConfig: {
+            delete: { id_col: 5, name_col: 1, base_url: '/app/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+        },
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[1] || '') + ' ' + (data[4] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+            },
+        "aoColumnDefs": [
+            {
+                "aTargets": [0], // Coluna Editar
+                "mRender": function(data, type, full) {
+                    return '<a href="' + SITE_URL + '/app/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
+                }
+            },
+            {
+                "aTargets": [5], // Coluna Excluir
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'delete', id: data,
+                        tooltip: 'Excluir ' + full[1],
+                        btn_class: 'danger'
+                    });
+                }
+            }
+        ]
+    }));
+
     // Tabela de Participantes de Evento
     $('#eventParticipants').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Participantes de Evento", false), {
         modalConfig: {
-            delete: { id_col: 6, name_col: 2, base_url: '/painel/eventos/remover-participante', id_field: 'participant_id', item_name: 'o participante de evento' }
+            delete: { id_col: 6, name_col: 2, base_url: '/app/eventos/remover-participante', id_field: 'participant_id', item_name: 'o participante de evento' }
         },
         "aoColumnDefs": [
             { "aTargets": [6], "mRender": function (data, type, full) {

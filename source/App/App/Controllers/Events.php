@@ -222,7 +222,7 @@ class Events extends Admin
         
         $isLive = ($event->status == 'ao vivo');
         $canAccess = ($isLive && $now >= $start_at && (empty($end_at) || $now <= $end_at));
-        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-15 minutes'));
+        $canStart = ($event->status == 'agendado' && $now >= (clone $start_at)->modify('-90 minutes') && $start_at >= $now);
 
        $modalFim = Modal::render(
                         'confirmFinishModal',
@@ -787,10 +787,13 @@ class Events extends Admin
             ["title" => "Listar"]
         ];
 
+        $events = (new Event())->find("status IN (:s1, :s2)", "s1=cancelado&s2=realizado")->order("start_at DESC")->fetch(true);
+
         echo $this->view->render("widgets/events/disabled-list-events", [
             "head" => $head,
             "user" => $this->user,
-            "breadcrumb" => $breadcrumb
+            "breadcrumb" => $breadcrumb,
+            "events" => $events
         ]);
     }
 

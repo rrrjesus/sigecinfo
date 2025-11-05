@@ -4,9 +4,7 @@
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>
                 <?php if(user()->level_id > 4){
-                    echo '<div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>
-                    
-                        <a class="nav-link text-light fw-semibold fs-6" href="'.url("/painel").'">
+                    echo '<a class="nav-link text-light fw-semibold fs-6" href="'.url("/painel").'">
                         <div class="sb-nav-link-icon"><i class="bi bi-link-45deg bi-2xx"></i></div>Painel</a>';
                     }?>
                 <a class="nav-link text-light fw-semibold fs-6" href="<?=url("/app/home")?>">

@@ -28,6 +28,7 @@
                                     <th class="text-center"><i class="bi bi-pin-map me-2"></i>Local</th>
                                     <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Comp</th>
                                     <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
+                                    <th class="text-center"><i class="bi bi-qr-code me-2"></i>QR Code</th>
                                     <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 </tr>
                             </thead>
@@ -85,7 +86,17 @@
                                     <td><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
                                     <td><h6><?= $event->title; ?></h6></td>
                                     <td><?= eventStatusBadge($event->status); ?></td>
-                                    
+                                    <td>
+                                        <?php if ($participant): ?>
+                                            <?= button([
+                                                "name" => "",
+                                                "icon" => "qr-code",
+                                                "btncolor" => "info",
+                                                "class" => "rounded-circle text-info-emphasis",
+                                                "href" => "/app/eventos/qrcode-checkin/{$participant->id}"
+                                            ]); ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <?php if ($participant->status !== 'presente'): ?>
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>

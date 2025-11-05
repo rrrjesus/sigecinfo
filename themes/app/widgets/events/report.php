@@ -65,7 +65,8 @@
                                     <td class="text-center align-middle">
                                         <?php
                                             $photoPath = $participant->user()->photo;
-                                        $defaultAvatar = 'avatar.jpg';                                        $defaultImageUrl = theme("/assets/images/{$defaultAvatar}", CONF_VIEW_APP);
+                                            $defaultAvatar = 'avatar.jpg';
+                                            $defaultImageUrl = theme("/assets/images/{$defaultAvatar}", CONF_VIEW_ADMIN);
                                             $thumbUrl = $defaultImageUrl;
                                             $largeImageUrl = $defaultImageUrl;
 
@@ -109,7 +110,7 @@
                                      <td class="text-center">
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>
                                                 <form class="ajax_off" style="display: inline;" action="<?= url("/app/eventos/alterar-resposta"); ?>" method="post">
-                                                <?= csrf_input(); ?> 
+                                                    <?= csrf_input(); ?>
                                                     <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                                     <?= button([
                                                         "name" => "",

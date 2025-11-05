@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event-fill me-2"></i>Eventos Desativados</h6>
                     <div>
-                        <?= button(["href" => url("/app/eventos"), "name" => "Voltar para Eventos", "icon" => "calendar", "btncolor" => "secondary"]); ?>
+                        <?= button(["href" => "/app/eventos", "name" => "Voltar para Eventos", "icon" => "calendar", "btncolor" => "secondary"]); ?>
                     </div>
                 </div>
                 <div class="card-body">
