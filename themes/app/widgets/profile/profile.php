@@ -15,7 +15,7 @@
                     
                     <!-- Profile Info Card -->
                     <div class="card mb-2">
-                        <div class="card-header fw-bold"><i class="bi bi-person-circle me-1"></i> Informações do Usuário</div>
+                        <div class="card-header fw-bold bg-<?=CONF_APP_COLOR?> text-light"><i class="bi bi-person-circle me-1"></i> Informações do Usuário</div>
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-2 text-center mb-1 mb-md-0">
@@ -50,7 +50,7 @@
 
                     <!-- Access and Security Card -->
                     <div class="card mb-2">
-                        <div class="card-header fw-bold"><i class="bi bi-shield-lock me-1"></i> Acesso e Segurança</div>
+                        <div class="card-header fw-bold bg-<?=CONF_APP_COLOR?> text-light"><i class="bi bi-shield-lock me-1"></i> Acesso e Segurança</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4 mb-1">
@@ -75,7 +75,7 @@
 
                     <!-- Additional Info Card -->
                     <div class="card mb-2">
-                        <div class="card-header fw-bold"><i class="bi bi-info-circle me-1"></i> Detalhes Adicionais</div>
+                        <div class="card-header fw-bold bg-<?=CONF_APP_COLOR?> text-light"><i class="bi bi-info-circle me-1"></i> Detalhes Adicionais</div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-1">
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <?= button(["type" => "submit", "name" => "Atualizar", "title" => "Clique para atualizar o Perfil", "icon" => "disc-fill", "btncolor" => "success"]); ?>
+                            <?= button(["type" => "submit", "name" => "Atualizar", "custom" => "custom-tooltip-secondary","title" => "Clique para atualizar o Perfil", "icon" => "disc-fill me-1", "btncolor" => "success"]); ?>
                         </div>
                     </div>
                 </form>

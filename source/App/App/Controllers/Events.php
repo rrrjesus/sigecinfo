@@ -891,7 +891,7 @@ class Events extends Admin
             return;
         }
 
-        $participant->status = "recusado";
+        $participant->status = "justificado";
         $participant->justification = htmlspecialchars($justification, ENT_QUOTES, 'UTF-8');
 
         if ($participant->save()) {

@@ -788,6 +788,10 @@ function button(array $params): string
         $attributes .= ' data-bs-target="' . htmlspecialchars($params['data-bs-target'], ENT_QUOTES, 'UTF-8') . '"';
     }
 
+    if (isset($params['onclick'])) {
+        $attributes .= ' onclick="' . htmlspecialchars($params['onclick'], ENT_QUOTES, 'UTF-8') . '"';
+    }
+
     // Add tooltip attributes if a title is provided
     if (isset($params['title'])) {
         $attributes .= ' data-bs-toggle-tooltip="tooltip"';

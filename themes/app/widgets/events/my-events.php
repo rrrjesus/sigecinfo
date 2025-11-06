@@ -45,7 +45,7 @@
                                             <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
                                             <?= button([
                                                 "name" => "Confirmar",
-                                                "icon" => "check-circle",
+                                                "icon" => "check-circle m-1",
                                                 "btncolor" => "success",
                                                 "class" => "m-1 p-1",
                                                 "title" => "Confirmar presença no evento",
@@ -55,32 +55,30 @@
                                         </form>
                                         <?= button([
                                             "name" => "Justificar",
-                                            "icon" => "x-circle",
+                                            "icon" => "x-circle m-1",
                                             "btncolor" => "warning",
                                             "data-bs-toggle" => "modal",
                                             "data-bs-target" => "#justifyModal{$participant->id}",
                                             "title" => "Justificar ausência no evento",
                                             "custom" => "custom-tooltip-secondary",
-                                            "class" => "p-1"
+                                            "class" => "text-dark-emphasis"
                                         ]); ?>
 
                                         <?php elseif ($participant): ?>
-
                                             
-                                                    <?php if ($participant->status === 'confirmado'): ?>
-                                                        <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
-                                                    <?php elseif ($participant->status === 'recusado'): ?>
-                                                        <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
-                                                        <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
-                                                    <?php elseif ($participant->status === 'convocado'): ?>
-                                                        <h5><span class="badge text-bg-primary fw-semibold p-2">Convocado</span></h5>
-                                                    <?php elseif ($participant->status === 'presente'): ?>
-                                                        <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
-                                                    <?php else: ?>
-                                                        <p class="mb-0"><strong>Status:</strong> <span class="badge text-bg-secondary"><?= ucfirst($participant->status); ?></span></p>
-                                                    <?php endif; ?>
+                                            <?php if ($participant->status === 'confirmado'): ?>
+                                                <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
+                                            <?php elseif ($participant->status === 'justificado'): ?>
+                                                <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
+                                                <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
+                                            <?php elseif ($participant->status === 'convocado'): ?>
+                                                <h5><span class="badge text-bg-primary fw-semibold p-2">Convocado</span></h5>
+                                            <?php elseif ($participant->status === 'presente'): ?>
+                                                <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
+                                            <?php else: ?>
+                                                <p class="mb-0"><strong>Status:</strong> <span class="badge text-bg-secondary"><?= ucfirst($participant->status); ?></span></p>
+                                            <?php endif; ?>
                                             
-
                                         <?php endif; ?>
                                     </td>
                                     <td><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
@@ -93,8 +91,8 @@
                                     <td>
                                         <?php if ($participant): ?>
                                             <?= button([
-                                                "name" => "",
-                                                "icon" => "qr-code",
+                                                "name" => "QR Code",
+                                                "icon" => "qr-code me-1",
                                                 "btncolor" => "info",
                                                 "class" => "rounded-circle text-info-emphasis",
                                                 "href" => "/app/eventos/qrcode-checkin/{$participant->id}",

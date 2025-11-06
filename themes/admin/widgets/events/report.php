@@ -97,7 +97,7 @@
                                                     <h5><span class="badge text-bg-primary text-white m-1 p-2 fw-semibold">Convocado</span></h5>
                                             <?php elseif ($participant->status === 'confirmado'): ?>
                                                 <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
-                                            <?php elseif ($participant->status === 'recusado'): ?>
+                                            <?php elseif ($participant->status === 'justificado'): ?>
                                                 <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
                                                 <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
                                             <?php elseif ($participant->status === 'presente'): ?> 

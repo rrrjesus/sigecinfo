@@ -1724,7 +1724,7 @@ return array (
           'COLUMN_KEY' => '',
           'EXTRA' => '',
           'PRIVILEGES' => 'select,insert,update,references',
-          'COLUMN_COMMENT' => 'convocado, confirmado, recusado, presente',
+          'COLUMN_COMMENT' => 'convocado, confirmado, justificado, presente',
           'IS_GENERATED' => 'NEVER',
           'GENERATION_EXPRESSION' => NULL,
         ),

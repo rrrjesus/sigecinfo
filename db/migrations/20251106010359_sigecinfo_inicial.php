@@ -422,7 +422,7 @@ class SigecinfoInicial extends Phinx\Migration\AbstractMigration
                 'limit' => 20,
                 'collation' => 'utf8mb4_general_ci',
                 'encoding' => 'utf8mb4',
-                'comment' => 'convocado, confirmado, recusado, presente',
+                'comment' => 'convocado, confirmado, justificado, presente',
                 'after' => 'user_id',
             ])
             ->addColumn('signature', 'string', [
