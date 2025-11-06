@@ -66,6 +66,13 @@ class Events extends Admin
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = sanitize_array($data);
 
+            if (empty($data["start_at"])) {
+                $json["message"] = $this->message->warning("A data inicial e o horário do evento são obrigatórios !!!")->render();
+                $json["modal"] = true; // Adiciona a flag para o front-end
+                echo json_encode($json);
+                return;
+            }
+
             $event = new Event();
             $event->title = $data["title"];
             $event->description = $data["description"];
@@ -156,6 +163,13 @@ class Events extends Admin
 
         if (!empty($data["action"]) && $data["action"] == "update") {
             $data = sanitize_array($data);
+
+            if (empty($data["start_at"])) {
+                $json["message"] = $this->message->warning("A data inicial e o horário do evento são obrigatórios !!!")->render();
+                $json["modal"] = true; // Adiciona a flag para o front-end
+                echo json_encode($json);
+                return;
+            }
             
             $event->title = $data["title"];
             $event->description = $data["description"];
@@ -505,7 +519,7 @@ class Events extends Admin
 
     public function changeResponse(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
@@ -618,7 +632,7 @@ class Events extends Admin
 
     public function qrCodeCheckIn(array $data): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
 
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
@@ -790,7 +804,7 @@ class Events extends Admin
 
     public function listEventsDisableds(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/finalizados"), null, false);
         
@@ -902,6 +916,8 @@ class Events extends Admin
 
     public function completedEvents(): void
     {
+        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
+            
         $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/meus-eventos-finalizados"), null, false);
         
         $eventRepo = new EventRepository();

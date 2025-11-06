@@ -39,7 +39,7 @@ class EventRepository
     public function getEventsForUser(int $userId): ?array
     {
         $events = (new \Source\Domain\Event\Models\Event())->find(
-            "id IN (SELECT event_id FROM event_participants WHERE user_id = :uid AND status IN ('confirmado', 'convocado'))",
+            "status IN ('agendado', 'ao vivo') AND id IN (SELECT event_id FROM event_participants WHERE user_id = :uid)",
             "uid={$userId}"
         )->order("start_at DESC")->fetch(true);
 
@@ -82,7 +82,7 @@ class EventRepository
     public function getCompletedEventsForUser(int $userId): ?array
     {
         $events = (new \Source\Domain\Event\Models\Event())->find(
-            "status = 'realizado' AND id IN (SELECT event_id FROM event_participants WHERE user_id = :uid AND status = 'presente')",
+            "status IN ('realizado', 'cancelado') AND id IN (SELECT event_id FROM event_participants WHERE user_id = :uid)",
             "uid={$userId}"
         )->order("start_at DESC")->fetch(true);
 

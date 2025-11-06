@@ -227,9 +227,13 @@ function str_search(?string $search): string
  * @param string $path
  * @return string
  */
+
 function url(string $path = null): string
 {
-    if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
+    // Verifica se está rodando em ambiente web
+    $isLocalhost = isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], "localhost") !== false;
+
+    if ($isLocalhost) {
         if ($path) {
             return CONF_URL_TEST . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
         }
@@ -242,6 +246,7 @@ function url(string $path = null): string
 
     return CONF_URL_BASE;
 }
+
 
 /**
  * @return string

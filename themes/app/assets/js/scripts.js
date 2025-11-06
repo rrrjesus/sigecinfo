@@ -45,6 +45,42 @@ $(function () {
             && /[a-z]/i.test(value);
     }, 'Sua senha deve ter no mínimo 8 caracteres e conter pelo menos um número e um caractere.');
 
+    $.validator.addMethod("greaterThan", function(value, element, params) {
+        var startDate = $(params).val();
+        if (!value || !startDate) {
+            return true; // Don't validate if either field is empty
+        }
+        return new Date(value) >= new Date(startDate);
+    }, "A data de término deve ser maior ou igual à data de início.");
+
+     // event create
+    $("#eventCreate").validate({
+        rules: { title: { required: true },
+            type_id: { required: true },
+            start_at: { required: true },
+            end_at: { greaterThan: "#start_at" }
+        },
+        messages: {
+            title: { required: "O título do evento é obrigatório." },
+            type_id: { required: "Por favor, selecione um tipo de evento." },
+            start_at: { required: "A data e hora de início são obrigatórias." }
+        }
+    });
+
+    // event update
+    $("#eventUpdate").validate({
+        rules: { 
+            title: {required: true },
+            type_id: { required: true },
+            start_at: { required: true },
+            end_at: { greaterThan: "#start_at" }
+        },
+        messages: {
+            title: { required: "O título do evento é obrigatório." },
+            type_id: { required: "Por favor, selecione um tipo de evento." },
+            start_at: { required: "A data e hora de início são obrigatórias." }
+        }
+    });
 
     $("#user").validate({
         rules: {
@@ -79,44 +115,6 @@ $(function () {
             }
         }
     });
-
-    $("#patrimony").validate({
-        rules: {
-            movement_id: {
-                required: true
-            },
-            product_id: {
-                required: true
-            },
-            church_id: {
-                required: true
-            },
-            type_part_number: {
-                required: true
-            },
-            part_number: {
-                required: true
-            }
-        },
-        messages: {
-            movement_id: {
-                required: "Digite o estado do patrimônio !!!"
-            },
-            product_id: {
-                required: "Digite o produto !!!"
-            },
-            church_id: {
-                required: "Digite a igreja !!!"
-            },
-            type_part_number: {
-                required: "Digite o tipo de registro !!!"
-            },
-            part_number: {
-                required: "Digite o número de registro !!!"
-            }
-        }
-    });
-
 
     //  data-bs-toggle-tooltip="tooltip" Bootstrap Title
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]'))
