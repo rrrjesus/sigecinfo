@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c17050802779ea57bbeb32f5949cc76a",
+    "content-hash": "85267854f1dfcd97c5ad06cb58f1d0d8",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2514,6 +2514,64 @@
             "time": "2024-06-23T00:11:14+00:00"
         },
         {
+            "name": "odan/phinx-migrations-generator",
+            "version": "6.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/odan/phinx-migrations-generator.git",
+                "reference": "5fe9e707b255b75200225fd77da6dd6eab7c2969"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/odan/phinx-migrations-generator/zipball/5fe9e707b255b75200225fd77da6dd6eab7c2969",
+                "reference": "5fe9e707b255b75200225fd77da6dd6eab7c2969",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-pdo": "*",
+                "php": "~8.1 || ~8.2",
+                "riimu/kit-phpencoder": "^2.4",
+                "robmorgan/phinx": "^0.12 || ^0.13",
+                "symfony/console": "^6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "phpstan/phpstan": "^1",
+                "phpunit/phpunit": "^10",
+                "squizlabs/php_codesniffer": "^3",
+                "symfony/uid": "^6"
+            },
+            "bin": [
+                "./bin/phinx-migrations"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Odan\\Migration\\": "src/Migration/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Migration generator for Phinx",
+            "homepage": "https://github.com/odan/phinx-migrations-generator",
+            "keywords": [
+                "database",
+                "generator",
+                "migration",
+                "migrations",
+                "mysql",
+                "phinx"
+            ],
+            "support": {
+                "issues": "https://github.com/odan/phinx-migrations-generator/issues",
+                "source": "https://github.com/odan/phinx-migrations-generator/tree/6.0.1"
+            },
+            "time": "2023-09-22T11:32:20+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "2.0.2",
             "source": {
@@ -2616,6 +2674,55 @@
                 "source": "https://github.com/php-fig/simple-cache/tree/2.0.0"
             },
             "time": "2021-10-29T13:22:09+00:00"
+        },
+        {
+            "name": "riimu/kit-phpencoder",
+            "version": "v2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Riimu/Kit-PHPEncoder.git",
+                "reference": "72ff7825de193b272e17b228394819dbfc638e72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Riimu/Kit-PHPEncoder/zipball/72ff7825de193b272e17b228394819dbfc638e72",
+                "reference": "72ff7825de193b272e17b228394819dbfc638e72",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Riimu\\Kit\\PHPEncoder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Riikka Kalliomäki",
+                    "email": "riikka.kalliomaki@gmail.com",
+                    "homepage": "http://riimu.net"
+                }
+            ],
+            "description": "Highly customizable alternative to var_export for PHP code generation",
+            "homepage": "http://kit.riimu.net",
+            "keywords": [
+                "code",
+                "encoder",
+                "export",
+                "generator",
+                "variable"
+            ],
+            "support": {
+                "issues": "https://github.com/Riimu/Kit-PHPEncoder/issues",
+                "source": "https://github.com/Riimu/Kit-PHPEncoder/tree/v2.4.2"
+            },
+            "time": "2022-12-10T18:12:25+00:00"
         },
         {
             "name": "robmorgan/phinx",
@@ -3461,13 +3568,13 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "8.2.*",
         "ext-pdo": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

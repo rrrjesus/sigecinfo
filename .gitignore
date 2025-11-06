@@ -2,5 +2,6 @@
 .env
 .env.local
 .env.*.local
+phinx.php
 config/secrets/
 source/Boot/Config.php
