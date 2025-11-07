@@ -132,24 +132,24 @@
             <?php 
                 switch ($nextEvent->status) {
                     case 'agendado':
-                        echo '<h5><span class="badge fw-semibold text-bg-primary p-2">Agendado</span></h5>';
+                        echo '<h5><span class="badge fw-semibold text-bg-primary p-2 me-2">Agendado</span>';
                         break;
                     case 'realizado':
-                        echo '<h5><span class="badge fw-semibold text-bg-success text-white p-2">Realizado</span></h5>';
+                        echo '<h5><span class="badge fw-semibold text-bg-success text-white p-2 me-2">Realizado</span>';
                         break;
                     case 'ao vivo':
-                        echo '<h5><span class="badge fw-semibold text-bg-danger p-2"><i class="bi bi-broadcast me-1"></i>Ao Vivo</span></h5>';
+                        echo '<><span class="badge fw-semibold text-bg-danger p-2"><i class="bi bi-broadcast me-1"></i>Ao Vivo</span>';
                         break;
                     case 'cancelado':
-                        echo '<h5><span class="badge fw-semibold text-bg-danger p-2">Cancelado</span></h5>';
+                        echo '<h5><span class="badge fw-semibold text-bg-danger p-2 me-2">Cancelado</span>';
                         break;
                     default:
-                        echo '<h5><span class="badge fw-semibold text-bg-dark p-2">Indefinido</span></h5>';
+                        echo '<h5><span class="badge fw-semibold text-bg-dark p-2 me-2">Indefinido</span>';
                         break;
                 }
             ?>
 
-            <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
+            <span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
         <?php endif; ?>
     </div>
 <?php else: ?>

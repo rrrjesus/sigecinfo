@@ -6,19 +6,20 @@ use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventParticipant;
+use Source\App\App\Admin;
 
 /**
  * Class Dash
  * @package Source\App\App\Controllers
  */
-class Dash extends Controller
+class Dash extends Admin
 {
     /**
      * Dash constructor.
      */
-    public function __construct()
+    public function __construct(Auth $auth)
     {
-        parent::__construct(__DIR__ . "/../../../../themes/" . CONF_VIEW_APP . "/");
+        parent::__construct($auth);
     }
 
     /**
@@ -27,6 +28,13 @@ class Dash extends Controller
     public function home(): void
     {
         $user = user();
+
+        // Proteção da rota: verifica se o usuário está logado.
+        if (!$user) {
+             $this->message->info("Sua sessão expirou. Por favor, faça login novamente.")->flash();
+            redirect("/entrar");
+            return;
+        }
 
         $head = $this->seo->render(
             CONF_SITE_NAME . " | Dashboard",

@@ -61,9 +61,9 @@ $route->post("/recuperar/resetar", function($data) use ($auth) { (new \Source\Ap
 $route->namespace("Source\App\App");
 $route->group("/app");
 
-$route->get("/", "Controllers\\Dash:home");
-$route->get("/home", "Controllers\\Dash:home");
-$route->post("/home", "Controllers\\Dash:home");
+$route->get("/", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
+$route->get("/home", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
+$route->post("/home", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->home($data);});
 $route->get("/perfil", function($data) use ($auth) {(new \Source\App\App\Controllers\Profile($auth))->profile($data);});
 $route->post("/perfil", function($data) use ($auth) {(new \Source\App\App\Controllers\Profile($auth))->profile($data);});
 $route->get("/logoff", function($data) use ($auth) {(new \Source\App\App\Controllers\Dash($auth))->logoff($data);});
