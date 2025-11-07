@@ -22,11 +22,11 @@
                     <th class="text-center">Excluir</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                  <?php if (!empty($eventTypes)): foreach ($eventTypes as $type): ?>
-                    <tr>
-                        <td class="text-center fw-semibold"><?= $type->name; ?></td>
-                        <td><?= $type->description; ?></td>
+                    <tr class="fw-semibold">
+                        <td><?= $type->name; ?></td>
+                        <td class="text-start"><?= $type->description; ?></td>
                         <td class="text-center"><?= statusBadge($type->status); ?></td>
                         <td><?= $type->id; // Para o botão Editar ?></td>
                         <td><?= $type->id; // Para o botão Ativar ?></td>

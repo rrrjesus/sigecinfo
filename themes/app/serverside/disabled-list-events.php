@@ -25,25 +25,25 @@ $primaryKey = 'id';
  
 $columns = [
     ['db' => 'start_at', 'dt' => 0, 'formatter' => function($d) {
-        return "<h6>" . date_fmt($d, "d/m/Y H:i") . "</h6>";
+        return date_fmt($d, "d/m/Y H:i");
     }],
     ['db' => 'end_at', 'dt' => 1, 'formatter' => function($d) {
-        return "<h6>" . date_fmt($d, "d/m/Y H:i") . "</h6>";
+        return date_fmt($d, "d/m/Y H:i");
     }],
     ['db' => 'title', 'dt' => 2, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars($d) . "</h6>";
+        return htmlspecialchars($d);
     }],
     ['db' => 'type_name', 'dt' => 3, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars($d) . "</h6>";
+        return htmlspecialchars($d);
     }],
     ['db' => 'church_name', 'dt' => 4, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars($d) . "</h6>";
+        return htmlspecialchars($d);
     }],
     ['db' => 'location_text', 'dt' => 5, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars($d) . "</h6>";
+        return htmlspecialchars($d);
     }],
     ['db' => 'status', 'dt' => 6, 'formatter' => function($d) {
-        return "<h6>" . eventStatusBadge($d) . "</h6>";
+        return eventStatusBadge($d);
     }]
 ];
 

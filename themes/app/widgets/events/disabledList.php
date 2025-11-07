@@ -19,13 +19,13 @@
                     <div class="dt-container dt-bootstrap5">
                         <table id="disabledEvents" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                             <thead class="table-danger">
-                                <tr>
-                                    <th class="text-center"><i class="bi bi-card-heading me-2"></i>Ver</th>
-                                    <th class="text-center"><i class="bi bi-card-heading me-2"></i>Título do Evento</th>
-                                    <th class="text-center"><i class="bi bi-calendar-check me-2"></i>Data de Início</th>
-                                    <th class="text-center"><i class="bi bi-calendar-check me-2"></i>Data de Término</th>
-                                    <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
-                                    <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
+                                <tr class="text-center">
+                                    <th><i class="bi bi-card-heading me-2"></i>Ver</th>
+                                    <th><i class="bi bi-card-heading me-2"></i>Título do Evento</th>
+                                    <th><i class="bi bi-calendar-check me-2"></i>Data de Início</th>
+                                    <th><i class="bi bi-calendar-check me-2"></i>Data de Término</th>
+                                    <th><i class="bi bi-check-circle me-2"></i>Status</th>
+                                    <th><i class="bi bi-trash me-2"></i>Excluir</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center"></tbody>

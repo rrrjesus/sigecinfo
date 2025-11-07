@@ -10,7 +10,7 @@
 
             <div class="card">
                 <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
-                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Eventos Agendados</h6>
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Eventos Agendados
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
@@ -70,7 +70,7 @@
                                                 <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
                                             <?php elseif ($participant->status === 'justificado'): ?>
                                                 <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
-                                                <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
+                                                <small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small>
                                             <?php elseif ($participant->status === 'convocado'): ?>
                                                 <h5><span class="badge text-bg-primary fw-semibold p-2">Convocado</span></h5>
                                             <?php elseif ($participant->status === 'presente'): ?>
@@ -81,12 +81,12 @@
                                             
                                         <?php endif; ?>
                                     </td>
-                                    <td><h6><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></h6></td>
-                                    <td><h6><?= $event->title; ?></h6></td>
-                                    <td><h6><?= str_limit_chars($event->description, 150); ?></h6></td>
-                                    <td><h6><?= $event->eventType()->name ?? 'Não informado'; ?></h6></td>
-                                    <td><h6><?= $event->church()->church_name ?? 'Não informado'; ?></h6></td>
-                                    <td><h6><?= $event->title; ?></h6></td>
+                                    <td><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></td>
+                                    <td><?= $event->title; ?></td>
+                                    <td><?= str_limit_chars($event->description, 150); ?></td>
+                                    <td><?= $event->eventType()->name ?? 'Não informado'; ?></td>
+                                    <td><?= $event->church()->church_name ?? 'Não informado'; ?></td>
+                                    <td><?= $event->title; ?></td>
                                     <td><?= eventStatusBadge($event->status); ?></td>
                                     <td>
                                         <?php if ($participant): ?>

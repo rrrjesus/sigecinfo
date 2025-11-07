@@ -19,10 +19,10 @@ $columns = [
      return htmlspecialchars($d);
     }],
     ['db' => 'title', 'dt' => 1, 'formatter' => function($d) {
-     return "<h6>" . htmlspecialchars($d) . "</h6>";
+     return  htmlspecialchars($d);
     }],
-    ['db' => 'start_at', 'dt' => 2, 'formatter' => function($d) { return "<h6>" . htmlspecialchars(date_fmt($d, "d/m/Y H:i")) . "</h6>"; }],
-    ['db' => 'end_at', 'dt' => 3, 'formatter' => function($d) { return "<h6>" . htmlspecialchars(date_fmt($d, "d/m/Y H:i")) . "</h6>"; }],
+    ['db' => 'start_at', 'dt' => 2, 'formatter' => function($d) { return  htmlspecialchars(date_fmt($d, "d/m/Y H:i")); }],
+    ['db' => 'end_at', 'dt' => 3, 'formatter' => function($d) { return  htmlspecialchars(date_fmt($d, "d/m/Y H:i")); }],
     ['db' => 'status', 'dt' => 4, 'formatter' => function($d) { return eventStatusBadge($d); }],
     ['db' => 'id', 'dt' => 5] // Ativar
 ];

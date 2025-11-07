@@ -9,12 +9,12 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door me-2"></i>Igrejas</h6>
                     <div>
-                        <?= button(["href" => "/painel/igrejas/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                        <?= button(["href" => "/painel/igrejas/cadastrar", "title" => "Cadastrar uma nova igreja", "custom" => "custom-tooltip-secondary", "btncolor" => "light", "name" => "Cadastrar", "icon" => "plus-circle me-1"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/painel/igrejas/desativadas", "name" => "Desativadas", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                            <?= button(["href" => "/painel/igrejas/desativadas", "title" => "Igrejas Desativadas", "custom" => "custom-tooltip-secondary", "name" => "Desativadas", "btncolor" => "light", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -38,31 +38,31 @@
                                     <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            <?php if(!empty($churchs)){ ?>
-                            <?php foreach ($churchs as $lista): ?>
-                                <tr>
-                                    <td class="text-center"><a href="igrejas/editar/<?=$lista->id?>" data-bs-toggle-tooltip="tooltip" 
-                                        data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                        data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
-                                        class="btn btn-outline-warning rounded-circle btn-sm text-center">
-                                        <i class="bi bi-pencil text-secundary"></i></a></td>
-                                    <td class="text-center"><?=photoList($lista->photo, 'avatar-ccb.jpg');?></td>
-                                    <td class="text-center"><?=$lista->country_id;?></td>
-                                    <td class="text-center"><?=$lista->code_id;?></td>
-                                    <td class="text-center text-uppercase"><?=$lista->church_name;?></td>
-                                    <td class="text-center"><?=$lista->phone;?></td>
-                                    <td class="text-center text-uppercase"><?=$lista->address;?></td>
-                                    <td class="text-center"><?=$lista->zip_code;?></td>
-                                    <td class="text-center text-uppercase"><?=$lista->city;?></td>
-                                    <td class="text-center"><?=$lista->state;?></td>
-                                    <td class="text-center"><?=statusBadge($lista->status);?>
-                                    <td class="text-center"><?=$lista->id;?></td>
-                                    <td class="text-center"><?=$lista->id;?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                            <?php } ?>
-                        </tbody>
+                            <tbody class="text-center">
+                                <?php if(!empty($churchs)){ ?>
+                                <?php foreach ($churchs as $lista): ?>
+                                    <tr class="fw-semibold">
+                                        <td><a href="<?= url("/painel/igrejas/editar/{$lista->id}") ?>" data-bs-toggle-tooltip="tooltip" 
+                                            data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
+                                            data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
+                                            class="btn btn-outline-warning rounded-circle btn-sm">
+                                            <i class="bi bi-pencil text-secondary"></i></a></td>
+                                        <td><?=photoList($lista->photo, 'avatar-ccb.jpg');?></td>
+                                        <td><?=$lista->country_id;?></td>
+                                        <td><?=$lista->code_id;?></td>
+                                        <td class="text-uppercase"><?= $lista->church_name; ?></td>
+                                        <td><?=$lista->phone;?></td>
+                                        <td class="text-uppercase"><?= $lista->address; ?></td>
+                                        <td><?=$lista->zip_code;?></td>
+                                        <td class="text-uppercase"><?= $lista->city; ?></td>
+                                        <td><?=$lista->state;?></td>
+                                        <td><?=statusBadge($lista->status);?></td>
+                                        <td><?=$lista->id;?></td>
+                                        <td><?=$lista->id;?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                <?php } ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -24,20 +24,20 @@ $primaryKey = 'id';
  
 $columns = [
     ['db' => 'status', 'dt' => 0, 'formatter' => function($d) {
-        return eventStatusBadge($d) . "</h6>";
+        return eventStatusBadge($d);
     }],
     ['db' => 'title', 'dt' => 1, 'formatter' => function($d) {
-     return "<h6>" . htmlspecialchars($d) . "</h6>";
+     return htmlspecialchars($d);
     }],
     ['db' => 'start_at', 'dt' => 2, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars(date_fmt($d, "d/m/Y H:i")) . "</h6>";
+        return htmlspecialchars(date_fmt($d, "d/m/Y H:i"));
     }],
     ['db' => 'type_name', 'dt' => 3, 'formatter' => function($d) {
-        return "<h6>" . htmlspecialchars($d) . "</h6>";
+        return htmlspecialchars($d);
     }],
     ['db' => 'church_name', 'dt' => 4, 'formatter' => function($d, $row) {
         $value = $d ?? $row['location_text'] ?? 'N/A';
-        return "<h6>" . htmlspecialchars($value) . "</h6>";
+        return htmlspecialchars($value);
     }],
     ['db' => 'id', 'dt' => 5, 'formatter' => function($d) {
         return $d;

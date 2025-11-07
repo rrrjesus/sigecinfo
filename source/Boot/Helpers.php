@@ -607,9 +607,9 @@ function avatar(
 function statusBadge(string $status): string
 {
     if($status == 'disabled'):
-        return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
+        return '<h5><span class="badge fw-semibold text-bg-danger p-2">DESATIVADO</span></h5>';
     else:
-        return '<span class="badge text-bg-success text-light ms-2">ATIVO</span>';
+        return '<h5><span class="badge fw-semibold text-bg-success text-light p-2">ATIVO</span></h5>';
     endif;
 }
 
@@ -624,15 +624,15 @@ function eventStatusBadge(string $status): string
     
     switch ($status) {
         case 'agendado':
-            return '<h5><span class="badge fw-semibold text-bg-primary p-2">Agendado</span></h5>';
+            return '<h5><span class="badge fw-semibold text-bg-primary p-2">AGENDADO</span></h5>';
         case 'realizado':
-            return '<h5><span class="badge fw-semibold text-bg-success text-white p-2">Realizado</span></h5>';
+            return '<h5><span class="badge fw-semibold text-bg-success text-white p-2">REALIZADO</span></h5>';
         case 'ao vivo':
-            return '<h5><span class="badge fw-semibold text-bg-danger p-2"><i class="bi bi-broadcast me-1"></i>Ao Vivo</span></h5>';
+            return '<h5><span class="badge fw-semibold text-bg-danger p-2"><i class="bi bi-broadcast me-1"></i>AO VIVO</span></h5>';
         case 'cancelado':
-            return '<h5><span class="badge fw-semibold text-bg-danger p-2">Cancelado</span></h5>';
+            return '<h5><span class="badge fw-semibold text-bg-danger p-2">CANCELADO</span></h5>';
         default:
-            return '<h5><span class="badge fw-semibold text-bg-dark p-2">Indefinido</span></h5>';
+            return '<h5><span class="badge fw-semibold text-bg-dark p-2">INDEFINIDO</span></h5>';
     }
 }
 
@@ -924,14 +924,14 @@ function passwd_rehash(string $hash): bool
 function level_badge(string $levelName): string
 {
     $badges = [
-        'Usuario' => '<span class="badge text-bg-primary ms-2">User</span>',
-        'Usuario Editor' => '<span class="badge text-bg-light ms-2">Edit*</span>',
-        'Editor' => '<span class="badge text-bg-info ms-2">Edit</span>',
-        'Editor Administrador' => '<span class="badge text-bg-success ms-2">Adm*</span>',
-        'Administrador do Sistema' => '<span class="badge text-bg-warning ms-2">Adm</span>'
+        'Usuario' => '<h5><span class="badge fw-semibold text-bg-primary ms-2">USUARIO</span></h5>',
+        'Usuario Editor' => '<h5><span class="badge fw-semibold text-bg-light ms-2">EDITOR</span></h5>',
+        'Editor' => '<h5><span class="badge fw-semibold text-bg-info ms-2">EDITOR +</span>',
+        'Editor Administrador' => '<h5><span class="badge fw-semibold text-bg-success ms-2">ADMIN*</span></h5>',
+        'Administrador do Sistema' => '<h5><span class="badge fw-semibold text-bg-warning ms-2">SUPER ADMIN</span></h5>'
     ];
 
-    return $badges[$levelName] ?? '<span class="badge text-bg-secondary ms-2">?</span>';
+    return $badges[$levelName] ?? '<h5><span class="badge fw-semibold text-bg-secondary ms-2">?</span></h5>';
 }
 
 function status_name(string $status): string
@@ -953,14 +953,14 @@ function status_name(string $status): string
     {
 
     if ($status == "registered") {
-        return '<span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
+        return '<h5><span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
-                    Registrado</span>';
+                    REGISTRADO</span></h5>';
     } elseif ($status == "actived") {
-        return '<span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
-                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">ATIVADO</span>';
+        return '<h5><span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
+                    data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">ATIVADO</span></h5>';
     } else {
-        return '<span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">DESATIVADO</span>';
+        return '<h5><span class="badge fw-semibold text-bg-danger pt-2 pb-2 mt-2">DESATIVADO</span></h5>';
     }
     return null; 
     }

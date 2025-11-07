@@ -28,7 +28,7 @@
                                     <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center"></tbody>
+                            <tbody class="text-center fw-semibold"></tbody>
                         </table>
                     </div>
                 </div>

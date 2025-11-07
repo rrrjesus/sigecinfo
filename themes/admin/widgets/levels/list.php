@@ -16,19 +16,19 @@
                     <div class="dt-container dt-bootstrap5">
                         <table id="levels" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                             <thead class="table-secondary">
-                                <tr>
-                                    <th class="text-center"><i class="bi bi-hash me-2"></i>Id</th>
-                                    <th class="text-center"><i class="bi bi-diagram-3 me-2"></i>Nível</th>
-                                    <th class="text-center"><i class="bi bi-card-text me-2"></i>Descritivo</th>
+                                <tr class="text-center">
+                                    <th><i class="bi bi-hash me-2"></i>Id</th>
+                                    <th><i class="bi bi-diagram-3 me-2"></i>Nível</th>
+                                    <th><i class="bi bi-card-text me-2"></i>Descritivo</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center fw-semibold">
                             <?php if(!empty($levels)){ ?>
                             <?php foreach ($levels as $lista): ?>
                                 <tr>
-                                    <td class="text-center"><?=$lista->id;?></td>
-                                    <td class="text-center"><?=$lista->level_name;?></td>
-                                    <td class="text-center"><?=$lista->description;?></td>
+                                    <td><?=$lista->id;?></td>
+                                    <td><?=$lista->level_name;?></td>
+                                    <td><?=$lista->description;?></td>
                                 </tr>
                             <?php endforeach; ?>
                             <?php } ?>

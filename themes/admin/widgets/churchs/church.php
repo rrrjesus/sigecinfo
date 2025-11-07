@@ -18,7 +18,7 @@
 
                     <!-- Church Info Card -->
                     <div class="card mb-2">
-                        <div class="card-header fw-bold"><i class="bi bi-house-door me-1"></i> Informações da Igreja</div>
+                        <div class="card-header fw-bold bg-<?=CONF_APP_COLOR?> text-white"><i class="bi bi-house-door me-1"></i> Informações da Igreja</div>
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-2 text-center mb-1 mb-md-0">
@@ -90,9 +90,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer text-center">
-                            <?= button(["type" => "submit", "name" => ($church ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($church ? "primary" : "success")]); ?>
-                            <?= button(["href" => "/painel/igrejas", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                        <div class="row">
+                            <div class="text-center mb-3">
+                                <?= button(["type" => "submit", "title" => ($church ? "Atualizar dados da Igreja" : "Registrar uma nova igreja"), "custom" => "custom-tooltip-secondary", "name" => ($church ? "Atualizar" : "Registrar"), "icon" => "check-circle me-1", "btncolor" => ($church ? "primary" : "success")]); ?>
+                                <?= button(["href" => "/painel/igrejas", "title" => "Listar uma nova igreja", "custom" => "custom-tooltip-secondary", "name" => "Listar", "icon" => "list me-1", "btncolor" => "secondary"]); ?>
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -22,7 +22,7 @@
                     <div class="dt-container dt-bootstrap5">
                         <table id="userspositions" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                             <thead class="table-secondary">
-                                <tr>
+                                <tr class="text-center">
                                     <th class="text-center">Editar</th>
                                     <th class="text-center">Ministério/Cargo</th>
                                     <th class="text-center">Tipo</th>
@@ -33,13 +33,13 @@
                             </thead>
                             <tbody>
                                 <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
-                                    <tr>
-                                        <td class="text-center"><a href="cargos/editar/<?= $lista->id ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Clique para editar <?= $lista->position_name ?>" role="button" class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-pencil text-secondary"></i></a></td>
-                                        <td class="text-center"><?= $lista->position_name; ?></td>
-                                        <td class="text-center"><?= $lista->description; ?></td>
-                                        <td class="text-center"><?= statusBadge($lista->status); ?></td>
-                                        <td class="text-center"><?= $lista->id; ?></td>
-                                        <td class="text-center"><?= $lista->id; ?></td>
+                                    <tr class="text-center fw-semibold">
+                                        <td><a href="cargos/editar/<?= $lista->id ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Clique para editar <?= $lista->position_name ?>" role="button" class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-pencil text-secondary"></i></a></td>
+                                        <td><?= $lista->position_name; ?></td>
+                                        <td><?= $lista->description; ?></td>
+                                        <td><?= statusBadge($lista->status); ?></td>
+                                        <td><?= $lista->id; ?></td>
+                                        <td><?= $lista->id; ?></td>
                                     </tr>
                                 <?php endforeach;
                                 endif; ?>

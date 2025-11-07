@@ -19,20 +19,20 @@
                     <div class="dt-container dt-bootstrap5">
                         <table id="userspositionsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
                             <thead class="table-danger">
-                                <tr>
-                                    <th class="text-center">Cargo</th>
-                                    <th class="text-center">Descrição</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Ativar</th>
-                                    <th class="text-center">Excluir</th>
+                                <tr class="text-center">
+                                    <th>Cargo</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                    <th>Ativar</th>
+                                    <th>Excluir</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
-                                    <tr>
-                                        <td class="text-center fw-semibold"><?= $lista->position_name ?? ''; ?></td>
-                                        <td class="text-center fw-semibold"><?= $lista->description ?? ''; ?></td>
-                                        <td class="text-center fw-semibold"><?= statusBadge($lista->status); ?></td>
+                                    <tr class="fw-semibold">
+                                        <td><?= $lista->position_name ?? ''; ?></td>
+                                        <td><?= $lista->description ?? ''; ?></td>
+                                        <td><?= statusBadge($lista->status); ?></td>
                                         <td class="text-center"><?= $lista->id; ?></td>
                                         <td class="text-center"><?= $lista->id; ?></td>
                                     </tr>
