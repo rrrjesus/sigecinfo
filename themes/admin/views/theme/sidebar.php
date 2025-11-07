@@ -1,40 +1,4 @@
-<style>
-.sb-sidenav .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-}
-.sb-sidenav .nav-link:hover {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-.sb-sidenav .sb-nav-link-icon {
-    width: 2rem;
-    font-size: 1.25rem;
-    text-align: center;
-    margin-right: 0.5rem;
-}
-.sb-sidenav .sb-sidenav-collapse-arrow {
-    margin-left: auto;
-    transition: transform 0.2s ease-in-out;
-}
-.sb-sidenav .nav-link.collapsed .sb-sidenav-collapse-arrow {
-    transform: rotate(-90deg);
-}
-.sb-sidenav-menu-nested .nav-link {
-    font-size: 0.9rem;
-}
-.sb-sidenav-menu-heading {
-    padding: 1.75rem 1rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-</style>
+
 
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion bg-dark" id="sidenavAccordion">
@@ -51,7 +15,7 @@
                 ); ?>
                 <h5 class="mt-2 mb-0 text-light"><?= user()->user_name; ?></h5>
                 <p class="text-light small"><?= user()->level()->level_name; ?></p>
-                <p class="text-light small fst-italic">(<?= gethostname(); ?>)</p>
+                <!-- <p class="text-light small fst-italic">(<?= gethostname(); ?>)</p> -->
             </div>
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>

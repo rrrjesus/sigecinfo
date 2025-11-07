@@ -2,7 +2,7 @@
 
 // A condição verifica se o domínio (CONF_SITE_DOMAIN) ou (CONF_URL_BASE)da URL atual NÃO é o seu domínio de produção.
 
-// if (strpos(url(), CONF_URL_BASE) === false) {
+if (strpos(url(), CONF_URL_BASE) === false) {
     /**
      * CSS
      */
@@ -16,6 +16,7 @@
     $minCSS->add(__DIR__ . "/../../../shared/styles/datatables/responsive.bootstrap5.min.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/bootstrap-icons.min.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/typeahead.css");
+    $minCSS->add(__DIR__ . "/../../../shared/styles/sdadmin.css");
 
     //theme CSS
     $cssDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/css");
@@ -69,4 +70,4 @@
     // Minify JS
     $minJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/scripts.js");
 
-//}
+}
