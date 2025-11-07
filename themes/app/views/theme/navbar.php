@@ -50,10 +50,19 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= userPhoto(user()->photo ?? null, 45, 45, 'avatar.jpg'); ?></a>
+            <a class="nav-link dropdown-toggle d-flex align-items-center py-1" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <?= userPhoto(user()->photo ?? null, 32, 32, 'avatar.jpg'); ?>
+                
+            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="<?=url("/app/perfil")?>"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>
+                
+                <li><a class="dropdown-item" href="<?=url("/app/perfil")?>"><i class="bi bi-person-fill-gear me-2"></i> Perfil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalSair">
+                        <i class="bi bi-box-arrow-right me-2"></i> Sair
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

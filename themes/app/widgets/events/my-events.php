@@ -19,17 +19,17 @@
                         <?php else: ?>
                         <table id="myEvents" class="table table-bordered table-hover align-middle text-center mb-0" style="width:100%">
                             <thead class="table-secondary">
-                                <tr>
-                                    <th class="text-center"><i class="bi bi-person-check me-2"></i>Presença</th>
-                                    <th class="text-center"><i class="bi bi-calendar-event me-2"></i>Data</th>
-                                    <th class="text-center"><i class="bi bi-bookmark-star me-2"></i>Evento</th>
-                                    <th class="text-center"><i class="bi bi-card-text me-2"></i>Descrição</th>
-                                    <th class="text-center"><i class="bi bi-tag me-2"></i>Tipo</th>
-                                    <th class="text-center"><i class="bi bi-pin-map me-2"></i>Local</th>
-                                    <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Comp</th>
-                                    <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
-                                    <th class="text-center"><i class="bi bi-qr-code me-2"></i>QR Code</th>
-                                    <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
+                                <tr class="text-center">
+                                    <th><i class="bi bi-person-check me-2"></i>Presença</th>
+                                    <th><i class="bi bi-calendar-event me-2"></i>Data</th>
+                                    <th><i class="bi bi-bookmark-star me-2"></i>Evento</th>
+                                    <th><i class="bi bi-card-text me-2"></i>Descrição</th>
+                                    <th><i class="bi bi-tag me-2"></i>Tipo</th>
+                                    <th><i class="bi bi-pin-map me-2"></i>Local</th>
+                                    <th><i class="bi bi-geo-alt me-2"></i>Comp</th>
+                                    <th><i class="bi bi-check-circle me-2"></i>Status</th>
+                                    <th><i class="bi bi-qr-code me-2"></i>QR Code</th>
+                                    <th><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">

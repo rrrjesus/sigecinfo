@@ -511,7 +511,7 @@ function userPhoto(?string $photoPath, int $width, int $height = null, string $d
         $imageUrl = $defaultImageUrl;
     }
     
-    return "<img src=\"{$imageUrl}\" width=\"{$width}\" height=\"{$height}\" class=\"img-thumbnail rounded-circle float-left\" id=\"foto-cliente\">";
+    return "<img src=\"{$imageUrl}\" width=\"{$width}\" height=\"{$height}\" class=\"rounded-circle float-left\">";
 }
 
 /**
