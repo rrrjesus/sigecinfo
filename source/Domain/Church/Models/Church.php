@@ -17,7 +17,7 @@ class Church extends Model
      * @param string $columns
      * @return null|User
      */
-    public function findByCode(string $code_id, string $columns = "*"): ?User
+    public function findByCode(string $code_id, string $columns = "*"): ?Church
     {
         $find = $this->find("code_id = :code_id", "code_id={$code_id}", $columns);
         return $find->fetch();

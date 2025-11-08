@@ -34,7 +34,7 @@
                                 <div class="col-md-10">
                                     <div class="row">
                                         <div class="col-md-7 mb-1">
-                                            <label class="col-form-label col-form-label-sm" for="church_name"><strong>Nome da Igreja</strong></label>
+                                            <label class="col-form-label col-form-label-sm" for="church_name"><strong>Nome da Igreja ou Local</strong></label>
                                             <input type="text" id="church_name" name="church_name" class="form-control form-control-sm" value="<?= $church->church_name ?? ''; ?>" required>
                                         </div>
                                         <div class="col-md-5 mb-1">

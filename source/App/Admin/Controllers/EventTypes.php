@@ -46,9 +46,15 @@ class EventTypes extends Admin
         $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
 
         $head = $this->seo->render("Tipos de Evento Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
+
+        $breadcrumb = [
+            ["title" => "Tipo de Evento", "link" => url("/painel/tipos-de-eventos")],
+            ["title" => "Criar"]
+        ];
         
         echo $this->view->render("widgets/events/types/disabledList", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "eventTypes" => (new EventType())->find("status = 'disabled'")->order("name ASC")->fetch(true)
         ]);
     }

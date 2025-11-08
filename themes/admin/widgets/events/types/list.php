@@ -9,12 +9,12 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center bg-<?=CONF_ADMIN_COLOR?> text-white">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Tipos de Evento</h6>
                     <div>
-                        <?= button(["href" => "/painel/tipos-de-eventos/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                        <?= button(["href" => "/painel/tipos-de-eventos/cadastrar", "title" => "Cadastrar novo tipo do evento", "custom" => "custom-tooltip-secondary","name" => "Cadastrar", "icon" => "plus-circle me-1", "btncolor" => "light"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/painel/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                            <?= button(["href" => "/painel/tipos-de-eventos/desativados", "title" => "Tipos de eventos desativados", "custom" => "custom-tooltip-secondary", "name" => "Eventos Inativos", "icon" => "calendar-plus me-1", "btncolor" => "light", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>
                     </div>
                 </div>

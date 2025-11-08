@@ -145,7 +145,7 @@ $(function () {
             state: { required: true }
         },
         messages: {
-            church_name: { required: "O nome da igreja é obrigatório." },
+            church_name: { required: "O nome da igreja ou local é obrigatório." },
             country_id: { required: "Informe o país (ex.: BR, US)." },
             code_id: { required: "Informe o código." },
             address: { required: "O endereço é obrigatório." },
@@ -168,7 +168,7 @@ $(function () {
             state: { required: true }
         },
         messages: {
-            church_name: { required: "O nome da igreja é obrigatório." },
+            church_name: { required: "O nome da igreja ou local é obrigatório." },
             country_id: { required: "Informe o país (ex.: BR, US)." },
             code_id: { required: "Informe o código." },
             address: { required: "O endereço é obrigatório." },
