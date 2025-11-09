@@ -3,7 +3,7 @@
 namespace Source\App\Admin\Controllers;
 
 use Source\Domain\Shared\Models\Auth;
-use Source\Domain\Church\Models\Church;
+use Source\Domain\Place\Models\Place;
 use Source\Domain\User\Models\Level;
 use Source\Domain\User\Models\User;
 use Source\Domain\User\Models\UserPosition;
@@ -137,7 +137,7 @@ class Users extends Admin
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "profile" => $this->user,
-            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "places" => (new \Source\Domain\Place\Models\Place())->find()->order("place_name ASC")->fetch(true),
             "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
             "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);
@@ -160,7 +160,7 @@ class Users extends Admin
             $userCreate->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userCreate->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $userCreate->position_id = $data["position_id"];
-            $userCreate->church_id = $data["church_id"];
+            $userCreate->place_id = $data["place_id"];
             $userCreate->level_id = $data["level_id"];
             $userCreate->observations = $data["observations"];
             $userCreate->login_created = $this->user->id;
@@ -176,8 +176,8 @@ class Users extends Admin
                 $userCreate->photo = $image;
             }
 
-            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
-                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja, nivel e a senha para criar o registro !")->icon()->render();
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["place_id"] == "" || $data["level_id"] == ""){
+                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, local, nivel e a senha para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -214,7 +214,7 @@ class Users extends Admin
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => null,
-            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "places" => (new \Source\Domain\Place\Models\Place())->find()->order("place_name ASC")->fetch(true),
             "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
             "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);
@@ -242,7 +242,7 @@ class Users extends Admin
             $userEdit->phone_mobile = preg_replace("/[^0-9]/", "", $data["phone_mobile"]);
             $userEdit->phone_landline = preg_replace("/[^0-9]/", "", $data["phone_landline"]);
             $userEdit->position_id = $data["position_id"];
-            $userEdit->church_id = $data["church_id"];
+            $userEdit->place_id = $data["place_id"];
             $userEdit->level_id = $data["level_id"];
             $userEdit->status = $data["status"];
             $userEdit->observations = $data["observations"];
@@ -267,8 +267,8 @@ class Users extends Admin
                 }
             }
 
-            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["church_id"] == "" || $data["level_id"] == ""){
-                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, igreja e o nivel para criar o registro !")->icon()->render();
+            if($data["user_name"] == "" || $data["email"] == "" || $data["position_id"] == "" || $data["place_id"] == "" || $data["level_id"] == ""){
+                $json['message'] = $this->message->info("Informe o nome, e-mail, cargo, local e o nivel para criar o registro !")->icon()->render();
                 echo json_encode($json);
                 return;
             }
@@ -301,7 +301,7 @@ class Users extends Admin
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => $userEdit,
-            "churches" => (new \Source\Domain\Church\Models\Church())->find()->order("church_name ASC")->fetch(true),
+            "places" => (new \Source\Domain\Place\Models\Place())->find()->order("place_name ASC")->fetch(true),
             "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
             "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
         ]);

@@ -14,7 +14,7 @@ use Source\Core\Connect;
 
 function retorna($name) {
 
-    $stmt = Connect::getInstance()->query("SELECT `id`, `church_name`, `description`, `adress`, `zip`, `photo`, `url` FROM churchs WHERE church_name = '{$name}'");
+    $stmt = Connect::getInstance()->query("SELECT `id`, `place_name`, `description`, `adress`, `zip`, `photo`, `url` FROM places WHERE place_name = '{$name}'");
 
     $arr = Array();
     if ($stmt->rowCount()) {

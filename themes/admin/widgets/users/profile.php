@@ -87,8 +87,8 @@
                                 <input type="text" class="form-control form-control-sm" value="<?= $profile->position()->position_name ?? 'Não definido'; ?>" readonly>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="col-form-label col-form-label-sm"><strong>Igreja</strong></label>
-                                <input type="text" class="form-control form-control-sm" value="<?= $profile->church()->church_name ?? 'Não definida'; ?>" readonly>
+                                <label class="col-form-label col-form-label-sm"><strong>Local</strong></label>
+                                <input type="text" class="form-control form-control-sm" value="<?= $profile->place()->place_name ?? 'Não definida'; ?>" readonly>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="col-form-label col-form-label-sm"><strong>Nível de Acesso</strong></label>

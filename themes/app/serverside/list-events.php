@@ -10,12 +10,12 @@ $table = <<<EOT
         events.title, 
         events.start_at, 
         event_types.name as type_name, 
-        churchs.church_name, 
+        places.place_name, 
         events.location_text, 
         events.status
     FROM events
     LEFT JOIN event_types ON events.type_id = event_types.id
-    LEFT JOIN churchs ON events.church_id = churchs.id
+    LEFT JOIN places ON events.place_id = places.id
     WHERE events.status IN ('agendado', 'ao vivo')
  ) temp
 EOT;
@@ -35,7 +35,7 @@ $columns = [
     ['db' => 'type_name', 'dt' => 3, 'formatter' => function($d) {
         return htmlspecialchars($d);
     }],
-    ['db' => 'church_name', 'dt' => 4, 'formatter' => function($d, $row) {
+    ['db' => 'place_name', 'dt' => 4, 'formatter' => function($d, $row) {
         $value = $d ?? $row['location_text'] ?? 'N/A';
         return htmlspecialchars($value);
     }],

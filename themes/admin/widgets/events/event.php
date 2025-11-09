@@ -136,11 +136,11 @@
                                         </div>
                                     <?php endif; ?>
                                     <div class="col-md-6 mb-1">
-                                        <label class="col-form-label col-form-label-sm" for="church_id"><strong>Local (Igreja)</strong> (Opcional)</label>
-                                        <select id="church_id" name="church_id" class="form-select form-select-sm">
-                                            <option value="">Selecione uma igreja...</option>
-                                            <?php if (!empty($churches)): foreach ($churches as $church): ?>
-                                                <option value="<?= $church->id; ?>" <?= !empty($event) && $event->church_id == $church->id ? 'selected' : ''; ?>><?= $church->church_name; ?></option>
+                                        <label class="col-form-label col-form-label-sm" for="place_id"><strong>Local</strong></label>
+                                        <select id="place_id" name="place_id" class="form-select form-select-sm">
+                                            <option value="">Selecione um local...</option>
+                                            <?php if (!empty($places)): foreach ($places as $place): ?>
+                                                <option value="<?= $place->id; ?>" <?= !empty($event) && $event->place_id == $place->id ? 'selected' : ''; ?>><?= $place->place_name; ?></option>
                                             <?php endforeach; endif; ?>
                                         </select>
                                     </div>

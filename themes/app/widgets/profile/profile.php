@@ -79,8 +79,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-1">
-                                    <label class="col-form-label col-form-label-sm" for="church_id"><strong>Igreja</strong></label>
-                                    <input class="form-control form-control-sm" value="<?=$user->church()->church_name ?? '';?>" disabled readonly>
+                                    <label class="col-form-label col-form-label-sm" for="place_id"><strong>Local</strong></label>
+                                    <input class="form-control form-control-sm" value="<?=$user->place()->place_name ?? '';?>" disabled readonly>
                                 </div>
                                 <div class="col-md-6 mb-1">
                                     <label class="col-form-label col-form-label-sm" for="position_id"><strong>Cargo/Ministério</strong></label>

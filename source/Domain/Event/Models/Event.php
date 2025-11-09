@@ -3,7 +3,7 @@
 namespace Source\Domain\Event\Models;
 
 use Source\Core\Model;
-use Source\Domain\Church\Models\Church;
+use Source\Domain\Place\Models\Place;
 
 /**
  * Class Event
@@ -20,12 +20,12 @@ class Event extends Model
     }
 
     /**
-     * @return null|Church
+     * @return null|Place
      */
-    public function church(): ?Church
+    public function place(): ?Place
     {
-        if ($this->church_id) {
-            return (new Church())->findById($this->church_id);
+        if ($this->place_id) {
+            return (new Place())->findById($this->place_id);
         }
         return null;
     }
@@ -60,24 +60,24 @@ class Event extends Model
             return false;
         }
 
-        // Localização Exclusiva (ou igreja, ou texto, não ambos)
-        if (empty($this->church_id) && !empty($this->location_text)) {
-            $this->message->info("Por favor, escolha uma igreja no campo de seleção para digitar um local nas dependências.");
+        // Localização Exclusiva (ou local, ou texto, não ambos)
+        if (empty($this->place_id) && !empty($this->location_text)) {
+            $this->message->info("Por favor, escolha um local no campo de seleção para digitar um local nas dependências.");
             return false;
         }
 
-        // Prevenção de Conflitos de Horário na mesma igreja
-        if (!empty($this->church_id)) {
+        // Prevenção de Conflitos de Horário na mesma local
+        if (!empty($this->place_id)) {
             // Define o fim do evento como 2h após o início, se não for especificado, para a verificação.
             $end_at = $this->end_at ?? date('Y-m-d H:i:s', strtotime($this->start_at . ' +2 hours'));
 
             $conflictCheck = $this->find(
-                "church_id = :cid AND id != :id AND (start_at < :end AND end_at > :start)",
-                "cid={$this->church_id}&id={$this->id}&start={$this->start_at}&end={$end_at}"
+                "place_id = :cid AND id != :id AND (start_at < :end AND end_at > :start)",
+                "cid={$this->place_id}&id={$this->id}&start={$this->start_at}&end={$end_at}"
             );
 
             if ($conflictCheck->count()) {
-                $this->message->error("Já existe outro evento agendado nesta igreja que conflita com este horário.");
+                $this->message->error("Já existe outro evento agendado neste local que conflita com este horário.");
                 return false;
             }
         }

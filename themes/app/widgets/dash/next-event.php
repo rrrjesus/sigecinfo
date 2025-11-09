@@ -2,7 +2,7 @@
     <h5 class="card-title"><?= $nextEvent->title; ?></h5>
     <p class="card-text mb-3">
         <strong>Data:</strong> <?= date_fmt($nextEvent->start_at, "d/m/Y \à\s H:i"); ?><br>
-        <strong>Local:</strong> <?= $nextEvent->church()->church_name ?? $nextEvent->location_text ?? 'A definir'; ?><br>
+        <strong>Local:</strong> <?= $nextEvent->place()->place_name ?? $nextEvent->location_text ?? 'A definir'; ?><br>
         <?php if ($participant && $participant->status == 'justificado'): ?>
             <strong>Justificativa:</strong> <?= $participant->justification ?? ''; ?>
         <?php endif; ?>

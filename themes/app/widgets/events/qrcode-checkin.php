@@ -31,7 +31,7 @@
                         <p class="mb-1"><strong>Evento:</strong> <?= $event->title; ?></p>
                         <p class="mb-1"><strong>Descrição:</strong> <?= $event->description; ?></p>
                         <p class="mb-1"><strong>Data / Início:</strong> <?= date_fmt($event->date_event, "d/m/Y H:i"); ?></p>
-                        <p class="mb-0"><strong>Local:</strong> <?= $event->church()->church_name;?> - <?=$event->location_text; ?></p>
+                        <p class="mb-0"><strong>Local:</strong> <?= $event->place()->place_name;?> - <?=$event->location_text; ?></p>
                     </div>
 
                     <!-- QR Code -->

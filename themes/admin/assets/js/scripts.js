@@ -59,7 +59,7 @@ $(function () {
             email: { required: true, email: true },
             password: { required: true, valsenha: true }, // Senha é obrigatória aqui
             password_re: { required: true, equalTo: "#password" },
-            church_id: { required: true },
+            place_id: { required: true },
             position_id: { required: true },
             level_id: { required: true }
         },
@@ -68,7 +68,7 @@ $(function () {
             email: { required: "O e-mail é obrigatório.", email: "Digite um e-mail válido." },
             password: { required: "A senha é obrigatória." },
             password_re: { required: "Repita a senha.", equalTo: "As senhas não correspondem." },
-            church_id: { required: "Selecione uma igreja." },
+            place_id: { required: "Selecione um locai." },
             position_id: { required: "Selecione um cargo." },
             level_id: { required: "Selecione um nível de acesso." }
         }
@@ -81,7 +81,7 @@ $(function () {
             email: { required: true, email: true },
             password: { valsenha: true },
             password_re: { equalTo: "#password" },
-            church_id: { required: true },
+            place_id: { required: true },
             position_id: { required: true },
             level_id: { required: true }
         },
@@ -89,7 +89,7 @@ $(function () {
             user_name: { required: "O nome é obrigatório." },
             email: { required: "O e-mail é obrigatório.", email: "Digite um e-mail válido." },
             password_re: { equalTo: "As senhas não correspondem." },
-            church_id: { required: "Selecione uma igreja." },
+            place_id: { required: "Selecione um locai." },
             position_id: { required: "Selecione um cargo." },
             level_id: { required: "Selecione um nível de acesso." }
         }
@@ -133,9 +133,9 @@ $(function () {
         }
     });
 
-   $("#churchCreate").validate({
+   $("#placeCreate").validate({
         rules: {
-            church_name: { required: true },
+            place_name: { required: true },
             country_id: { required: true },
             code_id: { required: true },
             address: { required: true },
@@ -145,7 +145,7 @@ $(function () {
             state: { required: true }
         },
         messages: {
-            church_name: { required: "O nome da igreja ou local é obrigatório." },
+            place_name: { required: "O nome do locai ou local é obrigatório." },
             country_id: { required: "Informe o país (ex.: BR, US)." },
             code_id: { required: "Informe o código." },
             address: { required: "O endereço é obrigatório." },
@@ -156,9 +156,9 @@ $(function () {
         }
     });
 
-    $("#churchUpdate").validate({
+    $("#placeUpdate").validate({
         rules: {
-            church_name: { required: true },
+            place_name: { required: true },
             country_id: { required: true },
             code_id: { required: true },
             address: { required: true },
@@ -168,7 +168,7 @@ $(function () {
             state: { required: true }
         },
         messages: {
-            church_name: { required: "O nome da igreja ou local é obrigatório." },
+            place_name: { required: "O nome do locai ou local é obrigatório." },
             country_id: { required: "Informe o país (ex.: BR, US)." },
             code_id: { required: "Informe o código." },
             address: { required: "O endereço é obrigatório." },

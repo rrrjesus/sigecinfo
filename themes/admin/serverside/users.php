@@ -9,10 +9,10 @@ include_once '../../../source/Boot/Config.php';
 // DB table to use
 $table = <<<EOT
  ( 
-SELECT users.id, users.photo, users.user_name, users.phone_mobile, user_positions.position_name, churchs.church_name, users.email, users.status, levels.level_name
+SELECT users.id, users.photo, users.user_name, users.phone_mobile, user_positions.position_name, places.place_name, users.email, users.status, levels.level_name
 FROM users
 LEFT JOIN user_positions ON users.position_id = user_positions.id
-LEFT JOIN churchs ON users.church_id = churchs.id
+LEFT JOIN places ON users.place_id = places.id
 LEFT JOIN levels ON users.level_id = levels.id
 WHERE (((users.status) != "disabled")))temp
 EOT;
@@ -47,22 +47,22 @@ $columns = array(
         }
     ),
     array('db' => 'position_name', 'dt' => 4),
-    array('db' => 'church_name', 'dt' => 5),
+    array('db' => 'place_name', 'dt' => 5),
     array('db' => 'email', 'dt' => 6),
     array('db' => 'status', 'dt' => 7,
         'formatter' => function($d) {
             switch ($d) {
                 case 'registered':
-                    return '<span class="badge text-bg-warning ms-2">REGISTRADO</span>';
+                    return '<h5><span class="badge fw-semibold text-bg-warning text-light p-2 m-3">REGISTRADO</span></h5>';
                     break;
                 case 'actived':
-                    return '<span class="badge text-bg-success text-light ms-2">ATIVADO</span>';
+                    return '<h5><span class="badge fw-semibold text-bg-success text-light p-2 m-3">ATIVO</span></h5>';
                     break;
                 case 'disabled':
-                    return '<span class="badge text-bg-danger ms-2">DESATIVADO</span>';
+                    return '<h5><span class="badge fw-semibold text-bg-danger text-light p-2 m-3">INATIVO</span></h5>';
                     break;
                 default:
-                    return '<span class="badge text-bg-secondary ms-2">INDEFINIDO</span>';
+                    return '<h5><span class="badge fw-semibold text-bg-secondary text-light p-2 m-3">INDEFINIDO</span></h5>';
                     break;
                 }
             }

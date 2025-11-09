@@ -55,6 +55,17 @@ $(document).ready(function() {
      * ===================================================================
      */
 
+    // Verifica se o valor representa um status ativo, mesmo que venha com HTML
+    function isActiveStatus(value) {
+        if (!value) return false;
+
+        // Remove qualquer HTML e extrai apenas o texto puro
+        const text = $('<div>').html(value).text().toLowerCase().trim();
+
+        // Verifica status válidos como "ativo", "ativado" ou "registrado"
+        return ["actived", "registered"].includes(text);
+    }
+
     function createActionButton(config) {
         var modalId = config.action + 'Modal' + config.id;
         var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
@@ -110,7 +121,7 @@ $(document).ready(function() {
             $.each(data, function(index, rowData) {
                 if (config.toggleStatus) {
                     var statusConfig = config.toggleStatus;
-                    var isActived = (String(rowData[statusConfig.status_col]).toLowerCase().includes("ativado") || String(rowData[statusConfig.status_col]).toLowerCase().includes("registrado"));
+                    var isActived =  isActiveStatus(rowData[statusConfig.status_col]);
                     appendActionModal({
                         action: 'toggleStatus', id: rowData[statusConfig.id_col], name: rowData[statusConfig.name_col],
                         method: 'GET',
@@ -236,11 +247,11 @@ $(document).ready(function() {
         ]
     }));
 
-    //Lista de Igrejas
-    $('#churchs').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Igrejas", false), {
+    //Lista de Locais
+    $('#places').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Locais", false), {
         modalConfig: {
-            toggleStatus: { id_col: 11, status_col: 10, name_col: 4, base_url: '/painel/igrejas/status/', item_name: 'a igreja' },
-            delete: { id_col: 12, name_col: 4, base_url: '/painel/igrejas/excluir', id_field: 'church_id', item_name: 'a igreja' }
+            toggleStatus: { id_col: 11, status_col: 10, name_col: 4, base_url: '/painel/locais/status/', item_name: 'a locai' },
+            delete: { id_col: 12, name_col: 4, base_url: '/painel/locais/excluir', id_field: 'place_id', item_name: 'a locai' }
         },
         "aoColumnDefs": [
              { "aTargets": [11], "mRender": function (data, type, full) {
@@ -258,11 +269,11 @@ $(document).ready(function() {
         ]
     }));
 
-    //Lista de Igrejas Desativadas
-    $('#churchsDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Igrejas Desativadas", false), {
+    //Lista de Locais Desativados
+    $('#placesDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Locais Desativados", false), {
         modalConfig: {
-            toggleStatus: { id_col: 10, status_col: 9, name_col: 3, base_url: '/painel/igrejas/status/', item_name: 'a igreja' },
-            delete: { id_col: 11, name_col: 3, base_url: '/painel/igrejas/excluir', id_field: 'church_id', item_name: 'a igreja' }
+            toggleStatus: { id_col: 10, status_col: 9, name_col: 3, base_url: '/painel/locais/status/', item_name: 'a locai' },
+            delete: { id_col: 11, name_col: 3, base_url: '/painel/locais/excluir', id_field: 'place_id', item_name: 'a locai' }
         },
         "aoColumnDefs": [
             { "aTargets": [10], "mRender": function (data, type, full) {

@@ -11,12 +11,12 @@ $table = <<<EOT
         events.start_at, 
         events.end_at, 
         event_types.name as type_name, 
-        churchs.church_name, 
+        places.place_name, 
         events.location_text, 
         events.status
     FROM events
     LEFT JOIN event_types ON events.type_id = event_types.id
-    LEFT JOIN churchs ON events.church_id = churchs.id
+    LEFT JOIN places ON events.place_id = places.id
     WHERE events.status IN ('realizado', 'cancelado')
  ) temp
 EOT;
@@ -36,7 +36,7 @@ $columns = [
     ['db' => 'type_name', 'dt' => 3, 'formatter' => function($d) {
         return htmlspecialchars($d);
     }],
-    ['db' => 'church_name', 'dt' => 4, 'formatter' => function($d) {
+    ['db' => 'place_name', 'dt' => 4, 'formatter' => function($d) {
         return htmlspecialchars($d);
     }],
     ['db' => 'location_text', 'dt' => 5, 'formatter' => function($d) {

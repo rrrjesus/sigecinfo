@@ -3,7 +3,7 @@
 namespace Source\Domain\User\Models;
 
 use Source\Core\Model;
-use Source\Domain\Church\Models\Church;
+use Source\Domain\Place\Models\Place;
 use Source\Domain\User\Models\Level;
 
 /**
@@ -17,7 +17,7 @@ class User extends Model
      */
     public function __construct()
     {
-        parent::__construct("users", ["id"], ["user_name", "email", "password", "church_id", "position_id", "level_id"]);
+        parent::__construct("users", ["id"], ["user_name", "email", "password", "place_id", "position_id", "level_id"]);
     }
 
     /**
@@ -49,12 +49,12 @@ class User extends Model
     }
 
     /**
-     * @return null|Church
+     * @return null|Place
      */
-    public function church(): ?Church
+    public function place(): ?Place
     {
-        if ($this->church_id) {
-            return (new Church())->findById($this->church_id);
+        if ($this->place_id) {
+            return (new Place())->findById($this->place_id);
         }
         return null;
     }

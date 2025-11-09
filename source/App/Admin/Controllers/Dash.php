@@ -5,7 +5,7 @@ namespace Source\App\Admin\Controllers;
 use Source\Domain\Shared\Models\Auth;
 use Source\App\Admin\Admin;
 use Source\Domain\Report\Models\Online;
-use Source\Domain\Church\ChurchRepository;
+use Source\Domain\Place\PlaceRepository;
 use Source\Domain\Event\EventRepository;
 use Source\Domain\User\UserRepository;
 use Source\Domain\User\UserPositionRepository;
@@ -73,7 +73,7 @@ class Dash extends Admin
         );
 
          // Instancia os Repositories
-        $churchRepo = new ChurchRepository();
+        $placeRepo = new PlaceRepository();
         $userRepo = new UserRepository();
         $userPositionRepo = new UserPositionRepository();
         $eventRepo = new EventRepository(); // <-- Instancia o novo Repository
@@ -81,7 +81,7 @@ class Dash extends Admin
         echo $this->view->render("widgets/dash/home", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "churchs" => $churchRepo->getStatusCounts(),
+            "places" => $placeRepo->getStatusCounts(),
             "users" => $userRepo->getLevelCounts(),
             "userspositions" => $userPositionRepo->getStatusCounts(),
             "events" => $eventRepo->getDashboardCounts(), 

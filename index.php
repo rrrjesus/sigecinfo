@@ -151,15 +151,15 @@ $route->post("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
 $route->get("/tipos-de-eventos/status/{type_id}", "EventTypes:toggleStatus");
 $route->post("/tipos-de-eventos/excluir", "EventTypes:delete");
 
-//Igrejas
-$route->get("/igrejas", "Churchs:churchs");
-$route->get("/igrejas/cadastrar", "Churchs:create");
-$route->post("/igrejas/cadastrar", "Churchs:create");
-$route->get("/igrejas/editar/{church_id}", "Churchs:edit");
-$route->post("/igrejas/editar/{church_id}", "Churchs:edit");
-$route->get("/igrejas/desativadas", "Churchs:disabledChurchs");
-$route->get("/igrejas/status/{church_id}", "Churchs:toggleStatus");
-$route->post("/igrejas/excluir", "Churchs:delete");
+//Locais
+$route->get("/locais", "Places:places");
+$route->get("/locais/cadastrar", "Places:create");
+$route->post("/locais/cadastrar", "Places:create");
+$route->get("/locais/editar/{place_id}", "Places:edit");
+$route->post("/locais/editar/{place_id}", "Places:edit");
+$route->get("/locais/desativados", "Places:disabledPlaces");
+$route->get("/locais/status/{place_id}", "Places:toggleStatus");
+$route->post("/locais/excluir", "Places:delete");
 
 //Niveis
 $route->get("/niveis", "Levels:levels");

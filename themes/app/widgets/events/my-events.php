@@ -85,7 +85,7 @@
                                     <td><?= $event->title; ?></td>
                                     <td><?= str_limit_chars($event->description, 150); ?></td>
                                     <td><?= $event->eventType()->name ?? 'Não informado'; ?></td>
-                                    <td><?= $event->church()->church_name ?? 'Não informado'; ?></td>
+                                    <td><?= $event->place()->place_name ?? 'Não informado'; ?></td>
                                     <td><?= $event->title; ?></td>
                                     <td><?= eventStatusBadge($event->status); ?></td>
                                     <td>

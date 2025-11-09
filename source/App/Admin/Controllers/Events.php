@@ -4,7 +4,7 @@ namespace Source\App\Admin\Controllers;
 
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventType;
-use Source\Domain\Church\Models\Church;
+use Source\Domain\Place\Models\Place;
 use Source\Domain\Event\EventService;
 use Source\Domain\Event\Models\EventParticipant;
 use Source\Support\Upload;
@@ -83,7 +83,7 @@ class Events extends Admin
             $event->description = $data["description"];
             $event->start_at = $data["start_at"];
             $event->end_at = !empty($data["end_at"]) ? $data["end_at"] : null;
-            $event->church_id = !empty($data["church_id"]) ? $data["church_id"] : null;
+            $event->place_id = !empty($data["place_id"]) ? $data["place_id"] : null;
             $event->type_id = $data["type_id"];
             $event->location_text = $data["location_text"];
             $event->created_by = $this->user->id;
@@ -150,7 +150,7 @@ class Events extends Admin
             "breadcrumb" => $breadcrumb,
             "event" => null,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
-            "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true)
+            "places" => (new Place())->find("status = :s", "s=actived")->order("place_name ASC")->fetch(true)
         ]);
     }
 
@@ -177,7 +177,7 @@ class Events extends Admin
             $event->description = $data["description"];
             $event->start_at = $data["start_at"];
             $event->end_at = !empty($data["end_at"]) ? $data["end_at"] : null;
-            $event->church_id = !empty($data["church_id"]) ? $data["church_id"] : null;
+            $event->place_id = !empty($data["place_id"]) ? $data["place_id"] : null;
             $event->type_id = $data["type_id"];
             $event->location_text = $data["location_text"];
             $event->meeting_url = $data["meeting_url"];
@@ -262,7 +262,7 @@ class Events extends Admin
             "breadcrumb" => $breadcrumb,
             "event" => $event,
             "eventTypes" => (new EventType())->find("status = :s", "s=actived")->order("name ASC")->fetch(true),
-            "churches" => (new Church())->find("status = :s", "s=actived")->order("church_name ASC")->fetch(true),
+            "places" => (new Place())->find("status = :s", "s=actived")->order("place_name ASC")->fetch(true),
             "isLive" => $isLive,
             "canAccess" => $canAccess,
             "canStart" => $canStart,

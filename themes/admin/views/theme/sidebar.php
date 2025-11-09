@@ -83,16 +83,16 @@
                 </div>
 
                 
-                <!-- Sidebar Igrejas -->
-                  <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapseChurchs" aria-expanded="false" aria-controls="collapseChurchs">
+                <!-- Sidebar Locais -->
+                  <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapsePlaces" aria-expanded="false" aria-controls="collapsePlaces">
                     <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
-                    Igrejas
+                    Locais
                     <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseChurchs" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
+                <div class="collapse" id="collapsePlaces" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="<?=url("/painel/igrejas/cadastrar")?>"><i class="bi bi-list bi-2xx me-2"></i> Cadastrar</a>
-                        <a class="nav-link" href="<?=url("/painel/igrejas")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                        <a class="nav-link" href="<?=url("/painel/locais/cadastrar")?>"><i class="bi bi-list bi-2xx me-2"></i> Cadastrar</a>
+                        <a class="nav-link" href="<?=url("/painel/locais")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                     </nav>
                 </div>
 

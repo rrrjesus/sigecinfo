@@ -14,18 +14,18 @@ use Source\Core\Connect;
 
 function retorna($nome) {
 
-    $stmt = Connect::getInstance()->query("SELECT `users`.`id`, `users`.`user_name`, `churchs`.`id`, `churchs`.`church_name` FROM users LEFT JOIN churchs ON users.church_id = churchs.id WHERE CONCAT(`users`.`id`,' - ',`users`.`user_name`) = '{$nome}'");
+    $stmt = Connect::getInstance()->query("SELECT `users`.`id`, `users`.`user_name`, `places`.`id`, `places`.`place_name` FROM users LEFT JOIN places ON users.place_id = places.id WHERE CONCAT(`users`.`id`,' - ',`users`.`user_name`) = '{$nome}'");
 
     $arr = Array();
     if ($stmt->rowCount()) {
         while ($dados = $stmt->fetch()) {
             $arr['user_id'] = $dados->user_name;
-            $arr['church_id'] = $dados->id.' - '.$dados->church_name;
+            $arr['place_id'] = $dados->id.' - '.$dados->place_name;
         }
     }
     else {
         $arr['user_id'] = '';
-        $arr['church_id'] = '';
+        $arr['place_id'] = '';
     }
     return json_encode($arr);
 

@@ -28,7 +28,7 @@
                                     <th class="text-center"><i class="bi bi-person-vcard me-2"></i>Nome</th>
                                     <th class="text-center"><i class="bi bi-phone me-2"></i>Celular</th>
                                     <th class="text-center"><i class="bi bi-person-badge me-2"></i>Cargo</th>
-                                    <th class="text-center"><i class="bi bi-bank me-2"></i>Igreja</th>
+                                    <th class="text-center"><i class="bi bi-bank me-2"></i>Local</th>
                                     <th class="text-center"><i class="bi bi-envelope-at me-2"></i>Email</th>
                                     <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
                                     <th class="text-center"><i class="bi bi-diagram-3 me-2"></i>Nível</th>

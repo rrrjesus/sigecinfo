@@ -1,15 +1,15 @@
 <?php
 
-namespace Source\Domain\Church\Models;
+namespace Source\Domain\Place\Models;
 
 use Source\Core\Model;
 use Source\Domain\User\Models\User;
 
-class Church extends Model
+class Place extends Model
 {
     public function __construct()
     {
-        parent::__construct("churchs", ["id"], ["church_name", "country_id", "code_id", "address", "city", "state", "status"]);
+        parent::__construct("places", ["id"], ["place_name", "country_id", "code_id", "address", "city", "state", "status"]);
     }
 
     /**
@@ -17,19 +17,19 @@ class Church extends Model
      * @param string $columns
      * @return null|User
      */
-    public function findByCode(string $code_id, string $columns = "*"): ?Church
+    public function findByCode(string $code_id, string $columns = "*"): ?Place
     {
         $find = $this->find("code_id = :code_id", "code_id={$code_id}", $columns);
         return $find->fetch();
     }
 
     /**
-     * @return null|Church
+     * @return null|Place
      */
-    public function church(): ?Church
+    public function place(): ?Place
     {
-        if ($this->church_id) {
-            return (new Church())->findById($this->church_id);
+        if ($this->place_id) {
+            return (new Place())->findById($this->place_id);
         }
         return null;
     }
@@ -47,16 +47,16 @@ class Church extends Model
     }
     
     /**
-     * @return null|Church
+     * @return null|Place
      */
-    static function completeChurch(): ?Church
+    static function completePlace(): ?Place
     {
-        $stm = (new Church())->find("status= :s","s=actived");
+        $stm = (new Place())->find("status= :s","s=actived");
         $array[] = array();
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->id.' - '.$row->church_name;
+                    $array[] = $row->id.' - '.$row->place_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -72,14 +72,14 @@ class Church extends Model
 
         /** User Update */
         if (!empty($this->id)) {
-            $churchId = $this->id;
+            $placeId = $this->id;
 
-            if (!empty($this->code_id) && $this->find("code_id = :c AND id != :i", "c={$this->code_id}&i={$churchId}", "id")->fetch()) {
-                $this->message->warning("A Igreja informada já está cadastrada");
+            if (!empty($this->code_id) && $this->find("code_id = :c AND id != :i", "c={$this->code_id}&i={$placeId}", "id")->fetch()) {
+                $this->message->warning("O Local informado já está cadastrado !!!");
                 return false;
             }
 
-            $this->update($this->safe(), "id = :id", "id={$churchId}");
+            $this->update($this->safe(), "id = :id", "id={$placeId}");
             if ($this->fail()) {
                 $this->message->error("Erro ao atualizar, verifique os dados");
                 return false;
@@ -89,18 +89,18 @@ class Church extends Model
         /** User Create */
         if (empty($this->id)) {
             if ($this->findByCode($this->code_id, "id")) {
-                $this->message->warning("Já existe uma igreja cadastrada com este código.");
+                $this->message->warning("Já existe um local cadastrado com este código.");
                 return false;
             }
 
-            $churchId = $this->create($this->safe());
+            $placeId = $this->create($this->safe());
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
                 return false;
             }
         }
 
-        $this->data = ($this->findById($churchId))->data();
+        $this->data = ($this->findById($placeId))->data();
         return true;
     }
 }

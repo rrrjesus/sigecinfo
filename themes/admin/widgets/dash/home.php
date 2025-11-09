@@ -25,10 +25,10 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/igrejas'); ?>" class="text-white text-decoration-none">Igrejas</a></div>
-                                            <div class="h6 mb-1">Ativas: <span class="badge bg-light text-dark"><?= $churchs->actived; ?></span></div>
-                                            <div class="h6 mb-1">Desativadas: <span class="badge bg-light text-dark"><?= $churchs->disabled; ?></span></div>
-                                            <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $churchs->total; ?></span></div>
+                                            <div class="fw-semibold text-uppercase mb-1 fs-5"><a href="<?= url('/painel/locais'); ?>" class="text-white text-decoration-none">Locais</a></div>
+                                            <div class="h6 mb-1">Ativas: <span class="badge bg-light text-dark"><?= $places->actived; ?></span></div>
+                                            <div class="h6 mb-1">Desativadas: <span class="badge bg-light text-dark"><?= $places->disabled; ?></span></div>
+                                            <div class="h6 mb-0">Total: <span class="badge bg-light text-dark"><?= $places->total; ?></span></div>
                                         </div>
                                         <div class="col-auto"><i class="bi bi-bank2 fs-1 opacity-50"></i></div>
                                     </div>

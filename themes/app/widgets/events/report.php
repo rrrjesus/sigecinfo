@@ -226,7 +226,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Cargo/Ministério</th>
-                            <th>Igreja</th>
+                            <th>Local</th>
                             <th style="width: 30%;">Assinatura</th>
                         </tr>
                     </thead>
@@ -235,7 +235,7 @@
                             <tr>
                                 <td><?= $participant->user()->user_name; ?></td>
                                 <td><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
-                                <td><?= $participant->user()->church()->church_name ?? 'N/A'; ?></td>
+                                <td><?= $participant->user()->place()->place_name ?? 'N/A'; ?></td>
                                  <td class="text-center align-middle">
                                     <?php if (!empty($participant->signature)): ?>
                                         <img src="<?= url(CONF_UPLOAD_DIR . "/" . $participant->signature) ?>" alt="Assinatura" style="max-height: 35px; width: auto;">
@@ -282,9 +282,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($attendanceReport->matrixData as $churchName => $positions): ?>
+                        <?php foreach ($attendanceReport->matrixData as $placeName => $positions): ?>
                             <tr>
-                                <td class="fw-bold"><?= $churchName; ?></td>
+                                <td class="fw-bold"><?= $placeName; ?></td>
                                 <?php foreach ($attendanceReport->headerPositions as $positionName): ?>
                                     <td class="text-center"><?= $positions[$positionName] ?? ''; ?></td>
                                 <?php endforeach; ?>

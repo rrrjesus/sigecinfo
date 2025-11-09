@@ -10,20 +10,20 @@
 
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white fw-semibold">
-                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door-fill me-2"></i>Igrejas Desativadas</h6>
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door-fill me-2"></i>Locais Desativados</h6>
                     <div>
-                        <?= button(["href" => "/painel/igrejas", "title" => "Voltar a Lista de Igrejas", "custom" => "custom-tooltip-secondary", "name" => "Voltar", "icon" => "arrow-left me-1", "btncolor" => "light"]); ?>
+                        <?= button(["href" => "/painel/locais", "title" => "Voltar a Lista de Locais", "custom" => "custom-tooltip-secondary", "name" => "Voltar", "icon" => "arrow-left me-1", "btncolor" => "light"]); ?>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
-                        <table id="churchsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
+                        <table id="placesDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
                             <thead class="table-danger">
                                 <tr>
                                     <th><i class="bi bi-person-bounding-box me-2"></i>Foto</th>
                                     <th><i class="bi bi-flag me-2"></i>País</th>
                                     <th><i class="bi bi-hash me-2"></i>Código</th>
-                                    <th><i class="bi bi-house-door me-2"></i>Igreja</th>
+                                    <th><i class="bi bi-house-door me-2"></i>Local</th>
                                     <th><i class="bi bi-phone me-2"></i>Telefone</th>
                                     <th><i class="bi bi-geo-alt me-2"></i>Endereço</th>
                                     <th><i class="bi bi-mailbox2 me-2"></i>CEP</th>
@@ -35,13 +35,13 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                            <?php if(!empty($churchs)){ ?>
-                            <?php foreach ($churchs as $lista): ?>
+                            <?php if(!empty($places)){ ?>
+                            <?php foreach ($places as $lista): ?>
                                 <tr class="fw-semibold">
                                     <td><?=photoList($lista->photo, 'avatar.jpg');?></td>
                                     <td><?=$lista->country_id;?></td>
                                     <td><?=$lista->code_id;?></td>
-                                    <td class="text-uppercase"><?=$lista->church_name;?></td>
+                                    <td class="text-uppercase"><?=$lista->place_name;?></td>
                                     <td><?=$lista->phone;?></td>
                                     <td class="text-uppercase"><?=$lista->address;?></td>
                                     <td><?=$lista->zip_code;?></td>

@@ -599,18 +599,22 @@ function avatar(
     return "<img{$attributesString}>";
 }
 
-
 /**
+ * Gera um badge de status para usuários.
  * @param string $status
  * @return string
  */
 function statusBadge(string $status): string
 {
-    if($status == 'disabled'):
-        return '<h5><span class="badge fw-semibold text-bg-danger p-2">DESATIVADO</span></h5>';
-    else:
-        return '<h5><span class="badge fw-semibold text-bg-success text-light p-2">ATIVO</span></h5>';
-    endif;
+    $status = strtolower(trim($status));
+    $labels = [
+        'actived' => ['class' => 'text-bg-success text-light', 'label' => 'ATIVO'],
+        'disabled' => ['class' => 'text-bg-danger', 'label' => 'INATIVO']
+    ];
+
+    $style = $labels[$status] ?? ['class' => 'text-bg-secondary', 'label' => strtoupper($status)];
+
+    return "<h5><span class='badge fw-semibold {$style['class']} p-2'>{$style['label']}</span></h5>";
 }
 
 /**

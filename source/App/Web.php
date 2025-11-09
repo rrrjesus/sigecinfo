@@ -209,7 +209,7 @@ class Web extends Controller
             $user->email = $googleUser->getEmail();
             $user->password = password_hash(uniqid(), PASSWORD_DEFAULT);
             $user->status = "actived"; // Automatically activate user
-            $user->church_id = 1;
+            $user->place_id = 1;
             $user->level_id = 1;
             
             if ($user->save()) {

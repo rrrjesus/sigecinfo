@@ -118,7 +118,7 @@ class EventService
     }
 
     /**
-     * Gera uma matriz de comparecimento por igreja e por cargo.
+     * Gera uma matriz de comparecimento por local e por cargo.
      * @param array|null $participants A lista de participantes do evento.
      * @return object|null Um objeto contendo a matriz de dados, listas de cabeçalhos e totais.
      */
@@ -136,7 +136,7 @@ class EventService
         // 1. Processa apenas os participantes com status 'presente'
         foreach ($participants as $participant) {
             if ($participant->status === 'presente') {
-                $churchName = $participant->user()->church()->church_name ?? 'Outra Localidade';
+                $placeName = $participant->user()->place()->place_name ?? 'Outra Localidade';
                 $positionName = $participant->user()->position()->position_name ?? 'Sem Cargo';
 
                 // Adiciona a posição à lista de cabeçalhos
@@ -145,16 +145,16 @@ class EventService
                     $columnTotals[$positionName] = 0;
                 }
 
-                // Inicializa a linha da igreja se for a primeira vez
-                if (!isset($matrix[$churchName])) {
-                    $matrix[$churchName] = ['_row_total' => 0];
+                // Inicializa a linha da local se for a primeira vez
+                if (!isset($matrix[$placeName])) {
+                    $matrix[$placeName] = ['_row_total' => 0];
                 }
                 
-                // Inicializa e incrementa a contagem para a célula [igreja][cargo]
-                if (!isset($matrix[$churchName][$positionName])) {
-                    $matrix[$churchName][$positionName] = 0;
+                // Inicializa e incrementa a contagem para a célula [local][cargo]
+                if (!isset($matrix[$placeName][$positionName])) {
+                    $matrix[$placeName][$positionName] = 0;
                 }
-                $matrix[$churchName][$positionName]++;
+                $matrix[$placeName][$positionName]++;
             }
         }
 
@@ -162,7 +162,7 @@ class EventService
 
         // 2. Ordena os cabeçalhos e calcula os totais
         sort($allPositions);
-        foreach ($matrix as $churchName => &$positionsData) {
+        foreach ($matrix as $placeName => &$positionsData) {
             $rowTotal = 0;
             foreach ($allPositions as $positionName) {
                 if (isset($positionsData[$positionName])) {
@@ -175,7 +175,7 @@ class EventService
             $grandTotal += $rowTotal;
         }
         
-        // Ordena a matriz pelo nome da igreja
+        // Ordena a matriz pelo nome da local
         ksort($matrix);
 
         return (object)[

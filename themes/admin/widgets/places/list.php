@@ -9,25 +9,25 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
-                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door me-2"></i>Igrejas</h6>
+                <div class="card-header bg-<?=CONF_ADMIN_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door me-2"></i>Locais Ativos</h6>
                     <div>
-                        <?= button(["href" => "/painel/igrejas/cadastrar", "title" => "Cadastrar uma nova igreja", "custom" => "custom-tooltip-secondary", "btncolor" => "light", "name" => "Cadastrar", "icon" => "plus-circle me-1"]); ?>
+                        <?= button(["href" => "/painel/locais/cadastrar", "title" => "Cadastrar um novo local", "custom" => "custom-tooltip-dark", "btncolor" => "light", "name" => "Cadastrar", "icon" => "plus-circle me-1"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/painel/igrejas/desativadas", "title" => "Igrejas Desativadas", "custom" => "custom-tooltip-secondary", "name" => "Desativadas", "btncolor" => "light", "disabled_count" => $registers->disabled]); ?>
+                            <?= button(["href" => "/painel/locais/desativados", "title" => "Locais Desativados", "custom" => "custom-tooltip-dark", "name" => "Desativados", "btncolor" => "light", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
-                        <table id="churchs" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
-                            <thead class="table-secondary">
+                        <table id="places" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                            <thead class="table-dark">
                                 <tr>
                                     <th class="text-center"><i class="bi bi-pencil-square me-2"></i>Editar</th>
                                     <th class="text-center"><i class="bi bi-person-bounding-box me-2"></i>Foto</th>
                                     <th class="text-center"><i class="bi bi-flag me-2"></i>País</th>
                                     <th class="text-center"><i class="bi bi-hash me-2"></i>Código</th>
-                                    <th class="text-center"><i class="bi bi-house-door me-2"></i>Igreja</th>
+                                    <th class="text-center"><i class="bi bi-house-door me-2"></i>Local</th>
                                     <th class="text-center"><i class="bi bi-phone me-2"></i>Telefone</th>
                                     <th class="text-center"><i class="bi bi-geo-alt me-2"></i>Endereço</th>
                                     <th class="text-center"><i class="bi bi-mailbox2 me-2"></i>CEP</th>
@@ -39,18 +39,18 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <?php if(!empty($churchs)){ ?>
-                                <?php foreach ($churchs as $lista): ?>
+                                <?php if(!empty($places)){ ?>
+                                <?php foreach ($places as $lista): ?>
                                     <tr class="fw-semibold">
-                                        <td><a href="<?= url("/painel/igrejas/editar/{$lista->id}") ?>" data-bs-toggle-tooltip="tooltip" 
+                                        <td><a href="<?= url("/painel/locais/editar/{$lista->id}") ?>" data-bs-toggle-tooltip="tooltip" 
                                             data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" 
-                                            data-bs-title="Clique para editar <?=$lista->church_name?>" role="button" 
+                                            data-bs-title="Clique para editar <?=$lista->place_name?>" role="button" 
                                             class="btn btn-outline-warning rounded-circle btn-sm">
                                             <i class="bi bi-pencil text-secondary"></i></a></td>
                                         <td><?=photoList($lista->photo, 'avatar-ccb.jpg');?></td>
                                         <td><?=$lista->country_id;?></td>
                                         <td><?=$lista->code_id;?></td>
-                                        <td class="text-uppercase"><?= $lista->church_name; ?></td>
+                                        <td class="text-uppercase"><?= $lista->place_name; ?></td>
                                         <td><?=$lista->phone;?></td>
                                         <td class="text-uppercase"><?= $lista->address; ?></td>
                                         <td><?=$lista->zip_code;?></td>

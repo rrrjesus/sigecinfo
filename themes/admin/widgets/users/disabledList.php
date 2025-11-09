@@ -26,7 +26,7 @@
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NOME</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>CEL</th>
                     <th class="text-center"><i class="bi bi-building me-1"></i><br>MINISTERIO/CARGO</th>
-                    <th class="text-center"><i class="bi bi-building me-1"></i><br>IGREJA</th>
+                    <th class="text-center"><i class="bi bi-building me-1"></i><br>LOCAL</th>
                     <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>EMAIL</th>
                     <th class="text-center"><i class="bi bi-envelope-at me-1"></i><br>STATUS</th>
                     <th class="text-center"><i class="bi bi-person me-1"></i><br>NIVEL</th>
@@ -42,9 +42,9 @@
                         <td class="text-center text-uppercase"><?=$lista->user_name;?></td>
                         <td class="text-center text-uppercase"><?=(!empty($lista->phone_mobile) ? '('.substr($lista->phone_mobile,0,2).')'.substr($lista->phone_mobile,2,9) : "") ;?></td>
                         <td class="text-center"><?=(!empty($lista->position_id) ? $lista->position()->position_name : "");?></td>
-                        <td class="text-center"><?=(!empty($lista->church_id) ? $lista->church()->church_name : "");?></td>
+                        <td class="text-center"><?=(!empty($lista->place_id) ? $lista->place()->place_name : "");?></td>
                         <td class="text-center"><?=$lista->email;?></td>
-                        <td class="text-center"><?=statusSpan($lista->status);?></td>
+                        <td class="text-center"><h5><span class="badge fw-semibold text-bg-danger text-light p-2 m-3">INATIVO</span></h5></td>
                         <td class="text-center text-uppercase"><?=$lista->level()->level_name;?></td>
                         <td class="text-center"><?=$lista->id;?></td>
                         <td class="text-center"><?=$lista->id;?></td>

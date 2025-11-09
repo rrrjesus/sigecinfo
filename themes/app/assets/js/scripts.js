@@ -196,9 +196,9 @@ $(function () {
      */
 
     $("input[name='user_id']").blur(function(){
-        var $church_id = $("input[name='church_id']");
+        var $place_id = $("input[name='place_id']");
 
-        $church_id.val('Carregando...');
+        $place_id.val('Carregando...');
 
         $.getJSON(
             '../../themes/smsubapp/autocomplete/complete-user.php',
@@ -207,7 +207,7 @@ $(function () {
 
             function( json )
             {
-                $church_id.val( json.church_id );
+                $place_id.val( json.place_id );
             }
         );
     });
@@ -219,9 +219,9 @@ $(function () {
      */
 
      $("input[name='user_id_edit']").blur(function(){
-        var $church_id_edit = $("input[name='church_id_edit']");
+        var $place_id_edit = $("input[name='place_id_edit']");
 
-        $church_id_edit.val('Carregando...');
+        $place_id_edit.val('Carregando...');
 
         $.getJSON(
             '../../../themes/smsubapp/autocomplete/complete-user-edit.php',
@@ -230,7 +230,7 @@ $(function () {
 
             function( json )
             {
-                $church_id_edit.val( json.church_id_edit );
+                $place_id_edit.val( json.place_id_edit );
             }
         );
     });
@@ -242,9 +242,9 @@ $(function () {
      */
 
      $("input[name='user_id_history_edit']").blur(function(){
-        var $church_id_history_edit = $("input[name='church_id_history_edit']");
+        var $place_id_history_edit = $("input[name='place_id_history_edit']");
 
-        $church_id_history_edit.val('Carregando...');
+        $place_id_history_edit.val('Carregando...');
 
         $.getJSON(
             '../../../../themes/smsubapp/autocomplete/complete-user-history-edit.php',
@@ -253,7 +253,7 @@ $(function () {
 
             function( json )
             {
-                $church_id_history_edit.val( json.church_id_history_edit );
+                $place_id_history_edit.val( json.place_id_history_edit );
             }
         );
     });
