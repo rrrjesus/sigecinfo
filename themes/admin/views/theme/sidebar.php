@@ -48,15 +48,15 @@
                 <div class="collapse" id="collapseEvents" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 
-                        <!-- Sidebar de Empresas -->
-                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapseAppointments" aria-expanded="false" aria-controls="pagesCollapseAppointments">
-                            Agendamento
+                        <!-- Sidebar de Locais -->
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#patrimonyCollapsePlaces" aria-expanded="false" aria-controls="pagesCollapsePlaces">
+                            Locais
                             <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
                         </a>
-                        <div class="collapse" id="patrimonyCollapseAppointments" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionAppointments">
+                        <div class="collapse" id="patrimonyCollapsePlaces" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPlaces">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?=url("/painel/eventos/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
-                                <a class="nav-link" href="<?=url("/painel/eventos")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
+                                <a class="nav-link" href="<?=url("/painel/locais/cadastrar")?>"><i class="bi bi-journal-plus bi-2xx me-2"></i> Cadastrar</a>
+                                <a class="nav-link" href="<?=url("/painel/locais")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                             </nav>
                         </div>
 
@@ -79,20 +79,6 @@
                         </div>
                         
 
-                    </nav>
-                </div>
-
-                
-                <!-- Sidebar Locais -->
-                  <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapsePlaces" aria-expanded="false" aria-controls="collapsePlaces">
-                    <div class="sb-nav-link-icon"><i class="bi bi-person bi-2xx"></i></div>
-                    Locais
-                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                </a>
-                <div class="collapse" id="collapsePlaces" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionEvent">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="<?=url("/painel/locais/cadastrar")?>"><i class="bi bi-list bi-2xx me-2"></i> Cadastrar</a>
-                        <a class="nav-link" href="<?=url("/painel/locais")?>"><i class="bi bi-list bi-2xx me-2"></i> Listar</a>
                     </nav>
                 </div>
 
