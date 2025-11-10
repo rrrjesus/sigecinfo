@@ -2,9 +2,10 @@
 
 <div class="form-signin w-100 m-auto mt-5 p-3 p-md-5">
 
-    <div class="text-center mb-1">
+<!--    <div class="text-center mb-1">
         <img class="mb-2" src="<?= theme("/assets/images/logo/sigecinfo-logo-v2.png") ?>" alt="Logo SIGECINFO" width="150">
     </div>
+-->
 
     <form class="needs-validation" novalidate id="login" action="<?= url("/entrar") ?>" method="post" >
 
@@ -41,9 +42,7 @@
             <button class="btn btn-primary fw-semibold mt-3" type="submit" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-secondary" data-bs-title="Clique para fazer o login"><i class="bi bi-box-arrow-in-right me-1"></i>Entrar</button>
         </div>
 
-        <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0 text-muted">OU</p>
-        </div>
+        <div class="divider d-flex align-items-center my-1"></div>
 
         <div class="d-grid">
             <a class="btn btn-danger fw-semibold mt-1" href="<?= url("/auth/google"); ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip-danger" data-bs-title="Clique para fazer o login com o Google">
