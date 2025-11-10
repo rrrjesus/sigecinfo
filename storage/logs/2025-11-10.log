@@ -1,0 +1,4 @@
+[error] [14:46:46] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente
+[error] [14:46:49] Erro de conexão com o banco de dados: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente
+[error] [14:51:39] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1049] Unknown database 'sigecinfo'
+[error] [14:51:39] Erro de conexão com o banco de dados: SQLSTATE[HY000] [1049] Unknown database 'sigecinfo'
