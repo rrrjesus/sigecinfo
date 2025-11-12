@@ -135,8 +135,6 @@ $route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails"
 $route->get("/eventos/checkin/{participant_id}", "Events:showCheckInPage");
 $route->post("/eventos/checkin-page", "Events:processCheckInFromPage");
 // $route->post("/eventos/checkin", "Events:processCheckIn");
-$route->get("/eventos/google-calendar-callback", "Events:googleCalendarCallback");
-$route->post("/eventos/google-calendar", "Events:createGoogleCalendarEvent");
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
     (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
 });

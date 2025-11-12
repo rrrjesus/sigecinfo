@@ -4,6 +4,7 @@ namespace Source\Core;
 
 use Source\Support\Message;
 use Source\Support\Seo;
+use Source\Core\Session;
 
 /**
  * FSPHP | Class Controller

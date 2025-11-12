@@ -36,7 +36,7 @@ class Users extends Admin
      */
     public function users(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Users', 'view');
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários", CONF_SITE_DESC, url("/painel"), null, false);
 
@@ -57,7 +57,7 @@ class Users extends Admin
      */
     public function disabledUsers(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Users', 'view');
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários Desativados", CONF_SITE_DESC, url("/painel"), null, false);
         $users = (new User())->find("status = :s", "s=disabled")->order("user_name ASC")->fetch(true);
@@ -80,8 +80,6 @@ class Users extends Admin
      */
     public function profile(?array $data): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
-
         if (!empty($data["action"]) && $data["action"] == "profile") {
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
             $userProfile = (new User())->findById($this->user->id);
@@ -148,7 +146,7 @@ class Users extends Admin
      */
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Users', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
@@ -188,9 +186,12 @@ class Users extends Admin
                 echo json_encode($json);
                 return;
             } else {
+                $json['message'] = $this->auth->message()->render();
                 $json['message'] = $this->auth->message()->before("Ooops! ")->render();
             }
 
+            echo json_encode($json);
+            return;
             if (!$userCreate->save()) {
                 $json["message"] = $userCreate->message()->render();
                 echo json_encode($json);
@@ -225,8 +226,8 @@ class Users extends Admin
      */
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
-        
+        $this->authorize('Users', 'edit');
+
         $userEdit = (new User())->findById($data["user_id"]);
 
         if (!$userEdit) {
@@ -385,7 +386,7 @@ public function searchJson(array $data): void
      */
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('Users', 'delete');
 
         $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
         $userDelete = (new User())->findById($userId);
@@ -416,7 +417,8 @@ public function searchJson(array $data): void
      */
     public function toggleStatus(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Users', 'edit'); // Ação de ativar/desativar é uma forma de edição
+
         $userId = filter_var($data["user_id"], FILTER_VALIDATE_INT);
         $user = (new User())->findById($userId);
 

@@ -24,7 +24,7 @@ class Events extends Admin
 
     public function list(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos"), null, false);
         
@@ -43,7 +43,7 @@ class Events extends Admin
 
     public function disabledEvents(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos"), null, false);
         
@@ -61,7 +61,7 @@ class Events extends Admin
 
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = sanitize_array($data);
@@ -150,7 +150,7 @@ class Events extends Admin
 
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -270,7 +270,7 @@ class Events extends Admin
 
     public function report(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit'); // Acesso a relatórios é uma permissão de edição/gestão
         
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -310,7 +310,7 @@ class Events extends Admin
 
     public function start(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
@@ -328,7 +328,7 @@ class Events extends Admin
 
     public function finish(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
@@ -346,7 +346,7 @@ class Events extends Admin
 
     public function showCheckInPage(array $data): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
@@ -429,7 +429,7 @@ class Events extends Admin
 
     public function checkIn(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
         $participant = (new EventParticipant())->findById($participantId);
 
@@ -501,7 +501,7 @@ class Events extends Admin
 
     public function removeParticipant(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
 
         if ($participantId) {
@@ -519,7 +519,8 @@ class Events extends Admin
 
     public function changeResponse(array $data): void
     {
-        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        // Qualquer usuário logado pode alterar sua própria resposta. A lógica de permissão está no método.
+        // Não precisa de um authorize() aqui, pois a verificação é se o participante é o usuário logado.
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
@@ -533,7 +534,7 @@ class Events extends Admin
 
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('Events', 'delete');
 
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -561,7 +562,7 @@ class Events extends Admin
 
     public function toggleStatus(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
@@ -578,7 +579,7 @@ class Events extends Admin
 
     public function getParticipantDetails(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
         $eventParticipant = (new EventParticipant())->findById($participantId);
@@ -632,7 +633,7 @@ class Events extends Admin
 
     public function qrCodeCheckIn(array $data): void
     {
-        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        // Qualquer usuário logado pode ver seu próprio QR Code.
 
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
@@ -785,7 +786,7 @@ class Events extends Admin
 
     public function listEvents(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos"), null, false);
         
@@ -804,7 +805,7 @@ class Events extends Admin
 
     public function listEventsDisableds(): void
     {
-        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos Finalizados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/finalizados"), null, false);
         
@@ -916,7 +917,7 @@ class Events extends Admin
 
     public function completedEvents(): void
     {
-        $this->authorize(['Usuario', 'Usuario Editor', 'Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        // Qualquer usuário logado pode ver seu histórico.
             
         $head = $this->seo->render("Meu Histórico de Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/app/eventos/meus-eventos-finalizados"), null, false);
         

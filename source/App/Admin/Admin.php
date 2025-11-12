@@ -4,6 +4,7 @@ namespace Source\App\Admin;
 
 use Source\Core\Controller;
 use Source\Core\Session;
+use Source\Domain\Shared\Authorization;
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Report\Models\Access;
 use Source\Domain\Report\Models\Online;
@@ -35,24 +36,27 @@ class Admin extends Controller
             exit;
         }
 
-        if ($this->user->level_id < 3) {
-            $this->message->error("Você não tem permissão para acessar esta área.")->flash();
+        // Apenas Níveis 1 e 2 (Admin e Editor Admin) acessam o painel administrativo
+        if ($this->user->level_id > 2) {
+            $this->message->warning("Acesso negado. Você não tem permissão para acessar o painel.")->flash();
             redirect("/");
             exit;
         }
     }
 
     /**
-     * @param array $allowedLevels
+     * Verifica a permissão do usuário para um módulo e ação.
+     * Redireciona para uma página de "acesso negado" se não tiver permissão.
+     *
+     * @param string $module O módulo a ser verificado (ex: 'Users').
+     * @param string $action A ação a ser verificada (ex: 'view', 'create').
      */
-    protected function authorize(array $allowedLevels): void
+    protected function authorize(string $module, string $action): void
     {
-        $session = new Session();
-        $userLevelName = $session->user_level_name ?? null;
-
-        if (!in_array($userLevelName, $allowedLevels)) {
-            $this->message->error("Acesso negado! Você não tem permissão para esta ação. !!!")->flash();
-            redirect(url_back());
+        $authorization = new Authorization();
+        if (!$authorization->hasPermission($module, $action)) {
+            $this->message->error("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
+            redirect("/painel/controle/inicial");
             exit;
         }
     }

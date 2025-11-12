@@ -189,45 +189,15 @@ class Web extends Controller
 
             // LOGIN IF USER EXISTS
             if ($user) {
-                $session = new \Source\Core\Session();
-                $session->set("authUser", $user->id);
-
-                $userLevel = $user->level(); 
-                if ($userLevel) {
-                    $session->set("user_level_id", $userLevel->id);
-                    $session->set("user_level_name", $userLevel->level_name);
-                }
-
+                $this->_startUserSession($user);
                 $this->message->success("Seja bem-vindo(a) de volta " . $user->user_name . "!")->flash();
                 redirect("/app/home");
                 return;
             }
 
-            // REGISTER IF USER DOES NOT EXIST
-            $user = new User();
-            $user->user_name = $googleUser->getFirstName();
-            $user->email = $googleUser->getEmail();
-            $user->password = password_hash(uniqid(), PASSWORD_DEFAULT);
-            $user->status = "actived"; // Automatically activate user
-            $user->place_id = 1;
-            $user->level_id = 1;
-            
-            if ($user->save()) {
-                $session = new \Source\Core\Session();
-                $session->set("authUser", $user->id);
-
-                $userLevel = $user->level(); 
-                if ($userLevel) {
-                    $session->set("user_level_id", $userLevel->id);
-                    $session->set("user_level_name", $userLevel->level_name);
-                }
-
-                $this->message->success("Cadastro realizado com sucesso! Seja bem-vindo(a), " . $user->user_name . "!")->flash();
-                redirect("/app/home");
-            } else {
-                $this->message->error($user->fail()->getMessage())->flash();
-                redirect("/entrar");
-            }
+            // IF USER DOES NOT EXIST, DO NOT REGISTER
+            $this->message->error("Este e-mail não está cadastrado. Peça a um administrador para criar seu acesso.")->flash();
+            redirect("/entrar");
 
         } catch (\Exception $e) {
             $this->message->error("Erro ao processar login com o Google.")->flash();
@@ -324,38 +294,8 @@ class Web extends Controller
      */
     public function register(?array $data): void
     {
-        if (Auth::user()) {
-            redirect("/app/home");
-        }
-
-        if (!empty($data['csrf'])) {
-            if (!csrf_verify($data)) {
-                $json['message'] = $this->message->error("Erro ao enviar, favor use o formulário")->render();
-                echo json_encode($json);
-                return;
-            }
-
-            if (in_array("", $data)) {
-                $json['message'] = $this->message->info("Informe seus dados para criar sua conta.")->render();
-                echo json_encode($json);
-                return;
-            }
-
-            $user = new User();
-            $user->bootstrap($data["user_name"], $data["email"], $data["password"]);
-
-            if ($this->auth->register($user)) {
-                $json['redirect'] = url("/confirma");
-            } else {
-                $json['message'] = $this->auth->message()->before("Ooops! ")->render();
-            }
-
-            echo json_encode($json);
-            return;
-        }
-
-        $head = $this->seo->render("Criar Conta - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/cadastrar"), theme("/assets/images/share.png"));
-        echo $this->view->render("auth-register", ["head" => $head]);
+        $this->message->info("O auto-cadastro está desativado. Por favor, contate um administrador.")->flash();
+        redirect("/entrar");
     }
 
     /**
@@ -497,5 +437,21 @@ class Web extends Controller
             "head" => $head,
             "error" => $error
         ]);
+    }
+
+    /**
+     * Starts user session
+     * @param User $user
+     */
+    private function _startUserSession(User $user): void
+    {
+        $session = new \Source\Core\Session();
+        $session->set("authUser", $user->id);
+
+        $userLevel = $user->level();
+        if ($userLevel) {
+            $session->set("user_level_id", $userLevel->id);
+            $session->set("user_level_name", $userLevel->level_name);
+        }
     }
 }

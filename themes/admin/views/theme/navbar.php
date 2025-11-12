@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="<?=url("/painel")?>">
+    <a class="navbar-brand text-center ps-3" href="<?=url("/painel")?>">
         <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-final-v3.png", CONF_VIEW_ADMIN)?>">
     </a>
 

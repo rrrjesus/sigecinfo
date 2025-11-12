@@ -32,7 +32,7 @@ class Events extends Admin
      */
     public function list(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
         
@@ -53,7 +53,7 @@ class Events extends Admin
      */
     public function disabledEvents(): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'view');
 
         $head = $this->seo->render("Eventos Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/eventos"), null, false);
         
@@ -73,7 +73,7 @@ class Events extends Admin
      */
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = sanitize_array($data);
@@ -159,7 +159,7 @@ class Events extends Admin
      */
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -275,7 +275,7 @@ class Events extends Admin
      */
     public function report(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit'); // Acesso a relatórios é uma permissão de edição/gestão
         
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -320,7 +320,7 @@ class Events extends Admin
      */
     public function start(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
@@ -342,7 +342,7 @@ class Events extends Admin
      */
     public function finish(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
 
@@ -364,7 +364,7 @@ class Events extends Admin
      */
     public function showCheckInPage(array $data): void
     {
-        $this->authorize(['Editor', 'Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
@@ -460,7 +460,7 @@ class Events extends Admin
  */
 public function checkIn(array $data): void
 {
-    $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+    $this->authorize('Events', 'edit');
     $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
     $participant = (new EventParticipant())->findById($participantId);
 
@@ -545,7 +545,7 @@ public function checkIn(array $data): void
      */
     public function removeParticipant(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
 
         if ($participantId) {
@@ -567,7 +567,7 @@ public function checkIn(array $data): void
      */
     public function changeResponse(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('Events', 'edit');
         $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
@@ -587,7 +587,7 @@ public function checkIn(array $data): void
      */
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('Events', 'delete');
 
         $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
         $event = (new Event())->findById($eventId);
@@ -618,7 +618,7 @@ public function checkIn(array $data): void
          */
         public function toggleStatus(array $data): void
         {
-            $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+            $this->authorize('Events', 'edit');
             $eventId = filter_var($data["event_id"], FILTER_VALIDATE_INT);
             $event = (new Event())->findById($eventId);
     
@@ -641,7 +641,7 @@ public function checkIn(array $data): void
          */
         public function getParticipantDetails(array $data): void
         {
-            $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+            $this->authorize('Events', 'edit');
             
             $participantId = filter_var($data["participant_id"], FILTER_VALIDATE_INT);
             $eventParticipant = (new EventParticipant())->findById($participantId);
