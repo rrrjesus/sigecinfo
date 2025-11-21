@@ -928,11 +928,11 @@ function passwd_rehash(string $hash): bool
 function level_badge(string $levelName): string
 {
     $badges = [
-        'Usuario' => '<h5><span class="badge fw-semibold text-bg-primary ms-2">USUARIO</span></h5>',
-        'Usuario Editor' => '<h5><span class="badge fw-semibold text-bg-light ms-2">EDITOR</span></h5>',
-        'Editor' => '<h5><span class="badge fw-semibold text-bg-info ms-2">EDITOR +</span>',
-        'Editor Administrador' => '<h5><span class="badge fw-semibold text-bg-success ms-2">ADMIN*</span></h5>',
-        'Administrador do Sistema' => '<h5><span class="badge fw-semibold text-bg-warning ms-2">SUPER ADMIN</span></h5>'
+        'Usuário' => '<h5><span class="badge fw-semibold text-bg-primary ms-2">USUÁRIO</span></h5>',
+        'Usuario Editor' => '<h5><span class="badge fw-semibold text-bg-info ms-2">USUÁRIO EDITOR</span></h5>',
+        'Editor' => '<h5><span class="badge fw-semibold text-bg-warning ms-2">EDITOR</span>',
+        'Editor Administrador' => '<h5><span class="badge fw-semibold text-bg-success ms-2">EDITOR ADMINISTRADOR</span></h5>',
+        'Administrador do Sistema' => '<h5><span class="badge fw-semibold text-bg-danger ms-2">ADMINISTRADOR</span></h5>'
     ];
 
     return $badges[$levelName] ?? '<h5><span class="badge fw-semibold text-bg-secondary ms-2">?</span></h5>';
@@ -1109,4 +1109,14 @@ function ensure_url_scheme(?string $url): ?string
     }
 
     return $url;
+}
+
+/**
+ * Verifica se o usuário pode acessar o módulo.
+ * @param string $module
+ * @return bool
+ */
+function can_access_module(string $module): bool
+{
+    return \Source\Domain\Shared\Models\Auth::canAccessModule($module);
 }

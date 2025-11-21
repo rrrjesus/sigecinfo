@@ -18,13 +18,12 @@ abstract class Admin extends Controller
 
     /**
      * Admin constructor.
-     * @param Auth $auth
      */
-    public function __construct(Auth $auth)
+    public function __construct()
     {
         parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/");
 
-        if (!$this->user = $auth->user()) {
+        if (!$this->user = Auth::user()) {
             $this->message->warning("Efetue login para acessar o APP.")->flash();
             redirect("/entrar");
         }
@@ -39,8 +38,11 @@ abstract class Admin extends Controller
      */
     protected function authorize(string $module, string $action): void
     {
+        // Constrói o nome da permissão (ex: 'Events_view')
+        $permissionName = ucfirst(strtolower($module)) . '_' . strtolower($action);
+
         $authorization = new Authorization();
-        if (!$authorization->hasPermission($module, $action)) {
+        if (!$authorization->hasPermission($permissionName)) {
             $this->message->error("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
             redirect("/app/home");
         }

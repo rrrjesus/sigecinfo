@@ -26,7 +26,7 @@ class Places extends Admin
      */
     public function places(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('places', 'view');
 
         $head = $this->seo->render("Locais - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $places = (new Place())->find("status = :s", "s=actived")->order("place_name ASC")->fetch(true);
@@ -49,7 +49,7 @@ class Places extends Admin
      */
     public function disabledPlaces(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('places', 'view');
 
         $head = $this->seo->render("Locais Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $places = (new Place())->find("status = :s", "s=disabled")->order("place_name ASC")->fetch(true);
@@ -71,7 +71,7 @@ class Places extends Admin
      */
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('places', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = filter_var_array($data, FILTER_SANITIZE_STRIPPED);
@@ -137,7 +137,7 @@ class Places extends Admin
      */
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('places', 'edit');
         $placeId = filter_var($data["place_id"], FILTER_VALIDATE_INT);
         $placeUpdate = (new Place())->findById($placeId);
 
@@ -216,7 +216,7 @@ class Places extends Admin
      */
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('places', 'delete');
 
         $placeId = filter_var($data["place_id"], FILTER_VALIDATE_INT);
         $placeDelete = (new Place())->findById($placeId);
@@ -238,7 +238,7 @@ class Places extends Admin
      */
     public function toggleStatus(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('places', 'edit');
         $placeId = filter_var($data["place_id"], FILTER_VALIDATE_INT);
         $place = (new Place())->findById($placeId);
 

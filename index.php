@@ -172,6 +172,15 @@ $route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
 $route->get("/cargos/status/{userposition_id}", "UsersPositions:toggleStatus");
 $route->post("/cargos/excluir", "UsersPositions:delete");
 
+//Permissões
+$route->get("/permissoes", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Permissions($auth))->list($data); });
+$route->get("/permissoes/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Permissions($auth))->create($data); });
+$route->post("/permissoes/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Permissions($auth))->create($data); });
+
+//ACL
+$route->get("/acl", "Acl:index");
+$route->post("/acl/salvar", "Acl:save");
+
 //Users
 
 // No seu index.php

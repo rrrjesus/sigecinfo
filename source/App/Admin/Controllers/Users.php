@@ -7,6 +7,8 @@ use Source\Domain\Place\Models\Place;
 use Source\Domain\User\Models\Level;
 use Source\Domain\User\Models\User;
 use Source\Domain\User\Models\UserPosition;
+use Source\Domain\Shared\Models\Module;
+use Source\Domain\Shared\Models\UserModule;
 use Source\Support\Thumb;
 use Source\Support\Upload;
 use Source\App\Admin\Admin;
@@ -180,28 +182,25 @@ class Users extends Admin
                 return;
             }
 
-            if ($this->auth->register($userCreate)) {
-                $this->message->success("Utilizador {$userCreate->user_name} registrado! Um e-mail de confirmação foi enviado para {$userCreate->email}.")->flash();
-                $json["redirect"] = url("/painel/usuarios");
-                echo json_encode($json);
-                return;
-            } else {
-                $json['message'] = $this->auth->message()->render();
-                $json['message'] = $this->auth->message()->before("Ooops! ")->render();
-            }
-
-            echo json_encode($json);
-            return;
             if (!$userCreate->save()) {
                 $json["message"] = $userCreate->message()->render();
                 echo json_encode($json);
                 return;
             }
 
+            // Salva os módulos de acesso do usuário
+            if (!empty($data["modules"])) {
+                $userModuleModel = new UserModule();
+                foreach ($data["modules"] as $moduleId) {
+                    // Usa o método 'add' do modelo UserModule para inserir o módulo
+                    $userModuleModel->add($userCreate->id, $moduleId);
+                }
+            }
+
             $this->message->success("Usuário {$userCreate->user_name} cadastrado com sucesso!")->flash();
-                $json["redirect"] = url("/painel/usuarios");
-                echo json_encode($json);
-                return;
+            $json["redirect"] = url("/painel/usuarios");
+            echo json_encode($json);
+            return;
         }
 
         $breadcrumb = [
@@ -215,9 +214,11 @@ class Users extends Admin
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => null,
-            "places" => (new \Source\Domain\Place\Models\Place())->find()->order("place_name ASC")->fetch(true),
-            "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
-            "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
+            "places" => (new Place())->find()->order("place_name ASC")->fetch(true),
+            "positions" => (new UserPosition())->find()->order("position_name ASC")->fetch(true),
+            "levels" => (new Level())->find()->order("id ASC")->fetch(true),
+            "all_modules" => (new Module())->find()->order("name ASC")->fetch(true),
+            "user_modules" => []
         ]);
     }
 
@@ -236,6 +237,10 @@ class Users extends Admin
         }
 
         if (!empty($data["action"]) && $data["action"] == "update") {
+            // Extrai os módulos antes de limpar os outros dados
+            $modules = $data['modules'] ?? [];
+            unset($data['modules']);
+
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
 
             $userEdit->user_name = mb_convert_case($data["user_name"], MB_CASE_TITLE, "UTF-8");
@@ -285,6 +290,16 @@ class Users extends Admin
                 echo json_encode($json);
                 return;
             }
+
+            // Limpa e salva os novos módulos de acesso
+            $userModuleModel = new UserModule();
+            $userModuleModel->deleteByUser($userEdit->id);
+            if (!empty($modules)) {
+                foreach ($modules as $moduleId) {
+                    // Usa o método 'add' do modelo UserModule para inserir o módulo
+                    $userModuleModel->add($userEdit->id, $moduleId);
+                }
+            }
             
             $this->message->success("Usuário {$userEdit->user_name} atualizado com sucesso!")->flash();
             $json["redirect"] = url("/painel/usuarios/editar/{$userEdit->id}");
@@ -297,14 +312,25 @@ class Users extends Admin
             ["title" => "Editar"]
         ];
 
+        // Busca os módulos do usuário
+        $userModules = (new UserModule())->find("user_id = :uid", "uid={$userEdit->id}")->fetch(true);
+        $userModuleIds = [];
+        if ($userModules) {
+            foreach ($userModules as $mod) {
+                $userModuleIds[] = $mod->module_id;
+            }
+        }
+
         $head = $this->seo->render(CONF_SITE_NAME . " | Editar Usuário: {$userEdit->user_name}", CONF_SITE_DESC, url("/painel"), "", false);
         echo $this->view->render("widgets/users/user", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
             "user" => $userEdit,
-            "places" => (new \Source\Domain\Place\Models\Place())->find()->order("place_name ASC")->fetch(true),
-            "positions" => (new \Source\Domain\User\Models\UserPosition())->find()->order("position_name ASC")->fetch(true),
-            "levels" => (new \Source\Domain\User\Models\Level())->find()->order("id ASC")->fetch(true)
+            "places" => (new Place())->find()->order("place_name ASC")->fetch(true),
+            "positions" => (new UserPosition())->find()->order("position_name ASC")->fetch(true),
+            "levels" => (new Level())->find()->order("id ASC")->fetch(true),
+            "all_modules" => (new Module())->find()->order("name ASC")->fetch(true),
+            "user_modules" => $userModuleIds
         ]);
     }
 

@@ -48,7 +48,7 @@
 
     <div id="layoutSidenav_content">
         <main>
-            <div class="container-fluid px-4">
+            <div class="container-fluid">
 
                 <?= $this->section("content"); ?>
             </div>

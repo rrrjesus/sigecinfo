@@ -24,7 +24,7 @@ class Levels extends Admin
      */
     public function levels(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('acl', 'view'); // Gerenciar níveis faz parte do controle de acesso (ACL)
 
         $head = $this->seo->render("Níveis - " . CONF_SITE_NAME, CONF_SITE_DESC, url(), theme("/assets/images/favicon.ico"), false);
         $levels = (new Level())->find()->order("level_name DESC")->fetch(true);

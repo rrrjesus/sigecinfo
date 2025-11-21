@@ -17,6 +17,9 @@
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
+                         <?php if (empty($events)): ?>
+                            <div class="alert alert-primary text-center fw-semibold" role="alert">Você ainda não tem nenhum evento finalizado.</div>
+                        <?php else: ?>
                         <table id="listEventsDisableds" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
                             <thead class="table-danger">
                                 <tr class="text-center">
@@ -32,6 +35,7 @@
                             <tbody class="text-center">
                             </tbody>
                         </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -81,6 +81,30 @@
                         </div>
                     </div>
 
+                    <!-- Access Modules Card -->
+                    <div class="card mb-2">
+                        <div class="card-header fw-bold"><i class="bi bi-grid-3x3-gap-fill me-1"></i> Módulos de Acesso</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <?php if (!empty($all_modules)): ?>
+                                    <?php foreach ($all_modules as $module): ?>
+                                        <div class="col-md-3">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" name="modules[]" value="<?= $module->id; ?>" id="module_<?= $module->id; ?>"
+                                                    <?= (in_array($module->id, $user_modules) ? 'checked' : ''); ?>>
+                                                <label class="form-check-label" for="module_<?= $module->id; ?>"><?= $module->name; ?></label>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <div class="col-12">
+                                        <p class="text-muted">Nenhum módulo de acesso cadastrado.</p>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Additional Info Card -->
                     <div class="card mb-2">
                         <div class="card-header fw-bold"><i class="bi bi-info-circle me-1"></i> Detalhes Adicionais</div>

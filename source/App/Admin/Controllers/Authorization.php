@@ -17,9 +17,12 @@ class Authorization
      * Checks if the currently logged-in user has a specific permission.
      *
      * @param string $permissionName The name of the permission (e.g., 'Events_view', 'Users_edit').
+     * @param string $action (Optional) The action being performed (e.g., 'view', 'create', 'edit', 'delete').
+     *                       This parameter is kept for potential future granular control, but for now,
+     *                       the $permissionName is expected to be specific enough (e.g., 'events_view').
      * @return bool True if the user has the permission, false otherwise.
      */
-    public function hasPermission(string $permissionName): bool
+    public function hasPermission(string $permissionName, string $action = 'view'): bool
     {
         $user = Auth::user();
 
@@ -55,4 +58,3 @@ class Authorization
         return in_array($permission->id, $levelPermissionsIds);
     }
 }
-

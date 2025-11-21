@@ -28,7 +28,7 @@
                 <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex align-items-start fw-semibold">
                     <i class="bi bi-calendar-week me-2"></i> Agenda
                 </div>
-                <div class="card-body">
+                <div class="card-body p-1">
                     <iframe 
                         src="https://calendar.google.com/calendar/embed?src=<?=CONF_GOOGLE_CALENDAR_ID?>&ctz=America%2FSao_Paulo"
                         style="border:0;" 
@@ -36,7 +36,10 @@
                         scrolling="no">
                     </iframe>
 
-                    <?php if (in_array($user->level_id, [4, 5])): ?>
+                    <?php
+                        $authorization = new \Source\Domain\Shared\Authorization();
+                        if ($authorization->hasPermission('Events_create')):
+                    ?>
                         <?= button([
                             "href" => "/app/eventos/cadastrar",
                             "name" => "Adicionar Evento",

@@ -21,7 +21,7 @@ class EventTypes extends Admin
      */
     public function list(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('eventtypes', 'view');
 
         $head = $this->seo->render("Tipos de Evento - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
 
@@ -43,7 +43,7 @@ class EventTypes extends Admin
      */
     public function disabledList(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('eventtypes', 'view');
 
         $head = $this->seo->render("Tipos de Evento Desativados - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/tipos-de-eventos"), null, false);
 
@@ -64,7 +64,7 @@ class EventTypes extends Admin
      */
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('eventtypes', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = sanitize_array($data);
@@ -106,7 +106,7 @@ class EventTypes extends Admin
      */
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('eventtypes', 'edit');
         
         $typeId = filter_var($data["type_id"], FILTER_VALIDATE_INT);
         $eventType = (new EventType())->findById($typeId);
@@ -152,7 +152,7 @@ class EventTypes extends Admin
      */
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('eventtypes', 'delete');
 
         $typeId = filter_var($data["type_id"], FILTER_VALIDATE_INT);
         $eventType = (new EventType())->findById($typeId);
@@ -170,7 +170,7 @@ class EventTypes extends Admin
      */
     public function toggleStatus(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('eventtypes', 'edit');
         $typeId = filter_var($data["type_id"], FILTER_VALIDATE_INT);
         $eventType = (new EventType())->findById($typeId);
 

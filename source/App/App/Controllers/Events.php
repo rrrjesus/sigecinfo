@@ -20,6 +20,13 @@ class Events extends Admin
     public function __construct(Auth $auth)
     {
         parent::__construct($auth);
+
+        // 1. Bloqueio Geral do Módulo (Por Usuário)
+        if (!\Source\Domain\Shared\Models\Auth::canAccessModule('events')) {
+            $this->message->error("Você não tem permissão para acessar o módulo de Eventos.")->flash();
+            redirect("/app"); // Ou para onde desejar
+            exit;
+        }
     }
 
     public function list(): void
@@ -61,6 +68,7 @@ class Events extends Admin
 
     public function create(?array $data): void
     {
+        // Verifica se o usuário tem permissão para criar eventos.
         $this->authorize('Events', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {

@@ -31,6 +31,76 @@ class User extends Model
         return $find->fetch();
     }
 
+        /**
+     * @return null|User
+     */
+    static function completeUser(): ?User
+    {
+        $stm = (new User())->find("status != :s","s=disabled");
+        $array[] = array();
+
+        if(!empty($stm)):
+            foreach ($stm->fetch(true) as $row):
+                    $array[] = $row->id.' - '.$row->user_name;
+            endforeach;
+            echo json_encode($array); //Return the JSON Array
+        endif;
+        return null;
+    }
+
+    /** @var array|null */
+    private ?array $permissions = null;
+
+    /**
+     * Verifica se o usuário possui uma determinada permissão.
+     *
+     * @param string $permissionName O nome da permissão a ser verificada (ex: 'users_create').
+     * @return bool Retorna true se o usuário tiver a permissão, false caso contrário.
+     */
+    public function hasPermission(string $permissionName): bool
+    {
+        // Se as permissões ainda não foram carregadas, busca no banco.
+        if ($this->permissions === null) {
+            $this->loadPermissions();
+        }
+
+        // O Super Admin (level 1) sempre tem todas as permissões.
+        if ($this->level_id == 1) {
+            return true;
+        }
+
+        // Verifica se a permissão existe no array de permissões do usuário.
+        return in_array($permissionName, $this->permissions ?? []);
+    }
+
+    /**
+     * Carrega as permissões do nível do usuário a partir do banco de dados.
+     */
+    private function loadPermissions(): void
+    {
+        $this->permissions = [];
+        if (empty($this->level_id)) {
+            return;
+        }
+
+        // Busca os nomes das permissões associadas ao nível do usuário
+        $query = "
+            SELECT p.name 
+            FROM permissions as p
+            JOIN level_permissions as lp ON p.id = lp.permission_id
+            WHERE lp.level_id = :level_id
+        ";
+        
+        $stmt = \Source\Core\Connect::getInstance()->prepare($query);
+        $stmt->bindValue(":level_id", $this->level_id, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $permissions = $stmt->fetchAll(\PDO::FETCH_COLUMN);
+
+        if ($permissions) {
+            $this->permissions = $permissions;
+        }
+    }
 
 
     /**

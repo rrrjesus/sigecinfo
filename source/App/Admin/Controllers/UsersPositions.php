@@ -25,7 +25,7 @@ class UsersPositions extends Admin
      */
     public function userspositions(): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('users', 'view'); // Assumindo que gerenciar cargos faz parte de gerenciar usuários
 
         $head = $this->seo->render("Cargos - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/painel/cargos"), null, false);
         $positions = (new UserPosition())->find("status = :s", "s=actived")->order("position_name ASC")->fetch(true);
@@ -79,7 +79,7 @@ class UsersPositions extends Admin
      */
     public function create(?array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('users', 'create'); // Assumindo que gerenciar cargos faz parte de gerenciar usuários
 
         if (!empty($data["action"]) && $data["action"] == "create") {
             $data = sanitize_array($data);
@@ -119,7 +119,7 @@ class UsersPositions extends Admin
      */
     public function edit(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('users', 'edit'); // Assumindo que gerenciar cargos faz parte de gerenciar usuários
         
         $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
         $positionUpdate = (new UserPosition())->findById($positionId);
@@ -166,7 +166,7 @@ class UsersPositions extends Admin
      */
     public function delete(array $data): void
     {
-        $this->authorize(['Administrador do Sistema']);
+        $this->authorize('users', 'delete'); // Assumindo que gerenciar cargos faz parte de gerenciar usuários
 
         $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
         $positionDelete = (new UserPosition())->findById($positionId);
@@ -184,7 +184,7 @@ class UsersPositions extends Admin
      */
     public function toggleStatus(array $data): void
     {
-        $this->authorize(['Editor Administrador', 'Administrador do Sistema']);
+        $this->authorize('users', 'edit'); // Assumindo que gerenciar cargos faz parte de gerenciar usuários
 
         $positionId = filter_var($data["userposition_id"], FILTER_VALIDATE_INT);
         $position = (new UserPosition())->findById($positionId);

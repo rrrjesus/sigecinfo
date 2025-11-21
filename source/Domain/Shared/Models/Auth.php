@@ -3,44 +3,25 @@
 namespace Source\Domain\Shared\Models;
 
 use Source\Core\Model;
-use Source\Core\Session;
-use Source\Core\View;
-use Source\Support\Email;
 use Source\Domain\User\Models\User;
+use Source\Domain\Shared\Models\LevelPermission;
+use Source\Domain\Shared\Models\UserModule;
+use Source\Domain\Shared\Models\Permission;
+use Source\Domain\Shared\Models\Module;
 
-/**
- * Class Auth
- * @package Source\Models
- */
 class Auth extends Model
 {
-    /** @var View */
-    private View $view;
-
-    /** @var Email */
-    private Email $email;
-
-    /**
-     * Auth constructor.
-     * @param View $view
-     * @param Email $email
-     */
-    public function __construct(View $view, Email $email)
+    public function __construct()
     {
         parent::__construct("users", ["id"], ["email", "password"]);
-
-        $this->view = $view;
-        $this->email = $email;
-        
-        $this->view->path("email", dirname(__DIR__, 4) . "/shared/views/email");
-
     }
+
     /**
      * @return null|User
      */
     public static function user(): ?User
     {
-        $session = new Session();
+        $session = new \Source\Core\Session();
         if (!$session->has("authUser")) {
             return null;
         }
@@ -49,186 +30,137 @@ class Auth extends Model
     }
 
     /**
-     * log-out
+     * @return void
      */
     public static function logout(): void
     {
-        $session = new Session();
+        $session = new \Source\Core\Session();
         $session->unset("authUser");
     }
 
     /**
+     * @return bool
+     */
+    public static function isAdmin(): bool
+    {
+        $user = self::user();
+        if (!$user || !$user->level()) {
+            return false;
+        }
+        // Consistent with level ID 5 for Super Admin
+        return $user->level_id == 5;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isUser(): bool
+    {
+        $user = self::user();
+        if (!$user || !$user->level()) {
+            return false;
+        }
+        return $user->level()->level_name === 'Usuario';
+    }
+
+    /**
      * @param User $user
-     * @return bool
+     * @return boolean
      */
-     public function register(User $user): bool
+    public function login(User $user): bool
     {
-        if (!$user->save()) {
-            $this->message = $user->message;
+        if (!$user->id) {
+            $this->message->warning("Usuário não encontrado para login.");
             return false;
         }
 
-        // Agora a chamada ao render usa o "apelido" 'email::'
-        $message = $this->view->render("email::confirm", [
-            "user_name" => $user->user_name,
-            "confirm_link" => url("/obrigado/" . base64_encode($user->email))
-        ]);
-
-        $this->email->bootstrap(
-            "Ative a sua conta no " . CONF_SITE_NAME,
-            $message,
-            $user->email,
-            $user->user_name
-        )->send();
-
+        // Regenerate session ID for security
+        (new \Source\Core\Session())->regenerate();
+        (new \Source\Core\Session())->set("authUser", $user->id);
         return true;
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @param int $level
-     * @return User|null
+     * Verifica se o usuário específico tem acesso a um módulo (independente do nível).
+     * Este método é um alias para verificar a associação direta na tabela user_modules.
+     * @param string $moduleName Nome do módulo (ex: 'users', 'events').
+     * @return bool
      */
-    public function attempt(string $email, string $password, int $level = 1): ?User
+    public static function canAccessModule(string $moduleName): bool
     {
-        if (!is_email($email)) {
-            $this->message->warning("O e-mail informado não é válido");
-            return null;
-        }
-
-        if (!is_passwd($password)) {
-            $this->message->warning("A senha informada não é válida");
-            return null;
-        }
-
-        $user = (new User())->findByEmail($email);
-
+        $user = self::user();
         if (!$user) {
-            $this->message->error("O e-mail informado não está cadastrado");
-            return null;
+            return false;
         }
 
-        if (!passwd_verify($password, $user->password)) {
-            $this->message->error("A senha informada não confere");
-            return null;
-        }
-        
-        if ($user->level_id < $level) {
-            $this->message->error("Desculpe, mas você não tem permissão para logar-se aqui");
-            return null;
+        // 1. Super Admin (level_id 1) pode tudo.
+        if ($user->level_id == 5) {
+            return true;
         }
 
-        if (passwd_rehash($user->password)) {
-            $user->password = $password;
-            $user->save();
+        // Encontra o módulo pelo nome
+        $module = (new Module())->find("name = :name", "name={$moduleName}")->fetch();
+        if (!$module) {
+            return false; // Módulo não existe
         }
 
-        return $user;
+        // Verifica na tabela user_modules se existe uma entrada para este usuário e módulo
+        $access = (new UserModule())->find(
+            "user_id = :uid AND module_id = :mid",
+            "uid={$user->id}&mid={$module->id}"
+        )->count();
+
+        return $access > 0;
     }
 
     /**
-     * @param string $email
-     * @param string $password
-     * @param bool $save
-     * @param int $level
+     * Verifica se o usuário logado pode executar uma determinada ação.
+     * Esta é a função central para controle de acesso.
+     *
+     * A lógica é:
+     * 1. O usuário é Super Admin (level_id = 1)? -> Permite.
+     * 2. O usuário tem acesso ao módulo da permissão? (via user_modules)
+     * 3. O nível do usuário tem a permissão específica? (via level_permissions)
+     *
+     * As condições 2 e 3 devem ser verdadeiras.
+     *
+     * @param string $permissionName O nome da permissão (ex: 'users_create', 'events_view').
      * @return bool
      */
-    public function login(string $email, string $password, bool $save = false, int $level = 1): bool
+    public static function check(string $permissionName): bool
     {
-        $user = $this->attempt($email, $password, $level);
-        
+        $user = self::user();
         if (!$user) {
-            return false;
+            return false; // Nenhum usuário logado
         }
 
-        if ($save) {
-            setcookie("authEmail", $email, time() + 604800, "/");
-        } else {
-            setcookie("authEmail", "", time() - 3600, "/");
+        // 1. Super Admin (level_id 1) pode tudo.
+        if ($user->level_id == 5) {
+            return true;
         }
 
-        $session = new Session();
-        $session->set("authUser", $user->id);
-        
-        $userLevel = $user->level(); 
-        if ($userLevel) {
-            $session->set("user_level_id", $userLevel->id);
-            $session->set("user_level_name", $userLevel->level_name);
+        // Encontra a permissão e o módulo associado a ela
+        $permission = (new Permission())->find("name = :name", "name={$permissionName}")->fetch();
+        if (!$permission) {
+            return false; // Permissão não existe no banco de dados
         }
 
-        return true;
+        // 2. Verifica se o usuário tem acesso ao módulo
+        $hasModuleAccess = (new UserModule())->find(
+            "user_id = :uid AND module_id = :mid",
+            "uid={$user->id}&mid={$permission->module_id}"
+        )->count();
+
+        if (!$hasModuleAccess) {
+            return false; // Usuário não tem liberação para este módulo
+        }
+
+        // 3. Verifica se o nível do usuário tem a permissão
+        $levelHasPermission = (new LevelPermission())->find(
+            "level_id = :lid AND permission_id = :pid",
+            "lid={$user->level_id}&pid={$permission->id}"
+        )->count();
+
+        return $levelHasPermission > 0;
     }
-
-    /**
-     * @param string $email
-     * @return bool
-     */
-    public function forget(string $email): bool
-    {
-        $user = (new User())->findByEmail($email);
-
-        if (!$user) {
-            $this->message->warning("O e-mail informado não está cadastrado.");
-            return false;
-        }
-
-        $user->forget = md5(uniqid(rand(), true));
-        $user->save();
-
-        $message = $this->view->render("email::forget", [
-            "user_name" => $user->user_name,
-            "forget_link" => url("/recuperar/{$user->email}|{$user->forget}")
-        ]);
-
-        $this->email->bootstrap(
-            "Recupere sua senha no " . CONF_SITE_NAME,
-            $message,
-            $user->email,
-            $user->user_name
-        )->send();
-
-        return true;
-    }
-
-    /**
-     * @param string $email
-     * @param string $code
-     * @param string $password
-     * @param string $passwordRe
-     * @return bool
-     */
-    public function reset(string $email, string $code, string $password, string $passwordRe): bool
-    {
-        $user = (new User())->findByEmail($email);
-
-        if (!$user) {
-            $this->message->warning("A conta para recuperação não foi encontrada.");
-            return false;
-        }
-
-        if ($user->forget != $code) {
-            $this->message->error("Desculpe, mas o código de verificação não é válido.");
-            return false;
-        }
-
-        if (!is_passwd($password)) {
-            $min = CONF_PASSWD_MIN_LEN;
-            $max = CONF_PASSWD_MAX_LEN;
-            $this->message->warning("A senha deve ter maiúscula, número, caracter especial e entre {$min} e {$max} caracteres.");
-            return false;
-
-
-        }
-
-        if ($password != $passwordRe) {
-            $this->message->warning("Você informou duas senhas diferentes.");
-            return false;
-        }
-
-        $user->password = $password;
-        $user->forget = null;
-        $user->save();
-        return true;
-    }
-}   
+}

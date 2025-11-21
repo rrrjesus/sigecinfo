@@ -36,8 +36,8 @@ class Admin extends Controller
             exit;
         }
 
-        // Apenas Níveis 1 e 2 (Admin e Editor Admin) acessam o painel administrativo
-        if ($this->user->level_id > 2) {
+        // Apenas Níveis 4 e 5 (Admin e Editor Admin) acessam o painel administrativo
+        if ($this->user->level_id < 4) {
             $this->message->warning("Acesso negado. Você não tem permissão para acessar o painel.")->flash();
             redirect("/");
             exit;
@@ -53,9 +53,11 @@ class Admin extends Controller
      */
     protected function authorize(string $module, string $action): void
     {
-        $authorization = new Authorization();
-        if (!$authorization->hasPermission($module, $action)) {
-            $this->message->error("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
+        // Constrói o nome da permissão (ex: 'users_view')
+        $permissionName = strtolower($module) . '_' . strtolower($action);
+
+        if (!Auth::check($permissionName)) {
+            $this->message->warning("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
             redirect("/painel/controle/inicial");
             exit;
         }
