@@ -19,12 +19,10 @@
             </div>
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>
-                <?php if(user()->level_id > 4){
-                    echo '<a class="nav-link" href="'.url("/painel").'" data-bs-toggle-tooltip="tooltip" title="Acessar o painel de administração" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right">
-                        <div class="sb-nav-link-icon"><i class="bi bi-link-45deg"></i></div>Painel</a>';
-                    }?>
-                <a class="nav-link" href="<?=url("/app/home")?>" data-bs-toggle-tooltip="tooltip" title="Voltar para a página inicial do aplicativo" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right">
-                    <div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
+                <?php if(\Source\Domain\Shared\Models\Auth::check('admin_access')): // Sugestão: usar uma permissão nomeada ?>
+                    <a class="nav-link" href="<?=url("/painel")?>" data-bs-toggle-tooltip="tooltip" title="Acessar o painel de administração" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><div class="sb-nav-link-icon"><i class="bi bi-link-45deg"></i></div>Painel</a>
+                <?php endif; ?>
+                    <a class="nav-link" href="<?=url("/app/home")?>" data-bs-toggle-tooltip="tooltip" title="Voltar para a página inicial do aplicativo" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
                     Home
                 </a>
 
@@ -33,7 +31,7 @@
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">GERENCIAMENTO</div>  
 
                 <!-- Sidebar Eventos -->
-                 <?php if (can_access_module('events')): ?>
+                 <?php if (\Source\Domain\Shared\Models\Auth::check('events')): // Padronizando a verificação ?>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEvents" aria-expanded="false" aria-controls="collapseEvents" data-bs-toggle-tooltip="tooltip" title="Gerenciar eventos" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right">
                     <div class="sb-nav-link-icon"><i class="bi bi-calendar-event"></i></div>
                     Eventos
@@ -41,14 +39,11 @@
                 </a>
                 <div class="collapse" id="collapseEvents" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <?php
-                            $authorization = new \Source\Domain\Shared\Authorization();
-                        ?>
-                        <?php if ($authorization->hasPermission('Events_create')): ?>
+                        <?php if (\Source\Domain\Shared\Models\Auth::check('Events_create')): ?>
                             <a class="nav-link" href="<?=url("/app/eventos/cadastrar")?>" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right" title="Cadastrar um novo evento"><i class="bi bi-plus-circle me-2"></i> Cadastrar</a>
                         <?php endif; ?>
 
-                        <?php if ($authorization->hasPermission('Events_view')): ?>
+                        <?php if (\Source\Domain\Shared\Models\Auth::check('Events_view')): ?>
                             <a class="nav-link" href="<?=url("/app/eventos")?>" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right" title="Listar todos os eventos"><i class="bi bi-list me-2"></i> Listar</a>
                         <?php endif; ?>
                         <a class="nav-link" href="<?=url("/app/eventos/meus-eventos-agendados")?>" data-bs-toggle-tooltip="tooltip" title="Ver os seus eventos agendados" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><i class="bi bi-list me-2"></i> Meus Eventos</a>

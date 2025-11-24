@@ -1005,6 +1005,61 @@ function breadcrumb(array $crumbs = [], string $homeIcon = '<i class="bi bi-hous
     $html .= '</ol></nav></div>';
     return $html;
 }
+
+/**
+ * ###################
+ * ###  SIDEBAR   ###
+ * ###################
+ */
+
+/**
+ * Renderiza um item de menu simples para a sidebar.
+ *
+ * @param string $url
+ * @param string $icon
+ * @param string $text
+ * @param string|null $target
+ * @return void
+ */
+function render_menu_item(string $url, string $icon, string $text, ?string $target = null): void
+{
+    $targetAttr = $target ? "target='{$target}'" : "";
+    echo "<a class='nav-link' href='" . url($url) . "' {$targetAttr}>
+            <div class='sb-nav-link-icon'><i class='bi {$icon} bi-2xx'></i></div>
+            {$text}
+          </a>";
+}
+
+/**
+ * Renderiza um submenu colapsável com opções de cadastrar e listar para a sidebar.
+ *
+ * @param string $id
+ * @param string $parent_id
+ * @param string $title
+ * @param string $base_url
+ * @param string $view_permission
+ * @param string $create_permission
+ * @param string|null $icon
+ * @return void
+ */
+function render_collapsible_submenu(string $id, string $parent_id, string $title, string $base_url, string $view_permission, string $create_permission, ?string $icon = null): void
+{
+    if (!\Source\Domain\Shared\Models\Auth::check($view_permission)) return;
+
+    $iconHtml = $icon ? "<div class='sb-nav-link-icon'><i class='bi {$icon}'></i></div>&nbsp;" : "";
+    echo "<a class='nav-link collapsed' href='#' data-bs-toggle='collapse' data-bs-target='#{$id}' aria-expanded='false'>
+            {$iconHtml}{$title}
+            <div class='sb-sidenav-collapse-arrow'><i class='bi bi-chevron-double-down'></i></div>
+          </a>
+          <div class='collapse' id='{$id}' data-bs-parent='#{$parent_id}'>
+            <nav class='sb-sidenav-menu-nested nav'>";
+    if (\Source\Domain\Shared\Models\Auth::check($create_permission)) {
+        echo "<a class='nav-link' href='" . url("/painel/{$base_url}/cadastrar") . "'><i class='bi bi-plus-circle me-2'></i> Cadastrar</a>";
+    }
+    echo "<a class='nav-link' href='" . url("/painel/{$base_url}") . "'><i class='bi bi-list me-2'></i> Listar</a>
+            </nav>
+          </div>";
+}
 /**
  * ###################
  * ###   REQUEST   ###

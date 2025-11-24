@@ -1,4 +1,8 @@
-<?php $this->layout("_app"); ?>
+<?php 
+
+use Source\Domain\Shared\Models\Auth;
+
+$this->layout("_app"); ?>
 
 <!-- Breacrumb-->
 <?= $this->insert("views/theme/breadcrumb"); ?>
@@ -37,8 +41,7 @@
                     </iframe>
 
                     <?php
-                        $authorization = new \Source\Domain\Shared\Authorization();
-                        if ($authorization->hasPermission('Events_create')):
+                        if (Auth::check('events_create')):
                     ?>
                         <?= button([
                             "href" => "/app/eventos/cadastrar",

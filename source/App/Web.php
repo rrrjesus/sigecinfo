@@ -109,11 +109,11 @@ class Web extends Controller
                 return;
             }
 
-            if (request_limit("weblogin", 5, 60 * 5)) {
-                $json['message'] = $this->message->error("Você já efetuou 5 tentativas. Por favor, aguarde 5 minutos.")->render();
-                echo json_encode($json);
-                return;
-            }
+            // if (request_limit("weblogin", 5, 60 * 5)) {
+            //     $json['message'] = $this->message->error("Você já efetuou 5 tentativas. Por favor, aguarde 5 minutos.")->render();
+            //     echo json_encode($json);
+            //     return;
+            // }
 
             if (empty($data['email']) || empty($data['password'])) {
                 $json['message'] = $this->message->warning("Informe seu email e senha para entrar !!!")->icon()->render();
@@ -121,8 +121,7 @@ class Web extends Controller
                 return;
             }
 
-            $save = (!empty($data['save']) ? true : false);
-            $login = $this->auth->login($data['email'], $data['password'], $save);
+            $login = (new Auth())->attempt($data['email'], $data['password']);
 
             if ($login) {
                 $this->message->success("Seja bem-vindo(a) de volta " . Auth::user()->user_name . "!")->flash();

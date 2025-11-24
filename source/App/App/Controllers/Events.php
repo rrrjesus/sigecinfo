@@ -21,11 +21,14 @@ class Events extends Admin
     {
         parent::__construct($auth);
 
-        // 1. Bloqueio Geral do Módulo (Por Usuário)
-        if (!\Source\Domain\Shared\Models\Auth::canAccessModule('events')) {
-            $this->message->error("Você não tem permissão para acessar o módulo de Eventos.")->flash();
-            redirect("/app"); // Ou para onde desejar
-            exit;
+        // Bypass para Administrador do Sistema (nível 5)
+        if ($this->user && $this->user->level != 5) {
+            // 1. Bloqueio Geral do Módulo (Por Usuário)
+            if (!\Source\Domain\Shared\Models\Auth::canAccessModule('events')) {
+                $this->message->error("Você não tem permissão para acessar o módulo de Eventos.")->flash();
+                redirect("/app"); // Ou para onde desejar
+                exit;
+            }
         }
     }
 

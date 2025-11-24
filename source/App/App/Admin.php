@@ -6,6 +6,8 @@ use Source\Domain\Shared\Authorization;
 use Source\Core\Controller;
 use Source\Domain\Shared\Models\Auth;
 use Source\Domain\User\Models\User;
+use Source\Domain\Report\Models\Access;
+use Source\Domain\Report\Models\Online;
 
 /**
  * Class Admin
@@ -23,6 +25,9 @@ abstract class Admin extends Controller
     {
         parent::__construct(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/");
 
+        (new Access())->report();
+        (new Online())->report();
+        
         if (!$this->user = Auth::user()) {
             $this->message->warning("Efetue login para acessar o APP.")->flash();
             redirect("/entrar");
@@ -38,13 +43,18 @@ abstract class Admin extends Controller
      */
     protected function authorize(string $module, string $action): void
     {
+        // Bypass para Administrador do Sistema (nível 5)
+        if ($this->user && $this->user->level == 5) {
+            return; // Concede acesso imediato
+        }
+
         // Constrói o nome da permissão (ex: 'Events_view')
         $permissionName = ucfirst(strtolower($module)) . '_' . strtolower($action);
 
-        $authorization = new Authorization();
-        if (!$authorization->hasPermission($permissionName)) {
-            $this->message->error("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
+        if (!Auth::check($permissionName)) {
+            $this->message->warning("Acesso negado! Você não tem permissão para executar esta ação.")->flash();
             redirect("/app/home");
+            exit;
         }
     }
 }

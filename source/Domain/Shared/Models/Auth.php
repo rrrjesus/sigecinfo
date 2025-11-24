@@ -8,6 +8,7 @@ use Source\Domain\Shared\Models\LevelPermission;
 use Source\Domain\Shared\Models\UserModule;
 use Source\Domain\Shared\Models\Permission;
 use Source\Domain\Shared\Models\Module;
+use Source\Support\Message;
 
 class Auth extends Model
 {
@@ -64,12 +65,47 @@ class Auth extends Model
     }
 
     /**
+     * Tenta autenticar o usuário com e-mail e senha.
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public function attempt(string $email, string $password): bool
+    {
+        if (!is_email($email)) {
+            $this->message = (new Message())->warning("O e-mail informado não é válido.");
+            return false;
+        }
+
+        /** @var User|null $user */
+        $user = (new User())->findByEmail($email);
+
+        // 1. Verifica se o usuário existe e se a senha está correta
+        if (!$user || !password_verify($password, $user->password)) {
+            $this->message = (new Message())->error("E-mail ou senha inválidos.");
+            return false;
+        }
+
+        // 2. Verifica se a senha precisa ser atualizada (rehashed)
+        if (password_needs_rehash($user->password, PASSWORD_DEFAULT)) {
+            $user->password = $password; // O método save() fará o hash novamente
+            $user->save();
+            $this->message = (new Message())->warning("Sua senha foi atualizada para mais segurança. Por favor, faça login novamente.");
+            return false;
+        }
+
+        // 3. Se tudo estiver correto, faz o login
+        return $this->login($user);
+    }
+
+    /**
      * @param User $user
      * @return boolean
      */
     public function login(User $user): bool
     {
         if (!$user->id) {
+            $this->message = new Message();
             $this->message->warning("Usuário não encontrado para login.");
             return false;
         }
