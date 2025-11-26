@@ -2,6 +2,7 @@
 
 namespace Source\App\Admin\Controllers;
 
+use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Event\Models\EventType;
 use Source\App\Admin\Admin;
 
@@ -11,9 +12,18 @@ use Source\App\Admin\Admin;
  */
 class EventTypes extends Admin
 {
-    public function __construct()
+    /** @var Auth */
+    private Auth $auth;
+
+    /**
+     * EventTypes constructor.
+     * @param Auth $auth
+     */
+    
+    public function __construct(Auth $auth)
     {
         parent::__construct();
+        $this->auth = $auth;
     }
 
     /**

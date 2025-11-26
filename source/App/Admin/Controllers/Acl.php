@@ -42,8 +42,15 @@ class Acl extends Admin
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Controle de Acesso", CONF_SITE_DESC, url("/painel"), null, false);
 
+        $breadcrumb = [
+            ["title" => "ACL", "link" => url("/painel/acl")],
+            ["title" => "Editar"]
+        ];
+        
+
         echo $this->view->render("widgets/acl/matrix", [
             "head" => $head,
+            "breadcrumb" => $breadcrumb,
             "levels" => $levels,
             "modules" => $modules,
             "permissions" => $permissions,

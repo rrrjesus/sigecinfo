@@ -2,6 +2,7 @@
 
 namespace Source\App\Admin\Controllers;
 
+use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Place\Models\Place;
 use Source\Support\Upload;
 use Source\Support\Thumb;
@@ -13,13 +14,21 @@ use Source\App\Admin\Admin;
  */
 class Places extends Admin
 {
+
+    /** @var Auth */
+    private Auth $auth;
+
     /**
      * Places constructor.
+     * @param Auth $auth
      */
-    public function __construct()
+    
+    public function __construct(Auth $auth)
     {
         parent::__construct();
+        $this->auth = $auth;
     }
+
 
     /**
      * Lista locais ativas

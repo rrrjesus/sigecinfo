@@ -2,6 +2,7 @@
 
 namespace Source\App\Admin\Controllers;
 
+use Source\Domain\Shared\Models\Auth;
 use Source\Domain\Event\Models\Event;
 use Source\Domain\Event\Models\EventType;
 use Source\Domain\Place\Models\Place;
@@ -19,12 +20,19 @@ use DateTime;
  */
 class Events extends Admin
 {
+
+    /** @var Auth */
+    private Auth $auth;
+
     /**
      * Events constructor.
+     * @param Auth $auth
      */
-    public function __construct()
+    
+    public function __construct(Auth $auth)
     {
         parent::__construct();
+        $this->auth = $auth;
     }
 
     /**

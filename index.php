@@ -21,7 +21,7 @@ $route = new Router(url(), ":");
  */
 $view = new View();
 $email = new Email();
-$auth = new Auth($view, $email);
+$auth = new Auth();
 
 /**
  * WEB ROUTES
@@ -94,9 +94,7 @@ $route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App
 $route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->justify($data);});
 $route->get("/eventos/checkin-qr-scan/{participant_id}/{event_id}/{secure_token}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->checkinQrScan($data);});
 $route->get("/eventos/qrcode-checkin/{participant_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->qrCodeCheckIn($data);});
-$route->post("/eventos/alterar-resposta", function($data) use ($auth) {
-    (new \Source\App\App\Controllers\Events($auth))->changeResponse($data);});
-
+$route->post("/eventos/alterar-resposta", function($data) use ($auth) { (new \Source\App\App\Controllers\Events($auth))->changeResponse($data); });
 
 /**
  * ADMIN ROUTES
@@ -109,68 +107,68 @@ $route->get("/login", function ($data) use ($auth) { (new \Source\App\Admin\Cont
 $route->post("/login", function ($data) use ($auth) { (new \Source\App\Admin\Controllers\Login($auth))->login($data); });
 
 //Dash
-$route->get("/controle", "Dash:dash");
-$route->get("/controle/inicial", "Dash:home");
-$route->post("/controle/inicial", "Dash:home");
-$route->get("/logoff", "Dash:logoff");
+$route->get("/controle", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Dash($auth))->dash($data); });
+$route->get("/controle/inicial", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Dash($auth))->home($data); });
+$route->post("/controle/inicial", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Dash($auth))->home($data); });
+$route->get("/logoff", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Dash($auth))->logoff($data); });
 $route->get("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 $route->post("/perfil", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->profile($data); });
 
 // Eventos
-$route->get("/eventos", "Events:list");
-$route->get("/eventos/cadastrar", "Events:create");
-$route->post("/eventos/cadastrar", "Events:create");
-$route->get("/eventos/editar/{event_id}", "Events:edit");
-$route->post("/eventos/editar/{event_id}", "Events:edit");
-$route->get("/eventos/portaria/{event_id}", "Events:report");
-$route->post("/eventos/portaria/{event_id}", "Events:report");
-$route->post("/eventos/excluir", "Events:delete");
-$route->get("/eventos/desativados", "Events:disabledEvents");
-$route->get("/eventos/status/{event_id}", "Events:toggleStatus");
-$route->get("/eventos/iniciar/{event_id}", "Events:start");
-$route->get("/eventos/finalizar/{event_id}", "Events:finish");
-$route->post("/eventos/remover-participante", "Events:removeParticipant");
-$route->post("/eventos/check-in", "Events:checkIn");
-$route->get("/eventos/check-in/{participant_id}", "Events:getParticipantDetails");
-$route->get("/eventos/checkin/{participant_id}", "Events:showCheckInPage");
-$route->post("/eventos/checkin-page", "Events:processCheckInFromPage");
-// $route->post("/eventos/checkin", "Events:processCheckIn");
+$route->get("/eventos", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->list($data);});
+$route->get("/eventos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->create($data);});
+$route->post("/eventos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->create($data);});
+$route->get("/eventos/editar/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->edit($data);});
+$route->post("/eventos/editar/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->edit($data);});
+$route->get("/eventos/portaria/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->report($data);});
+$route->post("/eventos/portaria/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->report($data);});
+$route->post("/eventos/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->delete($data);});
+$route->get("/eventos/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->disabledEvents($data);});
+$route->get("/eventos/status/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->toggleStatus($data);});
+$route->get("/eventos/iniciar/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->start($data);});
+$route->get("/eventos/finalizar/{event_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->finish($data);});
+$route->post("/eventos/remover-participante", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->removeParticipant($data);});
+$route->post("/eventos/check-in", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->checkIn($data);});
+$route->get("/eventos/check-in/{participant_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->getParticipantDetails($data);});
+$route->get("/eventos/checkin/{participant_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->showCheckInPage($data);});
+$route->post("/eventos/checkin-page", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->processCheckInFromPage($data);});
+// $route->post("/eventos/checkin", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Events($auth))->processCheckIn($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) {
     (new \Source\App\Admin\Controllers\Events($auth))->changeResponse($data);
 });
 
 //Tipos de Eventos
-$route->get("/tipos-de-eventos", "EventTypes:list");
-$route->get("/tipos-de-eventos/desativados", "EventTypes:disabledList");
-$route->get("/tipos-de-eventos/cadastrar", "EventTypes:create");
-$route->post("/tipos-de-eventos/cadastrar", "EventTypes:create");
-$route->get("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
-$route->post("/tipos-de-eventos/editar/{type_id}", "EventTypes:edit");
-$route->get("/tipos-de-eventos/status/{type_id}", "EventTypes:toggleStatus");
-$route->post("/tipos-de-eventos/excluir", "EventTypes:delete");
+$route->get("/tipos-de-eventos", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->list($data);});
+$route->get("/tipos-de-eventos/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->disabledList($data);});
+$route->get("/tipos-de-eventos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->create($data);});
+$route->post("/tipos-de-eventos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->create($data);});
+$route->get("/tipos-de-eventos/editar/{type_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->edit($data);});
+$route->post("/tipos-de-eventos/editar/{type_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->edit($data);});
+$route->get("/tipos-de-eventos/status/{type_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->toggleStatus($data);});
+$route->post("/tipos-de-eventos/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\EventTypes($auth))->delete($data);});
 
 //Locais
-$route->get("/locais", "Places:places");
-$route->get("/locais/cadastrar", "Places:create");
-$route->post("/locais/cadastrar", "Places:create");
-$route->get("/locais/editar/{place_id}", "Places:edit");
-$route->post("/locais/editar/{place_id}", "Places:edit");
-$route->get("/locais/desativados", "Places:disabledPlaces");
-$route->get("/locais/status/{place_id}", "Places:toggleStatus");
-$route->post("/locais/excluir", "Places:delete");
+$route->get("/locais", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->places($data); });
+$route->get("/locais/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->create($data); });
+$route->post("/locais/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->create($data); });
+$route->get("/locais/editar/{place_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->edit($data); });
+$route->post("/locais/editar/{place_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->edit($data); });
+$route->get("/locais/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->disabledPlaces($data); });
+$route->get("/locais/status/{place_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->toggleStatus($data); });
+$route->post("/locais/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Places($auth))->delete($data); });
 
 //Niveis
-$route->get("/niveis", "Levels:levels");
+$route->get("/niveis", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Levels($auth))->levels($data); });
 
-//Cargos (Mantido como original, pois não refatoramos o controller)
-$route->get("/cargos", "UsersPositions:userspositions");
-$route->get("/cargos/cadastrar", "UsersPositions:create");
-$route->post("/cargos/cadastrar", "UsersPositions:create");
-$route->get("/cargos/editar/{userposition_id}", "UsersPositions:edit");
-$route->post("/cargos/editar/{userposition_id}", "UsersPositions:edit");
-$route->get("/cargos/desativados", "UsersPositions:disabledUsersPositions");
-$route->get("/cargos/status/{userposition_id}", "UsersPositions:toggleStatus");
-$route->post("/cargos/excluir", "UsersPositions:delete");
+//Cargos
+$route->get("/cargos", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->userspositions($data); });
+$route->get("/cargos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->create($data); });
+$route->post("/cargos/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->create($data); });
+$route->get("/cargos/editar/{userposition_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->edit($data); });
+$route->post("/cargos/editar/{userposition_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->edit($data); });
+$route->get("/cargos/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->disabledUsersPositions($data); });
+$route->get("/cargos/status/{userposition_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->toggleStatus($data); });
+$route->post("/cargos/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\UsersPositions($auth))->delete($data); });
 
 //Permissões
 $route->get("/permissoes", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Permissions($auth))->list($data); });
@@ -178,14 +176,26 @@ $route->get("/permissoes/cadastrar", function($data) use ($auth) { (new \Source\
 $route->post("/permissoes/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Permissions($auth))->create($data); });
 
 //ACL
-$route->get("/acl", "Acl:index");
-$route->post("/acl/salvar", "Acl:save");
+$route->get("/acl", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Acl($auth))->index($data); });
+$route->post("/acl/salvar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Acl($auth))->save($data); });
+
+// Menus
+$route->get("/menus", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->list($data); });
+$route->get("/menus/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->create($data); });
+$route->post("/menus/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->create($data); });
+$route->get("/menus/editar/{menu_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->edit($data); });
+$route->post("/menus/editar/{menu_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->edit($data); });
+$route->post("/menus/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Menus($auth))->delete($data); });
+
+// Submenus
+$route->get("/submenus", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->list($data); });
+$route->get("/submenus/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->create($data); });
+$route->post("/submenus/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->create($data); });
+$route->get("/submenus/editar/{submenu_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->edit($data); });
+$route->post("/submenus/editar/{submenu_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->edit($data); });
+$route->post("/submenus/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Submenus($auth))->delete($data); });
 
 //Users
-
-// No seu index.php
-
-//Users (closures para injetar o $auth)
 $route->get("/usuarios", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->users($data); });
 $route->get("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });
 $route->post("/usuarios/cadastrar", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->create($data); });
@@ -195,32 +205,25 @@ $route->post("/usuarios/excluir", function($data) use ($auth) { (new \Source\App
 $route->post("/usuarios/desativados/excluir", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->delete($data); });
 $route->get("/usuarios/desativados", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->disabledUsers($data); });
 $route->get("/usuarios/status/{user_id}", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->toggleStatus($data); });
-$route->get("/usuarios/search", function($data) use ($auth) {
-    (new \Source\App\Admin\Controllers\Users($auth))->searchJson($data);
-});
+$route->get("/usuarios/search", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->searchJson($data); });
+
 // Dentro do grupo "/painel/usuarios"
-$route->get("/search-typeahead", "Users:searchJsonForTypeahead");
+$route->get("/search-typeahead", function($data) use ($auth) { (new \Source\App\Admin\Controllers\Users($auth))->searchJsonForTypeahead($data); });
 
 
 //notification center
 $route->post("/notifications/count", "Notifications:count");
 $route->post("/notifications/list", "Notifications:list");
 
-
-
-    /**
-     * LOGOUT
-     */
+/**
+ * LOGOUT
+ */
 $route->group("/ops");
-$route->get("/{errcode}", function ($data) use ($auth) {
-    (new \Source\App\Web($auth))->error($data);
-});
+$route->get("/{errcode}", function ($data) use ($auth) { (new \Source\App\Web($auth))->error($data); });
 
 /**
  * ROUTE DISPATCH
  */
-if (!$route->dispatch()) {
-    $route->redirect("/ops/{$route->error()}");
-}
+if (!$route->dispatch()) { $route->redirect("/ops/{$route->error()}"); }
 
 ob_end_flush();

@@ -985,7 +985,7 @@ function status_name(string $status): string
 
 function breadcrumb(array $crumbs = [], string $homeIcon = '<i class="bi bi-house-door-fill"></i>'): string
 {
-    $html = '<div class="container-fluid my-3"><nav aria-label="breadcrumb"><ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">';
+    $html = '<div class="my-3"><nav aria-label="breadcrumb"><ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">';
 
     // Adiciona o link "Início" automaticamente
     $base_url = (strpos($_GET['route'] ?? '/', 'painel') === 1 ? url('/painel/controle') : url('/app/home'));

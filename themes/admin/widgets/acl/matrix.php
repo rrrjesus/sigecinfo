@@ -1,5 +1,7 @@
 <?php $this->layout("_admin"); ?>
 
+<?= $this->insert("views/theme/breadcrumb"); ?>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
