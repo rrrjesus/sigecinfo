@@ -5,6 +5,20 @@ use Source\Domain\Shared\Models\Auth;
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion bg-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
+            <div class="text-center p-3 border-bottom">
+                <?= avatar(
+                    user()->photo,
+                    70,
+                    70,
+                    CONF_VIEW_APP,
+                    [
+                        'class' => 'rounded-circle border border-2 border-light mx-auto d-block'
+                    ]
+                ); ?>
+                <h5 class="mt-2 mb-0 text-light"><?= user()->user_name; ?></h5>
+                <p class="text-light small"><?= user()->level()->level_name; ?></p>
+                <!-- <p class="text-light small fst-italic">(<?= gethostname(); ?>)</p> -->
+            </div>
             
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>
@@ -25,17 +39,6 @@ use Source\Domain\Shared\Models\Auth;
                     </a>
                     <div class="collapse" id="collapseEvents" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionEvents">
-                            <?php // Agenda (Events) ?>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#eventsSub" aria-expanded="false">
-                                <div class="sb-nav-link-icon"><i class="bi bi-calendar-event"></i></div>&nbsp;Agenda
-                                <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
-                            </a>
-                            <div class="collapse" id="eventsSub" data-bs-parent="#sidenavAccordionEvents">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <?php if (Auth::check('events_view')): ?><a class="nav-link" href="<?=url("/painel/eventos")?>"><i class="bi bi-list me-2"></i> Listar</a><?php endif; ?>
-                                    <?php if (Auth::check('events_create')): ?><a class="nav-link" href="<?=url("/painel/eventos/cadastrar")?>"><i class="bi bi-plus-circle me-2"></i> Cadastrar</a><?php endif; ?>
-                                </nav>
-                            </div>
 
                             <?php // Tipo de Eventos (Event Types) ?>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#typesSub" aria-expanded="false">
@@ -46,6 +49,17 @@ use Source\Domain\Shared\Models\Auth;
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <?php if (Auth::check('event_types_view')): ?><a class="nav-link" href="<?=url("/painel/tipos-de-eventos")?>"><i class="bi bi-list me-2"></i> Listar</a><?php endif; ?>
                                     <?php if (Auth::check('event_types_create')): ?><a class="nav-link" href="<?=url("/painel/tipos-de-eventos/cadastrar")?>"><i class="bi bi-plus-circle me-2"></i> Cadastrar</a><?php endif; ?>
+                                </nav>
+                            </div>
+
+                            <?php // Eventos (Events) ?>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#eventsSub" aria-expanded="false">
+                                <div class="sb-nav-link-icon"><i class="bi bi-calendar-check"></i></div>&nbsp;Eventos
+                                <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-double-down"></i></div>
+                            </a>
+                            <div class="collapse" id="eventsSub" data-bs-parent="#sidenavAccordionEvents">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <?php if (Auth::check('events_view')): ?><a class="nav-link" href="<?=url("/painel/eventos")?>"><i class="bi bi-list me-2"></i> Listar Todos</a><?php endif; ?>
                                 </nav>
                             </div>
 
