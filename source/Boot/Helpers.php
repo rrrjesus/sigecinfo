@@ -806,7 +806,7 @@ function button(array $params): string
 
     $countBadge = $badge ? "<span class=\"position-absolute rounded-pill badge text-bg-danger\">{$badge}</span>" : "";
 
-    $iconHtml = $icon ? "<i class='bi bi-{$icon}'></i>" : "";
+    $iconHtml = $icon ? "<i class='bi bi-{$icon} me-1'></i>" : "";
 
     return "<{$tag} {$attributes}>{$iconHtml}{$name}{$countBadge}</{$tag}>";
 }
@@ -1099,6 +1099,16 @@ function flash(): ?string
         return $flash;
     }
     return null;
+}
+
+/**
+ * @param string $type
+ * @param string $message
+ * @return string
+ */
+function message(string $type, string $message): string
+{
+    return (new \Source\Support\Message())->$type($message)->render();
 }
 
 /**

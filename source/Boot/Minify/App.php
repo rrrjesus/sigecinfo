@@ -17,6 +17,7 @@ if (strpos(url(), CONF_URL_BASE) === false) {
     $minCSS->add(__DIR__ . "/../../../shared/styles/bootstrap-icons.min.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/typeahead.css");
     $minCSS->add(__DIR__ . "/../../../shared/styles/sdadmin.css");
+    $minCSS->add(__DIR__ . "/../../../shared/styles/message.css");
 
     //theme CSS
     $cssDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/css");
@@ -57,6 +58,7 @@ if (strpos(url(), CONF_URL_BASE) === false) {
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.colVis.min.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.responsive.js");
     $minJS->add(__DIR__ . "/../../../shared/scripts/datatables/responsive.bootstrap5.js");
+    $minJS->add(__DIR__ . "/../../../shared/scripts/message.js");
 
     // Por último os JS do tema
     $jsDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_APP . "/assets/js");

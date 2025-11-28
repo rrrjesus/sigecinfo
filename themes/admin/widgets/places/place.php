@@ -18,7 +18,7 @@
 
                     <!-- Place Info Card -->
                     <div class="card mb-2">
-                        <div class="card-header fw-bold bg-<?=CONF_ADMIN_COLOR?> text-white"><i class="bi bi-house-door me-1"></i> Informações do Local</div>
+                        <div class="card-header fw-bold"><i class="bi bi-house-door me-1"></i> Informações do Local</div>
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-2 text-center mb-1 mb-md-0">

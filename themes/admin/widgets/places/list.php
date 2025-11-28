@@ -9,10 +9,10 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header bg-<?=CONF_ADMIN_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
+                <div class="card-header d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door me-2"></i>Locais Ativos</h6>
                     <div>
-                        <?= button(["href" => "/painel/locais/cadastrar", "title" => "Cadastrar um novo local", "custom" => "custom-tooltip-dark", "btncolor" => "light", "name" => "Cadastrar", "icon" => "plus-circle me-1"]); ?>
+                        <?= button(["href" => "/painel/locais/cadastrar", "title" => "Cadastrar um novo local", "custom" => "custom-tooltip-dark", "btncolor" => "primary", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
                             <?= button(["href" => "/painel/locais/desativados", "title" => "Locais Desativados", "custom" => "custom-tooltip-dark", "name" => "Desativados", "btncolor" => "light", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>

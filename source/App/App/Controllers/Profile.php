@@ -70,8 +70,8 @@ class Profile extends Admin
                 return;
             }
 
-            $json["message"] = $this->message->success("Pronto {$this->user->user_name}. Seus dados foram atualizados com sucesso !!!")->icon("emoji-grin me-1")->render();
-            echo json_encode($json);
+            $this->message->success("Pronto {$this->user->user_name}. Seus dados foram atualizados com sucesso !!!")->icon("emoji-grin me-1")->flash();
+            echo json_encode(["reload" => true]);
             return;
         }
 

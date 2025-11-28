@@ -1,6 +1,7 @@
 <?php
 
 include_once '../../../source/Boot/Config.php';
+include_once '../../../source/Boot/Helpers.php';
  
 /*
  * DataTables example server-side processing script.
@@ -25,7 +26,7 @@ $columns = array(
     array(
         'db' => 'id', 'dt' => 0,
         'formatter' => function($d) {
-            return '<a href="usuarios/editar/'.$d.'" role="button" class="btn btn-sm btn-outline-warning rounded-circle"><i class="bi bi-pencil"></i></a>';
+            return button(["href" => "/painel/usuarios/editar/$d","name" => "", "btncolor" => "warning rounded-circle text-secondary", "icon" => "pencil me-0 ms-0"]);
         }
     ),
     array('db' => 'photo', 'dt' => 1,

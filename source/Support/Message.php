@@ -126,8 +126,9 @@ class Message
     /** @return string */
     public function render(): string
     {
-        return "<div class='bd-callout bd-callout-{$this->getType()} fade show text-center fw-semibold'>
+        return "<div class='bd-callout bd-callout-{$this->getType()} fade show text-center fw-semibold' data-fade-out>
                     <i class='bi bi-{$this->getIcon()} me-2'></i> {$this->getText()}
+                    <div class='progress-bar'></div>
                 </div>";
     }
 

@@ -1,0 +1,20 @@
+.bd-callout[data-fade-out] {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 8px; /* space for progress bar */
+}
+
+.bd-callout[data-fade-out] .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.2);
+    animation: progressBarDecrease 5s linear forwards;
+}
+
+@keyframes progressBarDecrease {
+    from { width: 100%; }
+    to { width: 0; }
+}

@@ -9,7 +9,7 @@
             <div class="ajax_response"><?= flash(); ?></div>
 
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center bg-<?=CONF_ADMIN_COLOR?> text-white">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Tipos de Evento</h6>
                     <div>
                         <?= button(["href" => "/painel/tipos-de-eventos", "title" => "Voltar aos tipos de evento", "custom" => "custom-tooltip-secondary","name" => "Voltar", "icon" => "arrow-left-circle me-1", "btncolor" => "light"]); ?>

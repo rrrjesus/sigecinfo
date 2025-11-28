@@ -5,9 +5,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title mb-0"><i class="bi bi-shield-check me-2"></i>Matriz de Controle de Acesso (ACL)</h4>
-            </div>
+                <div class="card-header fw-bold"><i class="bi bi-shield-check me-2"></i> Matriz de Controle de Acesso (ACL)</div>
             <div class="card-body">
                 <div class="ajax_response"><?= flash(); ?></div>
                 <p>Marque as caixas para conceder a um <strong>Nível de Usuário</strong> a <strong>Permissão</strong> para realizar uma ação. As alterações são salvas para todos os níveis de uma vez.</p>

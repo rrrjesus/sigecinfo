@@ -63,7 +63,7 @@ $(document).ready(function() {
         const text = $('<div>').html(value).text().toLowerCase().trim();
 
         // Verifica status válidos como "ativo", "ativado" ou "registrado"
-        return ["actived", "registered"].includes(text);
+        return ["actived", "registered", "ativo", "ativado", "registrado"].includes(text);
     }
 
     function createActionButton(config) {
@@ -116,14 +116,18 @@ $(document).ready(function() {
         var api = this.api();
         var data = api.rows({ page: 'current' }).data();
         var config = settings.oInit.modalConfig;
-
+    
         if (config) {
             $.each(data, function(index, rowData) {
                 if (config.toggleStatus) {
                     var statusConfig = config.toggleStatus;
-                    var isActived =  isActiveStatus(rowData[statusConfig.status_col]);
+                    var isActived = isActiveStatus(rowData[statusConfig.status_col]);
+                    var action = isActived ? 'disabled' : 'actived'; // Ação dinâmica
+    
                     appendActionModal({
-                        action: 'toggleStatus', id: rowData[statusConfig.id_col], name: rowData[statusConfig.name_col],
+                        action: action, // Ação específica
+                        id: rowData[statusConfig.id_col],
+                        name: rowData[statusConfig.name_col],
                         method: 'GET',
                         question: `Deseja ${isActived ? 'desativar' : 'ativar'} ${statusConfig.item_name}: ${rowData[statusConfig.name_col]}?`,
                         url: SITE_URL + statusConfig.base_url + rowData[statusConfig.id_col],
@@ -135,7 +139,9 @@ $(document).ready(function() {
                 if (config.delete) {
                     var deleteConfig = config.delete;
                     appendActionModal({
-                        action: 'delete', id: rowData[deleteConfig.id_col], name: rowData[deleteConfig.name_col],
+                        action: 'delete',
+                        id: rowData[deleteConfig.id_col],
+                        name: rowData[deleteConfig.name_col],
                         method: 'POST',
                         question: `Deseja excluir ${deleteConfig.item_name}: ${rowData[deleteConfig.name_col]}?`,
                         url: SITE_URL + deleteConfig.base_url,
@@ -153,6 +159,43 @@ $(document).ready(function() {
      * ===================================================================
      */
 
+        // Tabela de Eventos
+    $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
+        ajax: '../themes/app/serverside/list-events.php',
+        modalConfig: {
+            delete: { id_col: 6, name_col: 1, base_url: '/app/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+        },
+        responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return (data[2] || '') + ' - ' + (data[1] || '');
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({})
+                }
+            },
+        "aaSorting": [0, 'asc'],
+        "aoColumnDefs": [
+            {
+                "aTargets": [5], // Coluna Editar
+                "mRender": function(data, type, full) {
+                    return '<a href="' + SITE_URL + '/app/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
+                }
+            },
+            {
+                "aTargets": [6], // Coluna Excluir
+                "mRender": function(data, type, full) {
+                    return createActionButton({
+                        action: 'delete', id: data,
+                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                    });
+                }
+            }
+        ]
+    }));
+    
     // Table Cargos
     $('#userspositions').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Cargos", false), {
         modalConfig: {
@@ -161,8 +204,10 @@ $(document).ready(function() {
         },
        "aoColumnDefs": [
             { "aTargets": [4], "mRender": function(data, type, full) {
+                var isActived = isActiveStatus(full[3]);
+                var action = isActived ? 'disabled' : 'actived';
                 return createActionButton({
-                    action: 'toggleStatus', id: full[4], tooltip: 'Ativar ' + full[1],
+                    action: action, id: full[4], tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[1],
                     btn_class: 'success', icon: 'bi-person-check'
                 });
             }},
@@ -183,8 +228,10 @@ $(document).ready(function() {
         },
        "aoColumnDefs": [
             { "aTargets": [3], "mRender": function(data, type, full) {
+                var isActived = isActiveStatus(full[2]);
+                var action = isActived ? 'disabled' : 'actived';
                 return createActionButton({
-                    action: 'toggleStatus', id: full[3], tooltip: 'Ativar ' + full[0],
+                    action: action, id: full[3], tooltip: 'Ativar ' + full[0],
                     btn_class: 'success', icon: 'bi-person-check'
                 });
             }},
@@ -206,9 +253,10 @@ $(document).ready(function() {
         },
         "aoColumnDefs": [
             { "aTargets": [9], "mRender": function(data, type, full) {
-                var isActived = (String(full[7]).toLowerCase().includes("ativado") || String(full[7]).toLowerCase().includes("registrado"));
+                var isActived = isActiveStatus(full[7]);
+                var action = isActived ? 'disabled' : 'actived';
                 return createActionButton({
-                    action: 'toggleStatus', id: full[9],
+                    action: action, id: full[9],
                     tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[2],
                     btn_class: (isActived ? 'warning' : 'success'),
                     icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
@@ -234,7 +282,7 @@ $(document).ready(function() {
        "aoColumnDefs": [
             { "aTargets": [8], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'toggleStatus', id: full[8], tooltip: 'Ativar ' + full[1],
+                    action: 'actived', id: full[8], tooltip: 'Ativar ' + full[1],
                     btn_class: 'success', icon: 'bi-person-check'
                 });
             }},
@@ -255,8 +303,10 @@ $(document).ready(function() {
         },
         "aoColumnDefs": [
              { "aTargets": [11], "mRender": function (data, type, full) {
+                var isActived = isActiveStatus(full[10]);
+                var action = isActived ? 'disabled' : 'actived';
                 return createActionButton({
-                    action: 'toggleStatus', id: full[11],
+                    action: action, id: full[11],
                     tooltip: 'Desativar ' + full[4], btn_class: 'warning'
                 });
             }},
@@ -278,7 +328,7 @@ $(document).ready(function() {
         "aoColumnDefs": [
             { "aTargets": [10], "mRender": function (data, type, full) {
                 return createActionButton({
-                    action: 'toggleStatus', id: full[10], tooltip: 'Ativar ' + full[3],
+                    action: 'actived', id: full[10], tooltip: 'Ativar ' + full[3],
                     btn_class: 'success', icon: 'bi-check-circle'
                 });
             }},
@@ -382,8 +432,10 @@ $(document).ready(function() {
                 return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
             }},
             { "aTargets": [4], "mRender": function (data, type, full) {
+                var isActived = isActiveStatus(full[2]);
+                var action = isActived ? 'disabled' : 'actived';
                 return createActionButton({
-                    action: 'toggleStatus', id: data,
+                    action: action, id: data,
                     tooltip: 'Desativar ' + full[0], btn_class: 'warning'
                 });
             }},
@@ -408,7 +460,7 @@ $(document).ready(function() {
             }},
             { "aTargets": [4], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'toggleStatus', id: data, tooltip: 'Ativar ' + full[0],
+                    action: 'actived', id: data, tooltip: 'Ativar ' + full[0],
                     btn_class: 'success', icon: 'bi-check-circle'
                 });
             }},

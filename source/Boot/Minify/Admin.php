@@ -2,7 +2,7 @@
 
 // A condição verifica se o domínio (CONF_SITE_DOMAIN) ou (CONF_URL_BASE)da URL atual NÃO é o seu domínio de produção.
 
-if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
+// if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
     /**
      * CSS
      */
@@ -10,12 +10,14 @@ if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/boot.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/bootstrap.min.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/docs.min.css");
+    $minAdminCSS->add(__DIR__ . "/../../../shared/styles/jquery-ui.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/datatables/dataTables.bootstrap5.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/datatables/buttons.bootstrap5.min.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/datatables/responsive.bootstrap5.min.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/bootstrap-icons.min.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/typeahead.css");
     $minAdminCSS->add(__DIR__ . "/../../../shared/styles/sdadmin.css");
+    $minAdminCSS->add(__DIR__ . "/../../../shared/styles/message.css");
 
     //theme CSS
     $cssDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/assets/css");
@@ -33,13 +35,19 @@ if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
      * JS
      */
     $minAdminJS = new MatthiasMullie\Minify\JS();
+
+    // jQuery sempre primeiro
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.form.js");
-    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
-    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery-ui.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.mask.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/jquery/jquery.validate.min.js");
+
+    // Depois o Bootstrap e outros
+    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/bootstrap.bundle.min.js");
+    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/bootstrap/color-modes.js");
+
+
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/typeahead.bundle.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.bootstrap5.js");
@@ -51,6 +59,7 @@ if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/buttons.colVis.min.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/dataTables.responsive.js");
     $minAdminJS->add(__DIR__ . "/../../../shared/scripts/datatables/responsive.bootstrap5.js");
+    $minAdminJS->add(__DIR__ . "/../../../shared/scripts/message.js");
 
     //theme CSS
     $jsDir = scandir(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/assets/js");
@@ -63,4 +72,4 @@ if (explode(':', $_SERVER['HTTP_HOST'])[0] === 'localhost') {
 
     //Minify JS
     $minAdminJS->minify(__DIR__ . "/../../../themes/" . CONF_VIEW_ADMIN . "/assets/scripts.js");
-}
+// }

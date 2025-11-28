@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
-                        <table id="userspositionsDisabled" class="table table-bordered table-sm border-danger table-hover" style="width:100%">
+                        <table id="userspositionsDisabled" class="table table-striped table-sm table-hover dt-responsive" style="width:100%">
                             <thead class="table-danger">
                                 <tr class="text-center">
                                     <th>Cargo</th>
@@ -27,9 +27,9 @@
                                     <th>Excluir</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center">
+                            <tbody class="fw-semibold text-center">
                                 <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
-                                    <tr class="fw-semibold">
+                                    <tr>
                                         <td><?= $lista->position_name ?? ''; ?></td>
                                         <td><?= $lista->description ?? ''; ?></td>
                                         <td><?= statusBadge($lista->status); ?></td>

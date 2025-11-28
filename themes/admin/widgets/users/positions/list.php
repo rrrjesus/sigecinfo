@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
-                        <table id="userspositions" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
+                        <table id="userspositions" class="table table-striped table-sm table-hover dt-responsive" style="width:100%">
                             <thead class="table-secondary">
                                 <tr class="text-center">
                                     <th class="text-center">Editar</th>
@@ -31,9 +31,9 @@
                                     <th class="text-center">Excluir</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center fw-semibold">
                                 <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
-                                    <tr class="text-center fw-semibold">
+                                    <tr>
                                         <td><a href="cargos/editar/<?= $lista->id ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Clique para editar <?= $lista->position_name ?>" role="button" class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-pencil text-secondary"></i></a></td>
                                         <td><?= $lista->position_name; ?></td>
                                         <td><?= $lista->description; ?></td>
