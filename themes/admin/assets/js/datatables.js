@@ -63,7 +63,7 @@ $(document).ready(function() {
         const text = $('<div>').html(value).text().toLowerCase().trim();
 
         // Verifica status válidos como "ativo", "ativado" ou "registrado"
-        return ["actived", "registered", "ativo", "ativado", "registrado"].includes(text);
+        return ["ativo", "registered", "ativo", "ativado", "registrado"].includes(text);
     }
 
     function createActionButton(config) {
@@ -72,6 +72,12 @@ $(document).ready(function() {
         return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
             'data-bs-title="' + config.tooltip + '" class="btn btn-outline-' + config.btn_class + ' btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
             '<i class="bi ' + icon + ' text-secondary"></i></button>';
+    }
+
+    function createEditButton(config) {
+        return '<a href="' + config.url + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle" ' +
+            'data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="' + config.tooltip + '">' +
+            '<i class="bi bi-pencil"></i></a>';
     }
 
    function appendActionModal(config) {
@@ -122,7 +128,7 @@ $(document).ready(function() {
                 if (config.toggleStatus) {
                     var statusConfig = config.toggleStatus;
                     var isActived = isActiveStatus(rowData[statusConfig.status_col]);
-                    var action = isActived ? 'disabled' : 'actived'; // Ação dinâmica
+                    var action = isActived ? 'inativo' : 'ativo'; // Ação dinâmica
     
                     appendActionModal({
                         action: action, // Ação específica
@@ -205,11 +211,14 @@ $(document).ready(function() {
        "aoColumnDefs": [
             { "aTargets": [4], "mRender": function(data, type, full) {
                 var isActived = isActiveStatus(full[3]);
-                var action = isActived ? 'disabled' : 'actived';
-                return createActionButton({
-                    action: action, id: full[4], tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[1],
-                    btn_class: 'success', icon: 'bi-person-check'
-                });
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[4];
+
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [5], "mRender": function(data, type, full) {
                 return createActionButton({
@@ -229,11 +238,13 @@ $(document).ready(function() {
        "aoColumnDefs": [
             { "aTargets": [3], "mRender": function(data, type, full) {
                 var isActived = isActiveStatus(full[2]);
-                var action = isActived ? 'disabled' : 'actived';
-                return createActionButton({
-                    action: action, id: full[3], tooltip: 'Ativar ' + full[0],
-                    btn_class: 'success', icon: 'bi-person-check'
-                });
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[3];
+                                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                                    'data-bs-title="' + 'Ativar ' + full[0] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [4], "mRender": function(data, type, full) {
                 return createActionButton({
@@ -248,23 +259,30 @@ $(document).ready(function() {
     var users = $('#users').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuarios"), {
         ajax: '../themes/admin/serverside/users.php',
         modalConfig: {
-            toggleStatus: { id_col: 9, status_col: 7, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
-            delete: { id_col: 10, name_col: 2, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
+            toggleStatus: { id_col: 8, status_col: 8, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
+            delete: { id_col: 9, name_col: 2, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
         "aoColumnDefs": [
-            { "aTargets": [9], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[7]);
-                var action = isActived ? 'disabled' : 'actived';
-                return createActionButton({
-                    action: action, id: full[9],
-                    tooltip: (isActived ? 'Desativar ' : 'Ativar ') + full[2],
-                    btn_class: (isActived ? 'warning' : 'success'),
-                    icon: (isActived ? 'bi-person-dash' : 'bi-person-check')
+            { "aTargets": [0], "mRender": function(data, type, full) {
+                return createEditButton({
+                    url: SITE_URL + '/painel/usuarios/editar/' + full[0],
+                    tooltip: 'Editar ' + full[2]
                 });
             }},
-            { "aTargets": [10], "mRender": function(data, type, full) {
+            { "aTargets": [8], "mRender": function(data, type, full) {
+                var isActived = isActiveStatus(full[8]);
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[8];
+
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[2] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' text-light" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
+            }},
+            { "aTargets": [9], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'delete', id: full[10],
+                    action: 'delete', id: full[9],
                     tooltip: 'Excluir ' + full[2], btn_class: 'danger'
                 });
             }}
@@ -281,10 +299,15 @@ $(document).ready(function() {
         },
        "aoColumnDefs": [
             { "aTargets": [8], "mRender": function(data, type, full) {
-                return createActionButton({
-                    action: 'actived', id: full[8], tooltip: 'Ativar ' + full[1],
-                    btn_class: 'success', icon: 'bi-person-check'
-                });
+                var isActived = isActiveStatus(full[6]); // Should be false
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[8];
+                
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + 'Ativar ' + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' m-3" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [9], "mRender": function(data, type, full) {
                 return createActionButton({
@@ -304,11 +327,14 @@ $(document).ready(function() {
         "aoColumnDefs": [
              { "aTargets": [11], "mRender": function (data, type, full) {
                 var isActived = isActiveStatus(full[10]);
-                var action = isActived ? 'disabled' : 'actived';
-                return createActionButton({
-                    action: action, id: full[11],
-                    tooltip: 'Desativar ' + full[4], btn_class: 'warning'
-                });
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[11];
+                
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[4] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [12], "mRender": function (data, type, full) {
                 return createActionButton({
@@ -327,10 +353,15 @@ $(document).ready(function() {
         },
         "aoColumnDefs": [
             { "aTargets": [10], "mRender": function (data, type, full) {
-                return createActionButton({
-                    action: 'actived', id: full[10], tooltip: 'Ativar ' + full[3],
-                    btn_class: 'success', icon: 'bi-check-circle'
-                });
+                var isActived = isActiveStatus(full[9]); // from modalConfig
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + full[10];
+
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + 'Ativar ' + full[3] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [11], "mRender": function (data, type, full) {
                 return createActionButton({
@@ -433,11 +464,14 @@ $(document).ready(function() {
             }},
             { "aTargets": [4], "mRender": function (data, type, full) {
                 var isActived = isActiveStatus(full[2]);
-                var action = isActived ? 'disabled' : 'actived';
-                return createActionButton({
-                    action: action, id: data,
-                    tooltip: 'Desativar ' + full[0], btn_class: 'warning'
-                });
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + data;
+
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[0] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [5], "mRender": function (data, type, full) {
                 return createActionButton({
@@ -459,10 +493,15 @@ $(document).ready(function() {
                 return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
             }},
             { "aTargets": [4], "mRender": function(data, type, full) {
-                return createActionButton({
-                    action: 'actived', id: data, tooltip: 'Ativar ' + full[0],
-                    btn_class: 'success', icon: 'bi-check-circle'
-                });
+                var isActived = isActiveStatus(full[2]); // from modalConfig
+                var action = isActived ? 'inativo' : 'ativo';
+                var text = isActived ? 'ATIVO' : 'INATIVO';
+                var btnClass = isActived ? 'success' : 'danger';
+                var modalId = action + 'Modal' + data;
+
+                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
+                    'data-bs-title="' + 'Ativar ' + full[0] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
+                    text + '</button>';
             }},
             { "aTargets": [5], "mRender": function(data, type, full) {
                 return createActionButton({

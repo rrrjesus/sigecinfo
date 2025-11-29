@@ -34,7 +34,7 @@
                             <tbody class="text-center fw-semibold">
                                 <?php if (!empty($userspositions)) : foreach ($userspositions as $lista) : ?>
                                     <tr>
-                                        <td><a href="cargos/editar/<?= $lista->id ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Clique para editar <?= $lista->position_name ?>" role="button" class="btn btn-outline-warning rounded-circle btn-sm text-center"><i class="bi bi-pencil text-secondary"></i></a></td>
+                                        <td><a href="cargos/editar/<?= $lista->id ?>" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip-dark" data-bs-title="Clique para editar <?= $lista->position_name ?>" role="button" class="btn btn-outline-primary rounded-circle btn-sm text-center"><i class="bi bi-pencil"></i></a></td>
                                         <td><?= $lista->position_name; ?></td>
                                         <td><?= $lista->description; ?></td>
                                         <td><?= statusBadge($lista->status); ?></td>

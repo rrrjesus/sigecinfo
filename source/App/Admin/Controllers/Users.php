@@ -50,7 +50,7 @@ class Users extends Admin
         echo $this->view->render("widgets/users/list", [
             "head" => $head,
             "breadcrumb" => $breadcrumb,
-            "registers" => (object)["disabled" => (new User())->find("status = :s", "s=disabled")->count()]
+            "registers" => (object)["inativo" => (new User())->find("status = :s", "s=inativo")->count()]
         ]);
     }
 
