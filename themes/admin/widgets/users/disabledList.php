@@ -24,7 +24,6 @@
                                 <th class="text-center"><i class="bi bi-person-badge me-2"></i>Cargo</th>
                                 <th class="text-center"><i class="bi bi-bank me-2"></i>Local</th>
                                 <th class="text-center"><i class="bi bi-envelope-at me-2"></i>Email</th>
-                                <th class="text-center"><i class="bi bi-check-circle me-2"></i>Status</th>
                                 <th class="text-center"><i class="bi bi-diagram-3 me-2"></i>Nível</th>
                                 <th class="text-center"><i class="bi bi-person-x me-2"></i>Ativar</th>
                                 <th class="text-center"><i class="bi bi-trash me-2"></i>Excluir</th>

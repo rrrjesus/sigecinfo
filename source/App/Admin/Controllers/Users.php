@@ -62,7 +62,7 @@ class Users extends Admin
         $this->authorize('Users', 'view');
 
         $head = $this->seo->render(CONF_SITE_NAME . " | Usuários Desativados", CONF_SITE_DESC, url("/painel"), null, false);
-        $users = (new User())->find("status = :s", "s=disabled")->order("user_name ASC")->fetch(true);
+        $users = (new User())->find("status = :s", "s=inativo")->order("user_name ASC")->fetch(true);
 
          $breadcrumb = [
             ["title" => "Utilizadores Desativados", "link" => url("/painel/usuarios/desativados")],

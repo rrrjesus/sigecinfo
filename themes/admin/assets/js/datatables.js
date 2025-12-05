@@ -298,12 +298,12 @@ $(document).ready(function() {
             delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/desativados/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
        "aoColumnDefs": [
-            { "aTargets": [8], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[6]); // Should be false
+            { "aTargets": [7], "mRender": function(data, type, full) {
+                var isActived = isActiveStatus(full[7]); // Should be false
                 var action = isActived ? 'inativo' : 'ativo';
                 var text = isActived ? 'ATIVO' : 'INATIVO';
                 var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[8];
+                var modalId = action + 'Modal' + full[7];
                 
                 return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
                     'data-bs-title="' + 'Ativar ' + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' m-3" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
