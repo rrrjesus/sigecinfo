@@ -162,7 +162,7 @@ $(document).ready(function() {
     $('#listEvents').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Eventos"), {
         ajax: '../themes/app/serverside/list-events.php',
         modalConfig: {
-            delete: { id_col: 6, name_col: 1, base_url: '/app/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
+            delete: { id_col: 6, name_col: 2, base_url: '/app/eventos/excluir', id_field: 'event_id', item_name: 'o evento' }
         },
         responsive: {
                 details: {
@@ -178,9 +178,9 @@ $(document).ready(function() {
         "aaSorting": [0, 'asc'],
         "aoColumnDefs": [
             {
-                "aTargets": [5], // Coluna Editar
+                "aTargets": [0], // Coluna Editar
                 "mRender": function(data, type, full) {
-                    return '<a href="' + SITE_URL + '/app/eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
+                    return '<a href="' + SITE_URL + '/app/eventos/editar/' + data + '" data-bs-toggle-tooltip="tooltip" data-bs-placement="left" data-bs-custom-class="custom-tooltip-secondary" data-bs-title="Visualizar Eventos" role="button" class="btn btn-sm btn-outline-primary rounded-circle"><i class="bi bi-eye"></i></a>';
                 }
             },
             {
@@ -188,7 +188,7 @@ $(document).ready(function() {
                 "mRender": function(data, type, full) {
                     return createActionButton({
                         action: 'delete', id: data,
-                        tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                        tooltip: 'Excluir ' + full[2], btn_class: 'danger'
                     });
                 }
             }

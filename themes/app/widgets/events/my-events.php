@@ -8,19 +8,25 @@
         <div class="container-fluid">
             <div class="ajax_response"><?= flash(); ?></div>
 
-            <div class="card">
-                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
-                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Eventos Agendados
+             <div class="card">
+
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Meus Eventos</h6>
                 </div>
+
                 <div class="card-body">
                     <div class="dt-container dt-bootstrap5">
+
                         <?php if (empty($events)): ?>
                             <div class="alert alert-primary text-center fw-semibold" role="alert">Você ainda não foi convocado para nenhum evento.</div>
                         <?php else: ?>
-                        <table id="myEvents" class="table table-bordered table-hover align-middle text-center mb-0" style="width:100%">
+
+                        <table id="myEvents" class="table table-striped table-sm table-hover dt-responsive" style="width:100%">
                             <thead class="table-secondary">
                                 <tr class="text-center">
                                     <th><i class="bi bi-person-check me-2"></i>Presença</th>
+                                    <th><i class="bi bi-qr-code me-2"></i></th>
+                                    <th><i class="bi bi-pencil me-2"></i>Alterar</th>
                                     <th><i class="bi bi-calendar-event me-2"></i>Data</th>
                                     <th><i class="bi bi-bookmark-star me-2"></i>Evento</th>
                                     <th><i class="bi bi-card-text me-2"></i>Descrição</th>
@@ -28,11 +34,9 @@
                                     <th><i class="bi bi-pin-map me-2"></i>Local</th>
                                     <th><i class="bi bi-geo-alt me-2"></i>Comp</th>
                                     <th><i class="bi bi-check-circle me-2"></i>Status</th>
-                                    <th><i class="bi bi-qr-code me-2"></i>QR Code</th>
-                                    <th><i class="bi bi-pencil me-2"></i>Alterar</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center">
+                            <tbody class="fw-semibold text-center">
                             <?php foreach ($events as $event): 
                                 // Busca os dados da participação uma única vez
                                 $participant = (new \Source\Domain\Event\Models\EventParticipant())->find("event_id = :eid AND user_id = :uid", "eid={$event->id}&uid={$user->id}")->fetch();
@@ -81,17 +85,10 @@
                                             
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></td>
-                                    <td><?= $event->title; ?></td>
-                                    <td><?= str_limit_chars($event->description, 150); ?></td>
-                                    <td><?= $event->eventType()->name ?? 'Não informado'; ?></td>
-                                    <td><?= $event->place()->place_name ?? 'Não informado'; ?></td>
-                                    <td><?= $event->title; ?></td>
-                                    <td><?= eventStatusBadge($event->status); ?></td>
                                     <td>
                                         <?php if ($participant): ?>
                                             <?= button([
-                                                "name" => "QR Code",
+                                                "name" => "",
                                                 "icon" => "qr-code me-1",
                                                 "btncolor" => "info",
                                                 "class" => "rounded-circle text-info-emphasis",
@@ -101,6 +98,13 @@
                                             ]); ?>
                                         <?php endif; ?>
                                     </td>
+                                    <td><?= date_fmt($event->start_at, "d/m/Y H:i"); ?></td>
+                                    <td><?= $event->title; ?></td>
+                                    <td><?= str_limit_chars($event->description, 150); ?></td>
+                                    <td><?= $event->eventType()->name ?? 'Não informado'; ?></td>
+                                    <td><?= $event->place()->place_name ?? 'Não informado'; ?></td>
+                                    <td><?= $event->title; ?></td>
+                                    <td><?= eventStatusBadge($event->status); ?></td>
                                     <td>
                                         <?php if ($participant->status !== 'presente'): ?>
                                             <?php if ($participant && $participant->status !== 'convocado'): ?>

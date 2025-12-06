@@ -23,24 +23,24 @@ EOT;
 $primaryKey = 'id';
  
 $columns = [
-    ['db' => 'status', 'dt' => 0, 'formatter' => function($d) {
+    ['db' => 'id', 'dt' => 0, 'formatter' => function($d) {
+        return $d;
+    }],
+    ['db' => 'status', 'dt' => 1, 'formatter' => function($d) {
         return eventStatusBadge($d);
     }],
-    ['db' => 'title', 'dt' => 1, 'formatter' => function($d) {
+    ['db' => 'title', 'dt' => 2, 'formatter' => function($d) {
      return htmlspecialchars($d);
     }],
-    ['db' => 'start_at', 'dt' => 2, 'formatter' => function($d) {
+    ['db' => 'start_at', 'dt' => 3, 'formatter' => function($d) {
         return htmlspecialchars(date_fmt($d, "d/m/Y H:i"));
     }],
-    ['db' => 'type_name', 'dt' => 3, 'formatter' => function($d) {
+    ['db' => 'type_name', 'dt' => 4, 'formatter' => function($d) {
         return htmlspecialchars($d);
     }],
-    ['db' => 'place_name', 'dt' => 4, 'formatter' => function($d, $row) {
+    ['db' => 'place_name', 'dt' => 5, 'formatter' => function($d, $row) {
         $value = $d ?? $row['location_text'] ?? 'N/A';
         return htmlspecialchars($value);
-    }],
-    ['db' => 'id', 'dt' => 5, 'formatter' => function($d) {
-        return $d;
     }],
     ['db' => 'id', 'dt' => 6, 'formatter' => function($d) {
         return $d;

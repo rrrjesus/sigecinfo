@@ -63,7 +63,7 @@ $(document).ready(function() {
         const text = $('<div>').html(value).text().toLowerCase().trim();
 
         // Verifica status válidos como "ativo", "ativado" ou "registrado"
-        return ["ativo", "registered", "ativo", "ativado", "registrado"].includes(text);
+        return ["ativo", "registered", "ativado", "registrado"].includes(text);
     }
 
     function createActionButton(config) {
@@ -259,7 +259,7 @@ $(document).ready(function() {
     var users = $('#users').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuarios"), {
         ajax: '../themes/admin/serverside/users.php',
         modalConfig: {
-            toggleStatus: { id_col: 8, status_col: 8, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
+            toggleStatus: { id_col: 9, status_col: 8, name_col: 2, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
             delete: { id_col: 9, name_col: 2, base_url: '/painel/usuarios/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
         "aoColumnDefs": [
@@ -274,7 +274,7 @@ $(document).ready(function() {
                 var action = isActived ? 'inativo' : 'ativo';
                 var text = isActived ? 'ATIVO' : 'INATIVO';
                 var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[8];
+                var modalId = action + 'Modal' + full[9];
 
                 return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
                     'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[2] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' text-light" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
@@ -294,8 +294,8 @@ $(document).ready(function() {
     // Usuarios desabilitados
     $('#usersDisabled').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Usuários Desabilitados", false), {
         modalConfig: {
-            toggleStatus: { id_col: 8, status_col: 6, name_col: 1, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
-            delete: { id_col: 9, name_col: 1, base_url: '/painel/usuarios/desativados/excluir', id_field: 'user_id', item_name: 'o usuário' }
+            toggleStatus: { id_col: 8, status_col: 7, name_col: 1, base_url: '/painel/usuarios/status/', item_name: 'o usuário' },
+            delete: { id_col: 8, name_col: 1, base_url: '/painel/usuarios/desativados/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
        "aoColumnDefs": [
             { "aTargets": [7], "mRender": function(data, type, full) {
@@ -303,15 +303,15 @@ $(document).ready(function() {
                 var action = isActived ? 'inativo' : 'ativo';
                 var text = isActived ? 'ATIVO' : 'INATIVO';
                 var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[7];
+                var modalId = action + 'Modal' + full[8];
                 
                 return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
                     'data-bs-title="' + 'Ativar ' + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' m-3" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
                     text + '</button>';
             }},
-            { "aTargets": [9], "mRender": function(data, type, full) {
+            { "aTargets": [8], "mRender": function(data, type, full) {
                 return createActionButton({
-                    action: 'delete', id: full[9], tooltip: 'Excluir ' + full[1],
+                    action: 'delete', id: full[8], tooltip: 'Excluir ' + full[1],
                     btn_class: 'danger'
                 });
             }}

@@ -462,13 +462,13 @@ public function searchJson(array $data): void
 
         // Lógica de status mais robusta
         $currentStatus = $user->status;
-        $newStatus = (in_array($currentStatus, ["actived", "registered"]) ? "disabled" : "actived");
+        $newStatus = (in_array($currentStatus, ["ativo"]) ? "inativo" : "ativo");
         $user->status = $newStatus;
         $user->login_updated = $this->user->id;
 
         // Verifica se o save() foi bem-sucedido antes de dar a mensagem
         if ($user->save()) {
-            $actionText = ($newStatus == "disabled" ? "desativado" : "ativado");
+            $actionText = ($newStatus == "inativo" ? "inativo" : "ativado");
             $this->message->success("O usuário {$user->user_name} foi {$actionText} com sucesso!")->flash();
         } else {
             // Se o save() falhar, exibe a mensagem de erro específica da Model
