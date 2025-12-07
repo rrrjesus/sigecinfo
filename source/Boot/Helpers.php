@@ -608,8 +608,8 @@ function statusBadge(string $status): string
 {
     $status = strtolower(trim($status));
     $labels = [
-        'actived' => ['class' => 'text-bg-success text-light', 'label' => 'ATIVO'],
-        'disabled' => ['class' => 'text-bg-danger', 'label' => 'INATIVO']
+        'ativo' => ['class' => 'text-bg-success text-light', 'label' => 'ATIVO'],
+        'inativo' => ['class' => 'text-bg-danger', 'label' => 'INATIVO']
     ];
 
     $style = $labels[$status] ?? ['class' => 'text-bg-secondary', 'label' => strtoupper($status)];
@@ -648,9 +648,9 @@ function eventStatusBadge(string $status): string
 function user_status_options(?string $currentStatus): string
 {
     $statuses = [
-        'registered' => 'Registrado',
-        'actived' => 'Ativado',
-        'disabled' => 'Desativado'
+        'registrado' => 'Registrado',
+        'ativo' => 'Ativado',
+        'inativo' => 'Desativado'
     ];
 
     $htmlOptions = "";
@@ -941,9 +941,9 @@ function level_badge(string $levelName): string
 function status_name(string $status): string
 {
     $names = [
-        'registered' => 'REGISTRADO',
-        'actived' => 'ATIVADO',
-        'disabled' => 'DESATIVADO'
+        'registrado' => 'REGISTRADO',
+        'ativo' => 'ATIVADO',
+        'inativo' => 'DESATIVADO'
     ];
 
     return $names[$status] ?? '';
@@ -956,11 +956,11 @@ function status_name(string $status): string
     function statusSpan(string $status): ?string
     {
 
-    if ($status == "registered") {
+    if ($status == "registrado") {
         return '<h5><span class="badge fw-semibold text-bg-warning pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Falta acesso ao e-mail de confirmação">
                     REGISTRADO</span></h5>';
-    } elseif ($status == "actived") {
+    } elseif ($status == "ativo") {
         return '<h5><span class="badge fw-semibold text-bg-success text-light pt-2 pb-2 mt-2" data-bs-toggle-tooltip="tooltip" 
                     data-bs-placement="top" data-bs-custom-class="custom-tooltip-'.color_month().'" data-bs-title="Usuário confirmou">ATIVADO</span></h5>';
     } else {

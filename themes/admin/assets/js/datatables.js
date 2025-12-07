@@ -67,36 +67,51 @@ $(document).ready(function() {
     }
 
     function createActionButton(config) {
-        var modalId = config.action + 'Modal' + config.id;
-        var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
-        return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-            'data-bs-title="' + config.tooltip + '" class="btn btn-outline-' + config.btn_class + ' btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-            '<i class="bi ' + icon + ' text-secondary"></i></button>';
+        const modalId = `${config.action}Modal${config.id}`;
+        const icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
+        return `
+            <button type="button" 
+                    data-bs-toggle-tooltip="tooltip" 
+                    data-bs-placement="top" 
+                    data-bs-custom-class="custom-tooltip" 
+                    data-bs-title="${config.tooltip}" 
+                    class="btn btn-outline-${config.btn_class} btn-sm rounded-circle" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#${modalId}">
+                <i class="bi ${icon} text-secondary"></i>
+            </button>`;
     }
 
     function createEditButton(config) {
-        return '<a href="' + config.url + '" role="button" class="btn btn-sm btn-outline-primary rounded-circle" ' +
-            'data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="' + config.tooltip + '">' +
-            '<i class="bi bi-pencil"></i></a>';
+        return `
+            <a href="${config.url}" 
+               role="button" 
+               class="btn btn-sm btn-outline-primary rounded-circle" 
+               data-bs-toggle-tooltip="tooltip" 
+               data-bs-placement="top" 
+               data-bs-custom-class="custom-tooltip" 
+               data-bs-title="${config.tooltip}">
+                <i class="bi bi-pencil"></i>
+            </a>`;
     }
 
    function appendActionModal(config) {
-        var modalId = config.action + 'Modal' + config.id;
+        const modalId = `${config.action}Modal${config.id}`;
         if ($('#' + modalId).length > 0) return;
 
-        var icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
-        var modalHeaderClass = config.header_class || (config.action === 'delete' ? 'bg-danger text-dark' : 'bg-warning text-dark');
-        var title = config.title || (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
+        const icon = config.icon || (config.action === 'delete' ? 'bi-trash' : 'bi-person-dash');
+        const modalHeaderClass = config.header_class || (config.action === 'delete' ? 'bg-danger text-dark' : 'bg-warning text-dark');
+        const title = config.title || (config.action === 'delete' ? 'EXCLUIR' : 'ALTERAR STATUS');
 
-        var actionButton = (config.method === 'POST')
+        const actionButton = (config.method === 'POST')
             ? `<form action="${config.url}" method="POST" class="ajax_off" style="display: inline;">
                    <input type="hidden" name="${config.id_field}" value="${config.id}">
                    <button type="submit" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</button>
                </form>`
             : `<a href="${config.url}" class="btn btn-sm btn-outline-success fw-semibold rounded-pill"><i class="bi bi-check-circle"></i> Sim</a>`;
 
-        var modalHtml =
-            `<div class="modal fade action-modal" id="${modalId}" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+        const modalHtml = `
+            <div class="modal fade action-modal" id="${modalId}" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
                <div class="modal-dialog modal-sm">
                    <div class="modal-content">
                        <div class="modal-header ${modalHeaderClass}">
@@ -114,6 +129,24 @@ $(document).ready(function() {
         $('body').append(modalHtml);
     }
     
+    // Função que cria um renderizador de botão de status para `aoColumnDefs`
+    function createStatusButtonRenderer(idCol, statusCol, nameCol, isForDisabledTable = false) {
+        return function(data, type, full) {
+            const isActived = isActiveStatus(full[statusCol]);
+            const action = isActived ? 'inativo' : 'ativo';
+            const text = isActived ? 'ATIVO' : 'INATIVO';
+            const btnClass = isActived ? 'success' : 'danger';
+            const modalId = `${action}Modal${full[idCol]}`;
+            const title = isForDisabledTable ? `Ativar ${full[nameCol]}` : `${isActived ? 'Desativar' : 'Ativar'} ${full[nameCol]}`;
+
+            return `
+                <button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                        data-bs-title="${title}" class="btn btn-sm fw-semibold btn-${btnClass}" data-bs-toggle="modal" data-bs-target="#${modalId}">
+                    ${text}
+                </button>`;
+        };
+    }
+
     var customTooltipCallback = function() {
         $('[data-bs-toggle-tooltip="tooltip"]').tooltip();
     };
@@ -209,17 +242,7 @@ $(document).ready(function() {
             delete: { id_col: 5, name_col: 1, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo'}
         },
        "aoColumnDefs": [
-            { "aTargets": [4], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[3]);
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[4];
-
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [4], "mRender": createStatusButtonRenderer(4, 3, 1) },
             { "aTargets": [5], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[5], tooltip: 'Excluir ' + full[1],
@@ -236,16 +259,7 @@ $(document).ready(function() {
             delete: { id_col: 4, name_col: 0, base_url: '/painel/cargos/excluir', id_field: 'userposition_id', item_name: 'o cargo'}
         },
        "aoColumnDefs": [
-            { "aTargets": [3], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[2]);
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[3];
-                                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                                    'data-bs-title="' + 'Ativar ' + full[0] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [3], "mRender": createStatusButtonRenderer(3, 2, 0, true) },
             { "aTargets": [4], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[4], tooltip: 'Excluir ' + full[0],
@@ -269,17 +283,7 @@ $(document).ready(function() {
                     tooltip: 'Editar ' + full[2]
                 });
             }},
-            { "aTargets": [8], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[8]);
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[9];
-
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[2] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' text-light" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [8], "mRender": createStatusButtonRenderer(9, 8, 2) },
             { "aTargets": [9], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[9],
@@ -298,17 +302,7 @@ $(document).ready(function() {
             delete: { id_col: 8, name_col: 1, base_url: '/painel/usuarios/desativados/excluir', id_field: 'user_id', item_name: 'o usuário' }
         },
        "aoColumnDefs": [
-            { "aTargets": [7], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[7]); // Should be false
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[8];
-                
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + 'Ativar ' + full[1] + '" class="btn btn-sm fw-semibold btn-' + btnClass + ' m-3" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [7], "mRender": createStatusButtonRenderer(8, 7, 1, true) },
             { "aTargets": [8], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[8], tooltip: 'Excluir ' + full[1],
@@ -325,17 +319,7 @@ $(document).ready(function() {
             delete: { id_col: 12, name_col: 4, base_url: '/painel/locais/excluir', id_field: 'place_id', item_name: 'a locai' }
         },
         "aoColumnDefs": [
-             { "aTargets": [11], "mRender": function (data, type, full) {
-                var isActived = isActiveStatus(full[10]);
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[11];
-                
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[4] + '" class="btn btn-sm fw-semibold btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+             { "aTargets": [11], "mRender": createStatusButtonRenderer(11, 10, 4) },
             { "aTargets": [12], "mRender": function (data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[12],
@@ -352,17 +336,7 @@ $(document).ready(function() {
             delete: { id_col: 11, name_col: 3, base_url: '/painel/locais/excluir', id_field: 'place_id', item_name: 'a locai' }
         },
         "aoColumnDefs": [
-            { "aTargets": [10], "mRender": function (data, type, full) {
-                var isActived = isActiveStatus(full[9]); // from modalConfig
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + full[10];
-
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + 'Ativar ' + full[3] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [10], "mRender": createStatusButtonRenderer(10, 9, 3, true) },
             { "aTargets": [11], "mRender": function (data, type, full) {
                 return createActionButton({
                     action: 'delete', id: full[11], tooltip: 'Excluir ' + full[3],
@@ -462,17 +436,7 @@ $(document).ready(function() {
             { "aTargets": [3], "mRender": function (data, type, full) {
                 return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
             }},
-            { "aTargets": [4], "mRender": function (data, type, full) {
-                var isActived = isActiveStatus(full[2]);
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + data;
-
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + (isActived ? 'Desativar ' : 'Ativar ') + full[0] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [4], "mRender": createStatusButtonRenderer(4, 2, 0) },
             { "aTargets": [5], "mRender": function (data, type, full) {
                 return createActionButton({
                     action: 'delete', id: data,
@@ -492,17 +456,7 @@ $(document).ready(function() {
             { "aTargets": [3], "mRender": function(data, type, full) {
                 return '<a href="' + SITE_URL + '/painel/tipos-de-eventos/editar/' + data + '" role="button" class="btn btn-sm btn-outline-warning rounded-circle" data-bs-toggle-tooltip="tooltip" title="Editar"><i class="bi bi-pencil"></i></a>';
             }},
-            { "aTargets": [4], "mRender": function(data, type, full) {
-                var isActived = isActiveStatus(full[2]); // from modalConfig
-                var action = isActived ? 'inativo' : 'ativo';
-                var text = isActived ? 'ATIVO' : 'INATIVO';
-                var btnClass = isActived ? 'success' : 'danger';
-                var modalId = action + 'Modal' + data;
-
-                return '<button type="button" data-bs-toggle-tooltip="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" ' +
-                    'data-bs-title="' + 'Ativar ' + full[0] + '" class="btn btn-sm btn-' + btnClass + '" data-bs-toggle="modal" data-bs-target="#' + modalId + '">' +
-                    text + '</button>';
-            }},
+            { "aTargets": [4], "mRender": createStatusButtonRenderer(4, 2, 0, true) },
             { "aTargets": [5], "mRender": function(data, type, full) {
                 return createActionButton({
                     action: 'delete', id: data, tooltip: 'Excluir ' + full[0],
@@ -527,5 +481,46 @@ $(document).ready(function() {
         ]
     }));
 
+    // Tabela de Menus
+    $('#menus').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Menus", false), {
+        modalConfig: {
+            delete: { id_col: 4, name_col: 1, base_url: '/painel/menus/excluir', id_field: 'menu_id', item_name: 'o menu' }
+        },
+        "aoColumnDefs": [
+            { "aTargets": [4], "mRender": function (data, type, full) {
+                var editButton = createEditButton({
+                    url: SITE_URL + '/painel/menus/editar/' + data,
+                    tooltip: 'Editar ' + full[1]
+                });
+                var deleteButton = createActionButton({
+                    action: 'delete', id: data,
+                    tooltip: 'Excluir ' + full[1], btn_class: 'danger'
+                });
+                return editButton + ' ' + deleteButton;
+            }}
+        ],
+        "aaSorting": [0, 'asc'] // Ordenar pela coluna 'Ordem'
+    }));
+
+    // Tabela de Menus
+    $('#submenus').DataTable($.extend(true, {}, getDefaultDataTablesConfig("Menus", false), {
+        modalConfig: {
+            delete: { id_col: 7, name_col: 2, base_url: '/painel/submenus/excluir', id_field: 'menu_id', item_name: 'o menu' }
+        },
+        "aoColumnDefs": [
+            { "aTargets": [7], "mRender": function (data, type, full) {
+                var editButton = createEditButton({
+                    url: SITE_URL + '/painel/submenus/editar/' + data,
+                    tooltip: 'Editar ' + full[2]
+                });
+                var deleteButton = createActionButton({
+                    action: 'delete', id: data,
+                    tooltip: 'Excluir ' + full[2], btn_class: 'danger'
+                });
+                return editButton + ' ' + deleteButton;
+            }}
+        ],
+        "aaSorting": [6, 'asc'] // Ordenar pela coluna 'Ordem'
+    }));
 
 });

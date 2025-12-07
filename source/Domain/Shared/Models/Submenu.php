@@ -32,6 +32,17 @@ class Submenu extends Model
     }
 
     /**
+     * @return Submenu|null
+     */
+    public function parent(): ?Submenu
+    {
+        if ($this->parent_id) {
+            return (new Submenu())->findById($this->parent_id);
+        }
+        return null;
+    }
+
+    /**
      * @return array|null
      */
     public function children(): ?array

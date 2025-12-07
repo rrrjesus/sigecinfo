@@ -17,10 +17,11 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm border-secondary table-hover">
+                        <table id="submenus" class="table table-bordered table-sm border-secondary table-hover">
                             <thead class="table-secondary">
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center">Id</th>
+                                    <th>Ícone</th>
                                     <th>Nome</th>
                                     <th>URL</th>
                                     <th>Menu Pai</th>
@@ -34,21 +35,13 @@
                                     <?php foreach ($submenus as $submenu): ?>
                                         <tr>
                                             <td class="text-center"><?= $submenu->id; ?></td>
-                                            <td><i class="<?= $submenu->icon; ?>"></i> <?= $submenu->name; ?></td>
+                                            <td><i class="<?= $submenu->icon; ?>"></i> (<?= $submenu->icon; ?>)</td>
+                                            <td class="text-center"><?= $submenu->name; ?></td>
                                             <td><?= $submenu->url; ?></td>
                                             <td><?= $submenu->menu()->name ?? 'N/A'; ?></td>
-                                            <td><?= $submenu->parent_id ? (new \Source\Domain\Shared\Models\Submenu())->findById($submenu->parent_id)->name : 'N/A'; ?></td>
+                                            <td><?= $submenu->parent_id ? $submenu->findById($submenu->parent_id)->name : 'N/A'; ?></td>
                                             <td class="text-center"><?= $submenu->submenu_order; ?></td>
-                                            <td class="text-center">
-                                                <a href="<?= url("/painel/submenus/editar/{$submenu->id}"); ?>" class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a>
-                                                <a href="#" class="btn btn-sm btn-outline-danger" 
-                                                   data-post="<?= url("/painel/submenus/excluir"); ?>"
-                                                   data-action="delete"
-                                                   data-confirm="Tem certeza que deseja excluir este submenu?"
-                                                   data-submenu_id="<?= $submenu->id; ?>" title="Excluir">
-                                                   <i class="bi bi-trash"></i>
-                                                </a>
-                                            </td>
+                                            <td class="text-center"><?= $submenu->id; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>

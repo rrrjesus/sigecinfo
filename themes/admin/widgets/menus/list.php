@@ -1,6 +1,6 @@
 <?php $this->layout("_admin"); ?>
 
-<!-- Breacrumb-->
+<!-- Breadcrumb -->
 <?= $this->insert("views/theme/breadcrumb"); ?>
 
 <div class="row justify-content-center">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm border-secondary table-hover">
+                        <table id="menus" class="table table-bordered table-sm border-secondary table-hover">
                             <thead class="table-secondary">
                                 <tr>
                                     <th class="text-center">#</th>
@@ -35,16 +35,7 @@
                                             <td><?= $menu->name; ?></td>
                                             <td><i class="<?= $menu->icon; ?>"></i> (<?= $menu->icon; ?>)</td>
                                             <td class="text-center"><?= $menu->menu_order; ?></td>
-                                            <td class="text-center">
-                                                <a href="<?= url("/painel/menus/editar/{$menu->id}"); ?>" class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil-square"></i></a>
-                                                <a href="#" class="btn btn-sm btn-outline-danger" 
-                                                   data-post="<?= url("/painel/menus/excluir"); ?>"
-                                                   data-action="delete"
-                                                   data-confirm="Tem certeza que deseja excluir este menu?"
-                                                   data-menu_id="<?= $menu->id; ?>" title="Excluir">
-                                                   <i class="bi bi-trash"></i>
-                                                </a>
-                                            </td>
+                                            <td class="text-center"><?= $menu->id; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php else: ?>
