@@ -28,6 +28,7 @@
                 <div class="card-body p-5">
                     <!-- Informações do evento -->
                     <div class="mb-4 text-start p-3 rounded-3 bg-body text-body mx-auto">
+                        <p class="mb-1"><strong>Nome:</strong> <?= $participant->user()->user_name; ?></p>
                         <p class="mb-1"><strong>Evento:</strong> <?= $event->title; ?></p>
                         <p class="mb-1"><strong>Descrição:</strong> <?= $event->description; ?></p>
                         <p class="mb-1"><strong>Data / Início:</strong> <?= date_fmt($event->date_event, "d/m/Y H:i"); ?></p>
