@@ -26,7 +26,7 @@
     <div class="tab-pane fade show active" id="pills-guests" role="tabpanel" aria-labelledby="pills-guests-tab">
         <?php if ($event && !empty($participants)): ?>
             <div class="card mb-2">
-                <div class="card-header bg-<?=CONF_APP_COLOR?> text-white fw-semibold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
+                <div class="card-header fw-semibold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
                 <div class="card-body">
                     <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                         <thead class="table-secondary">
@@ -93,7 +93,7 @@
                                         ) ?>
                                     </td>
                                     <td class="align-middle"><?= $participant->user()->user_name; ?></td>
-                                    <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'N/A'; ?></td>
+                                    <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'Outros'; ?> - <?= $participant->user()->place()->place_name ?? 'Outra Localidade'; ?></td>
                                     <td class="text-center">
                                         <?php if ($participant): ?>
                                             

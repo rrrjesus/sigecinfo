@@ -151,6 +151,7 @@ class Users extends Admin
         $this->authorize('Users', 'create');
 
         if (!empty($data["action"]) && $data["action"] == "create") {
+            
             $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
             
             $userCreate = new User();

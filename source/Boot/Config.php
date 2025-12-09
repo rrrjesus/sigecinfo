@@ -8,7 +8,7 @@ define("CONF_SITE_TITLE", "Sistema de Gestão de Informações");
 define("CONF_SITE_DESC", "Sistema de Gestão de Informações");
 define("CONF_SITE_LANG", "pt_BR");
 define("CONF_SITE_DOMAIN", "sigecinfo.com.br");
-define("CONF_SITE_EMAIL", "informatica.setor11@gmail.com");
+define("CONF_SITE_EMAIL", "suporte@sigecinfo.online");
 define("CONF_SITE_ADDR_STREET", "Rua José Buono");
 define("CONF_SITE_ADDR_NUMBER", "65");
 define("CONF_SITE_ADDR_COMPLEMENT", "Informática Setor 11");

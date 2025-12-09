@@ -53,6 +53,6 @@ class View
      */
     public function engine(): Engine
     {
-        return $this->engine();
+        return $this->engine;
     }
 }

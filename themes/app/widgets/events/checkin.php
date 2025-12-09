@@ -23,6 +23,9 @@
                             <h5 class="card-title"><?= $participant->user()->user_name.' - '.$participant->user()->position()->position_name; ?></h5>
 
                             <dl class="row">
+                                <dt class="col-sm-3"><i class="bi bi-geo-alt me-2"></i>Comum:</dt>
+                                <dd class="col-sm-9"><?= !empty($participant->user()->place()->place_name) ? $participant->user()->place()->place_name : ''; ?></dd>
+
                                 <dt class="col-sm-3"><i class="bi bi-envelope me-2"></i>Email:</dt>
                                 <dd class="col-sm-9"><?= $participant->user()->email; ?></dd>
 

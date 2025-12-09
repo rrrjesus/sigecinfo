@@ -8,6 +8,8 @@ use Source\Domain\Report\Models\Access;
 use Source\Domain\Report\Models\Online;
 use League\OAuth2\Client\Provider\Google;
 use Source\Domain\User\Models\User;
+use Source\Core\View;
+use Source\Support\Email;
 
 /**
  * Web Controller
@@ -109,11 +111,11 @@ class Web extends Controller
                 return;
             }
 
-            // if (request_limit("weblogin", 5, 60 * 5)) {
-            //     $json['message'] = $this->message->error("Você já efetuou 5 tentativas. Por favor, aguarde 5 minutos.")->render();
-            //     echo json_encode($json);
-            //     return;
-            // }
+            if (request_limit("weblogin", 5, 60 * 5)) {
+                $json['message'] = $this->message->error("Você já efetuou 5 tentativas. Por favor, aguarde 5 minutos.")->render();
+                echo json_encode($json);
+                return;
+            }
 
             if (empty($data['email']) || empty($data['password'])) {
                 $json['message'] = $this->message->warning("Informe seu email e senha para entrar !!!")->icon()->render();
@@ -227,18 +229,39 @@ class Web extends Controller
                 return;
             }
 
+            $user = (new User())->findByEmail($data["email"]);
+
+            if (!$user) {
+                $json['message'] = $this->message->warning("O e-mail informado não está cadastrado.")->render();
+                echo json_encode($json);
+                return;
+            }
+
             if (request_repeat("webforget", $data["email"])) {
                 $json['message'] = $this->message->error("Ooops! Você já tentou este e-mail antes")->render();
                 echo json_encode($json);
                 return;
             }
 
-            if ($this->auth->forget($data["email"])) {
-                $json["message"] = $this->message->success("Acesse seu e-mail para recuperar a senha")->render();
-            } else {
-                $json["message"] = $this->auth->message()->before("Ooops! ")->render();
-            }
+            $user->forget = md5(uniqid(rand(), true));
+            $user->save();
 
+            $view = new View();
+            $view->path("email", __DIR__ . "/../../shared/views/email");
+
+            $message = $view->render("email::forget", [
+                "first_name" => $user->first_name,
+                "forget_link" => url("/recuperar/{$user->email}|{$user->forget}")
+            ]);
+
+            (new Email())->bootstrap(
+                "Recupere sua senha no " . CONF_SITE_NAME,
+                $message,
+                $user->email,
+                "{$user->first_name} {$user->last_name}"
+            )->send();
+
+            $json["message"] = $this->message->success("Acesse seu e-mail para recuperar a senha")->render();
             echo json_encode($json);
             
             return;
