@@ -26,7 +26,12 @@
     <div class="tab-pane fade show active" id="pills-guests" role="tabpanel" aria-labelledby="pills-guests-tab">
         <?php if ($event && !empty($participants)): ?>
             <div class="card mb-2">
-                <div class="card-header fw-semibold"><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</div>
+                <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#registerUserModal">
+                        <i class="bi bi-plus-circle me-1"></i> Cadastrar
+                    </button>
+                </div>
                 <div class="card-body">
                     <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
                         <thead class="table-secondary">
@@ -308,6 +313,8 @@
         <?php endif; ?>
     </div>
 </div>
+
+<?= $this->insert("widgets/events/register_user", ["event" => $event]); ?>
 
 <?php $activeTab = $_SESSION['tab'] ?? 'guests'; unset($_SESSION['tab']); ?>
 

@@ -72,6 +72,7 @@ $route->get("/logoff", function($data) use ($auth) {(new \Source\App\App\Control
 $route->get("/eventos", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->list($data);});
 $route->get("/eventos/cadastrar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->create($data);});
 $route->post("/eventos/cadastrar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->create($data);});
+$route->post("/eventos/{event_id}/cadastrar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->registerParticipant($data);});
 $route->get("/eventos/editar/{event_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->edit($data);});
 $route->post("/eventos/editar/{event_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->edit($data);});
 $route->get("/eventos/portaria/{event_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->report($data);});

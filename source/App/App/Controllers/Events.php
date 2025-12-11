@@ -941,4 +941,114 @@ class Events extends Admin
             "user" => $this->user
         ]);
     }
+
+    public function registerParticipant(array $data): void
+    {
+        // 1. Authorization & Sanitization
+        $this->authorize('Events', 'edit'); 
+        $data = array_map('trim', filter_var_array($data, FILTER_SANITIZE_STRIPPED));
+
+        // 2. CSRF Check
+        if (!csrf_verify($data)) {
+            $json['message'] = $this->message->error("Erro ao enviar, favor use o formulário")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // 3. Basic Validation
+        if (in_array("", [$data['user_name'], $data['email'], $data['position'], $data['place']])) {
+            $json['message'] = $this->message->warning("Por favor, preencha todos os campos.")->render();
+            echo json_encode($json);
+            return;
+        }
+        if (!is_email($data['email'])) {
+            $json['message'] = $this->message->warning("O e-mail informado não é válido.")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // 4. Find Event
+        $event = (new \Source\Domain\Event\Models\Event())->findById($data['event_id']);
+        if (!$event) {
+            $json['message'] = $this->message->error("O evento para o qual você está tentando se inscrever não existe.")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // 5. Find or Create Place and Position
+        // $place = (new \Source\Domain\Place\Models\Place())->find("id = :i", "i={$data['place']}")->fetch();
+        // if (!$place) {
+        //     $place = new \Source\Domain\Place\Models\Place();
+        //     $place->id = $data['place'];
+            //  if (!$place->save()) {
+            //     $json['message'] = $place->message()->render();
+            //     echo json_encode($json);
+            //     return;
+            // }
+        // }
+
+        // $position = (new \Source\Domain\User\Models\UserPosition())->find("position_name = :p", "p={$data['position']}")->fetch();
+
+        // if (!$position) {
+        //     $position = new \Source\Domain\User\Models\UserPosition();
+        //     $position->id = $data['position'];
+        //     // if (!$position->save()) {
+        //     //     $json['message'] = $position->message()->render();
+        //     //     echo json_encode($json);
+        //     //     return;
+        //     // }
+        // }
+
+        // 6. Find or Create User
+        $user = (new \Source\Domain\User\Models\User())->findByEmail($data['email']);
+
+        if (!$user) {
+            $user = new \Source\Domain\User\Models\User();
+            $user->user_name = $data['user_name'];
+            $user->email = $data['email'];
+            $user->position_id = $data['position'];
+            $user->place_id = $data['place'];
+            $user->password = "Mudar12345?!@#";
+            $user->level_id = 1; // Basic User
+            $user->status = 'ativo';
+            if (!$user->save()) {
+                $json['message'] = $user->message()->render();
+                echo json_encode($json);
+                return;
+            }
+        } else {
+             // Update user's position and place if they are different
+            $user->position_id = $data['position'];
+            $user->place_id = $data['place'];
+            $user->save();
+        }
+
+        // 7. Check for existing participation
+        $existingParticipant = (new \Source\Domain\Event\Models\EventParticipant())->find(
+            "event_id = :event_id AND user_id = :user_id",
+            "event_id={$event->id}&user_id={$user->id}"
+        )->fetch();
+
+        if ($existingParticipant) {
+            $json['message'] = $this->message->info("Este usuário já está na lista de convidados.")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // 8. Create Participant
+        $participant = new \Source\Domain\Event\Models\EventParticipant();
+        $participant->event_id = $event->id;
+        $participant->user_id = $user->id;
+        $participant->status = 'convocado'; // Default status
+        if (!$participant->save()) {
+            $json['message'] = $participant->message()->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // 9. Success Response
+        $this->message->success("Convocado cadastrado com sucesso!")->flash();
+        $json['reload'] = true;
+        echo json_encode($json);
+    }
 }
