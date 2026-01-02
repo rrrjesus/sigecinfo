@@ -38,160 +38,163 @@
                         "custom" => "custom-tooltip-secondary"
                     ]); ?>
                 </div>
-                <div class="card-body">
-                    <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
-                        <thead class="table-secondary">
-                                <th class="text-center">Checkin</th>
-                                <th class="text-center">Foto</th>
-                                <th>Nome</th>
-                                <th>Cargo</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
-                                <th class="text-center">Excluir</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($participants as $participant): ?>
-                                <tr>
-                                    <td class="text-center align-middle">
-                                        <?php
-                                        $status = $participant->status;
-                                        $buttonOptions = [
-                                            "class" => "m-1 p-1",
-                                            "custom" => "custom-tooltip-secondary"
-                                        ];
 
-                                        switch ($status) {
-                                            case 'convocado':
-                                                $buttonOptions += [
-                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
-                                                    "name" => "Check-in",
-                                                    "icon" => "check-circle me-1",
-                                                    "btncolor" => "primary",
-                                                    "title" => "Realizar check-in do participante"
-                                                ];
-                                                break;
-                                            case 'confirmado':
-                                                $buttonOptions += [
-                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
-                                                    "name" => "Check-in",
-                                                    "icon" => "check-circle me-1",
-                                                    "btncolor" => "info",
-                                                    "class" => "m-1 p-1 text-white",
-                                                    "title" => "Realizar check-in do participante"
-                                                ];
-                                                break;
-                                            case 'presente':
-                                                $buttonOptions += [
-                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
-                                                    "name" => "Presente",
-                                                    "icon" => "check-circle-fill me-1",
-                                                    "btncolor" => "success",
-                                                    "title" => "Ver detalhes do check-in"
-                                                ];
-                                                break;
-                                            case 'justificado':
-                                                $buttonOptions += [
-                                                    "name" => "Justificado",
-                                                    "icon" => "x-circle me-1",
-                                                    "btncolor" => "warning",
-                                                    "title" => "Participante justificou a ausência",
-                                                    "class" => "m-1 p-1 disabled text-dark-emphasis"
-                                                ];
-                                                unset($buttonOptions["href"]);
-                                                break;
-                                            case 'ausente':
-                                                $buttonOptions += [
-                                                    "name" => "Ausente",
-                                                    "icon" => "slash-circle me-1",
-                                                    "btncolor" => "danger",
-                                                    "title" => "Participante ausente",
-                                                    "class" => "m-1 p-1 disabled"
-                                                ];
-                                                unset($buttonOptions["href"]);
-                                                break;
-                                            default:
-                                                $buttonOptions += [
-                                                    "name" => ucfirst($status),
-                                                    "icon" => "question-circle me-1",
-                                                    "btncolor" => "secondary",
-                                                    "title" => "Status não acionável",
-                                                    "class" => "m-1 p-1 disabled"
-                                                ];
-                                                unset($buttonOptions["href"]);
-                                                break;
-                                        }
-
-                                        echo button($buttonOptions);
-                                        ?>
-                                    </td>
-                                    <td class="text-center align-middle">
-                                        <?php
-                                            $photoPath = $participant->user()->photo;
-                                            $defaultAvatar = 'avatar.jpg';
-                                            $defaultImageUrl = theme("/assets/images/{$defaultAvatar}", CONF_VIEW_ADMIN);
-                                            $thumbUrl = $defaultImageUrl;
-                                            $largeImageUrl = $defaultImageUrl;
-
-                                            if ($photoPath) {
-                                                $absolutePath = CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$photoPath}";
-                                                if (file_exists($absolutePath) && !is_dir($absolutePath)) {
-                                                    $thumbUrl = image($photoPath, 30, 30);
-                                                    $largeImageUrl = image($photoPath, 600, 600);
-                                                }
-                                            }
-                                        ?>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#photoModal<?= $participant->id ?>">
-                                            <img src="<?= $thumbUrl ?>" class="rounded-circle" height="30" width="30" alt="<?= $participant->user()->user_name ?>">
-                                        </a>
-                                        <?= \Source\Support\Modal::renderImage(
-                                            "photoModal{$participant->id}",
-                                            $participant->user()->user_name.' - '.$participant->user()->position()->position_name,
-                                            $largeImageUrl,
-                                            $participant->user()->user_name
-                                        ) ?>
-                                    </td>
-                                    <td class="align-middle"><?= $participant->user()->user_name; ?></td>
-                                    <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'Outros'; ?> - <?= $participant->user()->place()->place_name ?? 'Outra Localidade'; ?></td>
-                                    <td class="text-center">
-                                        <?php if ($participant): ?>
-                                            
-                                            <?php if ($participant->status === 'convocado'): ?>
-                                                    <h5><span class="badge text-bg-primary text-white m-1 p-2 fw-semibold">Convocado</span></h5>
-                                            <?php elseif ($participant->status === 'confirmado'): ?>
-                                                <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
-                                            <?php elseif ($participant->status === 'justificado'): ?>
-                                                <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
-                                                <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
-                                            <?php elseif ($participant->status === 'presente'): ?> 
-                                                <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
-                                                <?php else: ?>
-                                                <h5><span class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    </td>
-                                     <td class="text-center">
-                                            <?php if ($participant && $participant->status !== 'convocado'): ?>
-                                                <form class="ajax_off" style="display: inline;" action="<?= url("/app/eventos/alterar-resposta"); ?>" method="post">
-                                                    <?= csrf_input(); ?>
-                                                    <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
-                                                    <?= button([
-                                                        "name" => "",
-                                                        "icon" => "pencil",
-                                                        "btncolor" => "warning",
-                                                        "class" => "rounded-circle text-warning-emphasis",
-                                                        "title" => "Alterar status do participante",
-                                                        "custom" => "custom-tooltip-secondary",
-                                                        "type" => "submit"
-                                                    ]); ?>
-                                                </form>
-                                            <?php endif; ?>
-                                    </td>
-                                    <td class="text-center align-middle"><?= $participant->id; ?></td>
-                                   
+                 <div class="card-body">
+                    <div class="dt-container dt-bootstrap5">
+                        <table id="eventParticipants" class="table table-striped table-sm table-hover dt-responsive" style="width:100%">
+                            <thead class="table-secondary">
+                                <tr class="mb-3">
+                                    <th class="text-center"><i class="bi bi-check-circle me-2"></i>Checkin</th>
+                                    <th class="text-center">Foto</th>
+                                    <th>Nome</th>
+                                    <th>Cargo</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center"><i class="bi bi-pencil me-2"></i>Alterar</th>
+                                    <th class="text-center">Excluir</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+                            </thead>
+                            <tbody class="fw-semibold text-center">
+                                <?php foreach ($participants as $participant): ?>
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <?php
+                                            $status = $participant->status;
+                                            $buttonOptions = [
+                                                "class" => "m-1 p-1",
+                                                "custom" => "custom-tooltip-secondary"
+                                            ];
+
+                                            switch ($status) {
+                                                case 'convocado':
+                                                    $buttonOptions += [
+                                                        "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                        "name" => "Check-in",
+                                                        "icon" => "check-circle me-1",
+                                                        "btncolor" => "primary",
+                                                        "title" => "Realizar check-in do participante"
+                                                    ];
+                                                    break;
+                                                case 'confirmado':
+                                                    $buttonOptions += [
+                                                        "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                        "name" => "Check-in",
+                                                        "icon" => "check-circle me-1",
+                                                        "btncolor" => "info",
+                                                        "class" => "m-1 p-1 text-white",
+                                                        "title" => "Realizar check-in do participante"
+                                                    ];
+                                                    break;
+                                                case 'presente':
+                                                    $buttonOptions += [
+                                                        "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                        "name" => "Presente",
+                                                        "icon" => "check-circle-fill me-1",
+                                                        "btncolor" => "success",
+                                                        "title" => "Ver detalhes do check-in"
+                                                    ];
+                                                    break;
+                                                case 'justificado':
+                                                    $buttonOptions += [
+                                                        "name" => "Justificado",
+                                                        "icon" => "x-circle me-1",
+                                                        "btncolor" => "warning",
+                                                        "title" => "Participante justificou a ausência",
+                                                        "class" => "m-1 p-1 disabled text-dark-emphasis"
+                                                    ];
+                                                    unset($buttonOptions["href"]);
+                                                    break;
+                                                case 'ausente':
+                                                    $buttonOptions += [
+                                                        "name" => "Ausente",
+                                                        "icon" => "slash-circle me-1",
+                                                        "btncolor" => "danger",
+                                                        "title" => "Participante ausente",
+                                                        "class" => "m-1 p-1 disabled"
+                                                    ];
+                                                    unset($buttonOptions["href"]);
+                                                    break;
+                                                default:
+                                                    $buttonOptions += [
+                                                        "name" => ucfirst($status),
+                                                        "icon" => "question-circle me-1",
+                                                        "btncolor" => "secondary",
+                                                        "title" => "Status não acionável",
+                                                        "class" => "m-1 p-1 disabled"
+                                                    ];
+                                                    unset($buttonOptions["href"]);
+                                                    break;
+                                            }
+
+                                            echo button($buttonOptions);
+                                            ?>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <?php
+                                                $photoPath = $participant->user()->photo;
+                                                $defaultAvatar = 'avatar.jpg';
+                                                $defaultImageUrl = theme("/assets/images/{$defaultAvatar}", CONF_VIEW_ADMIN);
+                                                $thumbUrl = $defaultImageUrl;
+                                                $largeImageUrl = $defaultImageUrl;
+
+                                                if ($photoPath) {
+                                                    $absolutePath = CONF_PROJECT_ROOT . "/" . CONF_UPLOAD_DIR . "/{$photoPath}";
+                                                    if (file_exists($absolutePath) && !is_dir($absolutePath)) {
+                                                        $thumbUrl = image($photoPath, 30, 30);
+                                                        $largeImageUrl = image($photoPath, 600, 600);
+                                                    }
+                                                }
+                                            ?>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#photoModal<?= $participant->id ?>">
+                                                <img src="<?= $thumbUrl ?>" class="rounded-circle" height="30" width="30" alt="<?= $participant->user()->user_name ?>">
+                                            </a>
+                                            <?= \Source\Support\Modal::renderImage(
+                                                "photoModal{$participant->id}",
+                                                $participant->user()->user_name.' - '.$participant->user()->position()->position_name,
+                                                $largeImageUrl,
+                                                $participant->user()->user_name
+                                            ) ?>
+                                        </td>
+                                        <td class="align-middle"><?= $participant->user()->user_name; ?></td>
+                                        <td class="align-middle"><?= $participant->user()->position()->position_name ?? 'Outros'; ?> - <?= $participant->user()->place()->place_name ?? 'Outra Localidade'; ?></td>
+                                        <td class="text-center">
+                                            <?php if ($participant): ?>
+                                                
+                                                <?php if ($participant->status === 'convocado'): ?>
+                                                        <h5><span class="badge text-bg-primary text-white m-1 p-2 fw-semibold">Convocado</span></h5>
+                                                <?php elseif ($participant->status === 'confirmado'): ?>
+                                                    <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Confirmado</span></h5>
+                                                <?php elseif ($participant->status === 'justificado'): ?>
+                                                    <h5><span class="badge text-bg-warning fw-semibold p-2">Falta Justificada</span></h5>
+                                                    <h6><small class="text-muted fst-italic"><strong>Motivo:</strong> <?= $participant->justification; ?></small></h6>
+                                                <?php elseif ($participant->status === 'presente'): ?> 
+                                                    <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
+                                                    <?php else: ?>
+                                                    <h5><span class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-center">
+                                                <?php if ($participant && $participant->status !== 'convocado'): ?>
+                                                    <form class="ajax_off" style="display: inline;" action="<?= url("/app/eventos/alterar-resposta"); ?>" method="post">
+                                                        <?= csrf_input(); ?>
+                                                        <input type="hidden" name="participant_id" value="<?= $participant->id; ?>">
+                                                        <?= button([
+                                                            "name" => "",
+                                                            "icon" => "pencil",
+                                                            "btncolor" => "warning",
+                                                            "class" => "rounded-circle text-warning-emphasis",
+                                                            "title" => "Alterar status do participante",
+                                                            "custom" => "custom-tooltip-secondary",
+                                                            "type" => "submit"
+                                                        ]); ?>
+                                                    </form>
+                                                <?php endif; ?>
+                                        </td>
+                                        <td class="text-center align-middle"><?= $participant->id; ?></td>
+                                    
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                     </table>
                 </div>
             </div>
