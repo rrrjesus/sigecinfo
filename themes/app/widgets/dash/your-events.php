@@ -9,7 +9,7 @@
         </p>
         <div class="mt-auto">
             <?= button([
-                "href" => "/app/eventos/meus-eventos-agendados",
+                "href" => url("/app/eventos/meus-eventos-agendados"),
                 "name" => "Ver Agendados",
                 "icon" => "calendar-check me-1",
                 "class" => "text-dark-emphasis",
@@ -18,7 +18,7 @@
                 "custom" => "custom-tooltip-secondary"
             ]); ?>
             <?= button([
-                "href" => "/app/eventos/meus-eventos-finalizados",
+                "href" => url("/app/eventos/meus-eventos-finalizados"),
                 "name" => "Ver Histórico",
                 "icon" => "clock-history me-1",
                 "class" => "text-dark-emphasis",

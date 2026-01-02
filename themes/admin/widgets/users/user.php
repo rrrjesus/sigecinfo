@@ -151,7 +151,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <?= button(["type" => "submit", "name" => ($user ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($user ? "primary" : "success")]); ?>
-                        <?= button(["href" => "/painel/usuarios", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                        <?= button(["href" => url()."/painel/usuarios", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                     </div>
                 </div>
             </form>

@@ -13,9 +13,9 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Eventos do Sistema</h6>
                     <div>
-                        <?= button(["href" => "/app/eventos/cadastrar", "name" => "Cadastrar", "icon" => "calendar-plus"]); ?>
+                        <?= button(["href" => url("/app/eventos/cadastrar"), "name" => "Cadastrar", "icon" => "calendar-plus"]); ?>
                         <?php if (!empty($registers->inativo)) : ?>
-                            <?= button(["href" => "/app/eventos/desativados", "name" => "Desativados", "btncolor" => "secondary", "icon" => "arrow-return-left m-1", "disabled_count" => $registers->inativo]); ?>
+                            <?= button(["href" => url("/app/eventos/desativados"), "name" => "Desativados", "btncolor" => "secondary", "icon" => "arrow-return-left m-1", "disabled_count" => $registers->inativo]); ?>
                         <?php endif; ?>
                     </div>
                 </div>

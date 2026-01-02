@@ -11,9 +11,9 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Usuários do Sistema</h6>
                 <div>
-                    <?= button(["href" => "/painel/usuarios/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                    <?= button(["href" => url()."/painel/usuarios/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
                     <?php if (!empty($registers->inativo)) : ?>
-                        <?= button(["href" => "/painel/usuarios/desativados", "name" => "Desativados", "btncolor" => "secondary", "icon" => "arrow-return-left m-1", "disabled_count" => $registers->inativo]); ?>
+                        <?= button(["href" => url()."/painel/usuarios/desativados", "name" => "Desativados", "btncolor" => "secondary", "icon" => "arrow-return-left m-1", "disabled_count" => $registers->inativo]); ?>
                     <?php endif; ?>
                 </div>
             </div>

@@ -15,7 +15,7 @@
 
                 <div>
                     <?= button([
-                        "href" => "/app/eventos/meus-eventos-agendados", 
+                        "href" => url("/app/eventos/meus-eventos-agendados"), 
                         "name" => "Agendados", 
                         "icon" => "calendar-plus me-1",
                         "class" => "m-2",
@@ -24,7 +24,7 @@
                     ]); ?>
                     <?php if (!empty($registers->disabled)) : ?>
                         <?= button([
-                            "href" => "/app/eventos/meus-eventos-finalizados", 
+                            "href" => url("/app/eventos/meus-eventos-finalizados"), 
                             "name" => "Finalizados", 
                             "icon" => "calendar-plus me-1", 
                             "btncolor" => "secondary",

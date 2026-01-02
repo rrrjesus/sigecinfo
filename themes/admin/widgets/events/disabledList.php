@@ -12,7 +12,7 @@
                 <div class="card-header bg-<?=CONF_APP_COLOR?> text-white d-flex justify-content-between align-items-center fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event-fill me-2"></i>Eventos Desativados</h6>
                     <div>
-                        <?= button(["href" => "/app/eventos", "name" => "Voltar para Eventos", "icon" => "calendar", "btncolor" => "secondary", "title" => "Voltar para a lista de eventos ativos", "custom" => "custom-tooltip-secondary"]); ?>
+                        <?= button(["href" => url("/app/eventos"), "name" => "Voltar para Eventos", "icon" => "calendar", "btncolor" => "secondary", "title" => "Voltar para a lista de eventos ativos", "custom" => "custom-tooltip-secondary"]); ?>
                     </div>
                 </div>
                 <div class="card-body">

@@ -13,9 +13,9 @@
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-calendar-event me-2"></i>Eventos do Sistema</h6>
                     <div>
                         <?= button(
-                            ["href" => "/painel/eventos/cadastrar", "title" => "Cadastrar Eventos", "custom" => "custom-tooltip-secondary", "name" => "Cadastrar Eventos", "icon" => "calendar-plus me-2", "class" => "","btncolor" => "primary"]); ?>
+                            ["href" => url()."/painel/eventos/cadastrar", "title" => "Cadastrar Eventos", "custom" => "custom-tooltip-secondary", "name" => "Cadastrar Eventos", "icon" => "calendar-plus me-2", "class" => "","btncolor" => "primary"]); ?>
                         <?php if (!empty($registers->disabled)) : ?> 
-                            <?= button(["href" => "/painel/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled, "title" => "Ver eventos desativados", "custom" => "custom-tooltip-secondary"]); ?>
+                            <?= button(["href" => url()."/painel/eventos/desativados", "name" => "Eventos Inativos", "icon" => "calendar-plus", "btncolor" => "secondary", "disabled_count" => $registers->disabled, "title" => "Ver eventos desativados", "custom" => "custom-tooltip-secondary"]); ?>
                         <?php endif; ?>
                     </div>
                 </div>

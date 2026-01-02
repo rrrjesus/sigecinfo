@@ -53,7 +53,7 @@
                 <div class="card-footer text-center bg-body-tertiary">
 
                     <?= button([
-                        "href" => "/app/eventos/meus-eventos-agendados",
+                        "href" => url("/app/eventos/meus-eventos-agendados"),
                         "name" => " Voltar para Meus Eventos",
                         "icon" => "arrow-left",
                         "btncolor" => "secondary",

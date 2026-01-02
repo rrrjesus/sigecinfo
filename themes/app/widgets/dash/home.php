@@ -40,18 +40,43 @@ $this->layout("_app"); ?>
                         scrolling="no">
                     </iframe>
 
-                    <?php
-                        if (Auth::check('events_create')):
-                    ?>
-                        <?= button([
-                            "href" => "/app/eventos/cadastrar",
-                            "name" => "Adicionar Evento",
-                            "icon" => "plus-circle me-1",
-                            "btncolor" => "success mt-3",
-                            "title" => "Cadastrar um novo evento",
-                            "custom" => "custom-tooltip-secondary"
-                        ]); ?>
-                    <?php endif; ?>
+                   <div class="container">
+                        <div class="row align-items-start">
+                            <div class="col">
+
+                                <?php if (Auth::check('events_create')): ?>
+
+                                    <?= button([
+                                        "href" => url("/app/eventos/cadastrar"),
+                                        "name" => "Adicionar Evento",
+                                        "icon" => "plus-circle me-1",
+                                        "btncolor" => "success mt-1 mb-1",
+                                        "title" => "Cadastrar um novo evento",
+                                        "custom" => "custom-tooltip-secondary"
+                                    ]); ?>
+
+                                <?php endif; ?>
+
+                            </div>
+
+                            <div class="col">
+
+                                <?php if (Auth::check('events_view')): ?>
+
+                                <?= button([
+                                    "href" => url("/app/eventos"),
+                                    "name" => "Listar Eventos",
+                                    "icon" => "list me-1",
+                                    "btncolor" => "primary mt-1 mb-1",
+                                    "title" => "Listar eventos",
+                                    "custom" => "custom-tooltip-secondary"
+                                ]); ?>
+
+                                <?php endif; ?>
+
+                            </div>
+                        </div>
+                   </div>
                 </div>
             </div>
         </div>

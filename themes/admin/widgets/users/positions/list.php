@@ -12,9 +12,9 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="fw-bold m-0"><i class="bi bi-briefcase me-2"></i>Cargos e Ministérios</h6>
                     <div>
-                        <?= button(["href" => "/painel/cargos/cadastrar", "accesskey" => "c", "title" => "Clique para cadastrar novo cargo", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                        <?= button(["href" => url()."/painel/cargos/cadastrar", "accesskey" => "c", "title" => "Clique para cadastrar novo cargo", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
                         <?php if (!empty($registers->disabled)) : ?>
-                            <?= button(["href" => "/painel/cargos/desativados", "accesskey" => "d", "title" => "Clique para listar cargos desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
+                            <?= button(["href" => url()."/painel/cargos/desativados", "accesskey" => "d", "title" => "Clique para listar cargos desativados", "name" => "Desativados", "btncolor" => "secondary", "disabled_count" => $registers->disabled]); ?>
                         <?php endif; ?>
                     </div>
                 </div>

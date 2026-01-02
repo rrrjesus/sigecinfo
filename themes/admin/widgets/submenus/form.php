@@ -68,7 +68,7 @@
                         </div>
                         <div class="card-footer text-center">
                             <?= button(["type" => "submit", "name" => ($submenu ? "Atualizar" : "Cadastrar"), "icon" => "check-circle", "btncolor" => ($submenu ? "primary" : "success")]); ?>
-                            <?= button(["href" => "/painel/submenus", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
+                            <?= button(["href" => url()."/painel/submenus", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>
                 </form>

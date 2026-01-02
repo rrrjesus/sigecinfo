@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white fw-semibold">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-house-door-fill me-2"></i>Locais Desativados</h6>
                     <div>
-                        <?= button(["href" => "/painel/locais", "title" => "Voltar a Lista de Locais", "custom" => "custom-tooltip-secondary", "name" => "Voltar", "icon" => "arrow-left me-1", "btncolor" => "light"]); ?>
+                        <?= button(["href" => url()."/painel/locais", "title" => "Voltar a Lista de Locais", "custom" => "custom-tooltip-secondary", "name" => "Voltar", "icon" => "arrow-left me-1", "btncolor" => "light"]); ?>
                     </div>
                 </div>
                 <div class="card-body">

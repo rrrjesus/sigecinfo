@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="fw-bold mb-0 text-start"><i class="bi bi-list me-2"></i>Menus do Sistema</h6>
                     <div>
-                        <?= button(["href" => "/painel/menus/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
+                        <?= button(["href" => url()."/painel/menus/cadastrar", "name" => "Cadastrar", "icon" => "plus-circle"]); ?>
                     </div>
                 </div>
                 <div class="card-body">

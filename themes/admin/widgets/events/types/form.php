@@ -43,7 +43,7 @@
                         </div>
                         <div class="card-footer text-center">
                             <?= button(["type" => "submit", "name" => ($eventType ? "Atualizar" : "Registrar"), "icon" => "check-circle", "btncolor" => ($eventType ? "primary" : "success")]); ?>
-                            <?= button(["href" => "/painel/tipos-de-eventos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                            <?= button(["href" => url()."/painel/tipos-de-eventos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>
                 </form>

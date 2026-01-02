@@ -192,7 +192,7 @@
                             
                             <div class="card-footer text-center">
                                 <?php if (!empty($canStart)): ?>
-                                    <?= button(["href" => "/app/eventos/iniciar/{$event->id}", "name" => "Iniciar", "icon" => "play-circle me-1", "btncolor" => "success"]); ?>
+                                    <?= button(["href" => url("/app/eventos/iniciar/{$event->id}"), "name" => "Iniciar", "icon" => "play-circle me-1", "btncolor" => "success"]); ?>
                                 <?php endif; ?>
                                 
                                 <?php if (!empty($isLive)): ?>
@@ -217,7 +217,7 @@
                                     "btncolor" => ($event ? "primary" : "success")
                                 ]); ?>
                                 <?= button([
-                                    "href" => "/app/eventos", 
+                                    "href" => url("/app/eventos"), 
                                     "title" => "Listar Eventos",
                                     "name" => "Listar", 
                                     "icon" => "list me-1",

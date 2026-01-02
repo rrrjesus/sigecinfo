@@ -95,7 +95,7 @@
                                                 "icon" => "qr-code me-1",
                                                 "btncolor" => "info",
                                                 "class" => "rounded-circle text-info-emphasis",
-                                                "href" => "/app/eventos/qrcode-checkin/{$participant->id}",
+                                                "href" => url("/app/eventos/qrcode-checkin/{$participant->id}"),
                                                 "title" => "Gerar QR Code para check-in",
                                                 "custom" => "custom-tooltip-secondary"
                                             ]); ?>

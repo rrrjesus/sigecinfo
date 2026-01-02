@@ -93,6 +93,7 @@ $route->get("/eventos/meus-eventos-finalizados", function($data) use ($auth) {(n
 $route->get("/eventos/eventos-finalizados", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->completedEvents($data);});
 $route->post("/eventos/confirmar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->confirm($data);});
 $route->post("/eventos/justificar", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->justify($data);});
+$route->post("/eventos/marcar-falta", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->markAsAbsent($data);});
 $route->get("/eventos/checkin-qr-scan/{participant_id}/{event_id}/{secure_token}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->checkinQrScan($data);});
 $route->get("/eventos/qrcode-checkin/{participant_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->qrCodeCheckIn($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) { (new \Source\App\App\Controllers\Events($auth))->changeResponse($data); });

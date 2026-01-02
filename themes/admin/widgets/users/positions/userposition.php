@@ -46,7 +46,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <?= button(["type" => "submit", "name" => ($userposition ? "Atualizar" : "Cadastrar"), "icon" => ($userposition ? "check-circle" : "plus-circle"), "btncolor" => ($userposition ? "primary" : "success")]); ?>
-                        <?= button(["href" => "/painel/cargos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
+                        <?= button(["href" => url()."/painel/cargos", "name" => "Listar", "icon" => "list", "btncolor" => "secondary"]); ?>
                     </div>
                 </form>
             </div>

@@ -93,7 +93,7 @@
                         <div class="row">
                             <div class="text-center mb-3">
                                 <?= button(["type" => "submit", "title" => ($place ? "Atualizar dados do Local" : "Registrar um novo local"), "custom" => "custom-tooltip-secondary", "name" => ($place ? "Atualizar" : "Registrar"), "icon" => "check-circle me-1", "btncolor" => ($place ? "primary" : "success")]); ?>
-                                <?= button(["href" => "/painel/locais", "title" => "Listar um novo local", "custom" => "custom-tooltip-secondary", "name" => "Listar", "icon" => "list me-1", "btncolor" => "secondary"]); ?>
+                                <?= button(["href" => url()."/painel/locais", "title" => "Listar um novo local", "custom" => "custom-tooltip-secondary", "name" => "Listar", "icon" => "list me-1", "btncolor" => "secondary"]); ?>
                             </div>
                         </div>
                     </div>

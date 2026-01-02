@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-<?=CONF_APP_COLOR;?>">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="<?=url("/app")?>">
+    <a class="navbar-brand text-center ps-3" href="<?=url("/app")?>">
         <img width="110" height="50" src="<?=theme("/assets/images/logo/sigecinfo-logo-v1.png", CONF_VIEW_APP)?>">
     </a>
 

@@ -28,9 +28,15 @@
             <div class="card mb-2">
                 <div class="card-header fw-semibold d-flex justify-content-between align-items-center">
                     <span><i class="bi bi-list-check me-1"></i> Lista de Convocados (<?= count($participants); ?>)</span>
-                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#registerUserModal">
-                        <i class="bi bi-plus-circle me-1"></i> Cadastrar
-                    </button>
+                    <?= button([
+                        "name" => "Adicionar Participante",
+                        "icon" => "plus-circle me-1",
+                        "btncolor" => "success mt-1 mb-1",
+                        "data-bs-toggle" => "modal",
+                        "data-bs-target" => "#registerUserModal",
+                        "title" => "Cadastrar um novo participante",
+                        "custom" => "custom-tooltip-secondary"
+                    ]); ?>
                 </div>
                 <div class="card-body">
                     <table id="eventParticipants" class="table table-bordered table-sm border-secondary table-hover" style="width:100%">
@@ -48,28 +54,76 @@
                             <?php foreach ($participants as $participant): ?>
                                 <tr>
                                     <td class="text-center align-middle">
-                                        <?php if ($participant->status === 'presente'): ?>
-                                            <?= button([
-                                                        "href" => "/app/eventos/checkin/{$participant->id}",
-                                                        "name" => "Assinado",
-                                                        "icon" => "check-circle-fill me-1",
-                                                        "btncolor" => "success",
-                                                        "class" => "m-1 p-1",
-                                                        "title" => "Ver detalhes do check-in",
-                                                        "custom" => "custom-tooltip-secondary"
-                                                    ]); ?>
-                                                 
-                                        <?php else: ?>
-                                                    <?= button([
-                                                        "href" => "/app/eventos/checkin/{$participant->id}",
-                                                        "name" => "Check-in",
-                                                        "icon" => "check-circle-fill me-1",
-                                                        "btncolor" => "primary",
-                                                        "class" => "m-1 p-1",
-                                                        "title" => "Realizar check-in do participante",
-                                                        "custom" => "custom-tooltip-secondary"
-                                                    ]); ?>
-                                        <?php endif; ?>
+                                        <?php
+                                        $status = $participant->status;
+                                        $buttonOptions = [
+                                            "class" => "m-1 p-1",
+                                            "custom" => "custom-tooltip-secondary"
+                                        ];
+
+                                        switch ($status) {
+                                            case 'convocado':
+                                                $buttonOptions += [
+                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                    "name" => "Check-in",
+                                                    "icon" => "check-circle me-1",
+                                                    "btncolor" => "primary",
+                                                    "title" => "Realizar check-in do participante"
+                                                ];
+                                                break;
+                                            case 'confirmado':
+                                                $buttonOptions += [
+                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                    "name" => "Check-in",
+                                                    "icon" => "check-circle me-1",
+                                                    "btncolor" => "info",
+                                                    "class" => "m-1 p-1 text-white",
+                                                    "title" => "Realizar check-in do participante"
+                                                ];
+                                                break;
+                                            case 'presente':
+                                                $buttonOptions += [
+                                                    "href" => url("/app/eventos/checkin/{$participant->id}"),
+                                                    "name" => "Presente",
+                                                    "icon" => "check-circle-fill me-1",
+                                                    "btncolor" => "success",
+                                                    "title" => "Ver detalhes do check-in"
+                                                ];
+                                                break;
+                                            case 'justificado':
+                                                $buttonOptions += [
+                                                    "name" => "Justificado",
+                                                    "icon" => "x-circle me-1",
+                                                    "btncolor" => "warning",
+                                                    "title" => "Participante justificou a ausência",
+                                                    "class" => "m-1 p-1 disabled text-dark-emphasis"
+                                                ];
+                                                unset($buttonOptions["href"]);
+                                                break;
+                                            case 'ausente':
+                                                $buttonOptions += [
+                                                    "name" => "Ausente",
+                                                    "icon" => "slash-circle me-1",
+                                                    "btncolor" => "danger",
+                                                    "title" => "Participante ausente",
+                                                    "class" => "m-1 p-1 disabled"
+                                                ];
+                                                unset($buttonOptions["href"]);
+                                                break;
+                                            default:
+                                                $buttonOptions += [
+                                                    "name" => ucfirst($status),
+                                                    "icon" => "question-circle me-1",
+                                                    "btncolor" => "secondary",
+                                                    "title" => "Status não acionável",
+                                                    "class" => "m-1 p-1 disabled"
+                                                ];
+                                                unset($buttonOptions["href"]);
+                                                break;
+                                        }
+
+                                        echo button($buttonOptions);
+                                        ?>
                                     </td>
                                     <td class="text-center align-middle">
                                         <?php
@@ -112,7 +166,7 @@
                                             <?php elseif ($participant->status === 'presente'): ?> 
                                                 <h5><span class="badge text-bg-success text-white p-2 fw-semibold">Presente</span></h5>
                                                 <?php else: ?>
-                                                <h5>< class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
+                                                <h5><span class="badge text-bg-secondary text-white p-2 fw-semibold"><?= ucfirst($participant->status); ?></span></h5>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </td>

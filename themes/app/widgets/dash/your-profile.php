@@ -6,7 +6,7 @@
     <p class="card-text">Mantenha os seus dados de contacto e senha sempre atualizados.</p>
     <div class="mt-auto">
         <?= button([
-            "href" => "/app/perfil",
+            "href" => url("/app/perfil"),
             "name" => "Editar Perfil",
             "class" => "text-dark-emphasis",
             "icon" => "pencil-square me-1", // Corrigido para um ícone válido

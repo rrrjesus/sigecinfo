@@ -773,7 +773,11 @@ function button(array $params): string
     $attributes .= 'class="' . trim($finalClass) . ' me-3"';
 
     if ($href) {
-        $attributes .= ' href="' . htmlspecialchars(url($href), ENT_QUOTES, 'UTF-8') . '"';
+        if (strpos(trim($href), 'javascript:') === 0) {
+            $attributes .= ' href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '"';
+        } else {
+            $attributes .= ' href="' . htmlspecialchars(($href), ENT_QUOTES, 'UTF-8') . '"';
+        }
     }
 
     // Adiciona o atributo 'type' apenas para a tag <button>

@@ -378,10 +378,11 @@ class Events extends Admin
     public function processCheckInFromPage(array $data): void
     {
         $participantId = filter_var($data['participant_id'], FILTER_VALIDATE_INT);
+        $action = $data['status_action'] ?? null;
         $signatureBase64 = $data['signature'] ?? null;
 
-        if (!$participantId || !$signatureBase64) {
-            $this->message->error("Por favor, forneça a assinatura para continuar.")->flash();
+        if (!$participantId || !$action) {
+            $this->message->error("Ação inválida ou participante não especificado.")->flash();
             redirect(url_back());
             return;
         }
@@ -394,46 +395,70 @@ class Events extends Admin
         }
 
         try {
-            $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureBase64));
-            if ($signatureData === false) {
-                throw new \Exception("Falha ao decodificar a assinatura.");
+            if ($action === 'presente') {
+                if (!$signatureBase64) {
+                    $this->message->error("Por favor, forneça a assinatura para continuar.")->flash();
+                    redirect(url_back());
+                    return;
+                }
+
+                $signatureData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureBase64));
+                if ($signatureData === false) {
+                    throw new \Exception("Falha ao decodificar a assinatura.");
+                }
+
+                $tempFile = tmpfile();
+                fwrite($tempFile, $signatureData);
+                $tempFilePath = stream_get_meta_data($tempFile)['uri'];
+
+                $upload = new \Source\Support\Upload();
+                $thumb = new \Source\Support\Thumb();
+
+                if ($participant->signature) {
+                    $thumb->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                    $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
+                }
+
+                $signatureName = "sig-{$participant->id}-" . time();
+                $newSignature = $upload->image($tempFilePath, $signatureName, 600, 'signatures', true);
+
+                fclose($tempFile);
+
+                if (!$newSignature) {
+                    throw new \Exception($upload->message()->getText());
+                }
+
+                $participant->status = "presente";
+                $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
+                $participant->signature = $newSignature;
+                $participant->save();
+
+                if ($participant->fail()) {
+                    throw new \Exception($participant->fail()->getMessage());
+                }
+
+                $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
+                redirect(url("/app/eventos/portaria/{$participant->event_id}"));
+
+            } elseif ($action === 'ausente') {
+                $participant->status = "ausente";
+                $participant->checkin_at = null;
+                $participant->signature = null;
+                $participant->justification = null;
+                $participant->save();
+
+                if ($participant->fail()) {
+                    throw new \Exception($participant->fail()->getMessage());
+                }
+
+                $this->message->info("A ausência de " . $participant->user()->user_name . " foi registrada.")->flash();
+                redirect(url("/app/eventos/portaria/{$participant->event_id}"));
+            } else {
+                $this->message->warning("Ação não suportada neste endpoint: " . htmlspecialchars($action))->flash();
+                redirect(url_back());
             }
-
-            $tempFile = tmpfile();
-            fwrite($tempFile, $signatureData);
-            $tempFilePath = stream_get_meta_data($tempFile)['uri'];
-
-            $upload = new \Source\Support\Upload();
-            $thumb = new \Source\Support\Thumb();
-
-            if ($participant->signature) {
-                $thumb->flush(CONF_UPLOAD_DIR . "/{$participant->signature}");
-                $upload->remove(CONF_UPLOAD_DIR . "/{$participant->signature}");
-            }
-
-            $signatureName = "sig-{$participant->id}-" . time();
-            $newSignature = $upload->image($tempFilePath, $signatureName, 600, 'signatures', true);
-
-            fclose($tempFile);
-
-            if (!$newSignature) {
-                throw new \Exception($upload->message()->getText());
-            }
-
-            $participant->status = "presente";
-            $participant->checkin_at = (new DateTime())->format("Y-m-d H:i:s");
-            $participant->signature = $newSignature;
-            $participant->save();
-
-            if ($participant->fail()) {
-                throw new \Exception($participant->fail()->getMessage());
-            }
-
-            $this->message->success("Check-in de " . $participant->user()->user_name . " realizado com sucesso!")->flash();
-            redirect(url("/app/eventos/portaria/{$participant->event_id}"));
-
         } catch (\Exception $e) {
-            $this->message->error("Erro ao processar assinatura: " . $e->getMessage())->flash();
+            $this->message->error("Erro ao processar a solicitação: " . $e->getMessage())->flash();
             redirect(url_back());
         }
     }
@@ -889,7 +914,18 @@ class Events extends Admin
 
         $participant = (new \Source\Domain\Event\Models\EventParticipant())->findById($participantId);
 
-        if (!$participant || $participant->user_id != $this->user->id) {
+        if (!$participant) {
+            $this->message->error("Participante não encontrado.")->flash();
+            http_response_code(404);
+            echo json_encode(["status" => "error"]);
+            return;
+        }
+
+        // Permite a ação se o usuário for o próprio participante OU tiver permissão para editar eventos
+        $isOwner = ($participant->user_id == $this->user->id);
+        $canEditEvents = \Source\Domain\Shared\Models\Auth::check("events_edit");
+
+        if (!$isOwner && !$canEditEvents) {
             $this->message->error("Você não tem permissão para justificar esta participação.")->flash();
             http_response_code(403);
             echo json_encode(["status" => "error"]);

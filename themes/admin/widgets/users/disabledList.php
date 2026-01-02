@@ -10,7 +10,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class=" fw-bold mb-0 text-start"><i class="bi bi-people me-2"></i>Usuários do Sistema Desativados</h6>
                         <div>
-                            <?= button(["href" => "/painel/usuarios", "name" => "Voltar", "icon" => "arrow-return-left m-1", "btncolor" => "secondary", "title" => "Voltar para a lista de usuários", "custom" => "custom-tooltip-dark"]); ?>
+                            <?= button(["href" => url()."/painel/usuarios", "name" => "Voltar", "icon" => "arrow-return-left m-1", "btncolor" => "secondary", "title" => "Voltar para a lista de usuários", "custom" => "custom-tooltip-dark"]); ?>
                         </div>
                 </div>
             <div class="card-body">

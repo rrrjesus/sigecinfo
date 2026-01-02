@@ -1,4 +1,6 @@
-
+<?php
+use Source\Domain\Shared\Models\Auth;
+?>
 
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion bg-<?=CONF_APP_COLOR?>" id="sidenavAccordion">
@@ -19,7 +21,7 @@
             </div>
             <div class="nav">
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">SISTEMA</div>
-                <?php if(\Source\Domain\Shared\Models\Auth::check('admin_access')): // Sugestão: usar uma permissão nomeada ?>
+                <?php if (Auth::check('admin_access')): // Sugestão: usar uma permissão nomeada ?>
                     <a class="nav-link" href="<?=url("/painel")?>" data-bs-toggle-tooltip="tooltip" title="Acessar o painel de administração" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><div class="sb-nav-link-icon"><i class="bi bi-link-45deg"></i></div>Painel</a>
                 <?php endif; ?>
                     <a class="nav-link" href="<?=url("/app/home")?>" data-bs-toggle-tooltip="tooltip" title="Voltar para a página inicial do aplicativo" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><div class="sb-nav-link-icon"><i class="bi bi-speedometer"></i></div>
@@ -31,7 +33,7 @@
                 <div class="sb-sidenav-menu-heading text-light fw-semibold fs-6">GERENCIAMENTO</div>  
 
                 <!-- Sidebar Eventos -->
-                <?php if (\Source\Domain\Shared\Models\Auth::canAccessModule('events')): // Padronizando a verificação ?>
+                <?php if (Auth::canAccessModule('events')): // Padronizando a verificação ?>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEvents" aria-expanded="false" aria-controls="collapseEvents" data-bs-toggle-tooltip="tooltip" title="Gerenciar eventos" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right">
                         <div class="sb-nav-link-icon"><i class="bi bi-calendar-event"></i></div>
                         Eventos
@@ -39,11 +41,11 @@
                     </a>
                     <div class="collapse" id="collapseEvents" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <?php if (\Source\Domain\Shared\Models\Auth::check('events_create')): ?>
+                            <?php if (Auth::check('events_create')): ?>
                                 <a class="nav-link" href="<?=url("/app/eventos/cadastrar")?>" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right" title="Cadastrar um novo evento"><i class="bi bi-plus-circle me-2"></i> Cadastrar</a>
                             <?php endif; ?>
 
-                            <?php if (\Source\Domain\Shared\Models\Auth::check('events_view')): ?>
+                            <?php if (Auth::check('events_view')): ?>
                                 <a class="nav-link" href="<?=url("/app/eventos")?>" data-bs-toggle-tooltip="tooltip" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right" title="Listar todos os eventos"><i class="bi bi-list me-2"></i> Listar</a>
                             <?php endif; ?>
                             <a class="nav-link" href="<?=url("/app/eventos/meus-eventos-agendados")?>" data-bs-toggle-tooltip="tooltip" title="Ver os seus eventos agendados" data-bs-custom-class="custom-tooltip-secondary" data-bs-placement="right"><i class="bi bi-list me-2"></i> Meus Eventos</a>

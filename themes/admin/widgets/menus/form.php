@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-footer text-center">
                             <?= button(["type" => "submit", "name" => ($menu ? "Atualizar" : "Cadastrar"), "icon" => "check-circle", "btncolor" => ($menu ? "primary" : "success")]); ?>
-                            <?= button(["href" => "/painel/menus", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
+                            <?= button(["href" => url()."/painel/menus", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                         </div>
                     </div>
                 </form>

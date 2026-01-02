@@ -12,7 +12,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="fw-bold m-0"><i class="bi bi-archive me-2"></i>Cargos e Ministérios Desativados</h6>
                     <div>
-                        <?= button(["href" => "/painel/cargos", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
+                        <?= button(["href" => url()."/painel/cargos", "name" => "Voltar", "icon" => "arrow-left", "btncolor" => "secondary"]); ?>
                     </div>
                 </div>
                 <div class="card-body">
