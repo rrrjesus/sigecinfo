@@ -98,6 +98,36 @@ $route->get("/eventos/checkin-qr-scan/{participant_id}/{event_id}/{secure_token}
 $route->get("/eventos/qrcode-checkin/{participant_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Events($auth))->qrCodeCheckIn($data);});
 $route->post("/eventos/alterar-resposta", function($data) use ($auth) { (new \Source\App\App\Controllers\Events($auth))->changeResponse($data); });
 
+//Contatos
+$route->get("/contatos", "Contacts:contacts");
+$route->get("/contatos/desativados", "Contacts:disabledContacts");
+$route->get("/contatos/cadastrar", "Contacts:contact");
+$route->post("/contatos/cadastrar", "Contacts:contact");
+$route->get("/contatos/editar/{contact_id}", "Contacts:contact");
+$route->post("/contatos/editar/{contact_id}", "Contacts:contact");
+$route->get("/contatos/ativar/{contact_id}/{action}", "Contacts:contact");
+$route->get("/contatos/desativar/{contact_id}/{action}", "Contacts:contact");
+$route->get("/contatos/excluir/{contact_id}/{action}", "Contacts:contact");
+
+//Patrimonios
+$route->get("/patrimonios", "Patrimonys:patrimonys");
+$route->get("/patrimonios/desativados", "Patrimonys:disabledPatrimonys");
+$route->get("/patrimonio/cadastrar", "Patrimonys:patrimony");
+$route->post("/patrimonio/cadastrar", "Patrimonys:patrimony");
+$route->get("/patrimonios/detalhar/{patrimonys_id}", "Patrimonys:viewPatrimony");
+$route->get("/patrimonio/detalhe/{patrimonys_id}", "Patrimonys:patrimony");
+$route->post("/patrimonio/detalhe/{patrimonys_id}", "Patrimonys:patrimony");
+$route->get("/patrimonios/ativar/{patrimonys_id}/{action}", "Patrimonys:patrimony");
+$route->get("/patrimonios/desativar/{patrimonys_id}/{action}", "Patrimonys:patrimony");
+$route->get("/patrimonio/termo/{patrimonys_id}", "Patrimonys:term");
+
+//Historico Patrimonios
+$route->get("/patrimonios/historico", "PatrimonysHistory:patrimonysHistory");
+$route->get("/patrimonio/historico/excluir/{patrimonys_id}/{action}", "PatrimonysHistory:patrimonyHistory");
+$route->get("/patrimonio/historico/editar/{patrimonys_id}", "PatrimonysHistory:patrimonyHistory");
+$route->post("/patrimonio/historico/editar/{patrimonys_id}", "PatrimonysHistory:patrimonyHistory");
+$route->get("/patrimonio/historico/termo/{patrimonys_id}", "PatrimonysHistory:term");
+
 /**
  * ADMIN ROUTES
  */
