@@ -37,6 +37,7 @@
         "sendgrid/sendgrid": "^7.0",
         "league/oauth2-google": "^4.0",
         "bacon/bacon-qr-code": "^3.0",
-        "google/apiclient": "^2.15"
+        "google/apiclient": "^2.15",
+        "chillerlan/php-qrcode": "^5.0"
     }
 }

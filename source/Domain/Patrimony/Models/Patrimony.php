@@ -1,12 +1,12 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
-use Source\Models\Patrimony\Product;
-use Source\Models\Patrimony\Movement;
-use Source\Models\Company\Unit;
-use Source\Models\Company\User;
+use Source\Domain\Patrimony\Models\Product;
+use Source\Domain\Patrimony\Models\Movement;
+use Source\Domain\Place\Models\Place;
+use Source\Domain\User\Models\User;
 
 
 /**
@@ -71,12 +71,12 @@ class Patrimony extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Place
      */
-    public function unit(): ?Unit
+    public function place(): ?Place
     {
-        if($this->unit_id) {
-            return(new Unit())->findById($this->unit_id);
+        if($this->id) {
+            return(new Place())->findById($this->id);
         }
         return null;
     }
@@ -193,16 +193,16 @@ class Patrimony extends Model
     }
 
     /**
-     * @return null|Unit
+     * @return null|Place
      */
-     static function completeUnit(): ?Unit
+     static function completePlace(): ?Place
      {
-         $stm = (new Unit())->find("status = :s","s=actived");
+         $stm = (new Place())->find("status = :s","s=actived");
          $array = array();
  
          if(!empty($stm)):
              foreach ($stm->fetch(true) as $row):
-                 $array[] = $row->id.' - '.$row->unit_name;
+                 $array[] = $row->id.' - '.$row->place_name;
              endforeach;
              echo json_encode($array); //Return the JSON Array
          endif;
@@ -219,7 +219,6 @@ class Patrimony extends Model
         }else{
             return '<span class="badge text-bg-success ms-2">Ativo</span>';
         }
-        return null;  
     }
 
     /**

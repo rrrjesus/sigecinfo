@@ -1,15 +1,15 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
-use Source\Models\Company\User;
+use Source\Domain\User\Models\User;
 
 /**
- * Rodolfo | Class Contract
+ * SMSUB | Class Contract
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
 
 class Contract extends Model

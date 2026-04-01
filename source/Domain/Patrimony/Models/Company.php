@@ -1,47 +1,47 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
 
 /**
- * Rodolfo | Class Brand
+ * SMSUB | Class Company
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
-class Brand extends Model
+class Company extends Model
 {
     /**
-     * Brand constructor.
+     * Company constructor.
      */
     public function __construct()
     {
-        parent::__construct("brands", ["id"], ["brand_name", "status"]);
+        parent::__construct("companies", ["id"], ["company_name", "status"]);
     }
 
     /**
-     * @param string $brand_name
+     * @param string $company_name
      * @param string $columns
-     * @return null|Brand
+     * @return null|Company
      */
-    public function findByBrand(string $brand_name, string $columns = "*"): ?Brand
+    public function findByCompany(string $company_name, string $columns = "*"): ?Company
     {
-        $find = $this->find("brand_name = :brand_name", "brand_name={$brand_name}", $columns);
+        $find = $this->find("company_name = :company_name", "company_name={$company_name}", $columns);
         return $find->fetch();
     }
 
     /**
-     * @return null|Brand
+     * @return null|Company
      */
-    static function completeBrand(): ?Brand
+    static function completeCompany(): ?Company
     {
-        $stm = (new Brand())->find("status= :s","s=actived");
+        $stm = (new Company())->find("status= :s","s=actived");
         $array[] = array();
 
         if(!empty($stm)):
             foreach ($stm->fetch(true) as $row):
-                    $array[] = $row->id.' - '.$row->brand_name;
+                    $array[] = $row->id.' - '.$row->company_name;
             endforeach;
             echo json_encode($array); //Return the JSON Array
         endif;
@@ -79,37 +79,37 @@ class Brand extends Model
     public function save(): bool
     {
 
-        /** Brand Update */
+        /** Company Update */
         if (!empty($this->id)) {
-            $brandId = $this->id;
+            $companyId = $this->id;
 
-            if ($this->find("brand_name = :c AND id != :i", "c={$this->brand_name}&i={$brandId}", "id")->fetch()) {
+            if ($this->find("company_name = :c AND id != :i", "c={$this->company_name}&i={$companyId}", "id")->fetch()) {
                 $this->message->warning("A marca informada já está cadastrada");
                 return false;
             }
 
-            $this->update($this->safe(), "id = :id", "id={$brandId}");
+            $this->update($this->safe(), "id = :id", "id={$companyId}");
             if ($this->fail()) {
                 $this->message->error("Erro ao atualizar, verifique os dados");
                 return false;
             }
         }
 
-        /** Brand Create */
+        /** Company Create */
         if (empty($this->id)) {
-            if ($this->findByBrand($this->brand_name, "id")) {
+            if ($this->findByCompany($this->company_name, "id")) {
                 $this->message->warning("A marca informada já está cadastrada");
                 return false;
             }
 
-            $brandId = $this->create($this->safe());
+            $companyId = $this->create($this->safe());
             if ($this->fail()) {
                 $this->message->error("Erro ao cadastrar, verifique os dados");
                 return false;
             }
         }
 
-        $this->data = ($this->findById($brandId))->data();
+        $this->data = ($this->findById($companyId))->data();
         return true;
     }
 }

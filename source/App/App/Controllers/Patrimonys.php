@@ -1,33 +1,42 @@
 <?php
 
-namespace Source\App\Beta;
+namespace Source\App\App\Controllers;
 
-use Source\Models\Company\User;
+use Source\App\App\Admin;
+use Source\Domain\Shared\Models\Auth;
+use Source\Domain\User\Models\User;
 use Source\Support\Upload;
 use Source\Support\Thumb;
-use Source\Models\Patrimony\Patrimony;
-use Source\Models\Patrimony\PatrimonyHistory;
-use Source\Models\Patrimony\Product;
+use Source\Domain\Patrimony\Models\Patrimony;
+use Source\Domain\Patrimony\Models\PatrimonyHistory;
+use Source\Domain\Patrimony\Models\Product;
 
 /**
  * Class Patrimonys
- * @package Source\App\Beta
+ * @package Source\App\App\Controllers
  */
+
 class Patrimonys extends Admin
 {
-    
-    /**
-     * Patrimonys constructor.
-     */
-    public function __construct()
+    public function __construct(Auth $auth)
     {
-        parent::__construct();
+        parent::__construct($auth);
+
+        // Bypass para Administrador do Sistema (nível 5)
+        if ($this->user && $this->user->level != 5) {
+            // 1. Bloqueio Geral do Módulo (Por Usuário)
+            if (!\Source\Domain\Shared\Models\Auth::canAccessModule('patrimonys')) {
+                $this->message->error("Você não tem permissão para acessar o módulo de Patrimonios.")->flash();
+                redirect("/app"); // Ou para onde desejar
+                exit;
+            }
+        }
     }
 
     /**
      * PATRIMONY LIST
      */
-    public function patrimonys(): void
+    public function list(): void
     {
         $head = $this->seo->render(
             "Patrimonios - " . CONF_SITE_NAME,

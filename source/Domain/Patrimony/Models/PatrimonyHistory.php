@@ -1,19 +1,19 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
-use Source\Models\Company\Unit;
-use Source\Models\Company\User;
-use Source\Models\Patrimony\Product;
-use Source\Models\Patrimony\Movement;
+use Source\Domain\Patrimony\Models\Company\Unit;
+use Source\Domain\User\Models\User;
+use Source\Domain\Patrimony\Models\Product;
+use Source\Domain\Patrimony\Models\Movement;
 
 
 /**
  * SMSUB | Class  PatrimonyHistory
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
 class  PatrimonyHistory extends Model
 {

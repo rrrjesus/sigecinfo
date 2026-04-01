@@ -110,23 +110,23 @@ $route->get("/contatos/desativar/{contact_id}/{action}", "Contacts:contact");
 $route->get("/contatos/excluir/{contact_id}/{action}", "Contacts:contact");
 
 //Patrimonios
-$route->get("/patrimonios", "Patrimonys:patrimonys");
-$route->get("/patrimonios/desativados", "Patrimonys:disabledPatrimonys");
-$route->get("/patrimonio/cadastrar", "Patrimonys:patrimony");
-$route->post("/patrimonio/cadastrar", "Patrimonys:patrimony");
-$route->get("/patrimonios/detalhar/{patrimonys_id}", "Patrimonys:viewPatrimony");
-$route->get("/patrimonio/detalhe/{patrimonys_id}", "Patrimonys:patrimony");
-$route->post("/patrimonio/detalhe/{patrimonys_id}", "Patrimonys:patrimony");
-$route->get("/patrimonios/ativar/{patrimonys_id}/{action}", "Patrimonys:patrimony");
-$route->get("/patrimonios/desativar/{patrimonys_id}/{action}", "Patrimonys:patrimony");
-$route->get("/patrimonio/termo/{patrimonys_id}", "Patrimonys:term");
+$route->get("/patrimonios", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->list($data);});
+$route->get("/patrimonios/desativados", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->disabled($data);});
+$route->get("/patrimonio/cadastrar", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->create($data);});
+$route->post("/patrimonio/cadastrar", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->create($data);});
+$route->get("/patrimonios/detalhar/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->view($data);});
+$route->get("/patrimonio/detalhe/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->edit($data);});
+$route->post("/patrimonio/detalhe/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->edit($data);});
+$route->get("/patrimonios/status/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->toggleStatus($data);});
+$route->get("/patrimonio/termo/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->term($data);});
+$route->post("/patrimonios/excluir", function($data) use ($auth) {(new \Source\App\App\Controllers\Patrimonys($auth))->delete($data);});
 
 //Historico Patrimonios
-$route->get("/patrimonios/historico", "PatrimonysHistory:patrimonysHistory");
-$route->get("/patrimonio/historico/excluir/{patrimonys_id}/{action}", "PatrimonysHistory:patrimonyHistory");
-$route->get("/patrimonio/historico/editar/{patrimonys_id}", "PatrimonysHistory:patrimonyHistory");
-$route->post("/patrimonio/historico/editar/{patrimonys_id}", "PatrimonysHistory:patrimonyHistory");
-$route->get("/patrimonio/historico/termo/{patrimonys_id}", "PatrimonysHistory:term");
+$route->get("/patrimonios/historico", function($data) use ($auth) {(new \Source\App\App\Controllers\PatrimonysHistory($auth))->list($data);});
+$route->post("/patrimonios/historico/excluir", function($data) use ($auth) {(new \Source\App\App\Controllers\PatrimonysHistory($auth))->delete($data);});
+$route->get("/patrimonio/historico/editar/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\PatrimonysHistory($auth))->edit($data);});
+$route->post("/patrimonio/historico/editar/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\PatrimonysHistory($auth))->edit($data);});
+$route->get("/patrimonio/historico/termo/{patrimony_id}", function($data) use ($auth) {(new \Source\App\App\Controllers\PatrimonysHistory($auth))->term($data);});
 
 /**
  * ADMIN ROUTES

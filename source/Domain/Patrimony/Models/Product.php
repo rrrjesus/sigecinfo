@@ -1,15 +1,15 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
-use Source\Models\Patrimony\Brand;
+use Source\Domain\Patrimony\Models\Brand;
 
 /**
- * Rodolfo | Class Unit Active Record Pattern
+ * SMSUB | Class Product
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
 class Product extends Model
 {

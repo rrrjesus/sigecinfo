@@ -704,6 +704,18 @@ function grouped_position_options_select(): string
  * ################
  */
 
+ function buttonLink(string $href = "/", string $placement = "top", string $title = "SmsubControl", string $btncolor = "success", string $icon = "person", string $name = "Button", string $tabindex = "l", string $accesskey = "l", string $target =""): ?string
+ {
+    return '<a role="button" href="'.url($href).'" data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success"
+    data-bs-title="'.$title.'" class="btn btn-outline-'.$btncolor.' btn-sm position-relative rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'" target="'.$target.'" rel="noopener"><span class="btn-label"><i class="bi bi-'.$icon.'"></i></span>  <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'</a>';
+ }
+
+  function buttonLinkDisabled(string $href = "/", string $placement = "top", string $title = "SmsubControl", string $btncolor = "secondary", string $icon = "person", string $name = "Button", string $tabindex = "l", string $accesskey = "d", string $count = ""): ?string
+ {
+    return '<a role="button" href="'.url($href).'" data-bs-togglee="tooltip" data-bs-placement="'.$placement.'" data-bs-custom-class="custom-tooltip-success"
+    data-bs-title="'.$title.'" class="btn btn-outline-'.$btncolor.' btn-sm position-relative rounded-pill fw-semibold me-3" tabindex="'.$tabindex.'" accesskey="'.$accesskey.'"><span class="btn-label"><i class="bi bi-'.$icon.' text-danger"></i></span>  <u>'.substr($name,0,1).'</u>'.substr($name,1,12).'<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">'.$count.'</span></a>';
+ }
+
 /**
  * Gera um botão ou um link estilizado como botão.
  * @param array $options

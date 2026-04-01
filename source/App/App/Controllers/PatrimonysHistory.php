@@ -1,6 +1,6 @@
 <?php
 
-namespace Source\App\Beta;
+namespace Source\App\App\Controllers;
 
 use Source\Models\Company\User;
 use Source\Support\Upload;

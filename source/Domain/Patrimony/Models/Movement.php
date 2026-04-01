@@ -1,14 +1,14 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
 
 /**
- * Rodolfo | Class Movement
+ * SMSUB | Class Movement
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
 class Movement extends Model
 {

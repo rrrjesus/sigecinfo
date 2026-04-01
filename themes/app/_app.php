@@ -13,7 +13,7 @@
     <link rel="icon" type="image/png" sizes="16x16"href="<?= theme("/assets/images/favicon/favicon-16x16.png", CONF_VIEW_APP); ?>">
     <link rel="manifest" href="<?= theme("/assets/images/favicon/site.webmanifest", CONF_VIEW_APP); ?>">
     <meta name="theme-color" content="#ffffff">
-    <link href="<?=theme("/assets/style.css", CONF_VIEW_APP)?>" rel="stylesheet" />
+    <link href="<?=theme("/assets/style.css?v=2", CONF_VIEW_APP)?>" rel="stylesheet" />
 
 </head>
 

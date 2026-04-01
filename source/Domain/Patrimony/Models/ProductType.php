@@ -1,19 +1,19 @@
 <?php
 
-namespace Source\Models\Patrimony;
+namespace Source\Domain\Patrimony\Models;
 
 use Source\Core\Model;
 
 /**
- * Rodolfo | Class productType
+ * SMSUB | Class ProductType
  *
  * @author Rodolfo Romaioli Ribeiro de Jesus <rodolfo.romaioli@gmail.com>
- * @package Source\Models
+ * @package Source\Domain\Patrimony\Models
  */
-class productType extends Model
+class ProductType extends Model
 {
     /**
-     * productType constructor.
+     * ProductType constructor.
      */
     public function __construct()
     {
@@ -23,20 +23,20 @@ class productType extends Model
     /**
      * @param string $type_name
      * @param string $columns
-     * @return null|productType
+     * @return null|ProductType
      */
-    public function findByproductType(string $type_name, string $columns = "*"): ?productType
+    public function findByProductType(string $type_name, string $columns = "*"): ?ProductType
     {
         $find = $this->find("type_name = :type_name", "type_name={$type_name}", $columns);
         return $find->fetch();
     }
 
     /**
-     * @return null|productType
+     * @return null|ProductType
      */
-    static function completeproductType(): ?productType
+    static function completeProductType(): ?ProductType
     {
-        $stm = (new productType())->find("status= :s","s=actived");
+        $stm = (new ProductType())->find("status= :s","s=actived");
         $array[] = array();
 
         if(!empty($stm)):
@@ -79,7 +79,7 @@ class productType extends Model
     public function save(): bool
     {
 
-        /** productType Update */
+        /** ProductType Update */
         if (!empty($this->id)) {
             $typeId = $this->id;
 
@@ -95,9 +95,9 @@ class productType extends Model
             }
         }
 
-        /** productType Create */
+        /** ProductType Create */
         if (empty($this->id)) {
-            if ($this->findByproductType($this->type_name, "id")) {
+            if ($this->findByProductType($this->type_name, "id")) {
                 $this->message->warning("O tipo informado já está cadastrado");
                 return false;
             }
